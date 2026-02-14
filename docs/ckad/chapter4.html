@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المهمة 4: الكبسولات المتعددة — كوبسترونات 🚀</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="space-bg"></div>
+    <div class="stars-layer"></div>
+
+    <header class="site-header">
+        <a href="../index.html" class="logo">
+            <span class="emoji">🚀</span>
+            Kubestronaut
+        </a>
+        <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="القائمة">☰</button>
+        <nav class="nav-links">
+            <a href="../index.html">🏠 القاعدة</a>
+            <a href="index.html" class="active">🎓 CKAD</a>
+        </nav>
+    </header>
+
+    <section class="chapter-hero">
+        <h1>🚀 المهمة 4: الكبسولات المتعددة</h1>
+        <p class="subtitle">Multi-Container Pods</p>
+    </section>
+
+    <div class="lessons-container">
+
+        <!-- ========== LESSON 1: Multi Container Pods ========== -->
+        <article class="lesson" id="lesson-1">
+            <span class="lesson-number">الدرس 1</span>
+            <h2>🛸 Multi Container Pods</h2>
+            <div class="english-content">
+                <blockquote>
+<h2>Documentation Index</h2>
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+Use this file to discover all available pages before exploring further.</p>
+</blockquote>
+<h1>Multi Container Pods</h1>
+<blockquote>
+<p>This article explores the design, functionality, and benefits of using multi-container pods in Kubernetes.</p>
+</blockquote>
+<p>Hello and welcome to this comprehensive lesson on multi-container pods in Kubernetes. My name is Mumshad Mannambeth, and in this guide, we will explore the design, functionality, and benefits of using multi-container pods.</p>
+<p>Multi-container pods in Kubernetes allow you to run two or more containers together in a single pod. This approach is essential when containerized services must work closely together, such as pairing a web server with a logging agent. In such cases, the containers share the same lifecycle, network namespace, and storage volumes, ensuring smooth communication and synchronized behavior.</p>
+<pre><code>    &lt;figure class="img-frame"&gt;
+        &lt;img src="../assets/images/chapter4/Multi-Container-Pods_frame_20.jpg" alt="The image lists course objectives, including core concepts, configuration, multi-container pods, observability, pod design, services and networking, and state persistence, with a focus on "Ambassador."" loading="lazy"&gt;
+        &lt;figcaption&gt;The image lists course objectives, including core concepts, configuration, multi-container pods, observability, pod design, services and networking, and state persistence, with a focus on "Ambassador."&lt;/figcaption&gt;
+    &lt;/figure&gt;
+</code></pre>
+<h2>Microservices vs. Tightly Coupled Services</h2>
+<p>Modern application development increasingly favors microservices, where large monolithic applications are broken down into smaller, independent sub-components. This design paradigm allows developers to build, deploy, and scale individual services independently, streamlining both development and maintenance.</p>
+<pre><code>    &lt;figure class="img-frame"&gt;
+        &lt;img src="../assets/images/chapter4/Multi-Container-Pods_frame_50.jpg" alt="The image shows a diagram with colored dots representing microservices architecture, labeled "MICROSERVICES" at the bottom." loading="lazy"&gt;
+        &lt;figcaption&gt;The image shows a diagram with colored dots representing microservices architecture, labeled "MICROSERVICES" at the bottom.&lt;/figcaption&gt;
+    &lt;/figure&gt;
+</code></pre>
+<p>However, there are specific situations when two services must operate side by side. For example, a web server might need a dedicated logging agent running alongside it to capture detailed logs without incorporating supplementary code into the web server container. This setup facilitates independent deployment and scaling while keeping the application code modular.</p>
+<pre><code>    &lt;figure class="img-frame"&gt;
+        &lt;img src="../assets/images/chapter4/Multi-Container-Pods_frame_80.jpg" alt="The image shows a diagram with a large dark circle labeled "WEB Server" and a smaller orange circle labeled "LOG Agent" on a light background." loading="lazy"&gt;
+        &lt;figcaption&gt;The image shows a diagram with a large dark circle labeled "WEB Server" and a smaller orange circle labeled "LOG Agent" on a light background.&lt;/figcaption&gt;
+    &lt;/figure&gt;
+</code></pre>
+<h2>Advantages of Multi-Container Pods</h2>
+<p>Multi-container pods offer several significant advantages:</p>
+<ul class="styled-list">
+<li><strong>Shared Lifecycle:</strong> All containers in the pod start and stop simultaneously.</li>
+<li><strong>Unified Network Namespace:</strong> Containers communicate via localhost without extra configuration.</li>
+<li><strong>Shared Storage Volumes:</strong> Persistent and shared storage is available between containers.<pre><code>&lt;figure class="img-frame"&gt;
+    &lt;img src="../assets/images/chapter4/Multi-Container-Pods_frame_110.jpg" alt="The image illustrates a diagram of multi-container pods, highlighting lifecycle, network, and storage components within a pod structure." loading="lazy"&gt;
+    &lt;figcaption&gt;The image illustrates a diagram of multi-container pods, highlighting lifecycle, network, and storage components within a pod structure.&lt;/figcaption&gt;
+&lt;/figure&gt;
+</code></pre>
+</li>
+</ul>
+<blockquote>
+<p>To create a multi-container pod, simply list multiple container definitions under the <code>containers</code> array in your pod specification file.</p>
+</blockquote>
+<h2>Creating a Multi-Container Pod</h2>
+<p>Below is an example of a basic pod definition with a single container:</p>
+<p>```yaml  theme={null}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: simple-webapp
+  labels:
+    name: simple-webapp
+spec:
+  containers:
+  - name: simple-webapp
+    image: simple-webapp
+    ports:
+    - containerPort: 8080</p>
+<pre><code>
+To transform this into a multi-container pod, add another container entry to include, for instance, a log agent container alongside the web server:
+
+```yaml  theme={null}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: simple-webapp
+  labels:
+    name: simple-webapp
+spec:
+  containers:
+  - name: simple-webapp
+    image: simple-webapp
+    ports:
+    - containerPort: 8080
+  - name: log-agent
+    image: log-agent
+</code></pre>
+<h2>Multi-Container Pod Design Patterns</h2>
+<p>There are three common patterns for designing multi-container pods:</p>
+<ol>
+<li><strong>Sidecar Pattern</strong></li>
+<li><strong>Adapter Pattern</strong></li>
+<li><strong>Ambassador Pattern</strong></li>
+</ol>
+<h3>Sidecar Pattern</h3>
+<p>The sidecar pattern involves deploying a supplemental container, such as a logging agent, alongside your primary container. This design pattern enables services to extend or enhance the capabilities of the main application without altering its code. It is particularly useful when the application produces logs in various formats across different services.</p>
+<pre><code>    &lt;figure class="img-frame"&gt;
+        &lt;img src="../assets/images/chapter4/Multi-Container-Pods_frame_180.jpg" alt="The image illustrates the Sidecar design pattern, showing a sidecar component connected to a log server." loading="lazy"&gt;
+        &lt;figcaption&gt;The image illustrates the Sidecar design pattern, showing a sidecar component connected to a log server.&lt;/figcaption&gt;
+    &lt;/figure&gt;
+</code></pre>
+<h3>Adapter Pattern</h3>
+<p>The adapter pattern is useful when you need to standardize data formats. For example, when logs from multiple sources need to be unified before they are processed by a central logging service. Log messages might vary as follows:</p>
+<p><code>plaintext  theme={null}
+12-JULY-2018 16:05:49 "GET /index1.html" 200
+12/JUL/2018:16:05:49 -0800 "GET /index2.html" 200
+GET 1531411549 "/index3.html" 200</code></p>
+<p>An adapter container can normalize these formats, ensuring consistency before the logs reach the centralized system.</p>
+<h3>Ambassador Pattern</h3>
+<p>The ambassador pattern is applied when an application needs to communicate with different database environments. For example, the application might require a local database for development, another for testing, and a production database in live deployment. Instead of incorporating logic to handle multiple environments in the application code, an ambassador container acts as a proxy. The application always sends requests to localhost, while the ambassador routes traffic to the appropriate database backend.</p>
+<pre><code>    &lt;figure class="img-frame"&gt;
+        &lt;img src="../assets/images/chapter4/Multi-Container-Pods_frame_220.jpg" alt="The image illustrates the Ambassador design pattern, showing connections from a central point to Dev, Test, and Prod environments." loading="lazy"&gt;
+        &lt;figcaption&gt;The image illustrates the Ambassador design pattern, showing connections from a central point to Dev, Test, and Prod environments.&lt;/figcaption&gt;
+    &lt;/figure&gt;
+</code></pre>
+<p>Each of these patterns leverages the flexible design of multi-container pods by including multiple containers within a single pod specification.</p>
+<blockquote>
+<p>Head over to the coding exercises section to practice configuring multi-container pods. Real-world practice will solidify your understanding of these patterns and their implementation in Kubernetes.</p>
+</blockquote>
+<p>That concludes this lesson on multi-container pods in Kubernetes. Thank you for reading, and see you in the next lesson!</p>
+<p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/c679b7ba-0bdd-4f3d-b4a6-296d299406fe/lesson/7684fc5c-f94f-4d85-b265-ccae5ad22c80" /></p>
+<p><Card title="Practice Lab" icon="installation" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/c679b7ba-0bdd-4f3d-b4a6-296d299406fe/lesson/516ec23d-b246-4ba3-b3a0-23c8b60c6c8f" /></p>
+            </div>
+            
+            <div class="technical-corner">
+                <div class="tech-title">🔧 ركن القيادة — مصطلحات</div>
+                <p>
+                    <strong>Original Title:</strong> Multi Container Pods<br>
+                    يمكنك استخدام الزر أدناه للعودة للقائمة.
+                </p>
+            </div>
+        </article>
+
+        <!-- ========== LESSON 2: Solution Init Containers Optional ========== -->
+        <article class="lesson" id="lesson-2">
+            <span class="lesson-number">الدرس 2</span>
+            <h2>🛸 Solution Init Containers Optional</h2>
+            <div class="english-content">
+                <blockquote>
+<h2>Documentation Index</h2>
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+Use this file to discover all available pages before exploring further.</p>
+</blockquote>
+<h1>Solution Init Containers Optional</h1>
+<blockquote>
+<p>This article provides a comprehensive guide on managing init containers in Kubernetes, including identification, updates, and troubleshooting.</p>
+</blockquote>
+<p>In this lesson, we address several tasks related to init containers. We demonstrate how to identify pods with init containers, update a pod configuration to use a new init container, and fix an issue causing a CrashLoopBackOff in one pod. Follow the steps below for a comprehensive guide.</p>
+<hr />
+<h2>Identifying the Pod with an Init Container</h2>
+<p>First, list all the pods with:</p>
+<p>```bash  theme={null}
+kubectl get pods</p>
+<pre><code>
+Example output:
+
+```bash  theme={null}
+NAME    READY   STATUS    RESTARTS   AGE
+red     1/1     Running   0          54s
+green   2/2     Running   0          54s
+blue    1/1     Running   0          54s
+</code></pre>
+<p>We have three pods: red, green, and blue. To determine which pod includes an init container, execute:</p>
+<p>```bash  theme={null}
+kubectl describe pod <pod-name></p>
+<pre><code>
+### Red Pod Analysis
+
+When you inspect the red pod, you see an init container section alongside the main container. Here’s a snippet from the red pod's description:
+
+```plaintext  theme={null}
+Annotations: &lt;none&gt;
+Status: Running
+IP: 10.42.0.11
+IPs:
+  IP: 10.42.0.11
+Init Containers:
+  init-myservice:
+    Container ID: containerd://06b2eef4bb35af6bbd7d436785fa8988bbe43617def32fb320bb1cc0f9d88708
+    Image: busybox
+    Image ID: docker.io/library/busybox@sha256:ef320ff10026a50cf5f0213d35537ce0041ac1d96e9b78
+    Port: &lt;none&gt;
+    Host Port: &lt;none&gt;
+    Command:
+      sh
+      -c
+      sleep 5
+    State: Terminated
+    Reason: Completed
+    Exit Code: 0
+    Started: Tue, 02 Aug 2022 18:16:26 +0000
+    Finished: Tue, 02 Aug 2022 18:16:31 +0000
+    Ready: True
+    Restart Count: 0
+    Environment: &lt;none&gt;
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-wqxmr (ro)
+Containers:
+  green-container-1:
+    Container ID: containerd://0124061f1d72bf48f8b8692e2a68c39962c53a43e639eb4f27cabcfb4637b51
+    Image: busybox:1.28
+</code></pre>
+<p>Although an init container is shown in the red pod, further analysis of other pods is required.</p>
+<h3>Green Pod Analysis</h3>
+<p>The green pod does not include an init container. Its configuration is similar to the following:</p>
+<p>```plaintext  theme={null}
+IP:
+  IP: 10.42.0.9
+Containers:
+  red-container:
+    Container ID: containerd://73700f570a1c0df8222bd892b67bf9c9b37f5747a800a0bd9623e8db3fbfb
+    Image: busybox:1.28
+    Image ID: docker.io/library/busybox@sha256:141c253bc4c3fd0a201d32dc1f493bcf3fff03b6d416dea4f41046e0f37d47
+    Port: <none>
+    Host Port: <none>
+    Command:
+      - sh
+      - -c
+      - echo The app is running! &amp;&amp; sleep 3600
+    State: Running
+    Started: Tue, 02 Aug 2022 18:16:25 +0000
+    Ready: True
+    Restart Count: 0
+    Environment: <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-vslgg (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
+Volumes:
+  kube-api-access-vslgg:
+    Type: Projected (a volume that contains injected data from multiple sources)</p>
+<pre><code>
+Since it lacks an init container, proceed to the next pod.
+
+### Blue Pod Analysis
+
+The blue pod includes a well-defined init container. Its description shows:
+
+```plaintext  theme={null}
+Status: Running
+IP:
+  IP: 10.42.0.10
+Containers:
+  green-container-1:
+    Container ID: containerd://2c091a018044c1d3a06dfae0056a7715c7469cc353d2314651b967661ff8086a
+    Image: busybox:1.28
+    Image ID: docker.io/library/busybox@sha256:141c253bc4c3fd0a201d32dc1f493bcf3fff003b6d6f416dea4f410460e0f37d47
+    Port: &lt;none&gt;
+    Host Port: &lt;none&gt;
+    Command:
+      sh
+      -c
+      echo The app is running! &amp;&amp; sleep 3600
+    State: Running
+    Started: Tue, 02 Aug 2022 18:16:25 +0000
+    Ready: True
+    Restart Count: 0
+    Environment: &lt;none&gt;
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-2kr6f (ro)
+Init Containers:
+  init-myservice:
+    Container ID: containerd://06b2eef4bb35a6fbbd7d436785fa8988bbe43617def32fb320bb1cc0f9d88708
+    Image: busybox
+    Image ID: docker.io/library/busybox@sha256:ef320ff10026a50cf5f021d35537ce0041ac1d96e9b79800bafd8c9eff6c693
+    Port: &lt;none&gt;
+    Host Port: &lt;none&gt;
+    Command:
+      - sh
+      - -c
+      - sleep 5
+    State: Terminated
+    Reason: Completed
+</code></pre>
+<p>Thus, the blue pod is the one with an init container using the "busybox" image. The container ran a "sleep 5" command, and its state is confirmed as Terminated (Reason: Completed).</p>
+<hr />
+<h2>Question 1 Recap</h2>
+<ul class="styled-list">
+<li><strong>Pod with an init container:</strong> blue</li>
+<li><strong>Init container's image:</strong> busybox</li>
+<li><strong>Init container's state:</strong> Terminated (Reason: Completed)</li>
+</ul>
+<hr />
+<h2>Analyzing the Purple Pod</h2>
+<p>A new application named purple was deployed. Its configuration includes multiple init containers. To examine it, run:</p>
+<p>```bash  theme={null}
+kubectl describe pod purple</p>
+<pre><code>
+This outputs a snippet similar to:
+
+```plaintext  theme={null}
+Name:           purple
+Namespace:      default
+Priority:       0
+Node:           controlplane/172.25.0.95
+Start Time:     Tue, 02 Aug 2022 18:18:43 +0000
+Status:         Pending
+IP:             10.42.0.12
+IPs:
+  IP:           10.42.0.12
+Init Containers:
+  warm-up-1:
+    Container ID:   containerd://86f76be333d14dcd7ff161cab46d35fddb2e22fcd4867b8f25848f386beabb10
+    Image:          busybox:1.28
+    Command:
+      sh
+      -c
+      sleep 600
+    State:          Running
+      Started:      Tue, 02 Aug 2022 18:18:44 +0000
+    Ready:          False
+    Restart Count:  0
+  warm-up-2:
+    Container ID: &lt;none&gt;
+    Image:        busybox:1.28
+    Command:
+      sh
+      -c
+      sleep 1200
+    State:        Waiting
+    Reason:       PodInitializing
+    Ready:        False
+    Restart Count:  0
+Containers:
+  purple-container:
+    Container ID: &lt;none&gt;
+    Image:        busybox:1.28
+</code></pre>
+<p>The purple pod has <strong>two init containers</strong>:</p>
+<ul class="styled-list">
+<li><strong>warm-up-1:</strong> sleeps for 600 seconds (10 minutes)</li>
+<li><strong>warm-up-2:</strong> sleeps for 1200 seconds (20 minutes)</li>
+</ul>
+<p>They run sequentially, so the main container only starts after both complete. The total wait time before availability is 1800 seconds (30 minutes).</p>
+<hr />
+<h2>Updating a Pod to Use an Init Container</h2>
+<p>The next task is to update the "red" pod to incorporate an init container. The new init container uses the busybox image to sleep for 20 seconds instead of a longer duration.</p>
+<h3>Steps to Update the "red" Pod</h3>
+<ol>
+<li><strong>Export the current configuration:</strong></li>
+</ol>
+<p><code>bash  theme={null}
+   kubectl get pod red -o yaml &gt; red.yaml</code></p>
+<ol>
+<li><strong>Delete the existing red pod:</strong></li>
+</ol>
+<p><code>bash  theme={null}
+   kubectl delete pod red</code></p>
+<ol>
+<li><strong>Edit red.yaml</strong> to add the init container. Below is the updated configuration:</li>
+</ol>
+<p><code>yaml  theme={null}
+   apiVersion: v1
+   kind: Pod
+   metadata:
+     name: red
+     namespace: default
+   spec:
+     initContainers:
+     - name: red-initcontainer
+       image: busybox
+       command:
+       - "sleep"
+       - "20"
+     containers:
+     - name: red-container
+       image: busybox:1.28
+       imagePullPolicy: IfNotPresent
+       command:
+       - sh
+       - -c
+       - echo The app is running! &amp;&amp; sleep 3600
+       volumeMounts:
+       - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+         name: kube-api-access-vslgg
+         readOnly: true
+     dnsPolicy: ClusterFirst
+     enableServiceLinks: true</code></p>
+<ol>
+<li><strong>Apply the new configuration:</strong></li>
+</ol>
+<p><code>bash  theme={null}
+   kubectl apply -f red.yaml</code></p>
+<p>After applying, verify that the red pod is recreated and the new init container executes the "sleep 20" command before starting the main container.</p>
+<hr />
+<h2>Fixing the Issue with the Orange Pod</h2>
+<p>The orange pod is encountering an issue with its init container, as it is stuck in a crash loop. Listing pods shows:</p>
+<p>```bash  theme={null}
+kubectl get pods</p>
+<pre><code>
+Output example:
+
+```bash  theme={null}
+NAME      READY   STATUS                     RESTARTS   AGE
+green     2/2     Running                    0          7m2s
+blue      1/1     Running                    0          7m2s
+purple    0/1     Init:0/2                   0          4m40s
+orange    0/1     Init:CrashLoopBackOff      1 (12s ago) 16s
+red       1/1     Running                    0          29s
+</code></pre>
+<p>Describing the orange pod reveals an error in the init container command:</p>
+<p><code>plaintext  theme={null}
+Command:
+  sh
+  -c
+  sleeep 2;</code></p>
+<p>The typo "sleeep" (with an extra "e") causes the container to fail (Exit Code: 127) and triggers a CrashLoopBackOff.</p>
+<blockquote>
+<p>Ensure that command spelling is correct, as errors like this prevent the container from starting and lead to repeated restarts.</p>
+</blockquote>
+<h3>Steps to Fix the Orange Pod</h3>
+<ol>
+<li><strong>Export the orange pod configuration:</strong></li>
+</ol>
+<p><code>bash  theme={null}
+   kubectl get pod orange -o yaml &gt; orange.yaml</code></p>
+<ol>
+<li><strong>Delete the existing orange pod:</strong></li>
+</ol>
+<p><code>bash  theme={null}
+   kubectl delete pod orange</code></p>
+<ol>
+<li><strong>Edit orange.yaml</strong> to correct the command in the init container. The updated configuration should be:</li>
+</ol>
+<p><code>yaml  theme={null}
+   spec:
+     initContainers:
+     - name: init-myservice
+       image: busybox
+       imagePullPolicy: Always
+       command:
+       - sh
+       - -c
+       - sleep 2
+     containers:
+     - name: orange-container
+       image: busybox:1.28
+       imagePullPolicy: IfNotPresent
+       command:
+       - sh
+       - -c
+       - echo The app is running! &amp;&amp; sleep 3600
+       volumeMounts:
+       - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+         name: kube-api-access-dsgpf
+         readOnly: true
+     dnsPolicy: ClusterFirst
+     enableServiceLinks: true</code></p>
+<ol>
+<li><strong>Apply the corrected configuration:</strong></li>
+</ol>
+<p><code>bash  theme={null}
+   kubectl apply -f orange.yaml</code></p>
+<p>Once updated, the orange pod should operate normally without entering a crash loop.</p>
+<hr />
+<h2>Conclusion</h2>
+<p>This guide provided a step-by-step walkthrough of:</p>
+<ul class="styled-list">
+<li>Identifying pods with init containers (examining red, green, and blue pods)</li>
+<li>Reviewing key details such as image names, commands, and the state of init containers</li>
+<li>Updating a pod's configuration (red pod) to replace a lengthy sleep command in its init container with a shorter one</li>
+<li>Diagnosing and fixing a typo in the orange pod that caused a CrashLoopBackOff</li>
+</ul>
+<p>Following these steps will help you efficiently manage and troubleshoot init containers in your Kubernetes environment.</p>
+<hr />
+<h2>Additional Resources</h2>
+<ul class="styled-list">
+<li><a href="https://kubernetes.io/docs/">Kubernetes Documentation</a></li>
+<li><a href="https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/">Kubernetes Basics</a></li>
+<li><a href="https://hub.docker.com/">Docker Hub</a></li>
+<li><a href="https://registry.terraform.io/">Terraform Registry</a></li>
+</ul>
+<p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/c679b7ba-0bdd-4f3d-b4a6-296d299406fe/lesson/2bb89822-5f12-468d-9b95-7678146d5545" /></p>
+            </div>
+            
+            <div class="technical-corner">
+                <div class="tech-title">🔧 ركن القيادة — مصطلحات</div>
+                <p>
+                    <strong>Original Title:</strong> Solution Init Containers Optional<br>
+                    يمكنك استخدام الزر أدناه للعودة للقائمة.
+                </p>
+            </div>
+        </article>
+
+        <!-- ========== LESSON 3: Solution Multi Container Pods Optional ========== -->
+        <article class="lesson" id="lesson-3">
+            <span class="lesson-number">الدرس 3</span>
+            <h2>🛸 Solution Multi Container Pods Optional</h2>
+            <div class="english-content">
+                <blockquote>
+<h2>Documentation Index</h2>
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+Use this file to discover all available pages before exploring further.</p>
+</blockquote>
+<h1>Solution Multi Container Pods Optional</h1>
+<blockquote>
+<p>This article reviews a lab exercise on creating multi-container pods in Kubernetes and forwarding logs to Elasticsearch.</p>
+</blockquote>
+<p>In this article, we review a lab exercise on multi-container pods. The lab demonstrates how to identify container counts in pods, create multi-container pods using specified images, and add a sidecar container to forward logs to Elasticsearch. This step-by-step guide will help you understand these concepts and implement them in your Kubernetes environment.</p>
+<hr />
+<h2>Identifying Containers in the Red Pod</h2>
+<p>To determine the number of containers in the red pod, you have two options:</p>
+<ol>
+<li>Check the "READY" column in the pod listing—the numbers indicate total containers versus how many are ready.</li>
+<li>Use the <code>describe</code> command to inspect the pod details. In the output, look for the "Containers:" section. For example, the following YAML snippet shows three container entries named <code>apple</code>, <code>wine</code>, and <code>searle</code>:</li>
+</ol>
+<p>```yaml  theme={null}
+Containers:
+  apple:
+    Container ID: busybox
+    Image: <none>
+    Image ID: <none>
+    Port:
+    Host Port: <none>
+    Command:
+      sleep
+      4500
+    State: Waiting
+    Reason: ContainerCreating
+    Ready: False
+    Restart Count: 0
+    Environment: <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-7sggv (ro)
+  wine:
+    Container ID: busybox
+    Image: <none>
+    Image ID: <none>
+    Port:
+    Host Port: <none>
+    Command:
+      sleep
+      4500
+    State: Waiting
+    Reason: ContainerCreating
+    Ready: False
+    Restart Count: 0
+    Environment: <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-7sggv (ro)
+  searle:
+    Container ID: busybox
+    Image: <none>
+    Image ID: <none>
+    Port:
+    Host Port: <none>
+    Command:
+      <none></p>
+<pre><code>
+Both methods confirm that the red pod contains three containers.
+
+***
+
+## Identifying Containers in the Blue Pod
+
+Next, determine the container names in the blue pod. Examining its details reveals two containers, named `teal` and `navy`. Below is an excerpt of the pod details:
+
+```plaintext  theme={null}
+Node:                          controlplane/10.40.119.6
+Start Time:                    Sun, 17 Apr 2022 18:16:47 +0000
+Labels:                        &lt;none&gt;
+Annotations:                   &lt;none&gt;
+Status:                        Pending
+IP:                            &lt;none&gt;
+IPs:                           &lt;none&gt;
+Containers:
+  teal:
+    Container ID:              
+    Image:                     busybox
+    Image ID:                  &lt;none&gt;
+    Port:                      &lt;none&gt;
+    Host Port:                 &lt;none&gt;
+    Command:
+    - sleep
+    - '4500'
+    State:                      Waiting
+    Reason:                     ContainerCreating
+    Ready:                      False
+    Restart Count:              0
+    Environment:                &lt;none&gt;
+    Mounts:                    /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-6qm72 (ro)
+  navy:
+    Container ID:              
+    Image:                     busybox
+    Image ID:                  &lt;none&gt;
+    Port:                      &lt;none&gt;
+    Host Port:                 &lt;none&gt;
+    Command:
+    - sleep
+    - '4500'
+    State:                      Waiting
+    Reason:                     ContainerCreating
+    Ready:                      False
+    Restart Count:              0
+    Environment:                &lt;none&gt;
+    Mounts:                    /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-6qm72 (ro)
+</code></pre>
+<p>This confirms that the blue pod runs two containers: <code>teal</code> and <code>navy</code>.</p>
+<hr />
+<h2>Creating a Multi-Container Pod (Yellow Pod)</h2>
+<p>The next task is to create a multi-container pod named <strong>yellow</strong> that includes two containers. Follow these specifications:</p>
+<ul class="styled-list">
+<li><strong>Container 1</strong>: Named <strong>lemon</strong>, uses the <code>busybox</code> image with a sleep command (<code>sleep 1000</code>) to prevent a CrashLoopBackOff state.</li>
+<li><strong>Container 2</strong>: Named <strong>gold</strong>, uses the <code>redis</code> image.</li>
+</ul>
+<p>An image from the lab instructions illustrates these details:</p>
+<pre><code>    &lt;figure class="img-frame"&gt;
+        &lt;img src="../assets/images/chapter4/Solution-Multi-Container-Pods-Optional_frame_90.jpg" alt="The image shows a task to create a multi-container pod with two containers using specified images, with instructions to handle a crashloopbackoff error." loading="lazy"&gt;
+        &lt;figcaption&gt;The image shows a task to create a multi-container pod with two containers using specified images, with instructions to handle a crashloopbackoff error.&lt;/figcaption&gt;
+    &lt;/figure&gt;
+</code></pre>
+<h3>Step 1: Generate the Base Pod Definition</h3>
+<p>Run the following command using dry run to generate a YAML definition for the pod:</p>
+<p>```bash  theme={null}
+kubectl run yellow --image=busybox --dry-run=client -o yaml</p>
+<pre><code>
+The command produces a YAML definition similar to this:
+
+```yaml  theme={null}
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: yellow
+  name: yellow
+spec:
+  containers:
+  - image: busybox
+    name: yellow
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
+</code></pre>
+<h3>Step 2: Update the YAML</h3>
+<p>Rename the first container from <strong>yellow</strong> to <strong>lemon</strong> and add the sleep command. Then, include a second container named <strong>gold</strong> with the <code>redis</code> image. The updated YAML should look like this:</p>
+<p>```yaml  theme={null}
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: yellow
+  name: yellow
+spec:
+  containers:
+  - image: busybox
+    name: lemon
+    resources: {}
+    command: ["sleep", "1000"]
+  - image: redis
+    name: gold
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}</p>
+<pre><code>
+Save this file (e.g., as `yellow.yaml`) and apply the configuration:
+
+```bash  theme={null}
+kubectl apply -f yellow.yaml
+</code></pre>
+<h3>Verifying the Yellow Pod</h3>
+<p>After the pod is created, verify the status with:</p>
+<p>```bash  theme={null}
+kubectl get pods</p>
+<pre><code>
+You should see the yellow pod with two containers: **lemon** (busybox) running with `sleep 1000` and **gold** (redis).
+
+***
+
+## Exploring the Elastic Stack Logging Setup
+
+This section covers the deployment of a simple application and a logging stack within the **elastic-stack** namespace. The deployment includes:
+
+* **app** pod (running the event simulator)
+* **elastic-search** pod
+* **kibana** pod
+
+Wait until all pods are in the running state:
+
+```bash  theme={null}
+kubectl get pods -n elastic-stack
+</code></pre>
+<p>Expected output:</p>
+<p>```bash  theme={null}
+root@controlplane ~ # kubectl get pods -n elastic-stack
+NAME              READY   STATUS    RESTARTS   AGE
+app               1/1     Running   0          5m31s
+elastic-search    1/1     Running   0          5m31s
+kibana            1/1     Running   0          5m30s</p>
+<pre><code>
+### Inspecting the Kibana UI
+
+Once the pods are up and running, open the Kibana UI using the link provided above your terminal. Kibana serves as the dashboard for viewing the logs gathered by Elasticsearch. Elasticsearch collects log data—such as metrics and application logs—and Kibana visualizes them.
+
+To view logs from Kibana, run:
+
+```bash  theme={null}
+kubectl -n elastic-stack logs kibana
+</code></pre>
+<hr />
+<h2>Investigating the Application Pod</h2>
+<p>Next, examine the <strong>app</strong> pod to verify its container configuration and image details. The <strong>app</strong> pod runs a single container with an event simulator that sends log messages to <code>/log/app.log</code>. An excerpt from its description is shown below:</p>
+<p>```yaml  theme={null}
+Priority: 0
+Node: controlplane/10.40.119.6
+Start Time: Sun, 17 Apr 2022 18:14:50 +0000
+Labels:
+  name: app
+Annotations: <none>
+Status: Running
+IPs:
+  IP: 10.244.0.4
+Containers:
+  Container ID: docker://2770f0362307539e774d768fea3a27327257b7be7b460aad978a91c26bfb7c
+  Image: kodekloud/event-simulator
+  Image ID: docker-pullable://kodekloud/event-simulator@sha256:1e3e9c72136bbc76c96dd98f29c04f298c3ae241c7d44e2bf70bcc209b030bf9
+  Port: <none>
+  Host Port: <none>
+  State: Running
+  Started: Sun, 17 Apr 2022 18:15:06 +0000
+  Ready: True
+  Restart Count: 0
+  Environment: <none>
+  Mounts:
+    /log from log-volume (rw)
+    /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-wnzb6 (ro)
+Conditions:
+  Type               Status
+  Initialized        True
+  Ready              True
+  ContainersReady    True
+  PodScheduled       True
+Volumes:
+  log-volume:
+    Type:     HostPath (bare host directory volume)
+    Path:     /var/log/webapp
+    HostPathType: DirectoryOrCreate
+  kube-api-access-wnzb6:
+    Type:     Projected (a volume that contains injected data from multiple sources)</p>
+<pre><code>
+The event simulator writes its logs to `/log/app.log`. To view the log entries directly within the pod, execute:
+
+```bash  theme={null}
+kubectl -n elastic-stack exec -it app -- cat /log/app.log
+</code></pre>
+<p>Inspect the log entries to identify any user issues. For example, the logs indicate that <strong>USER5</strong> experienced login problems due to the account being locked after multiple failed attempts:</p>
+<p>```text  theme={null}
+[2022-04-17 18:21:57,696] INFO in event-simulator: USER4 is viewing page3
+[2022-04-17 18:21:58,698] WARNING in event-simulator: USER5 Failed to Login as the account is locked due to MANY FAILED ATTEMPTS.
+...</p>
+<pre><code>
+Thus, the problematic user is **USER5**.
+
+***
+
+## Adding a Sidecar Container for Log Shipping to Elasticsearch
+
+To forward logs from the **app** pod to Elasticsearch, a sidecar container must be added. This container, named **sidecar**, utilizes a custom Fluent Bit image (configured similarly to Filebeat) to read logs from a shared volume and forward them to Elasticsearch.
+
+### Editing the App Pod Definition
+
+The current definition of the **app** pod includes only the event simulator container. To implement log forwarding, modify the pod definition to include both the event simulator and the sidecar container, ensuring that they share the same volume.
+
+Below is an example YAML snippet with the updated configuration:
+
+```yaml  theme={null}
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: &quot;2022-04-17T18:14:50Z&quot;
+  labels:
+    name: app
+  name: app
+  namespace: elastic-stack
+  resourceVersion: &quot;1217&quot;
+  uid: 1d0aca45-2fd7-4c79-a6e3-e0c744e2dd3f
+spec:
+  containers:
+    - image: kodekloud/filebeat-configured
+      name: sidecar
+      volumeMounts:
+        - mountPath: /var/log/event-simulator/
+          name: log-volume
+    - image: kodekloud/event-simulator
+      name: app
+      imagePullPolicy: Always
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /log
+          name: log-volume
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: controlplane
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+</code></pre>
+<p>In this configuration:</p>
+<ul class="styled-list">
+<li>The <strong>sidecar</strong> container mounts <code>log-volume</code> at <code>/var/log/event-simulator/</code> (where Filebeat expects the logs).</li>
+<li>The <strong>app</strong> container writes logs to <code>/log</code>.</li>
+</ul>
+<h3>Updating the Pod</h3>
+<p>Since Kubernetes does not permit the modification of container sets on a live pod, you must force replace the existing pod with the updated YAML. If you try to edit the pod interactively, you might see an error similar to:</p>
+<blockquote>
+<p>Editing an existing pod to add or remove containers is not allowed. Instead, update the configuration file and force replace the pod.</p>
+</blockquote>
+<p>To apply the changes, use the force replace command:</p>
+<p>```bash  theme={null}
+kubectl replace --force -f /tmp/kubectl-edit-3922970489.yaml</p>
+<pre><code>
+The output should confirm the replacement:
+
+```plaintext  theme={null}
+pod &quot;app&quot; deleted
+pod/app replaced
+</code></pre>
+<p>Finally, verify the pod status:</p>
+<p><code>bash  theme={null}
+kubectl get pods -n elastic-stack</code></p>
+<hr />
+<h2>Verifying Logs in Kibana</h2>
+<p>After updating the <strong>app</strong> pod with the sidecar container, open the Kibana UI to confirm that logs are flowing into the Discover section. Follow these steps:</p>
+<ol>
+<li>Create an index pattern in Kibana (for example, <code>filebeat-*</code>).</li>
+<li>Configure the time filter as needed.</li>
+<li>Navigate to the Discover section to view the log entries.</li>
+</ol>
+<p>The following image shows the Kibana interface for creating an index pattern:</p>
+<pre><code>    &lt;figure class="img-frame"&gt;
+        &lt;img src="../assets/images/chapter4/Solution-Multi-Container-Pods-Optional_frame_840.jpg" alt="The image shows a Kibana interface for creating an index pattern, with a successful match for one index named "filebeat-6.4.2-2022.04.17"." loading="lazy"&gt;
+        &lt;figcaption&gt;The image shows a Kibana interface for creating an index pattern, with a successful match for one index named "filebeat-6.4.2-2022.04.17".&lt;/figcaption&gt;
+    &lt;/figure&gt;
+</code></pre>
+<p>Once the index pattern is established, view the logs in the Discover section:</p>
+<pre><code>    &lt;figure class="img-frame"&gt;
+        &lt;img src="../assets/images/chapter4/Solution-Multi-Container-Pods-Optional_frame_880.jpg" alt="The image shows a log management interface displaying event logs with timestamps, sources, messages, and other metadata related to user activities on a system." loading="lazy"&gt;
+        &lt;figcaption&gt;The image shows a log management interface displaying event logs with timestamps, sources, messages, and other metadata related to user activities on a system.&lt;/figcaption&gt;
+    &lt;/figure&gt;
+</code></pre>
+<p>This confirms that logs from the <strong>app</strong> pod are successfully forwarded to Elasticsearch and visualized in Kibana.</p>
+<hr />
+<p>This concludes the guide on setting up multi-container pods and integrating a sidecar container for log shipping to Elasticsearch. Happy learning!</p>
+<p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/c679b7ba-0bdd-4f3d-b4a6-296d299406fe/lesson/c8ae4065-e58a-49ea-92cd-a9a766e0a3ea" /></p>
+            </div>
+            
+            <div class="technical-corner">
+                <div class="tech-title">🔧 ركن القيادة — مصطلحات</div>
+                <p>
+                    <strong>Original Title:</strong> Solution Multi Container Pods Optional<br>
+                    يمكنك استخدام الزر أدناه للعودة للقائمة.
+                </p>
+            </div>
+        </article>
+
+    </div>
+
+    <footer class="site-footer">
+        <p>🚀 كوبسترونات — المهمة 4 خلصت! <a href="chapter5.html" style="color: var(--rocket-orange);">يلا على المهمة 5 ←</a></p>
+    </footer>
+</body>
+</html>

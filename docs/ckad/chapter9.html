@@ -1,0 +1,3516 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المهمة 9: الأمان — كوبسترونات 🚀</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="space-bg"></div>
+    <div class="stars-layer"></div>
+
+    <header class="site-header">
+        <a href="../index.html" class="logo">
+            <span class="emoji">🚀</span>
+            Kubestronaut
+        </a>
+        <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="القائمة">☰</button>
+        <nav class="nav-links">
+            <a href="../index.html">🏠 القاعدة</a>
+            <a href="index.html" class="active">🎓 CKAD</a>
+        </nav>
+    </header>
+
+    <section class="chapter-hero">
+        <h1>🚀 المهمة 9: الأمان</h1>
+        <p class="subtitle">Security</p>
+    </section>
+
+    <div class="lessons-container">
+
+        <!-- ========== LESSON 1: Admission Controllers ========== -->
+        <article class="lesson" id="lesson-1">
+            <span class="lesson-number">الدرس 1</span>
+            <h2>🛸 Admission Controllers</h2>
+            <div class="english-content">
+                <blockquote>
+<h2>Documentation Index</h2>
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+Use this file to discover all available pages before exploring further.</p>
+</blockquote>
+<h1>Admission Controllers</h1>
+<blockquote>
+<p>This article explores admission controllers in Kubernetes, detailing their role in enforcing security and modifying requests before persistence.</p>
+</blockquote>
+<p>In this lesson, we’ll explore admission controllers—an essential component of Kubernetes that enforces additional security measures and modifies requests before they are persisted. Understanding how admission controllers work and how to configure them is key to enhancing your cluster’s security and operations.</p>
+<p>When you use the kubectl utility to interact with a Kubernetes cluster (for example, to create a pod), the request first reaches the API server. The following sequence outlines the process:</p>
+<ol>
+<li>
+<p>The API server receives the request.</p>
+</li>
+<li>
+<p>It authenticates the request—commonly using certificates specified in your KubeConfig file. For example, inspect your KubeConfig with:</p>
+</li>
+</ol>
+<p><code>bash  theme={null}
+   cat ~/.kube/config
+   apiVersion: v1
+   clusters:
+   - cluster:
+       certificate-authority-data: LS0t...
+       # Truncated for brevity</code></p>
+<ol>
+<li>Once authenticated, the request proceeds to the authorization phase where Kubernetes checks if the user has permission to perform the operation, typically using Role-Based Access Control (RBAC). For example, a developer role can be defined as follows:</li>
+</ol>
+<p><code>yaml  theme={null}
+   apiVersion: rbac.authorization.k8s.io/v1
+   kind: Role
+   metadata:
+     name: developer
+   rules:
+   - apiGroups: [""]
+     resources: ["pods"]
+     verbs: ["list", "get", "create", "update", "delete"]
+     resourceNames: ["blue", "orange"]</code></p>
+<p>In this example, the developer role is limited to operations on pods named "blue" or "orange". These RBAC rules operate solely at the API level to control permitted operations.</p>
+<p>After authentication and authorization, you might need to enforce restrictions beyond what RBAC offers. Consider these scenarios:</p>
+<ul class="styled-list">
+<li>Preventing images from public Docker Hub by allowing only images from a specific internal registry.</li>
+<li>Enforcing that images never use the "latest" tag.</li>
+<li>Rejecting pod creation when a container is configured to run as the root user.</li>
+<li>Allowing specific capabilities (like "MAC_ADMIN") only under certain conditions.</li>
+<li>Ensuring resource metadata always includes specific labels.</li>
+</ul>
+<p>To address such policies, admission controllers are used. They operate after authentication and authorization but before the request is saved in etcd. Admission controllers can validate configurations, modify requests, or trigger additional operations.</p>
+<p>Below is an overview of the Kubernetes process flow with admission controllers positioned between the authorization phase and resource creation:</p>
+<pre><code>    &lt;figure class="img-frame"&gt;
+        &lt;img src="../assets/images/chapter9/Admission-Controllers_frame_210.jpg" alt="The image illustrates the Kubernetes process flow: Kubectl to Authentication, Authorization, Admission Controllers, and finally, Create Pod." loading="lazy"&gt;
+        &lt;figcaption&gt;The image illustrates the Kubernetes process flow: Kubectl to Authentication, Authorization, Admission Controllers, and finally, Create Pod.&lt;/figcaption&gt;
+    &lt;/figure&gt;
+</code></pre>
+<h2>Built-in Admission Controllers</h2>
+<p>Kubernetes includes several built-in admission controllers, such as:</p>
+<ul class="styled-list">
+<li><strong>Always Pull Images:</strong> Ensures that images are pulled every time a pod is created.</li>
+<li><strong>Default Storage Class:</strong> Automatically assigns a default storage class to PersistentVolumeClaims (PVCs) when none is specified.</li>
+<li><strong>Event Rate Limit:</strong> Throttles the number of requests processed by the API server to prevent overload.</li>
+<li><strong>Namespace Exists:</strong> Rejects requests for resources in namespaces that do not exist.</li>
+</ul>
+<h3>Example: Namespace Existence Check</h3>
+<p>Consider the "namespace exists" admission controller. When you attempt to create a pod in a namespace that doesn’t exist, for instance:</p>
+<p>```bash  theme={null}
+kubectl run nginx --image nginx --namespace blue</p>
+<pre><code>
+The API server goes through authentication and RBAC authorization. Then, the namespace exists controller checks for the &quot;blue&quot; namespace. Since it isn’t found, the request is rejected with an error similar to:
+
+```bash  theme={null}
+Error from server (NotFound): namespaces &quot;blue&quot; not found
+</code></pre>
+<blockquote>
+<p>Some clusters may have the namespace auto-provision admission controller enabled (disabled by default) to automatically create missing namespaces.</p>
+</blockquote>
+<p>To list the admission controllers enabled by default, run:</p>
+<p>```bash  theme={null}
+kube-apiserver -h | grep enable-admission-plugins</p>
+<pre><code>
+If you’re using a kubeadm-based setup, execute this command inside the kube-apiserver control plane pod using the kubectl exec command.
+
+## Configuring Admission Controllers
+
+To add an admission controller, update the `--enable-admission-plugins` flag on the Kubernetes API server. In a kubeadm-based setup, modify the kube-apiserver manifest file accordingly. For example, to enable both NodeRestriction and NamespaceAutoProvision, update the ExecStart command as follows:
+
+```bash  theme={null}
+ExecStart=/usr/local/bin/kube-apiserver \
+  --advertise-address=${INTERNAL_IP} \
+  --allow-privileged=true \
+  --apiserver-count=3 \
+  --authorization-mode=Node,RBAC \
+  --bind-address=0.0.0.0 \
+  --enable-swagger-ui=true \
+  --etcd-servers=https://127.0.0.1:2379 \
+  --event-ttl=1h \
+  --runtime-config=api/all \
+  --service-cluster-ip-range=10.32.0.0/24 \
+  --service-node-port-range=30000-32767 \
+  --v=2 \
+  --enable-admission-plugins=NodeRestriction,NamespaceAutoProvision
+</code></pre>
+<p>For clusters running the API server as a pod (common in kubeadm setups), the manifest might look like this:</p>
+<p>```yaml  theme={null}
+apiVersion: vl
+kind: Pod
+metadata:
+  creationTimestamp: null
+  name: kube-apiserver
+  namespace: kube-system
+spec:
+  containers:
+  - command:
+    - kube-apiserver
+    - --authorization-mode=Node,RBAC
+    - --advertise-address=172.17.0.107
+    - --allow-privileged=true
+    - --enable-bootstrap-token-auth=true
+    - --enable-admission-plugins=NodeRestriction,NamespaceAutoProvision
+    image: k8s.gcr.io/kube-apiserver-amd64:vl.11.3
+    name: kube-apiserver</p>
+<pre><code>
+To disable specific admission controller plugins, use the `--disable-admission-plugins` flag similarly.
+
+## Auto-Provisioning Example
+
+With NamespaceAutoProvision enabled, running the following command:
+
+```bash  theme={null}
+kubectl run nginx --image nginx --namespace blue
+</code></pre>
+<p>passes through authentication and authorization. The auto-provision controller detects that the "blue" namespace is missing, creates it automatically, and the pod creation completes successfully. The output would be:</p>
+<p>```bash  theme={null}
+kubectl run nginx --image nginx --namespace blue
+Pod/nginx created!</p>
+<pre><code>
+Verifying the existing namespaces:
+
+```bash  theme={null}
+kubectl get namespaces
+NAME         STATUS   AGE
+blue         Active   3m
+default      Active   23m
+kube-public  Active   24m
+kube-system  Active   24m
+</code></pre>
+<p>This example shows that admission controllers not only validate and potentially reject requests but can also perform background operations and modify the request content as needed.</p>
+<blockquote>
+<p>Note that the NamespaceAutoProvision and NamespaceExists admission controllers are deprecated. They have been replaced by the Namespace Lifecycle admission controller, which now ensures that requests to non-existent namespaces are rejected and protects default namespaces (such as default, kube-system, and kube-public) from deletion.</p>
+</blockquote>
+<p>This concludes our lesson on admission controllers. By practicing with these controllers, you can gain a deeper understanding of how to enhance Kubernetes security and manage your cluster effectively.</p>
+<h2>References</h2>
+<ul class="styled-list">
+<li><a href="https://kubernetes.io/docs/">Kubernetes Documentation</a></li>
+<li><a href="https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/">Kubernetes Basics</a></li>
+</ul>
+<p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/ee404020-8c94-4f3b-a69a-240984b9553e/lesson/3daea1a8-e40b-4ec9-8621-84abcb4e015c" /></p>
+<p><Card title="Practice Lab" icon="installation" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/ee404020-8c94-4f3b-a69a-240984b9553e/lesson/4c63ee14-dd02-4c4d-be87-17685de01d13" /></p>
+            </div>
+            
+            <div class="technical-corner">
+                <div class="tech-title">🔧 ركن القيادة — مصطلحات</div>
+                <p>
+                    <strong>Original Title:</strong> Admission Controllers<br>
+                    يمكنك استخدام الزر أدناه للعودة للقائمة.
+                </p>
+            </div>
+        </article>
+
+        <!-- ========== LESSON 2: API Deprecations ========== -->
+        <article class="lesson" id="lesson-2">
+            <span class="lesson-number">الدرس 2</span>
+            <h2>🛸 API Deprecations</h2>
+            <div class="english-content">
+                <blockquote>
+<h2>Documentation Index</h2>
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+Use this file to discover all available pages before exploring further.</p>
+</blockquote>
+<h1>API Deprecations</h1>
+<blockquote>
+<p>This article explores API deprecations in Kubernetes, covering lifecycle management, versioning, and guidelines for efficient API transitions.</p>
+</blockquote>
+<p>In this lesson, we explore API deprecations and their impact on managing API lifecycles in Kubernetes. We explain how a single API group can support multiple versions, why multiple versions are necessary, how many versions should be supported, and when older versions can be removed. The API deprecation policy provides guidelines for efficient API lifecycle management.</p>
+<hr />
+<h2>API Group Lifecycle Example</h2>
+<p>Imagine contributing to the Kubernetes project by creating an API group named <code>kodekloud.com</code> that contains two resources: <code>Course</code> and <code>Webinar</code>. Initially, both resources are developed and tested in-house. Once ready for integration, a pull request is created, and the API group is released as an alpha version (specifically, <code>v1alpha1</code>). For example, a YAML file to create a <code>Course</code> might look like:</p>
+<p>```yaml  theme={null}
+apiVersion: kodekloud.com/v1alpha1
+kind: Course
+metadata:
+  name: ckad
+spec:</p>
+<pre><code>
+If user feedback suggests that the `Webinar` resource is no longer needed, the first rule of the API deprecation policy states that API elements can only be removed by incrementing the API group's version. Therefore, the `Webinar` resource is removed in the subsequent version (v1alpha2), while v1alpha1 remains available. The `Course` definition in the two versions is as follows:
+
+```yaml  theme={null}
+apiVersion: kodekloud.com/v1alpha1
+kind: Course
+metadata:
+  name: ckad
+spec:
+</code></pre>
+<p>```yaml  theme={null}
+apiVersion: kodekloud.com/v1alpha2
+kind: Course
+metadata:
+  name: ckad
+spec:</p>
+<pre><code>
+Even though the in-memory resource remains stored as v1alpha1, the current API version gets updated to v1alpha2. Both versions need to be supported until the change is fully adopted. Eventually, one of these versions (typically v1alpha2) becomes the preferred or storage version—ensuring that while users may continue to use v1alpha1 YAML files, the resource is stored internally as v1alpha2.
+
+***
+
+## Round-Trip Conversion Between API Versions
+
+The second rule of the API deprecation policy mandates that API objects must support round-trip conversion between versions without any loss of information (except for complete REST resources that do not exist in all versions). For instance, consider a `Course` object created in v1alpha1 with a `spec` field:
+
+```yaml  theme={null}
+apiVersion: kodekloud.com/v1alpha1
+kind: Course
+metadata:
+  name: ckad
+spec:
+  type: video
+</code></pre>
+<p>In v1alpha2, a new field named <code>duration</code> is introduced. The conversion to v1alpha2 could be represented as:</p>
+<p>```yaml  theme={null}
+apiVersion: kodekloud.com/v1alpha2
+kind: Course
+metadata:
+  name: ckad
+spec:
+  type: video
+  duration:</p>
+<pre><code>
+To ensure fidelity when converting back to v1alpha1, an equivalent field for `duration` must be provided in v1alpha1—even if only as a placeholder—so that the round-trip conversion retains its integrity.
+
+***
+
+## Evolving Through Beta to GA
+
+After addressing bugs and refining the API in the alpha stages, the next phase is beta. For example, after releasing the first beta version (`v1beta1`), further refinements result in `v1beta2`, and finally, the stable GA version (`v1`) is released. The typical evolution follows this sequence:
+
+1. v1alpha1 → v1alpha2 (with potentially additional alpha versions)
+2. v1beta1 and v1beta2 (both beta versions are supported for a defined period)
+3. v1 GA (stable release)
+
+The API deprecation policy requires continued support for older versions as follows:
+
+* GA: At least 12 months or three releases.
+* Beta: At least nine months or three releases.
+* Alpha: No support beyond the current release.
+
+For example, consider a Kubernetes release sequence:
+
+* In release x, `v1alpha1` is introduced.
+* In release x+1, `v1alpha2` is introduced. Since alpha versions do not have extended support beyond the next release, `v1alpha1` is dropped.
+
+
+        &lt;figure class=&quot;img-frame&quot;&gt;
+            &lt;img src=&quot;../assets/images/chapter9/API-Deprecations_frame_330.jpg&quot; alt=&quot;The image illustrates API group versions and Kubernetes release versions, showing preferred/storage versions as &quot;/v1alpha1&quot; and &quot;/v1alpha2&quot; with corresponding release versions &quot;X&quot; and &quot;X+1&quot;.&quot; loading=&quot;lazy&quot;&gt;
+            &lt;figcaption&gt;The image illustrates API group versions and Kubernetes release versions, showing preferred/storage versions as &quot;/v1alpha1&quot; and &quot;/v1alpha2&quot; with corresponding release versions &quot;X&quot; and &quot;X+1&quot;.&lt;/figcaption&gt;
+        &lt;/figure&gt;
+
+
+According to the deprecation policy (rule four), older API versions must be supported after deprecation for a mandated period. In release x+1, if `v1alpha1` is removed, this change must be clearly documented in the release notes. Future updates may also include the removal of deprecated APIs, such as v1alpha2, urging users to migrate to newer versions.
+
+In release x+2, the first beta version (`v1beta1`) appears. Over subsequent releases (x+3, x+4, etc.), both the current and previous beta versions are supported for compatibility. During this overlap:
+
+* The older beta version (e.g., `v1beta1`) is deprecated but is not removed immediately.
+* Users receive deprecation warnings prompting migration to the newer beta version.
+* The preferred API version (and storage version) remains unchanged until the next release when only the newer version is supported.
+
+
+        &lt;figure class=&quot;img-frame&quot;&gt;
+            &lt;img src=&quot;../assets/images/chapter9/API-Deprecations_frame_470.jpg&quot; alt=&quot;The image illustrates the relationship between API group versions and Kubernetes release versions, showing version progression and deprecation status.&quot; loading=&quot;lazy&quot;&gt;
+            &lt;figcaption&gt;The image illustrates the relationship between API group versions and Kubernetes release versions, showing version progression and deprecation status.&lt;/figcaption&gt;
+        &lt;/figure&gt;
+
+
+When the GA version (v1) is released (e.g., in release x+5), beta versions (`v1beta1` and `v1beta2`) remain available temporarily until they satisfy the support duration requirements. In release x+6, `v1beta1` may be removed after supporting it for three releases, while `v1beta2` continues to be supported until it completes its deprecation period and is eventually dropped (e.g., in release x+8).
+
+
+        &lt;figure class=&quot;img-frame&quot;&gt;
+            &lt;img src=&quot;../assets/images/chapter9/API-Deprecations_frame_590.jpg&quot; alt=&quot;The image illustrates the relationship between API group versions and Kubernetes release versions, highlighting deprecated versions and preferred storage versions.&quot; loading=&quot;lazy&quot;&gt;
+            &lt;figcaption&gt;The image illustrates the relationship between API group versions and Kubernetes release versions, highlighting deprecated versions and preferred storage versions.&lt;/figcaption&gt;
+        &lt;/figure&gt;
+
+
+***
+
+## Introducing a New API Version (v2)
+
+When a new major API version such as `v2alpha1` is introduced, the previous stable version (v1, GA) is not immediately deprecated. The third rule of the API deprecation policy specifies that an API version must not be deprecated until an equivalent or more stable version is available. Since `v2alpha1` is an alpha release and v1 is in GA, v1 continues to be supported. The new version will then progress through its lifecycle—v2alpha2, v2beta1, v2beta2, and finally v2—before it can deprecate v1.
+
+
+        &lt;figure class=&quot;img-frame&quot;&gt;
+            &lt;img src=&quot;../assets/images/chapter9/API-Deprecations_frame_640.jpg&quot; alt=&quot;The image shows a chart comparing API group versions with Kubernetes release versions, indicating deprecated versions and preferred storage versions.&quot; loading=&quot;lazy&quot;&gt;
+            &lt;figcaption&gt;The image shows a chart comparing API group versions with Kubernetes release versions, indicating deprecated versions and preferred storage versions.&lt;/figcaption&gt;
+        &lt;/figure&gt;
+
+
+***
+
+## Using kubectl convert
+
+As Kubernetes evolves and older API versions are removed, manifest files must be updated to the current API versions. For example, if you have a YAML file with a deployment definition using `v1beta1` and your Kubernetes upgrade removes that version, you must update your manifest to use `apps/v1`:
+
+```yaml  theme={null}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+spec:
+</code></pre>
+<p>For projects with numerous YAML files requiring conversion, the <code>kubectl convert</code> command is an efficient tool. To convert your deployment file to <code>apps/v1</code>, run:</p>
+<p>```plaintext  theme={null}
+kubectl convert -f nginx.yaml --output-version apps/v1</p>
+<pre><code>
+The converted YAML manifest will be displayed on your screen.
+
+!!! note &quot;Note&quot;
+The `kubectl convert` command might not be installed by default as it is available as a separate plugin. Follow these steps to install it:
+
+```bash  theme={null}
+curl -LO &quot;https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert&quot;
+</code></pre>
+<p>```bash  theme={null}
+curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert.sha256"</p>
+<pre><code>
+```bash  theme={null}
+echo &quot;$(&lt;kubectl-convert.sha256) kubectl-convert&quot; | sha256sum --check
+</code></pre>
+<p>For further details, please refer to the <a href="https://kubernetes.io/docs/">Kubernetes documentation</a>. These instructions, along with hands-on labs, will help you become proficient with the <code>kubectl convert</code> plugin.</p>
+<hr />
+<p>Thank you for your time, and see you in the next lesson.</p>
+<p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/ee404020-8c94-4f3b-a69a-240984b9553e/lesson/b4865412-73ea-45c4-a3ce-821974b6741b" /></p>
+<p><Card title="Practice Lab" icon="installation" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/ee404020-8c94-4f3b-a69a-240984b9553e/lesson/57be9155-80e4-490a-8105-08dc68991661" /></p>
+            </div>
+            
+            <div class="technical-corner">
+                <div class="tech-title">🔧 ركن القيادة — مصطلحات</div>
+                <p>
+                    <strong>Original Title:</strong> API Deprecations<br>
+                    يمكنك استخدام الزر أدناه للعودة للقائمة.
+                </p>
+            </div>
+        </article>
+
+        <!-- ========== LESSON 3: API Groups ========== -->
+        <article class="lesson" id="lesson-3">
+            <span class="lesson-number">الدرس 3</span>
+            <h2>🛸 API Groups</h2>
+            <div class="english-content">
+                <blockquote>
+<h2>Documentation Index</h2>
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+Use this file to discover all available pages before exploring further.</p>
+</blockquote>
+<h1>API Groups</h1>
+<blockquote>
+<p>This article explains the organization of API groups in Kubernetes and how to interact with the Kubernetes API.</p>
+</blockquote>
+<p>Before diving into authorization, it's essential to understand how API groups are organized in Kubernetes.</p>
+<h2>Understanding the Kubernetes API</h2>
+<p>The Kubernetes API serves as the central interface for interacting with the cluster. Whether you use the kubectl command-line tool or make direct REST calls, every operation in the cluster is handled by the API server. For example, to check the cluster version, you can query the API server running on the master node (default port 6443) by appending the API version to the URL. Similarly, to list all the pods, you would send a request to <code>/api/v1/pods</code>.</p>
+<p>Below is an example command that retrieves the Kubernetes version:</p>
+<p>```bash  theme={null}
+curl https://kube-master:6443/version</p>
+<pre><code>
+The expected output is:
+
+```json  theme={null}
+{
+  &quot;major&quot;: &quot;1&quot;,
+  &quot;minor&quot;: &quot;13&quot;,
+  &quot;gitVersion&quot;: &quot;v1.13.0&quot;,
+  &quot;gitCommit&quot;: &quot;ddd47ac13c1a9483ea035a79cd7c1005ff21a6d&quot;,
+  &quot;gitTreeState&quot;: &quot;clean&quot;,
+  &quot;buildDate&quot;: &quot;2018-12-03T20:56:12Z&quot;,
+  &quot;goVersion&quot;: &quot;go1.11.2&quot;,
+  &quot;compiler&quot;: &quot;gc&quot;,
+  &quot;platform&quot;: &quot;linux/amd64&quot;
+}
+</code></pre>
+<h2>API Groups Overview</h2>
+<p>Kubernetes organizes its API functionalities into various groups, making it easier to manage and scale operations. These groups include endpoints for version information, metrics, health checks, logs, and more. For instance, while the <code>/version</code> API reveals the cluster version, the <code>/metrics</code> and <code>/healthz</code> endpoints help monitor your cluster's health. The <code>/logs</code> endpoint can be integrated with third-party logging tools.</p>
+<pre><code>    &lt;figure class="img-frame"&gt;
+        &lt;img src="../assets/images/chapter9/API-Groups_frame_70.jpg" alt="The image shows six colored labels with text: /metrics, /healthz, /version, /api, /apis, and /logs, likely representing API endpoints." loading="lazy"&gt;
+        &lt;figcaption&gt;The image shows six colored labels with text: /metrics, /healthz, /version, /api, /apis, and /logs, likely representing API endpoints.&lt;/figcaption&gt;
+    &lt;/figure&gt;
+</code></pre>
+<p>Kubernetes APIs can be broadly divided into two categories:</p>
+<ol>
+<li><strong>Core API Group</strong>: Contains fundamental components such as namespaces, pods, replication controllers, events, endpoints, nodes, bindings, persistent volumes, persistent volume claims, config maps, secrets, and services.</li>
+<li><strong>Named API Groups</strong>: Organizes newer features into groups like apps, extensions, networking, storage, authentication, and authorization. For example, the "apps" group includes Deployments, ReplicaSets, and StatefulSets, while the "networking" group covers Network Policies. Other functionalities such as Certificate Signing Requests belong to different named groups.<pre><code>&lt;figure class="img-frame"&gt;
+    &lt;img src="../assets/images/chapter9/API-Groups_frame_120.jpg" alt="The image shows a hierarchical structure of a core API, detailing endpoints like namespaces, pods, and services under version v1." loading="lazy"&gt;
+    &lt;figcaption&gt;The image shows a hierarchical structure of a core API, detailing endpoints like namespaces, pods, and services under version v1.&lt;/figcaption&gt;
+&lt;/figure&gt;
+</code></pre>
+</li>
+</ol>
+<p>Each resource in these API groups supports a collection of actions—referred to as "verbs"—that allow you to perform operations like list, get, create, delete, update, and watch.</p>
+<pre><code>    &lt;figure class="img-frame"&gt;
+        &lt;img src="../assets/images/chapter9/API-Groups_frame_170.jpg" alt="The image is a diagram illustrating Kubernetes API groups, resources, and actions like list, get, create, delete, update, and watch." loading="lazy"&gt;
+        &lt;figcaption&gt;The image is a diagram illustrating Kubernetes API groups, resources, and actions like list, get, create, delete, update, and watch.&lt;/figcaption&gt;
+    &lt;/figure&gt;
+</code></pre>
+<p>For a detailed overview of each API object, including its associated group and version, check out the Kubernetes API reference. For example, "v1 core" indicates the core API group at version v1. You can also explore your cluster’s API groups by accessing the API server on port 6443 without providing any specific path:</p>
+<p>```bash  theme={null}
+curl http://localhost:6443 -k</p>
+<pre><code>
+The response may resemble:
+
+```json  theme={null}
+{
+  &quot;paths&quot;: [
+    &quot;/api&quot;,
+    &quot;/api/v1&quot;,
+    &quot;/apis&quot;,
+    &quot;/apis/&quot;,
+    &quot;/healthz&quot;,
+    &quot;/logs&quot;,
+    &quot;/metrics&quot;,
+    &quot;/openapi/v2&quot;,
+    &quot;/swagger-2.0.0.json&quot;
+  ]
+}
+</code></pre>
+<h2>Accessing the Kubernetes API</h2>
+<p>When making direct requests to the Kubernetes API using curl, you might face authentication restrictions. For example, executing the following command without proper certificates might lead to a Forbidden error:</p>
+<p>```bash  theme={null}
+curl http://localhost:6443 -k</p>
+<pre><code>
+Output:
+
+```json  theme={null}
+{
+  &quot;kind&quot;: &quot;Status&quot;,
+  &quot;apiVersion&quot;: &quot;v1&quot;,
+  &quot;metadata&quot;: {},
+  &quot;status&quot;: &quot;Failure&quot;,
+  &quot;message&quot;: &quot;Forbidden: User \&quot;system:anonymous\&quot; cannot get path \&quot;/\&quot;&quot;,
+  &quot;reason&quot;: &quot;Forbidden&quot;,
+  &quot;details&quot;: {},
+  &quot;code&quot;: 403
+}
+</code></pre>
+<blockquote>
+<p>To access the API securely, include your certificate files in the curl command as follows:</p>
+</blockquote>
+<p>```bash  theme={null}
+curl http://localhost:6443 -k --key admin.key --cert admin.crt --cacert <ca.crt></p>
+<pre><code>
+Alternatively, you can use the `kubectl proxy` command. This command starts a local proxy service on port 8001, utilizing the credentials from your kubeconfig file to authenticate your requests—eliminating the need to explicitly specify certificates.
+
+Start the proxy by running:
+
+```bash  theme={null}
+kubectl proxy
+</code></pre>
+<p>This command outputs:</p>
+<p>```bash  theme={null}
+Starting to serve on 127.0.0.1:8001</p>
+<pre><code>
+Then, access the API via the proxy:
+
+```bash  theme={null}
+curl http://localhost:8001 -k
+</code></pre>
+<p>Expected response:</p>
+<p><code>json  theme={null}
+{
+  "paths": [
+    "/api",
+    "/api/v1",
+    "/apis",
+    "/apis/",
+    "/healthz",
+    "/logs",
+    "/metrics",
+    "/openapi/v2",
+    "/swagger-2.0.0.json"
+  ]
+}</code></p>
+<blockquote>
+<p>Do not confuse <code>kubectl proxy</code> with <code>kube-proxy</code>. The <code>kube-proxy</code> manages networking and connectivity between pods across nodes, while <code>kubectl proxy</code> forwards API requests using your kubeconfig credentials.</p>
+</blockquote>
+<pre><code>    &lt;figure class="img-frame"&gt;
+        &lt;img src="../assets/images/chapter9/API-Groups_frame_300.jpg" alt="The image shows a comparison indicating that "Kube proxy" is not equal to "Kubectl proxy."" loading="lazy"&gt;
+        &lt;figcaption&gt;The image shows a comparison indicating that "Kube proxy" is not equal to "Kubectl proxy."&lt;/figcaption&gt;
+    &lt;/figure&gt;
+</code></pre>
+<h2>Summary</h2>
+<p>Kubernetes organizes its resources within various API groups, divided into the core API group and named API groups. Each group contains specific resources, and these resources support multiple actions (verbs) such as list, get, create, delete, update, and watch. In the next lesson on authorization, you will learn how these verbs control access within the cluster.</p>
+<p>That concludes this lesson. See you in the next one!</p>
+<p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/ee404020-8c94-4f3b-a69a-240984b9553e/lesson/65ee5a57-01e7-499f-b3bc-33ebcc57dc37" /></p>
+            </div>
+            
+            <div class="technical-corner">
+                <div class="tech-title">🔧 ركن القيادة — مصطلحات</div>
+                <p>
+                    <strong>Original Title:</strong> API Groups<br>
+                    يمكنك استخدام الزر أدناه للعودة للقائمة.
+                </p>
+            </div>
+        </article>
+
+        <!-- ========== LESSON 4: API Versions ========== -->
+        <article class="lesson" id="lesson-4">
+            <span class="lesson-number">الدرس 4</span>
+            <h2>🛸 API Versions</h2>
+            <div class="english-content">
+                <blockquote>
+<h2>Documentation Index</h2>
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+Use this file to discover all available pages before exploring further.</p>
+</blockquote>
+<h1>API Versions</h1>
+<blockquote>
+<p>This article explores API versions in Kubernetes, detailing their stages, organization, and management for effective configuration.</p>
+</blockquote>
+<p>In this lesson, we explore API versions in Kubernetes—a topic that builds upon core concepts such as APIs, API groups, resources, and verbs. Understanding the evolution of these API versions—from experimental to stable—is key to effectively managing your Kubernetes configurations.</p>
+<h2>Overview of API Organization</h2>
+<p>Kubernetes organizes everything under its API into API groups (e.g., apps, extensions, networking). Each API group can support multiple versions. A version labeled as "v1" typically indicates a generally available (GA) and stable release. Other labels like v1beta1 or v1alpha1 denote beta or alpha stages respectively. Let’s break down what each of these stages means.</p>
+<h2>API Version Stages</h2>
+<h3>Alpha</h3>
+<p>An alpha version represents the initial development stage of an API. Once an API is added to the Kubernetes code base and included in a release for the first time, it is marked as alpha (for example, v1alpha1, v1alpha2). At this stage, the API is not enabled by default, may lack comprehensive end-to-end tests, and could contain bugs. For instance, at the time of recording, the API group <code>internal.apiserver.k8s.io</code> (which includes the StorageVersion resource) exists only in its alpha form.</p>
+<p>If you attempt to create an object using the following YAML:</p>
+<p>```yaml  theme={null}
+apiVersion: internal.apiserver.k8s.io/v1alpha1
+kind: StorageVersion
+metadata:
+  name: sv-1
+spec:</p>
+<pre><code>
+the API server will reject the creation because the alpha version is not enabled by default. This version is intended for expert users who want to test and provide early feedback.
+
+### Beta
+
+After addressing major bugs in the alpha API and adding comprehensive tests, the API advances to beta (e.g., v1beta1, v1beta2). Beta APIs are enabled by default and include end-to-end tests. While minor bugs might still exist, there is a commitment from the community to advance these APIs to GA. For example, the flow-control group is currently in the beta stage.
+
+### GA (Stable)
+
+An API promoted to GA has successfully navigated the beta phase, undergone multiple releases, and received numerous bug fixes. The version number drops any alpha or beta suffix, appearing simply as &quot;v1.&quot; GA APIs are reliably enabled by default and become part of conformance tests. Most API groups, such as apps, authentication, authorization, certificates, and coordination, are now available in their GA versions.
+
+
+        &lt;figure class=&quot;img-frame&quot;&gt;
+            &lt;img src=&quot;../assets/images/chapter9/API-Versions_frame_210.jpg&quot; alt=&quot;The image outlines API versioning stages: Alpha, Beta, and GA (Stable), detailing their version names, enablement, testing, reliability, support, and target audience.&quot; loading=&quot;lazy&quot;&gt;
+            &lt;figcaption&gt;The image outlines API versioning stages: Alpha, Beta, and GA (Stable), detailing their version names, enablement, testing, reliability, support, and target audience.&lt;/figcaption&gt;
+        &lt;/figure&gt;
+
+
+&gt; For production environments, always ensure you use GA versions of the APIs to maintain a stable and supported deployment.
+
+## Supporting Multiple Versions in an API Group
+
+An API group can support several versions simultaneously. For example, the apps group might offer v1, v1beta1, and v1alpha1, allowing you to reference any of these versions in your YAML file. Below are examples of a Deployment resource defined using different API versions:
+
+```yaml  theme={null}
+# Example using apps/v1alpha1:
+apiVersion: apps/v1alpha1
+kind: Deployment
+metadata:
+  name: nginx
+spec:
+  # Deployment spec fields go here
+---
+# Example using apps/v1beta1:
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: nginx
+spec:
+  # Deployment spec fields go here
+---
+# Example using apps/v1 (the preferred and storage version):
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+spec:
+  # Deployment spec fields go here
+</code></pre>
+<p>While you can create an object with any supported API version, only one version is designated as the <em>preferred</em> version. This is the version used by default with commands like <code>kubectl get deployment</code> or <code>kubectl explain deployment</code>. Furthermore, only one version—the <em>storage version</em>—is used to persist objects in etcd. If you create an object using a non-preferred version (like apps/v1alpha1 or apps/v1beta1), Kubernetes will automatically convert it to the storage version (typically apps/v1) before saving.</p>
+<p>For example, after creating a Deployment using any API version, running these commands will show that it is stored as apps/v1:</p>
+<p>```bash  theme={null}
+kubectl get deployment</p>
+<pre><code>
+```bash  theme={null}
+kubectl explain deployment
+</code></pre>
+<p>```plaintext  theme={null}
+KIND:     Deployment
+VERSION:  apps/v1</p>
+<pre><code>
+## Determining the Preferred and Storage Versions
+
+When multiple API versions are available within a group, the preferred version is listed in the API group details. For example, querying the batch API group might return:
+
+```json  theme={null}
+{
+  &quot;kind&quot;: &quot;APIGroup&quot;,
+  &quot;apiVersion&quot;: &quot;v1&quot;,
+  &quot;name&quot;: &quot;batch&quot;,
+  &quot;versions&quot;: [
+    {
+      &quot;groupVersion&quot;: &quot;batch/v1&quot;,
+      &quot;version&quot;: &quot;v1&quot;
+    },
+    {
+      &quot;groupVersion&quot;: &quot;batch/v1beta1&quot;,
+      &quot;version&quot;: &quot;v1beta1&quot;
+    }
+  ],
+  &quot;preferredVersion&quot;: {
+    &quot;groupVersion&quot;: &quot;batch/v1&quot;,
+    &quot;version&quot;: &quot;v1&quot;
+  }
+}
+</code></pre>
+<p>While you can determine the preferred version via the API, the storage version remains hidden. To reveal the storage version, you can query the etcd database directly. For instance, using the etcdctl utility with the following command:</p>
+<p>```bash  theme={null}
+ETCDCTL_API=3 etcdctl \
+  --endpoints=https://127.0.0.1:2379 \
+  --cacert=/etc/kubernetes/pki/etcd/ca.crt \
+  --cert=/etc/kubernetes/pki/etcd/server.crt \
+  --key=/etc/kubernetes/pki/etcd/server.key \
+  get "/registry/deployments/default/blue" --print-value-only</p>
+<pre><code>
+You might receive output similar to:
+
+```plaintext  theme={null}
+apps/v1
+Deployment
+
+bluedefault&quot;*${cf8dcd55-8819-4be2-85e7-bb71665c2ddf2ZB
+successfully progressed8&quot;2
+</code></pre>
+<p>This output confirms that the object is stored as apps/v1.</p>
+<h2>Enabling or Disabling Specific API Versions</h2>
+<p>To modify which API versions are enabled, adjust the <code>--runtime-config</code> parameter of the kube-apiserver. For instance, if you need to enable alpha APIs that aren’t enabled by default, update the kube-apiserver's service configuration. Below is an example ExecStart configuration for kube-apiserver:</p>
+<p><code>bash  theme={null}
+ExecStart=/usr/local/bin/kube-apiserver \
+  --advertise-address=${INTERNAL_IP} \
+  --allow-privileged=true \
+  --apiserver-count=3 \
+  --authorization-mode=Node,RBAC \
+  --bind-address=0.0.0.0 \
+  --enable-swagger-ui=true \
+  --etcd-cafile=/var/lib/kubernetes/ca.pem \
+  --etcd-certfile=/var/lib/kubernetes/apiserver-etcd-client.crt \
+  --etcd-keyfile=/var/lib/kubernetes/apiserver-etcd-client.key \
+  --etcd-servers=https://127.0.0.1:2379 \
+  --event-ttl=1h \
+  --kubelet-certificate-authority=/var/lib/kubernetes/ca.pem \
+  --kubelet-client-certificate=/var/lib/kubernetes/apiserver-etcd-client.crt \
+  --kubelet-client-key=/var/lib/kubernetes/apiserver-etcd-client.key \
+  --kubelet-https=true \
+  --runtime-config=api/all \
+  --service-account-key-file=/var/lib/kubernetes/service-account.pem \
+  --service-cluster-ip-range=10.32.0.0/24 \
+  --service-node-port-range=30000-32767 \
+  --client-ca-file=/var/lib/kubernetes/ca.pem \
+  --tls-cert-file=/var/lib/kubernetes/apiserver.crt \
+  --tls-private-key-file=/var/lib/kubernetes/apiserver.key \
+  --v=2</code></p>
+<p>After updating the configuration to enable the desired API versions (specified as comma-separated values in the <code>--runtime-config</code> parameter), restart the kube-apiserver service for the changes to take effect.</p>
+<blockquote>
+<p>Always back up your configuration and validate your changes in a non-production environment before applying them to production.</p>
+</blockquote>
+<h2>Conclusion</h2>
+<p>This lesson provided an in-depth look at Kubernetes API versions, the significance of each version stage (Alpha, Beta, and GA), and how Kubernetes handles multiple API versions within a single API group. By understanding preferred and storage versions along with how to enable or disable specific API versions, you are better equipped to manage your Kubernetes infrastructure effectively.</p>
+<p>Happy learning and stay tuned for more in-depth explorations of the Kubernetes API components!</p>
+<p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/ee404020-8c94-4f3b-a69a-240984b9553e/lesson/bdd9e106-7045-47ec-bb66-c4fd169999b9" /></p>
+            </div>
+            
+            <div class="technical-corner">
+                <div class="tech-title">🔧 ركن القيادة — مصطلحات</div>
+                <p>
+                    <strong>Original Title:</strong> API Versions<br>
+                    يمكنك استخدام الزر أدناه للعودة للقائمة.
+                </p>
+            </div>
+        </article>
+
+        <!-- ========== LESSON 5: Authentication Authorization and Admission Control ========== -->
+        <article class="lesson" id="lesson-5">
+            <span class="lesson-number">الدرس 5</span>
+            <h2>🛸 Authentication Authorization and Admission Control</h2>
+            <div class="english-content">
+                <blockquote>
+<h2>Documentation Index</h2>
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+Use this file to discover all available pages before exploring further.</p>
+</blockquote>
+<h1>Authentication Authorization and Admission Control</h1>
+<blockquote>
+<p>This article covers Kubernetes security, focusing on authentication, authorization, admission control, and securing inter-component communications within a cluster.</p>
+</blockquote>
+<p>Welcome to this comprehensive lesson on Kubernetes security. In this module, we dive into the core security primitives essential for production-grade Kubernetes deployments. We'll explore how Kubernetes secures its API, manages user access, and controls inter-component communication.</p>
+<blockquote>
+<p>Before diving deeper, ensure your infrastructure hosts are secure by disabling root access, disabling password-based authentication, and exclusively using SSH key-based authentication.</p>
+</blockquote>
+<h2>Securing Kubernetes Cluster Hosts</h2>
+<p>The foundation of a secure Kubernetes environment is protecting the underlying physical or virtual infrastructure. Ensure that your cluster hosts adhere to industry security best practices:</p>
+<ul class="styled-list">
+<li>Disable root access.</li>
+<li>Turn off password-based authentication.</li>
+<li>Enable SSH key-based authentication.</li>
+</ul>
+<p>Remember, if the base infrastructure is compromised, the entire Kubernetes cluster is vulnerable.</p>
+<h2>Protecting the Kube API Server</h2>
+<p>At the heart of Kubernetes lies the Kube API Server, which serves as the gateway for all operations—be it through <code>kubectl</code> or direct API calls. As such, strict control over who can access the cluster and what actions they can perform is vital.</p>
+<h3>Authentication Methods</h3>
+<p>Authentication determines the identity of a user or a process accessing the API server. Kubernetes supports multiple authentication mechanisms, including:</p>
+<ul class="styled-list">
+<li><strong>User IDs and Passwords:</strong> Stored in static files.</li>
+<li><strong>Tokens:</strong> Issued for API access.</li>
+<li><strong>Certificates:</strong> Securing communications.</li>
+<li><strong>External Authentication Providers:</strong> For example, LDAP.</li>
+<li><strong>Service Accounts:</strong> For machine-to-machine interactions.<pre><code>&lt;figure class="img-frame"&gt;
+    &lt;img src="../assets/images/chapter9/Authentication-Authorization-and-Admission-Control_frame_120.jpg" alt="The image is a slide titled "Authentication" listing access methods: username/password, username/tokens, certificates, LDAP, and service accounts." loading="lazy"&gt;
+    &lt;figcaption&gt;The image is a slide titled "Authentication" listing access methods: username/password, username/tokens, certificates, LDAP, and service accounts.&lt;/figcaption&gt;
+&lt;/figure&gt;
+</code></pre>
+</li>
+</ul>
+<h3>Authorization Strategies</h3>
+<p>Once authenticated, authorization dictates what actions users are permitted to perform. Kubernetes primarily employs Role-Based Access Control (RBAC) to manage permissions. Additional strategies include:</p>
+<ul class="styled-list">
+<li><strong>Attribute-Based Access Control (ABAC)</strong></li>
+<li><strong>Node Authorization</strong></li>
+<li><strong>Webhook Modes</strong><pre><code>&lt;figure class="img-frame"&gt;
+    &lt;img src="../assets/images/chapter9/Authentication-Authorization-and-Admission-Control_frame_140.jpg" alt="The image lists types of authorization: RBAC, ABAC, Node Authorization, and Webhook Mode, under the heading "Authorization: What can they do?"" loading="lazy"&gt;
+    &lt;figcaption&gt;The image lists types of authorization: RBAC, ABAC, Node Authorization, and Webhook Mode, under the heading "Authorization: What can they do?"&lt;/figcaption&gt;
+&lt;/figure&gt;
+</code></pre>
+</li>
+</ul>
+<h2>Securing Inter-Component Communications</h2>
+<p>Every component within Kubernetes communicates over a network, sometimes traversing untrusted networks. To ensure data security, Kubernetes uses TLS encryption for communications among critical components such as:</p>
+<ul class="styled-list">
+<li>Kube API Server</li>
+<li>etcd Cluster</li>
+<li>Kube Controller Manager</li>
+<li>Kube Scheduler</li>
+<li>Kubelet and Kube Proxy on worker nodes</li>
+</ul>
+<p>Detailed procedures for configuring and managing TLS certificates are covered in the course content.</p>
+<pre><code>    &lt;figure class="img-frame"&gt;
+        &lt;img src="../assets/images/chapter9/Authentication-Authorization-and-Admission-Control_frame_160.jpg" alt="The image illustrates the relationship between Kubernetes components using TLS certificates, centered around the Kube ApiServer, connecting to ETCD Cluster, Kubelet, Kube Proxy, Kube Controller Manager, and Kube Scheduler." loading="lazy"&gt;
+        &lt;figcaption&gt;The image illustrates the relationship between Kubernetes components using TLS certificates, centered around the Kube ApiServer, connecting to ETCD Cluster, Kubelet, Kube Proxy, Kube Controller Manager, and Kube Scheduler.&lt;/figcaption&gt;
+    &lt;/figure&gt;
+</code></pre>
+<h2>Managing Pod Communications with Network Policies</h2>
+<p>By default, all pods within a Kubernetes cluster can communicate freely, which may not be desirable for every workload or application. Network policies allow administrators to define rules that restrict pod-to-pod interactions, thereby reducing potential attack vectors and isolating sensitive components.</p>
+<pre><code>    &lt;figure class="img-frame"&gt;
+        &lt;img src="../assets/images/chapter9/Authentication-Authorization-and-Admission-Control_frame_190.jpg" alt="The image illustrates network policies using a diagram of four devices with colored circles and pentagons, indicating connections or groupings." loading="lazy"&gt;
+        &lt;figcaption&gt;The image illustrates network policies using a diagram of four devices with colored circles and pentagons, indicating connections or groupings.&lt;/figcaption&gt;
+    &lt;/figure&gt;
+</code></pre>
+<p>This high-level overview provides a solid foundation on Kubernetes security primitives. Each of these topics is explored in greater depth throughout the course, ensuring you have the knowledge to build a robust and secure Kubernetes environment.</p>
+<p>Let’s move forward into the detailed modules.</p>
+<p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/ee404020-8c94-4f3b-a69a-240984b9553e/lesson/feba5918-7808-4f30-8d7b-6ac10e569e02" /></p>
+            </div>
+            
+            <div class="technical-corner">
+                <div class="tech-title">🔧 ركن القيادة — مصطلحات</div>
+                <p>
+                    <strong>Original Title:</strong> Authentication Authorization and Admission Control<br>
+                    يمكنك استخدام الزر أدناه للعودة للقائمة.
+                </p>
+            </div>
+        </article>
+
+        <!-- ========== LESSON 6: Authentication ========== -->
+        <article class="lesson" id="lesson-6">
+            <span class="lesson-number">الدرس 6</span>
+            <h2>🛸 Authentication</h2>
+            <div class="english-content">
+                <blockquote>
+<h2>Documentation Index</h2>
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+Use this file to discover all available pages before exploring further.</p>
+</blockquote>
+<h1>Authentication</h1>
+<blockquote>
+<p>This article covers authentication mechanisms in Kubernetes clusters, focusing on securing access for users and service accounts through various methods.</p>
+</blockquote>
+<p>Welcome to this comprehensive lesson on authentication within a Kubernetes cluster. In a typical Kubernetes environment, the cluster consists of multiple nodes—whether physical or virtual—and a range of components that work together seamlessly. The cluster is accessed by various users, including administrators managing cluster operations, developers deploying applications, end users interacting with those applications, and even third-party applications for integrations. In this lesson, we focus on securing the cluster by ensuring secure communication between internal components and by managing administrative access with robust authentication and authorization mechanisms.</p>
+<pre><code>    &lt;figure class="img-frame"&gt;
+        &lt;img src="../assets/images/chapter9/Authentication_frame_30.jpg" alt="The image illustrates a network diagram showing interactions between admins, developers, end users, and bots, connected through a series of nodes." loading="lazy"&gt;
+        &lt;figcaption&gt;The image illustrates a network diagram showing interactions between admins, developers, end users, and bots, connected through a series of nodes.&lt;/figcaption&gt;
+    &lt;/figure&gt;
+</code></pre>
+<p>Our primary focus is on authentication mechanisms that secure access for users (such as administrators and developers) and service accounts (robots or processes with cluster access). Note that while end user authentication for applications is generally managed by the application itself, Kubernetes relies on external sources for handling human user accounts.</p>
+<p>Kubernetes itself does not manage user accounts natively. Instead, it integrates with external sources like CSV files, certificate authorities, or third-party identity services (e.g., LDAP). Although service accounts can be created and managed via the Kubernetes API, user management for non-service accounts must be handled externally. Every request—whether it comes via the kubectl tool or the API—is first authenticated by the kube-apiserver.</p>
+<p>There are several authentication mechanisms available in Kubernetes:</p>
+<ul class="styled-list">
+<li>Using a static password file (a CSV file containing usernames and passwords)</li>
+<li>Using a static token file for token-based authentication</li>
+<li>Using certificates for user authentication</li>
+<li>Integrating with third-party authentication protocols such as LDAP or Kerberos</li>
+</ul>
+<p>Below is another visual representation that categorizes accounts into "User" (Admins, Developers) and "Service Accounts" (Bots).</p>
+<pre><code>    &lt;figure class="img-frame"&gt;
+        &lt;img src="../assets/images/chapter9/Authentication_frame_90.jpg" alt="The image categorizes accounts into "User" (Admins, Developers) and "Service Accounts" (Bots) with corresponding icons." loading="lazy"&gt;
+        &lt;figcaption&gt;The image categorizes accounts into "User" (Admins, Developers) and "Service Accounts" (Bots) with corresponding icons.&lt;/figcaption&gt;
+    &lt;/figure&gt;
+</code></pre>
+<p>All authentication methods funnel through the kube-apiserver which validates each request before further processing.</p>
+<pre><code>    &lt;figure class="img-frame"&gt;
+        &lt;img src="../assets/images/chapter9/Authentication_frame_180.jpg" alt="The image outlines Kubernetes authentication mechanisms, including static password files, static token files, certificates, and identity services, related to the kube-apiserver." loading="lazy"&gt;
+        &lt;figcaption&gt;The image outlines Kubernetes authentication mechanisms, including static password files, static token files, certificates, and identity services, related to the kube-apiserver.&lt;/figcaption&gt;
+    &lt;/figure&gt;
+</code></pre>
+<h2>Static Password File Authentication</h2>
+<p>The simplest authentication method uses a CSV file that lists users along with their passwords, usernames, and user IDs. Optionally, a fourth column can indicate group memberships. This file is made available to the kube-apiserver using the <code>--basic-auth-file</code> flag. Consider this example CSV file that stores user details:</p>
+<p>```csv  theme={null}
+password123,user1,u0001
+password123,user2,u0002
+password123,user3,u0003
+password123,user4,u0004
+password123,user5,u0005</p>
+<pre><code>
+To configure the kube-apiserver to use this file, update its service configuration. For clusters set up with tools like kubeadm, modify the kube-apiserver manifest (typically located at `/etc/kubernetes/manifests/kube-apiserver.yaml`) as shown below:
+
+```bash  theme={null}
+kube-apiserver.service
+ExecStart=/usr/local/bin/kube-apiserver \
+    --advertise-address=${INTERNAL_IP} \
+    --allow-privileged=true \
+    --apiserver-count=3 \
+    --authorization-mode=Node,RBAC \
+    --bind-address=0.0.0.0 \
+    --enable-swagger-ui=true \
+    --etcd-servers=https://127.0.0.1:2379 \
+    --event-ttl=1h \
+    --runtime-config=api/all \
+    --service-cluster-ip-range=10.32.0.0/24 \
+    --service-node-port-range=30000-32767 \
+    --v=2 \
+    --basic-auth-file=user-details.csv
+</code></pre>
+<p>Below is an excerpt from a modified kube-apiserver pod manifest for a kubeadm-based cluster:</p>
+<p>```yaml  theme={null}
+/etc/kubernetes/manifests/kube-apiserver.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kube-apiserver
+  namespace: kube-system
+spec:
+  containers:
+  - name: kube-apiserver
+    image: k8s.gcr.io/kube-apiserver-amd64:v1.11.3
+    command:
+    - kube-apiserver
+    - --authorization-mode=Node,RBAC
+    - --advertise-address=172.17.0.107
+    - --allow-privileged=true
+    - --enable-admission-plugins=NodeRestriction
+    - --enable-bootstrap-token-auth=true</p>
+<pre><code>
+After updating the manifest, the kube-apiserver will restart automatically (in a kubeadm environment) to apply the new authentication configuration.
+
+## Static Token File Authentication
+
+For token-based authentication, you can create a CSV file similar to the static password file, but with a token replacing the password. This file is provided to the kube-apiserver using the `--token-auth-file` flag. Here’s an example CSV file with tokens and group memberships:
+
+```csv  theme={null}
+KpjCvB7rcFAHYPKByTIZRb7gulcUc4B,user10,u0010,group1
+rJJncHmvtxHc6M1WQddhtvNyhgTdxSC,user11,u0011,group1
+mjpOFTEiFOKL9toikaRNTt59ePtczZSq,user12,u0012,group2
+PG411Xhs7QjqWKmBkvgGT9glOyUqZij,user13,u0013,group2
+</code></pre>
+<p>When starting the kube-apiserver, include the token file as follows:</p>
+<p>```bash  theme={null}
+--token-auth-file=user-token-details.csv</p>
+<pre><code>
+To authenticate a request with a token, pass the token as an authorization bearer token. For example:
+
+```bash  theme={null}
+curl -v -k https://master-node-ip:6443/api/v1/pods --header &quot;Authorization: Bearer KpjCvB7rcFAHYPKByTIZRb7gulcUc4B&quot;
+</code></pre>
+<h2>Important Considerations</h2>
+<blockquote>
+<p>Using static password or token files is not recommended for production environments since they store sensitive information (usernames, passwords, tokens) in clear text. Consider using more secure methods such as client certificates or integrative external identity providers.</p>
+</blockquote>
+<p>If you are testing these authentication methods in a kubeadm cluster, ensure that you configure volume mounts appropriately to pass the authentication file into the kube-apiserver pod. Additionally, configure robust authorization mechanisms for the new users. We will explore authorization strategies later in this course.</p>
+<p>This concludes our detailed examination of Kubernetes authentication mechanisms. For further details and best practices, consult the <a href="https://kubernetes.io/docs/">Kubernetes Documentation</a>.</p>
+<p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/ee404020-8c94-4f3b-a69a-240984b9553e/lesson/9b6bf541-dfbb-465f-8cd3-2488d2fc044b" /></p>
+            </div>
+            
+            <div class="technical-corner">
+                <div class="tech-title">🔧 ركن القيادة — مصطلحات</div>
+                <p>
+                    <strong>Original Title:</strong> Authentication<br>
+                    يمكنك استخدام الزر أدناه للعودة للقائمة.
+                </p>
+            </div>
+        </article>
+
+        <!-- ========== LESSON 7: Authorization ========== -->
+        <article class="lesson" id="lesson-7">
+            <span class="lesson-number">الدرس 7</span>
+            <h2>🛸 Authorization</h2>
+            <div class="english-content">
+                <blockquote>
+<h2>Documentation Index</h2>
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+Use this file to discover all available pages before exploring further.</p>
+</blockquote>
+<h1>Authorization</h1>
+<blockquote>
+<p>This article explains authorization in Kubernetes, detailing how access control mechanisms manage user permissions and actions within a cluster.</p>
+</blockquote>
+<p>In previous lessons, we explored authentication and demonstrated how users or processes gain access to a cluster. With access granted, the next important question is: what actions can they perform? This is where authorization comes into play.</p>
+<p>As a cluster administrator, you hold full control over operations such as viewing cluster objects (e.g., Pods, Nodes, and Deployments) and modifying them. For example:</p>
+<p>```bash  theme={null}
+kubectl get pods
+NAME    READY   STATUS    RESTARTS   AGE
+nginx   1/1     Running   0          53s</p>
+<p>kubectl get nodes
+NAME        STATUS   ROLES    AGE     VERSION
+worker-1    Ready    <none>   5d21h   v1.13.0
+worker-2    Ready    <none>   5d21h   v1.13.0</p>
+<pre><code>
+Administrators can also create or delete objects. For instance, to remove a node from the cluster:
+
+```bash  theme={null}
+kubectl delete node worker-2
+Node worker-2 Deleted!
+</code></pre>
+<blockquote>
+<p>It is best practice to grant users only the minimum required permissions. For example, a developer might be allowed to deploy applications but should not have permissions to modify cluster-wide configurations like nodes, storage, or networking. Similarly, service accounts should be configured only with the necessary permissions.</p>
+</blockquote>
+<p>Consider the following interactions for a user with restricted privileges:</p>
+<p>```bash  theme={null}
+kubectl get pods
+Error from server (Forbidden): pods is forbidden: User "Bot-1" cannot list "pods"</p>
+<p>kubectl get nodes
+Error from server (Forbidden): nodes is forbidden: User "Bot-1" cannot get "nodes"</p>
+<p>kubectl delete node worker-2
+Error from server (Forbidden): nodes "worker-2" is forbidden: User "developer" cannot delete resource "nodes"</p>
+<pre><code>
+Authorization in Kubernetes is implemented through multiple mechanisms, including Node authorization, Attribute-Based Access Control (ABAC), Role-Based Access Control (RBAC), and Webhook modes. Each mechanism plays a distinct role in managing access control:
+
+
+        &lt;figure class=&quot;img-frame&quot;&gt;
+            &lt;img src=&quot;../assets/images/chapter9/Authorization_frame_130.jpg&quot; alt=&quot;The image lists four authorization mechanisms: Node, ABAC, RBAC, and Webhook, under the title &quot;Authorization Mechanisms.&quot;&quot; loading=&quot;lazy&quot;&gt;
+            &lt;figcaption&gt;The image lists four authorization mechanisms: Node, ABAC, RBAC, and Webhook, under the title &quot;Authorization Mechanisms.&quot;&lt;/figcaption&gt;
+        &lt;/figure&gt;
+
+
+The Kubernetes API server is not only accessed by administrators but also by kubelets (nodes) that report the status of nodes and pods. Kubelets use a special node authorizer to handle requests from users whose names are prefixed by &quot;system:node&quot; and who belong to the &quot;system:nodes&quot; group. This node authorizer validates each request based on naming conventions and group memberships, ensuring that node-level actions are properly verified. Below is an overview of this authorization workflow:
+
+
+        &lt;figure class=&quot;img-frame&quot;&gt;
+            &lt;img src=&quot;../assets/images/chapter9/Authorization_frame_180.jpg&quot; alt=&quot;The image illustrates the Node Authorizer process in Kubernetes, showing interactions between a user, Kube API, and kubelet, with read/write permissions and a certificate.&quot; loading=&quot;lazy&quot;&gt;
+            &lt;figcaption&gt;The image illustrates the Node Authorizer process in Kubernetes, showing interactions between a user, Kube API, and kubelet, with read/write permissions and a certificate.&lt;/figcaption&gt;
+        &lt;/figure&gt;
+
+
+For external API access, ABAC lets you tie individual users or groups to a set of permissions. For example, you can define a policy in a JSON file to allow a developer to view, create, and delete pods:
+
+```json  theme={null}
+{&quot;kind&quot;: &quot;Policy&quot;, &quot;spec&quot;: {&quot;user&quot;: &quot;dev-user&quot;, &quot;namespace&quot;: &quot;*&quot;, &quot;resource&quot;: &quot;pods&quot;, &quot;apiGroup&quot;: &quot;*&quot;}}
+{&quot;kind&quot;: &quot;Policy&quot;, &quot;spec&quot;: {&quot;user&quot;: &quot;dev-user-2&quot;, &quot;namespace&quot;: &quot;*&quot;, &quot;resource&quot;: &quot;pods&quot;, &quot;apiGroup&quot;: &quot;*&quot;}}
+{&quot;kind&quot;: &quot;Policy&quot;, &quot;spec&quot;: {&quot;group&quot;: &quot;dev-users&quot;, &quot;namespace&quot;: &quot;*&quot;, &quot;resource&quot;: &quot;pods&quot;, &quot;apiGroup&quot;: &quot;*&quot;}}
+{&quot;kind&quot;: &quot;Policy&quot;, &quot;spec&quot;: {&quot;user&quot;: &quot;security-1&quot;, &quot;namespace&quot;: &quot;*&quot;, &quot;resource&quot;: &quot;csr&quot;, &quot;apiGroup&quot;: &quot;*&quot;}}
+</code></pre>
+<p>However, changes to a user's permissions require editing the policy file and restarting the Kubernetes API server, making ABAC somewhat cumbersome. This is why many organizations prefer Role-Based Access Control (RBAC).</p>
+<p>RBAC simplifies management by allowing the creation of roles that bundle specific permissions, which can then be assigned to users or groups. For example, you can create a role for developers that permits application deployments without granting access to modify cluster configurations, while a separate role for security personnel might include permissions to approve certificate signing requests (CSRs). The structure of these RBAC roles is summarized in the following image:</p>
+<pre><code>    &lt;figure class="img-frame"&gt;
+        &lt;img src="../assets/images/chapter9/Authorization_frame_290.jpg" alt="The image illustrates RBAC roles, showing user permissions for developers and security, including actions like viewing, creating, and deleting PODs, and approving CSRs." loading="lazy"&gt;
+        &lt;figcaption&gt;The image illustrates RBAC roles, showing user permissions for developers and security, including actions like viewing, creating, and deleting PODs, and approving CSRs.&lt;/figcaption&gt;
+    &lt;/figure&gt;
+</code></pre>
+<p>In addition to the built-in mechanisms, you can delegate authorization to external tools such as <a href="https://www.openpolicyagent.org">Open Policy Agent (OPA)</a>. With OPA, Kubernetes sends an API call containing user details and the request to an external service, which then decides whether the request should be approved.</p>
+<p>Kubernetes also provides two simple modes: AlwaysAllow and AlwaysDeny. As their names imply, AlwaysAllow permits all requests without checks, whereas AlwaysDeny rejects all requests. These modes are configured via the authorization mode option when starting the Kubernetes API server. If no option is specified, the server defaults to AlwaysAllow.</p>
+<p>For example, here is how you configure the AlwaysAllow mode:</p>
+<p>```bash  theme={null}
+ExecStart=/usr/local/bin/kube-apiserver \
+  --advertise-address=${INTERNAL_IP} \
+  --allow-privileged=true \
+  --apiserver-count=3 \
+  --authorization-mode=AlwaysAllow \
+  --bind-address=0.0.0.0 \
+  --enable-swagger-ui=true \
+  --etcd-cafile=/var/lib/kubernetes/ca.pem \
+  --etcd-certfile=/var/lib/kubernetes/apiserver-etcd-client.crt \
+  --etcd-keyfile=/var/lib/kubernetes/apiserver-etcd-client.key \
+  --etcd-servers=https://127.0.0.1:2379 \
+  --event-ttl=1h \
+  --kubelet-certificate-authority=/var/lib/kubernetes/ca.pem \
+  --kubelet-client-certificate=/var/lib/kubernetes/apiserver-etcd-client.crt \
+  --kubelet-client-key=/var/lib/kubernetes/apiserver-etcd-client.key \
+  --service-node-port-range=30000-32767 \
+  --client-ca-file=/var/lib/kubernetes/ca.pem \
+  --tls-cert-file=/var/lib/kubernetes/apiserver.crt \
+  --tls-private-key-file=/var/lib/kubernetes/apiserver.key \
+  -v=2</p>
+<pre><code>
+Alternatively, you can configure multiple authorization modes at once with a comma-separated list. The following configuration enables Node, RBAC, and Webhook modes:
+
+```bash  theme={null}
+ExecStart=/usr/local/bin/kube-apiserver \
+  --advertise-address=${INTERNAL_IP} \
+  --allow-privileged=true \
+  --apiserver-count=3 \
+  --authorization-mode=Node,RBAC,Webhook \
+  --bind-address=0.0.0.0 \
+  --enable-swagger-ui=true \
+  --etcd-cafile=/var/lib/kubernetes/ca.pem \
+  --etcd-certfile=/var/lib/kubernetes/apiserver-etcd-client.crt \
+  --etcd-keyfile=/var/lib/kubernetes/apiserver-etcd-client.key \
+  --etcd-servers=https://127.0.0.1:2379 \
+  --event-ttl=1h \
+  --kubelet-certificate-authority=/var/lib/kubernetes/ca.pem \
+  --kubelet-client-certificate=/var/lib/kubernetes/apiserver-etcd-client.crt \
+  --kubelet-client-key=/var/lib/kubernetes/apiserver-etcd-client.key \
+  --service-node-port-range=30000-32767 \
+  --client-ca-file=/var/lib/kubernetes/ca.crt \
+  --tls-cert-file=/var/lib/kubernetes/apiserver.crt \
+  --tls-private-key-file=/var/lib/kubernetes/apiserver.key \
+  --v=2
+</code></pre>
+<p>When multiple authorization modes are enabled, each incoming request is processed sequentially in the specified order. For example, the request is first evaluated by the Node authorizer; if the request is either not applicable or denied, it then passes to the next module (such as RBAC). As soon as one module approves the request, the evaluation stops and access is granted.</p>
+<p>That concludes our lesson on authorization. In upcoming lessons, we will dive deeper into role-based access controls and explore their implementation in Kubernetes.</p>
+<h2>Further Reading</h2>
+<ul class="styled-list">
+<li><a href="https://kubernetes.io/docs/">Kubernetes Documentation</a></li>
+<li><a href="https://www.openpolicyagent.org">Open Policy Agent</a></li>
+<li><a href="https://learn.kodekloud.com/user/courses/jenkins">Jenkins Continuous Delivery</a></li>
+</ul>
+<p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/ee404020-8c94-4f3b-a69a-240984b9553e/lesson/c1edbf45-f407-438c-aa0d-cc11e816d10a" /></p>
+            </div>
+            
+            <div class="technical-corner">
+                <div class="tech-title">🔧 ركن القيادة — مصطلحات</div>
+                <p>
+                    <strong>Original Title:</strong> Authorization<br>
+                    يمكنك استخدام الزر أدناه للعودة للقائمة.
+                </p>
+            </div>
+        </article>
+
+        <!-- ========== LESSON 8: Cluster Roles ========== -->
+        <article class="lesson" id="lesson-8">
+            <span class="lesson-number">الدرس 8</span>
+            <h2>🛸 Cluster Roles</h2>
+            <div class="english-content">
+                <blockquote>
+<h2>Documentation Index</h2>
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+Use this file to discover all available pages before exploring further.</p>
+</blockquote>
+<h1>Cluster Roles</h1>
+<blockquote>
+<p>This article explains cluster roles and bindings in Kubernetes for managing access to cluster-scoped resources.</p>
+</blockquote>
+<p>In earlier sections, we discussed namespaced resources and how roles and role bindings work within a specific namespace. By default, if you don't explicitly specify a namespace, these resources are created in the default namespace. Namespaced resources include pods, replica sets, deployments, services, secrets, and more. In contrast, some Kubernetes objects such as nodes, persistent volumes, certificate signing requests, and namespaces are classified as cluster-scoped resources, meaning they exist across the entire cluster rather than within a single namespace.</p>
+<pre><code>    &lt;figure class="img-frame"&gt;
+        &lt;img src="../assets/images/chapter9/Cluster-Roles_frame_100.jpg" alt="The image illustrates Kubernetes resources categorized into "Namespaced" and "Cluster Scoped" groups, showing different components like pods, nodes, and roles." loading="lazy"&gt;
+        &lt;figcaption&gt;The image illustrates Kubernetes resources categorized into "Namespaced" and "Cluster Scoped" groups, showing different components like pods, nodes, and roles.&lt;/figcaption&gt;
+    &lt;/figure&gt;
+</code></pre>
+<p>To inspect the full list of available resources, you can run the following commands in your terminal:</p>
+<p>```bash  theme={null}
+kubectl api-resources --namespaced=true</p>
+<pre><code>
+```bash  theme={null}
+kubectl api-resources --namespaced=false
+</code></pre>
+<p>When managing access for namespaced resources, roles and role bindings are typically sufficient. However, for cluster-scoped resources such as nodes or persistent volumes, you need to configure cluster roles and cluster role bindings. For example, a cluster role can be created for a cluster administrator to view, create, or delete nodes, while a storage administrator might require a cluster role to manage persistent volumes and persistent volume claims.</p>
+<pre><code>    &lt;figure class="img-frame"&gt;
+        &lt;img src="../assets/images/chapter9/Cluster-Roles_frame_170.jpg" alt="The image outlines cluster roles: "Cluster Admin" can view, create, and delete nodes; "Storage Admin" can view, create PVs, and delete PVCs." loading="lazy"&gt;
+        &lt;figcaption&gt;The image outlines cluster roles: "Cluster Admin" can view, create, and delete nodes; "Storage Admin" can view, create PVs, and delete PVCs.&lt;/figcaption&gt;
+    &lt;/figure&gt;
+</code></pre>
+<p>To define a cluster role, create a ClusterRole definition file that specifies the rules for the resources you wish to manage. Consider the following example, which grants permissions for managing nodes:</p>
+<p>```yaml  theme={null}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: cluster-administrator
+rules:
+- apiGroups: [""]
+  resources: ["nodes"]
+  verbs: ["list", "get", "create", "delete"]</p>
+<hr />
+<p>apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: cluster-admin-role-binding
+subjects:
+- kind: User
+  name: cluster-admin
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: cluster-administrator
+  apiGroup: rbac.authorization.k8s.io</p>
+<pre><code>
+This YAML file first defines the cluster role &quot;cluster-administrator&quot; with specific permissions for nodes. It then creates a ClusterRoleBinding that ties this role to the &quot;cluster-admin&quot; user. To apply these configurations to your cluster, run:
+
+```bash  theme={null}
+kubectl create -f &lt;filename&gt;.yaml
+</code></pre>
+<blockquote>
+<p>While cluster roles and bindings are mainly intended for cluster-scoped resources, they can also be used for namespaced resources. When a cluster role is applied to namespaced resources, the permissions are effective across all namespaces, unlike a namespaced role which restricts access to a specific namespace.</p>
+</blockquote>
+<pre><code>    &lt;figure class="img-frame"&gt;
+        &lt;img src="../assets/images/chapter9/Cluster-Roles_frame_240.jpg" alt="The image illustrates Kubernetes cluster roles, differentiating between namespaced resources (e.g., pods, services) and cluster-scoped resources (e.g., nodes, clusterroles)." loading="lazy"&gt;
+        &lt;figcaption&gt;The image illustrates Kubernetes cluster roles, differentiating between namespaced resources (e.g., pods, services) and cluster-scoped resources (e.g., nodes, clusterroles).&lt;/figcaption&gt;
+    &lt;/figure&gt;
+</code></pre>
+<p>Kubernetes automatically generates several cluster roles during the cluster setup. In subsequent sections, we will dive deeper into these default roles and how you can leverage them.</p>
+<p>Good luck with your lesson!</p>
+<p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/ee404020-8c94-4f3b-a69a-240984b9553e/lesson/b907b5b2-e989-4936-8901-ba90b32e7bb0" /></p>
+<p><Card title="Practice Lab" icon="installation" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/ee404020-8c94-4f3b-a69a-240984b9553e/lesson/0bc4b170-de06-4a3e-9dd2-4ffc4b58d069" /></p>
+            </div>
+            
+            <div class="technical-corner">
+                <div class="tech-title">🔧 ركن القيادة — مصطلحات</div>
+                <p>
+                    <strong>Original Title:</strong> Cluster Roles<br>
+                    يمكنك استخدام الزر أدناه للعودة للقائمة.
+                </p>
+            </div>
+        </article>
+
+        <!-- ========== LESSON 9: Custom Controllers ========== -->
+        <article class="lesson" id="lesson-9">
+            <span class="lesson-number">الدرس 9</span>
+            <h2>🛸 Custom Controllers</h2>
+            <div class="english-content">
+                <blockquote>
+<h2>Documentation Index</h2>
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+Use this file to discover all available pages before exploring further.</p>
+</blockquote>
+<h1>Custom Controllers</h1>
+<blockquote>
+<p>This article explores developing custom controllers for managing Kubernetes resources, specifically focusing on FlightTicket objects and their interactions with the Kubernetes API.</p>
+</blockquote>
+<p>In this lesson, we explore how to develop custom controllers for managing your Kubernetes resources. Building on our previous work with Custom Resource Definitions (CRDs), we now introduce FlightTicket objects. These objects, along with their details, are stored in etcd. The custom controller monitors the status of these FlightTicket objects in etcd and performs actions such as booking, editing, or canceling flight tickets by invoking the appropriate flight booking API.</p>
+<p>A controller is a process or piece of code that continuously observes the Kubernetes cluster for specific events (like changes to FlightTicket objects) and takes corresponding actions.</p>
+<p>For example, consider the following YAML definition of a FlightTicket resource:</p>
+<p>```yaml  theme={null}</p>
+<h1>flightticket.yml</h1>
+<p>apiVersion: flights.com/v1
+kind: FlightTicket
+metadata:
+  name: my-flight-ticket
+spec:
+  from: Mumbai
+  to: London
+  number: 2</p>
+<pre><code>
+You can create this resource and verify its status using these commands:
+
+```bash  theme={null}
+kubectl create -f flightticket.yml
+# Output:
+kubectl get flightticket
+# Output:
+# NAME              STATUS
+# my-flight-ticket  Pending
+</code></pre>
+<blockquote>
+<p>While you can implement controllers in various programming languages, using the Kubernetes Go client is recommended. The Go client (client-go library) provides shared informers that offer efficient caching and queuing mechanisms, making it ideal for building robust controllers.</p>
+</blockquote>
+<p>The same FlightTicket YAML definition provides context for this process:</p>
+<p>```yaml  theme={null}</p>
+<h1>flightticket.yml</h1>
+<p>apiVersion: flights.com/v1
+kind: FlightTicket
+metadata:
+  name: my-flight-ticket
+spec:
+  from: Mumbai
+  to: London
+  number: 2</p>
+<pre><code>
+And here are the related creation commands:
+
+```bash  theme={null}
+kubectl create -f flightticket.yml
+# Output:
+kubectl get flightticket
+# Output:
+# NAME              STATUS
+# my-flight-ticket  Pending
+</code></pre>
+<p>Using Go simplifies the development process due to its seamless integration with Kubernetes libraries that support robust controller patterns.</p>
+<h2>Getting Started with a Custom Controller</h2>
+<p>To build your custom controller, follow these steps:</p>
+<ol>
+<li><strong>Clone the SampleController Repository</strong>\
+   Clone the repository from GitHub using the following command:</li>
+</ol>
+<p><code>bash  theme={null}
+   git clone https://github.com/kubernetes/sample-controller.git
+   # Cloning into 'sample-controller'...
+   # Resolving deltas: 100% (15787/15787), done.</code></p>
+<ol>
+<li><strong>Customize Your Controller Logic</strong>\
+   Navigate to the repository directory and modify the <code>controller.go</code> file to include your custom logic, such as invoking the flight booking API:</li>
+</ol>
+<p><code>bash  theme={null}
+   cd sample-controller
+   go build -o sample-controller .
+   # Output during build might include:
+   # go: downloading k8s.io/client-go v0.0.0-20211001003700-dbfa30b9d908
+   # go: downloading golang.org/x/text v0.3.6</code></p>
+<ol>
+<li><strong>Run the Controller</strong>\
+   Execute the controller by specifying the <code>kubeconfig</code> file for authentication:</li>
+</ol>
+<p><code>bash  theme={null}
+   ./sample-controller --kubeconfig=$HOME/.kube/config
+   # Example output:
+   # I1013 02:11:07.489479   4017 controller.go:115] Setting up event handlers
+   # I1013 02:11:07.489701   4017 controller.go:156] Starting FlightTicket controller</code></p>
+<p>When executed, the controller runs locally, monitors the creation of FlightTicket objects, and triggers the necessary API calls.</p>
+<blockquote>
+<p>After verifying that your controller functions correctly, consider packaging it into a Docker image and deploying it inside your Kubernetes cluster as a pod or deployment. This approach eliminates the need for manual rebuilding and execution each time.</p>
+</blockquote>
+<h2>Overview</h2>
+<p>This article provides a high-level overview of building a custom controller. Although detailed coding questions about custom controllers are unlikely to appear in certification exams, it is essential to understand concepts such as:</p>
+<ul class="styled-list">
+<li>Custom Resource Definitions (CRDs)</li>
+<li>Managing CRD files</li>
+<li>Working with existing controller patterns</li>
+</ul>
+<p>For more in-depth information on Kubernetes resources, refer to the following links:</p>
+<ul class="styled-list">
+<li><a href="https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/">Kubernetes Basics</a></li>
+<li><a href="https://kubernetes.io/docs/">Kubernetes Documentation</a></li>
+<li><a href="https://hub.docker.com/">Docker Hub</a></li>
+</ul>
+<p>Operators extend these concepts further by automating more complex operational tasks in Kubernetes environments.</p>
+<p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/ee404020-8c94-4f3b-a69a-240984b9553e/lesson/991c9c4d-6fb0-4031-8f50-a7c89dd7dfe2" /></p>
+            </div>
+            
+            <div class="technical-corner">
+                <div class="tech-title">🔧 ركن القيادة — مصطلحات</div>
+                <p>
+                    <strong>Original Title:</strong> Custom Controllers<br>
+                    يمكنك استخدام الزر أدناه للعودة للقائمة.
+                </p>
+            </div>
+        </article>
+
+        <!-- ========== LESSON 10: Custom Resource Definition ========== -->
+        <article class="lesson" id="lesson-10">
+            <span class="lesson-number">الدرس 10</span>
+            <h2>🛸 Custom Resource Definition</h2>
+            <div class="english-content">
+                <blockquote>
+<h2>Documentation Index</h2>
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+Use this file to discover all available pages before exploring further.</p>
+</blockquote>
+<h1>Custom Resource Definition</h1>
+<blockquote>
+<p>This article explains how to create and manage Custom Resource Definitions in Kubernetes, using a FlightTicket example to illustrate the process.</p>
+</blockquote>
+<p>In this lesson, we explore how Custom Resource Definitions (CRDs) work in Kubernetes. You will learn how standard Kubernetes resources, such as Deployments, are created, stored in etcd, and managed by built-in controllers. Then, we’ll demonstrate how to extend Kubernetes by defining and using a custom resource—illustrated here as a "FlightTicket"—and explain why a dedicated custom controller is necessary to act upon these new resources.</p>
+<hr />
+<h2>Standard Kubernetes Resource: Deployment</h2>
+<p>When you create a Deployment in Kubernetes, the API server stores its state in etcd. A built-in controller, known as the deployment controller, continuously monitors the Deployment to ensure that the desired state (for example, maintaining three replicas) is met by creating or deleting pods as needed.</p>
+<p>Below is an example Deployment definition file:</p>
+<p>```yaml  theme={null}</p>
+<h1>deployment.yml</h1>
+<p>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      type: front-end
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        type: front-end
+    spec:
+      containers:
+      - image: nginx</p>
+<pre><code>
+Using the file above, you can create, query, and delete the deployment with the following commands:
+
+```bash  theme={null}
+kubectl create -f deployment.yml
+# Output:
+kubectl get deployments
+# Output:
+# NAME              DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+kubectl delete -f deployment.yml
+# Output:
+# deployment &quot;myapp-deployment&quot; deleted
+</code></pre>
+<p>The deployment controller automatically creates a ReplicaSet, which manages the specified number of pods. This automation lies at the heart of Kubernetes resource management.</p>
+<hr />
+<h2>Custom Resource: FlightTicket</h2>
+<p>Imagine you want to manage something entirely new on your cluster—such as booking a flight ticket. In this example, we define a custom resource called FlightTicket that represents a flight ticket booking. The resource encapsulates details such as the departure and destination airports and the number of tickets required.</p>
+<p>Below is an example of a FlightTicket resource file:</p>
+<p>```yaml  theme={null}</p>
+<h1>flightticket.yml</h1>
+<p>apiVersion: flights.com/v1
+kind: FlightTicket
+metadata:
+  name: my-flight-ticket
+spec:
+  from: Mumbai
+  to: London
+  number: 2</p>
+<pre><code>
+When you create this custom resource, you expect that:
+
+* It is stored in etcd.
+* A custom controller (which you will build) watches for create, update, or delete events.
+* The controller automatically makes the necessary API calls (for example, to an external flight booking API) to either book or cancel the ticket.
+
+&gt; Attempting to create the FlightTicket resource without first informing Kubernetes of its existence will result in an error:
+&gt; ```bash  theme={null}
+&gt; kubectl create -f flightticket.yml
+&gt; # Output:
+&gt; # no matches for kind &quot;FlightTicket&quot; in version &quot;flights.com/v1&quot;
+&gt; ```
+&gt; This error means that Kubernetes does not yet recognize the FlightTicket type.
+
+***
+
+## Defining a Custom Resource Definition (CRD)
+
+To allow the Kubernetes API to accept FlightTicket objects, you must create a CRD that informs the API server about this new resource type. The CRD includes details such as API version, kind, metadata, spec, and schema information (including supported fields, types, and validation rules).
+
+Here’s an example of a CRD for the FlightTicket resource:
+
+```yaml  theme={null}
+# flightticket-custom-definition.yml
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: flighttickets.flights.com
+spec:
+  group: flights.com
+  scope: Namespaced
+  names:
+    plural: flighttickets
+    singular: flightticket
+    kind: FlightTicket
+    shortNames:
+      - ft
+  versions:
+    - name: v1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                from:
+                  type: string
+                to:
+                  type: string
+                number:
+                  type: integer
+                  minimum: 1
+</code></pre>
+<p>Key points in the CRD:</p>
+<ul class="styled-list">
+<li>The API group is <code>flights.com</code>.</li>
+<li>The resource scope is namespace-scoped.</li>
+<li>Both singular and plural names are defined along with a short name (<code>ft</code>).</li>
+<li>Only one version (<code>v1</code>) is served and defined as the storage version.</li>
+<li>An OpenAPI v3 schema enforces that the <code>spec</code> includes <code>from</code> and <code>to</code> as strings, and <code>number</code> as an integer with a minimum value of 1.</li>
+</ul>
+<p>After creating the CRD, you can create, retrieve, and delete FlightTicket resources using these commands:</p>
+<p>```bash  theme={null}
+kubectl create -f flightticket-custom-definition.yml</p>
+<h1>Output:</h1>
+<p>kubectl create -f flightticket.yml</p>
+<h1>Output:</h1>
+<p>kubectl get flightticket</p>
+<h1>Output:</h1>
+<h1>NAME             STATUS</h1>
+<p>kubectl delete -f flightticket.yml</p>
+<h1>Output:</h1>
+<h1>flightticket "my-flight-ticket" deleted</h1>
+<pre><code>
+To verify that your new resource is recognized by Kubernetes, run:
+
+```bash  theme={null}
+kubectl api-resources
+# Output snippet:
+# NAME            SHORTNAMES   APIGROUP     NAMESPACED   KIND
+# flighttickets   ft           flights.com  true         FlightTicket
+</code></pre>
+<hr />
+<h2>The Role of a Custom Controller</h2>
+<p>While defining a CRD enables Kubernetes to store and retrieve FlightTicket objects in etcd, these objects remain inactive without a controller. A custom controller, often implemented in Go, observes events related to FlightTicket resources and executes business logic (such as calling external APIs to book or cancel flights).</p>
+<p>Below is a simplified snippet of what such a controller might look like:</p>
+<p>```go  theme={null}
+package flightticket</p>
+<p>var controllerKind = apps.SchemeGroupVersion.WithKind("FlightTicket")</p>
+<p>// Run begins watching and syncing FlightTicket resources.
+func (dc *FlightTicketController) Run(workers int, stopCh &lt;-chan struct{}) {
+    // Controller logic goes here
+}</p>
+<p>// callBookFlightAPI handles the API call to book a flight ticket.
+func (dc *FlightTicketController) callBookFlightAPI(obj interface{}) {
+    // API call implementation goes here
+}
+```</p>
+<blockquote>
+<p>Without a custom controller, any FlightTicket resource you create remains a passive data record in etcd without triggering any external actions.</p>
+</blockquote>
+<hr />
+<h2>Conclusion</h2>
+<p>In this lesson, we learned how:</p>
+<ul class="styled-list">
+<li>Kubernetes resources like Deployments are managed by built-in controllers.</li>
+<li>A custom resource (FlightTicket) can be defined to represent a new domain object.</li>
+<li>A CRD must be created so that Kubernetes recognizes your custom resource.</li>
+<li>A custom controller is essential to actively process and respond to events related to these resources.</li>
+</ul>
+<p>In upcoming lessons, we’ll dive deeper into developing custom controllers that monitor CRD events and execute automated tasks based on resource changes.</p>
+<p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/ee404020-8c94-4f3b-a69a-240984b9553e/lesson/8b7b28d2-6dfe-4a88-8b50-14bdac7c286d" /></p>
+<p><Card title="Practice Lab" icon="installation" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/ee404020-8c94-4f3b-a69a-240984b9553e/lesson/84040576-5913-4ea2-8f1c-1c3ceb8e93d3" /></p>
+            </div>
+            
+            <div class="technical-corner">
+                <div class="tech-title">🔧 ركن القيادة — مصطلحات</div>
+                <p>
+                    <strong>Original Title:</strong> Custom Resource Definition<br>
+                    يمكنك استخدام الزر أدناه للعودة للقائمة.
+                </p>
+            </div>
+        </article>
+
+        <!-- ========== LESSON 11: KubeConfig ========== -->
+        <article class="lesson" id="lesson-11">
+            <span class="lesson-number">الدرس 11</span>
+            <h2>🛸 KubeConfig</h2>
+            <div class="english-content">
+                <blockquote>
+<h2>Documentation Index</h2>
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+Use this file to discover all available pages before exploring further.</p>
+</blockquote>
+<h1>KubeConfig</h1>
+<blockquote>
+<p>This guide explores kubeconfig files in Kubernetes, focusing on authentication and context management for kubectl to enhance workflow efficiency.</p>
+</blockquote>
+<p>Welcome to this guide on kubeconfig files in Kubernetes. In this article, we will explore how kubeconfig files streamline authentication and context management for kubectl, enhancing your workflow by reducing repetitive command-line options.</p>
+<p>So far, you learned how to generate a certificate for a user and how a client can use the certificate file and key to query the Kubernetes REST API. For example, assume your cluster is named "my kube playground." You can send a curl request to the Kubernetes API server with the client certificate, key, and CA certificate:</p>
+<p>```bash  theme={null}
+curl https://my-kube-playground:6443/api/v1/pods \
+  --key admin.key \
+  --cert admin.crt \
+  --cacert ca.crt</p>
+<pre><code>
+The API server validates the certificate and responds with output similar to:
+
+```json  theme={null}
+{
+  &quot;kind&quot;: &quot;PodList&quot;,
+  &quot;apiVersion&quot;: &quot;v1&quot;,
+  &quot;metadata&quot;: {
+    &quot;selfLink&quot;: &quot;/api/v1/pods&quot;
+  },
+  &quot;items&quot;: []
+}
+</code></pre>
+<p>When using kubectl, you normally pass the same connection information with the corresponding options:</p>
+<p>```bash  theme={null}
+kubectl get pods \
+  --server my-kube-playground:6443 \
+  --client-key admin.key \
+  --client-certificate admin.crt \
+  --certificate-authority ca.crt</p>
+<pre><code>
+This command might return:
+
+```text  theme={null}
+No resources found.
+</code></pre>
+<p>Typing these options every time can become tedious. To simplify your workflow, you can move the connection details into a configuration file known as a kubeconfig file. By default, kubectl looks for a file named <code>config</code> under the <code>.kube</code> directory in your home directory. If the kubeconfig file is in its default location, you don’t have to specify connection options for each command:</p>
+<p>```bash  theme={null}
+kubectl get pods</p>
+<pre><code>
+&gt; Using a kubeconfig file saves you time by automatically applying connection settings, which means you no longer have to repeatedly supply options like `--client-key` and `--certificate-authority`.
+
+## Kubeconfig Structure
+
+The kubeconfig file is organized into three primary sections:
+
+* **Clusters**: Define the various Kubernetes clusters you need access to. You might have separate clusters for development, testing, production, or different cloud providers.
+* **Users**: Define the user accounts holding credentials (such as client certificates and keys) needed to access these clusters.
+* **Contexts**: Link clusters and users together. A context specifies which user credentials should be used to access a particular cluster. For example, you could have a context called “admin\@production,” which uses the admin user’s credentials for the production cluster.
+
+These components work together to streamline connectivity and authentication in your Kubernetes environment.
+
+
+        &lt;figure class=&quot;img-frame&quot;&gt;
+            &lt;img src=&quot;../assets/images/chapter9/KubeConfig_frame_160.jpg&quot; alt=&quot;The image illustrates a KubeConfig file structure, showing clusters, contexts, and users, with examples like &quot;Development,&quot; &quot;Admin@Production,&quot; and &quot;Dev User.&quot;&quot; loading=&quot;lazy&quot;&gt;
+            &lt;figcaption&gt;The image illustrates a KubeConfig file structure, showing clusters, contexts, and users, with examples like &quot;Development,&quot; &quot;Admin@Production,&quot; and &quot;Dev User.&quot;&lt;/figcaption&gt;
+        &lt;/figure&gt;
+
+
+In our example, the server address and CA certificate information belong in the clusters section, while the admin user’s keys and certificates go in the users section. A context then binds these settings together. Below is a sample kubeconfig file in YAML format:
+
+```yaml  theme={null}
+apiVersion: v1
+kind: Config
+clusters:
+- name: my-kube-playground  # values hidden for brevity
+- name: development
+- name: production
+- name: google
+contexts:
+- name: my-kube-admin@my-kube-playground
+- name: dev-user@google
+- name: prod-user@production
+users:
+- name: my-kube-admin
+- name: admin
+- name: dev-user
+- name: prod-user
+</code></pre>
+<p>Note that you do not create Kubernetes objects for these configurations. Instead, kubectl reads this file to obtain the necessary connection details.</p>
+<p>kubectl selects a context from the kubeconfig based on the <code>current-context</code> field. For example, if you set:</p>
+<p>```yaml  theme={null}
+current-context: my-kube-admin@my-kube-playground</p>
+<pre><code>
+kubectl will default to that context. Alternatively, you can specify a different kubeconfig file from the command line using the `--kubeconfig` flag:
+
+```bash  theme={null}
+kubectl config view --kubeconfig=my-custom-config
+</code></pre>
+<h3>Default Kubeconfig Example</h3>
+<p>An example output of the default kubeconfig file might be:</p>
+<p>```plaintext  theme={null}
+apiVersion: v1
+kind: Config
+current-context: kubernetes-admin@kubernetes
+clusters:
+- cluster:
+    certificate-authority-data: REDACTED
+    server: https://172.17.0.5:6443
+  name: kubernetes
+contexts:
+- context:
+    cluster: kubernetes
+    user: kubernetes-admin
+  name: kubernetes-admin@kubernetes
+users:
+- name: kubernetes-admin
+  user:
+    client-certificate-data: REDACTED
+    client-key-data: REDACTED</p>
+<pre><code>
+And when using a custom config file:
+
+```plaintext  theme={null}
+kubectl config view --kubeconfig=my-custom-config
+apiVersion: v1
+kind: Config
+current-context: my-kube-admin@my-kube-playground
+clusters:
+- name: my-kube-playground
+- name: development
+- name: production
+contexts:
+- name: my-kube-admin@my-kube-playground
+- name: prod-user@production
+users:
+- name: my-kube-admin
+- name: prod-user
+</code></pre>
+<h3>Switching Contexts</h3>
+<p>To switch your current context—for example, changing from the my-kube-admin account on the playground cluster to the prod-user account on the production cluster—use the <code>kubectl config use-context</code> command:</p>
+<p>```bash  theme={null}
+kubectl config use-context prod-user@production</p>
+<pre><code>
+After running this command, your `current-context` in the kubeconfig file updates to `prod-user@production`. You can verify the change by viewing the configuration:
+
+```yaml  theme={null}
+apiVersion: v1
+kind: Config
+current-context: prod-user@production
+clusters:
+- name: my-kube-playground
+- name: development
+- name: production
+contexts:
+- name: my-kube-admin@my-kube-playground
+- name: prod-user@production
+users:
+- name: my-kube-admin
+- name: prod-user
+</code></pre>
+<p>Additional variations of the <code>kubectl config</code> command let you update or delete entries within the kubeconfig file as needed.</p>
+<h2>Configuring Namespaces</h2>
+<p>Each Kubernetes cluster can span multiple namespaces. You can designate a default namespace within a context so that switching contexts automatically sets the working namespace. For example, here is a configuration for the production cluster that sets "finance" as the default namespace:</p>
+<p>```yaml  theme={null}
+apiVersion: v1
+kind: Config
+clusters:
+- name: production
+  cluster:
+    certificate-authority: ca.crt
+    server: https://172.17.0.51:6443
+contexts:
+- name: admin@production
+  context:
+    cluster: production
+    user: admin
+    namespace: finance
+users:
+- name: admin
+  user:
+    client-certificate: admin.crt
+    client-key: admin.key</p>
+<pre><code>
+When you switch to the `admin@production` context, kubectl will automatically use the `finance` namespace.
+
+## Working with Certificates in Kubeconfig
+
+The kubeconfig file typically references certificate file paths. For clarity and robustness, it is best practice to use the full path to each certificate. Alternatively, you can embed the certificate data directly into the file by base64-encoding the certificate. For instance, instead of defining:
+
+```yaml  theme={null}
+apiVersion: v1
+kind: Config
+clusters:
+- name: production
+  cluster:
+    certificate-authority: /etc/kubernetes/pki/ca.crt
+</code></pre>
+<p>you can embed the certificate data:</p>
+<p>```yaml  theme={null}
+apiVersion: v1
+kind: Config
+clusters:
+- name: production
+  cluster:
+    certificate-authority-data: LS0tLS1CRUdJTiBDRVJU...</p>
+<pre><code>
+If you encounter certificate data in base64 format and need to decode it, use the following command:
+
+```bash  theme={null}
+echo &quot;LS0t...bnJ&quot; | base64 --decode
+</code></pre>
+<p>This command will output the certificate in its standard PEM format:</p>
+<p><code>text  theme={null}
+-----BEGIN CERTIFICATE-----
+MIICDCCAuCAQAoA...AIBDwAw...-----END CERTIFICATE-----</code></p>
+<blockquote>
+<p>Always ensure that certificate and key files are stored securely and access to the kubeconfig file is restricted to trusted users.</p>
+</blockquote>
+<h2>Summary</h2>
+<p>In this article, we covered how kubeconfig files simplify connection management for Kubernetes by consolidating user credentials, cluster details, and context settings into a single file. Use this knowledge to streamline your kubectl commands and manage multiple Kubernetes environments effectively.</p>
+<p>Next, apply these concepts by creating and troubleshooting your kubeconfig files to enhance your Kubernetes workflow.</p>
+<p>For further reading, check out the following resources:</p>
+<table>
+<thead>
+<tr>
+<th>Resource Type</th>
+<th>Description</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kubernetes Concepts</td>
+<td>Overview of Kubernetes functionality</td>
+<td><a href="https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/">Kubernetes Basics</a></td>
+</tr>
+<tr>
+<td>Kubernetes Documentation</td>
+<td>Complete documentation and guides</td>
+<td><a href="https://kubernetes.io/docs/">Kubernetes Documentation</a></td>
+</tr>
+<tr>
+<td>Docker Hub</td>
+<td>Container images and registry</td>
+<td><a href="https://hub.docker.com/">Docker Hub</a></td>
+</tr>
+<tr>
+<td>Terraform Registry</td>
+<td>Infrastructure as Code modules</td>
+<td><a href="https://registry.terraform.io/">Terraform Registry</a></td>
+</tr>
+</tbody>
+</table>
+<p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/ee404020-8c94-4f3b-a69a-240984b9553e/lesson/44fe192b-ed18-4a98-bfe2-0c0c91498ce4" /></p>
+<p><Card title="Practice Lab" icon="installation" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/ee404020-8c94-4f3b-a69a-240984b9553e/lesson/27c5f4ce-2619-478f-9ea9-cb08c28423ce" /></p>
+            </div>
+            
+            <div class="technical-corner">
+                <div class="tech-title">🔧 ركن القيادة — مصطلحات</div>
+                <p>
+                    <strong>Original Title:</strong> KubeConfig<br>
+                    يمكنك استخدام الزر أدناه للعودة للقائمة.
+                </p>
+            </div>
+        </article>
+
+        <!-- ========== LESSON 12: Operator Framework ========== -->
+        <article class="lesson" id="lesson-12">
+            <span class="lesson-number">الدرس 12</span>
+            <h2>🛸 Operator Framework</h2>
+            <div class="english-content">
+                <blockquote>
+<h2>Documentation Index</h2>
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+Use this file to discover all available pages before exploring further.</p>
+</blockquote>
+<h1>Operator Framework</h1>
+<blockquote>
+<p>This lesson explores the operator framework for managing Kubernetes custom resources through CRDs and custom controllers in a unified deployment.</p>
+</blockquote>
+<p>In this lesson, we'll explore the operator framework, a powerful method for managing Kubernetes custom resources by combining Custom Resource Definitions (CRDs) and custom controllers into a unified deployment.</p>
+<p>Traditionally, you would manually create a CRD along with its corresponding controller (deployed as a Pod or Deployment). The operator framework streamlines this process by packaging both components together. For example, when you deploy a flight operator, it automatically creates the necessary CRD, provisions custom resources, and deploys the custom controller as a Deployment.</p>
+<p>Below is an example configuration for a flight ticket CRD and its corresponding controller:</p>
+<p>```yaml  theme={null}</p>
+<h1>flightticket-custom-definition.yml</h1>
+<p>apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: flighttickets.flights.com
+spec:
+  scope: Namespaced
+  group: flights.com
+  names:
+    kind: FlightTicket
+    singular: flightticket
+    plural: flighttickets
+    shortnames:
+      - ft
+  versions:
+    - name: v1
+      served: true
+      storage: true</p>
+<pre><code>
+```go  theme={null}
+package flightticket
+
+import (
+    &quot;k8s.io/api/apps/v1&quot;
+)
+
+var controllerKind = v1.SchemeGroupVersion.WithKind(&quot;Flightticket&quot;)
+
+// Run begins watching and syncing.
+func (dc *FlightTicketController) Run(workers int, stopCh &lt;-chan struct{}) {
+    // Controller logic goes here.
+}
+
+// callBookFlightAPI initiates the flight booking process.
+func (dc *FlightTicketController) callBookFlightAPI(obj interface{}) {
+    // API call implementation.
+}
+</code></pre>
+<p>```bash  theme={null}
+kubectl create -f flight-operator.yaml</p>
+<pre><code>
+The operator framework offers extensive automation capabilities beyond simple deployments. A notable real-world example is the etcd operator—which deploys and manages an etcd cluster within Kubernetes. It includes a CRD for defining the etcd cluster and a custom controller that continuously monitors etcd resources. This operator also simplifies advanced operations like backups and restores by enabling these actions with the creation of dedicated CRDs.
+
+The diagram below visualizes an operator framework structure that includes CRDs and custom controllers such as EtcdCluster, EtcdBackup, EtcdRestore, ETCD Controller, and Backup Operator:
+
+
+        &lt;figure class=&quot;img-frame&quot;&gt;
+            &lt;img src=&quot;../assets/images/chapter9/Operator-Framework_frame_80.jpg&quot; alt=&quot;The image illustrates an Operator Framework with Custom Resource Definitions (CRD) and Custom Controllers, including EtcdCluster, EtcdBackup, EtcdRestore, ETCD Controller, and Backup Operator.&quot; loading=&quot;lazy&quot;&gt;
+            &lt;figcaption&gt;The image illustrates an Operator Framework with Custom Resource Definitions (CRD) and Custom Controllers, including EtcdCluster, EtcdBackup, EtcdRestore, ETCD Controller, and Backup Operator.&lt;/figcaption&gt;
+        &lt;/figure&gt;
+
+
+&gt; Operators simplify complex processes by bundling CRDs and controllers, making tasks like deployment, backup, and recovery more efficient. However, keep in mind that understanding CRDs remains essential, especially for certification exams.
+
+Deploying an operator typically involves three main steps:
+
+1. Installing the Operator Lifecycle Manager (OLM).
+2. Installing the operator.
+3. Verifying the installation.
+
+For instance, to deploy the etcd operator, you might use the following commands:
+
+```bash  theme={null}
+curl -sL https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.19.1/install.sh | bash -s v0.19.1
+</code></pre>
+<p>```bash  theme={null}
+kubectl create -f https://operatorhub.io/install/etcd.yaml</p>
+<pre><code>
+```bash  theme={null}
+kubectl get csv -n my-etcd
+</code></pre>
+<blockquote>
+<p>While operators offer significant advantages in automating deployment and management tasks, ensure that you have a solid understanding of CRDs, as they are a core component of Kubernetes and a primary focus of the exam curriculum.</p>
+</blockquote>
+<p>Thank you for reading, and stay tuned for the next lesson to further enhance your Kubernetes expertise.</p>
+<p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/ee404020-8c94-4f3b-a69a-240984b9553e/lesson/637f50cb-d931-4f42-a4c7-c099bce4ac3a" /></p>
+            </div>
+            
+            <div class="technical-corner">
+                <div class="tech-title">🔧 ركن القيادة — مصطلحات</div>
+                <p>
+                    <strong>Original Title:</strong> Operator Framework<br>
+                    يمكنك استخدام الزر أدناه للعودة للقائمة.
+                </p>
+            </div>
+        </article>
+
+        <!-- ========== LESSON 13: Role Based Access Controls ========== -->
+        <article class="lesson" id="lesson-13">
+            <span class="lesson-number">الدرس 13</span>
+            <h2>🛸 Role Based Access Controls</h2>
+            <div class="english-content">
+                <blockquote>
+<h2>Documentation Index</h2>
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+Use this file to discover all available pages before exploring further.</p>
+</blockquote>
+<h1>Role Based Access Controls</h1>
+<blockquote>
+<p>This article explains how to create and manage Role-Based Access Control in Kubernetes, including roles, role bindings, and verifying user permissions.</p>
+</blockquote>
+<p>In this lesson, we dive into Kubernetes Role-Based Access Control (RBAC), providing step-by-step instructions on how to create and manage roles and role bindings within a namespace. You'll learn how to define specific permissions for users, bind these permissions to users, and verify their access using kubectl commands.</p>
+<h2>Creating a Role</h2>
+<p>To start, you need to define a Role object. Create a YAML file (e.g., developer-role.yaml) and set the API version to <code>rbac.authorization.k8s.io/v1</code> and the kind to <code>Role</code>. In this example, we define a role named "developer" with permissions that allow developers to manage pods and create configmaps. Each permission rule contains three key sections: API groups, resources, and verbs. For resources in the core API group, leave the API group field blank.</p>
+<p>```yaml  theme={null}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: developer
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["list", "get", "create", "update", "delete"]
+- apiGroups: [""]
+  resources: ["configmaps"]
+  verbs: ["create"]</p>
+<pre><code>
+Create the role using the following command:
+
+```bash  theme={null}
+kubectl create -f developer-role.yaml
+</code></pre>
+<blockquote>
+<p>Remember that roles in Kubernetes are namespace-specific. Ensure the YAML definition targets the correct namespace if needed.</p>
+</blockquote>
+<h2>Binding a User to the Role</h2>
+<p>Once the role is defined, you need to link a user to this role by creating a RoleBinding. A RoleBinding associates a user with the specified role within a given namespace. In this example, we'll create a role binding named <code>devuser-developer-binding</code> that assigns the "developer" role to the user <code>dev-user</code> in the default namespace.</p>
+<p>Below is the YAML definition for the role binding (e.g., devuser-developer-binding.yaml):</p>
+<p>```yaml  theme={null}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: devuser-developer-binding
+subjects:
+- kind: User
+  name: dev-user
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: developer
+  apiGroup: rbac.authorization.k8s.io</p>
+<pre><code>
+Create the role binding with the command:
+
+```bash  theme={null}
+kubectl create -f devuser-developer-binding.yaml
+</code></pre>
+<h2>Verifying Roles and Role Bindings</h2>
+<p>After creating the role and role binding, you can verify them using the following kubectl commands:</p>
+<ul class="styled-list">
+<li>To list roles:</li>
+</ul>
+<p><code>bash  theme={null}
+  kubectl get roles</code></p>
+<p>Example output:</p>
+<p><code>text  theme={null}
+  NAME         AGE
+  developer    4s</code></p>
+<ul class="styled-list">
+<li>To list role bindings:</li>
+</ul>
+<p><code>bash  theme={null}
+  kubectl get rolebindings</code></p>
+<p>Example output:</p>
+<p><code>text  theme={null}
+  NAME                        AGE
+  devuser-developer-binding   24s</code></p>
+<p>To get detailed information about the role, run:</p>
+<p>```bash  theme={null}
+kubectl describe role developer</p>
+<pre><code>
+Sample output:
+
+```text  theme={null}
+Name:         developer
+Labels:       &lt;none&gt;
+Annotations:  &lt;none&gt;
+PolicyRule:
+  Resources      Non-Resource URLs  Resource Names  Verbs
+  --------       ------------------  ---------------  ----
+  configmaps    []                  []               [create]
+  pods          []                  []               [get watch list create delete]
+</code></pre>
+<p>Similarly, to examine the role binding details, use:</p>
+<p>```bash  theme={null}
+kubectl describe rolebinding devuser-developer-binding</p>
+<pre><code>
+Expected output:
+
+```text  theme={null}
+Name:                   devuser-developer-binding
+Labels:                 &lt;none&gt;
+Annotations:            &lt;none&gt;
+Role:
+  Kind:                Role
+  Name:                developer
+Subjects:
+  Kind   Name       Namespace
+  ----   ----       ---------
+  User   dev-user
+</code></pre>
+<h2>Testing Access Permissions</h2>
+<p>You can test whether a user has access to specific Kubernetes resources using the <code>kubectl auth can-i</code> command:</p>
+<p>```bash  theme={null}
+kubectl auth can-i create deployments</p>
+<pre><code>
+Expected output:
+
+```text  theme={null}
+yes
+</code></pre>
+<p>And if you test deleting nodes:</p>
+<p>```bash  theme={null}
+kubectl auth can-i delete nodes</p>
+<pre><code>
+Expected output:
+
+```text  theme={null}
+no
+</code></pre>
+<p>If you need to simulate actions as another user, use the <code>--as</code> flag. Even though the developer role does not have permission to create deployments, it can create pods:</p>
+<p>```bash  theme={null}
+kubectl auth can-i create deployments --as dev-user</p>
+<pre><code>
+Expected output:
+
+```text  theme={null}
+no
+</code></pre>
+<p>```bash  theme={null}
+kubectl auth can-i create pods --as dev-user</p>
+<pre><code>
+Expected output:
+
+```text  theme={null}
+yes
+</code></pre>
+<p>You can also specify a particular namespace using the <code>--namespace</code> flag if the permissions are scoped accordingly.</p>
+<h2>Granting Access to Specific Resources</h2>
+<p>In some cases, you might want to restrict a user's permissions to specific resources. For instance, if you need to allow a user to manage only two pods named "blue" and "orange" within a namespace, refine the role rule by including the <code>resourceNames</code> field:</p>
+<p><code>yaml  theme={null}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: developer
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "create", "update"]
+  resourceNames: ["blue", "orange"]</code></p>
+<blockquote>
+<p>Be cautious when specifying resource names. Only include the exact resources you intend to allow access to, as this will restrict access to other resources of the same type.</p>
+</blockquote>
+<h2>Conclusion</h2>
+<p>This lesson has demonstrated how to set up and manage RBAC in Kubernetes. By creating roles and role bindings, you can control user permissions precisely within a namespace. For further practice, refer to Kubernetes' official documentation and experiment with real RBAC configurations in your environment.</p>
+<p>For additional resources, consider these links:</p>
+<ul class="styled-list">
+<li><a href="https://kubernetes.io/docs/">Kubernetes Documentation</a></li>
+<li><a href="https://kubernetes.io/docs/reference/access-authn-authz/rbac/">Kubernetes RBAC Concepts</a></li>
+</ul>
+<p>Happy coding and secure your Kubernetes clusters with effective RBAC management!</p>
+<p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/ee404020-8c94-4f3b-a69a-240984b9553e/lesson/585c7ebe-dfca-4838-8150-e3eabf711941" /></p>
+<p><Card title="Practice Lab" icon="installation" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/ee404020-8c94-4f3b-a69a-240984b9553e/lesson/3e098e78-e040-4af7-babd-e21a95eb668f" /></p>
+            </div>
+            
+            <div class="technical-corner">
+                <div class="tech-title">🔧 ركن القيادة — مصطلحات</div>
+                <p>
+                    <strong>Original Title:</strong> Role Based Access Controls<br>
+                    يمكنك استخدام الزر أدناه للعودة للقائمة.
+                </p>
+            </div>
+        </article>
+
+        <!-- ========== LESSON 14: Solution Admission Controllers ========== -->
+        <article class="lesson" id="lesson-14">
+            <span class="lesson-number">الدرس 14</span>
+            <h2>🛸 Solution Admission Controllers</h2>
+            <div class="english-content">
+                <blockquote>
+<h2>Documentation Index</h2>
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+Use this file to discover all available pages before exploring further.</p>
+</blockquote>
+<h1>Solution Admission Controllers</h1>
+<blockquote>
+<p>This article explains solutions for the admission controllers lab, detailing steps, commands, and configuration snippets.</p>
+</blockquote>
+<p>In this lesson, we will walk through the solutions for the admission controllers lab, explaining each step and providing the necessary commands and configuration snippets.</p>
+<pre><code>    &lt;figure class="img-frame"&gt;
+        &lt;img src="../assets/images/chapter9/Solution-Admission-Controllers_frame_0.jpg" alt="The image shows a KodeKloud practice test interface with a question about admission controller functions and a terminal window." loading="lazy"&gt;
+        &lt;figcaption&gt;The image shows a KodeKloud practice test interface with a question about admission controller functions and a terminal window.&lt;/figcaption&gt;
+    &lt;/figure&gt;
+</code></pre>
+<h2>Understanding Admission Controller Functions</h2>
+<p>For the first question, you need to determine which option is NOT a function of admission controllers. The correct answer is <strong>"authenticate users"</strong> because admission controllers operate after authentication has already taken place; they do not handle user authentication.</p>
+<p>```bash  theme={null}
+root@controlplane ~  []</p>
+<pre><code>
+## Verifying Enabled Admission Controllers
+
+The next question asks which admission controller is not enabled by default. To find out, start by listing the pods in the `kube-system` namespace using the following command:
+
+
+        &lt;figure class=&quot;img-frame&quot;&gt;
+            &lt;img src=&quot;../assets/images/chapter9/Solution-Admission-Controllers_frame_30.jpg&quot; alt=&quot;The image shows a KodeKloud practice test interface with a terminal and a question about which admission controller is not enabled by default.&quot; loading=&quot;lazy&quot;&gt;
+            &lt;figcaption&gt;The image shows a KodeKloud practice test interface with a terminal and a question about which admission controller is not enabled by default.&lt;/figcaption&gt;
+        &lt;/figure&gt;
+
+
+```bash  theme={null}
+root@controlplane ~ ➜ kubectl get pods -n kube-system
+NAME                                         READY   STATUS    RESTARTS   AGE
+coredns-74ff55c5b-88v8r                       1/1     Running   0          38m
+coredns-74ff55c5b-tng7p                       1/1     Running   0          38m
+etcd-controlplane                            1/1     Running   0          38m
+kube-apiserver-controlplane                  1/1     Running   0          38m
+kube-controller-manager-controlplane         1/1     Running   0          38m
+kube-flannel-ds-wzlpx                         1/1     Running   0          38m
+kube-proxy-hccb9                             1/1     Running   0          38m
+kube-scheduler-controlplane                  1/1     Running   0          38m
+</code></pre>
+<p>Next, run this command to check the enabled admission plugins:</p>
+<p>```bash  theme={null}
+root@controlplane ~ ➜ kubectl exec -it kube-apiserver-controlplane -n kube-system -- kube-apiserver -h | grep 'enable-admission-pl'</p>
+<pre><code>
+The output lists default enabled plugins like `NamespaceLifecycle`, `LimitRanger`, `ServiceAccount`, among others. Notice that **&quot;namespace auto-provision&quot;** is not listed. Also, verifying the enabled webhooks gives you the following output:
+
+```bash  theme={null}
+root@controlplane ~ ➜ kubectl exec -it kube-apiserver-controlplane -n kube-system -- kube-apiserver -h | grep 'enable-admission-plugins'
+--enable-admission-plugins strings   admission plugins that should be enabled in addition to default enabled ones (NamespaceLifecycle, LimitRanger, ServiceAccount, TaintNodesByCondition, Priority, DefaultTolerationSeconds, DefaultStorageClass, StorageObjectInUseProtection, PersistentVolumeClaimResize, VolumeClasses, CertificateApproval, CertificateSigning, CertificateSubjectRestrictions, DefaultIngressClass, DefaultTolerations, CertificateExemption, DefaultIngressClass, MutatingAdmissionWebhook, ValidatingAdmissionWebhook, ResourceQuota).
+</code></pre>
+<p>Since "namespace auto-provision" is missing from the default list, it is the correct answer for the question.</p>
+<h2>Identifying Explicitly Enabled Admission Controllers</h2>
+<p>The following question asks which admission controller is enabled in the cluster but is generally disabled by default. You can inspect the kube-apiserver configuration file located at <code>/etc/kubernetes/manifests/kube-apiserver.yaml</code> to determine the enabled plugins. Use your preferred text editor or run the following search command:</p>
+<p>```bash  theme={null}
+root@controlplane ~ ➜ grep 'enable-admission-plugins' /etc/kubernetes/manifests/kube-apiserver.yaml</p>
+<pre><code>
+A snippet from the configuration file might appear as follows:
+
+```yaml  theme={null}
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: 10.49.219.9:6443
+  creationTimestamp: null
+  labels:
+    component: kube-apiserver
+    tier: control-plane
+  name: kube-apiserver
+  namespace: kube-system
+spec:
+  containers:
+  - command:
+    - kube-apiserver
+    - --advertise-address=10.49.219.9
+    - --allow-privileged=true
+    - --authorization-mode=Node,RBAC
+    - --client-ca-file=/etc/kubernetes/pki/ca.crt
+    - --enable-admission-plugins=NodeRestriction
+    - --enable-bootstrap-token-auth=true
+    - --etcd-cafile=/etc/kubernetes/pki/etcd/ca.crt
+    - --etcd-certfile=/etc/kubernetes/pki/apiserver-etcd-client.crt
+    - --etcd-keyfile=/etc/kubernetes/pki/apiserver-etcd-client.key
+    - --etcd-servers=https://127.0.0.1:2379
+    - --insecure-port=0
+    - --kubelet-client-certificate=/etc/kubernetes/pki/apiserver-kubelet-client.crt
+    - --kubelet-client-key=/etc/kubernetes/pki/apiserver-kubelet-client.key
+    - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+    - --proxy-client-cert-file=/etc/kubernetes/pki/front-proxy-client.crt
+</code></pre>
+<p>In this configuration, the <code>NodeRestriction</code> admission controller is explicitly enabled, despite normally being disabled.</p>
+<blockquote>
+<p>By inspecting the kube-apiserver configuration, you can verify which admission controllers are enabled and adjust your settings accordingly.</p>
+</blockquote>
+<h2>Enabling Namespace Auto Provision</h2>
+<p>The next task is to create an NGINX pod in the "blue" namespace. However, the lab specifies that the "blue" namespace has not been created yet. Attempting to run the following command:</p>
+<p>```bash  theme={null}
+root@controlplane ~ ➜ kubectl run nginx --image nginx --rm</p>
+<pre><code>
+results in an error because the **exists admission controller** rejects requests for non-existent namespaces.
+
+To automatically create the namespace during pod creation, enable the `NamespaceAutoProvision` admission controller. Edit the `/etc/kubernetes/manifests/kube-apiserver.yaml` file and update the `--enable-admission-plugins` flag. Insert `NamespaceAutoProvision` after `NodeRestriction` (separated by a comma). The updated configuration should look similar to this:
+
+```yaml  theme={null}
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: 10.49.219.9:6443
+  creationTimestamp: null
+  labels:
+    component: kube-apiserver
+    tier: control-plane
+  name: kube-apiserver
+  namespace: kube-system
+spec:
+  containers:
+  - command:
+      - kube-apiserver
+      - --advertise-address=10.49.219.9
+      - --allow-privileged=true
+      - --authorization-mode=Node,RBAC
+      - --client-ca-file=/etc/kubernetes/pki/ca.crt
+      - --enable-admission-plugins=NodeRestriction,NamespaceAutoProvision
+      - --enable-bootstrap-token-auth=true
+      - --etcd-cafile=/etc/kubernetes/pki/etcd/ca.crt
+      - --etcd-certfile=/etc/kubernetes/pki/apiserver-etcd-client.crt
+      - --etcd-keyfile=/etc/kubernetes/pki/apiserver-etcd-client.key
+      - --etcd-servers=https://127.0.0.1:2379
+      - --insecure-port=0
+      - --kubelet-client-certificate=/etc/kubernetes/pki/apiserver-kubelet-client.crt
+      - --kubelet-client-key=/etc/kubernetes/pki/apiserver-kubelet-client.key
+      - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+      - --proxy-client-cert-file=/etc/kubernetes/pki/front-proxy-client.crt
+</code></pre>
+<p>After saving and allowing the API server to restart, create the NGINX pod in the blue namespace:</p>
+<p>```bash  theme={null}
+root@controlplane ~ ➜ kubectl run nginx --image nginx -n blue
+pod/nginx created</p>
+<p>root@controlplane ~ ➜ kubectl get ns
+NAME              STATUS   AGE
+blue              Active   7s
+default           Active   50m
+kube-node-lease   Active   50m
+kube-public       Active   50m
+kube-system       Active   50m</p>
+<pre><code>
+As you can see, the **blue namespace** is automatically created due to the enabled `NamespaceAutoProvision` admission controller.
+
+## Disabling the Default Storage Class Controller
+
+The final task is to disable the default storage class admission controller. To do this, update the `/etc/kubernetes/manifests/kube-apiserver.yaml` file by adding the `--disable-admission-plugins` flag on a new line immediately after the enabled plugins. For example:
+
+```yaml  theme={null}
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: 10.49.219.9:6443
+  labels:
+    component: kube-apiserver
+    tier: control-plane
+  name: kube-apiserver
+  namespace: kube-system
+spec:
+  containers:
+  - command:
+      - kube-apiserver
+      - --advertise-address=10.49.219.9
+      - --allow-privileged=true
+      - --authorization-mode=Node,RBAC
+      - --client-ca-file=/etc/kubernetes/pki/ca.crt
+      - --enable-admission-plugins=NodeRestriction,NamespaceAutoProvision
+      - --disable-admission-plugins=DefaultStorageClass
+      - --enable-bootstrap-token-auth=true
+      - --etcd-cafile=/etc/kubernetes/pki/etcd/ca.crt
+      - --etcd-certfile=/etc/kubernetes/pki/apiserver-etcd-client.crt
+      - --etcd-keyfile=/etc/kubernetes/pki/apiserver-etcd-client.key
+      - --etcd-servers=https://127.0.0.1:2379
+      - --insecure-port=0
+      - --kubelet-client-certificate=/etc/kubernetes/pki/apiserver-kubelet-client.crt
+      - --kubelet-client-key=/etc/kubernetes/pki/apiserver-kubelet-client.key
+      - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+      - --proxy-client-cert-file=/etc/kubernetes/pki/front-proxy-client.crt
+</code></pre>
+<p>Once the API server restarts, validate the changes by inspecting the running process with a command like:</p>
+<p><code>bash  theme={null}
+ps -ef | grep kube-apiserver</code></p>
+<p>This command will list both the enabled and disabled admission plugins.</p>
+<blockquote>
+<p>With these steps, you have successfully completed the admission controllers lab by understanding plugin functions, verifying defaults, enabling automatic namespace creation, and disabling unwanted admission controllers.</p>
+</blockquote>
+<p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/ee404020-8c94-4f3b-a69a-240984b9553e/lesson/4ef4aa1c-b430-46e5-aa1e-959d92ae9068" /></p>
+            </div>
+            
+            <div class="technical-corner">
+                <div class="tech-title">🔧 ركن القيادة — مصطلحات</div>
+                <p>
+                    <strong>Original Title:</strong> Solution Admission Controllers<br>
+                    يمكنك استخدام الزر أدناه للعودة للقائمة.
+                </p>
+            </div>
+        </article>
+
+        <!-- ========== LESSON 15: Solution API VersionsDeprecations ========== -->
+        <article class="lesson" id="lesson-15">
+            <span class="lesson-number">الدرس 15</span>
+            <h2>🛸 Solution API VersionsDeprecations</h2>
+            <div class="english-content">
+                <blockquote>
+<h2>Documentation Index</h2>
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+Use this file to discover all available pages before exploring further.</p>
+</blockquote>
+<h1>Solution API VersionsDeprecations</h1>
+<blockquote>
+<p>Learn to address API versioning and deprecation issues in Kubernetes, including finding resource short names and enabling deprecated API endpoints.</p>
+</blockquote>
+<p>In this lesson, you'll learn how to address API versioning and deprecation issues in Kubernetes. We'll cover how to find resource short names, determine API groups, discover preferred API versions, and enable deprecated API endpoints. Follow along with the steps and code blocks below.</p>
+<h2>Short Names for Resources</h2>
+<p>First, identify the short names for key resources such as Deployments, ReplicaSets, CronJobs, and Custom Resource Definitions (CRDs). Run the following command:</p>
+<p>```bash  theme={null}
+kubectl api-resources</p>
+<pre><code>
+Review the output to locate the following mappings:
+
+* Deployments: **deploy**
+* ReplicaSets: **rs**
+* CronJobs: **cj**
+* Custom Resource Definitions: **crd** (or **crds**)
+
+An excerpt from the command output may look like this:
+
+```bash  theme={null}
+deployments                deploy
+replicasets                rs
+cronjobs                   cj
+customresourcedefinitions  crd, crds
+</code></pre>
+<blockquote>
+<p>Use the output of <code>kubectl api-resources</code> to quickly reference the abbreviated names in your commands.</p>
+</blockquote>
+<h2>Determining the API Group for a Resource</h2>
+<p>To determine which API group a resource belongs to—for example, the Job resource—execute:</p>
+<p>```bash  theme={null}
+kubectl explain job</p>
+<pre><code>
+At the top of the output, you'll find details similar to:
+
+```YAML  theme={null}
+KIND: Job
+VERSION: batch/v1
+</code></pre>
+<p>This indicates that the Job belongs to the <strong>batch</strong> API group (the section before the slash) and is using version <strong>v1</strong>.</p>
+<h2>Finding the Preferred Version for a Specific API Group</h2>
+<p>Next, find the preferred version for the <code>authorization.k8s.io</code> API group by following these steps:</p>
+<ol>
+<li><strong>Start a Local API Proxy:</strong>\
+   Run the following command to create a local proxy to the Kubernetes API server:</li>
+</ol>
+<p><code>bash  theme={null}
+   kubectl proxy --port=8001 &amp;</code></p>
+<ol>
+<li><strong>Query the API Group Details:</strong>\
+   With the proxy running in the background, use <code>curl</code> to fetch the API group's details:</li>
+</ol>
+<p><code>bash  theme={null}
+   curl localhost:8001/apis/authorization.k8s.io</code></p>
+<p>The JSON response will include a section for the preferred version:</p>
+<p>```json  theme={null}
+{
+   "kind": "APIGroup",
+   "apiVersion": "v1",
+   "name": "authorization.k8s.io",
+   "versions": [
+      {
+         "groupVersion": "authorization.k8s.io/v1",
+         "version": "v1"
+      }
+   ],
+   "preferredVersion": {
+      "groupVersion": "authorization.k8s.io/v1",
+      "version": "v1"
+   }
+}</p>
+<pre><code>
+This confirms that the preferred version for `authorization.k8s.io` is **v1**.
+
+## Enabling the v1alpha1 Version for RBAC.authorization.k8s.io
+
+To enable the `v1alpha1` version for the `RBAC.authorization.k8s.io` API group on the control plane node, perform the following steps:
+
+1. **Backup the Current Manifest:**\
+   The kube-apiserver manifest is located at `/etc/kubernetes/manifests/kube-apiserver.yaml`. Back it up with:
+
+   ```bash  theme={null}
+   cp /etc/kubernetes/manifests/kube-apiserver.yaml /root/kube-apiserver.yaml.backup
+   ```
+
+2. **Modify the Manifest:**\
+   Open the manifest file in your preferred text editor. Scroll down to the section containing command-line arguments and add the following flag at the bottom of the list:
+
+   ```yaml  theme={null}
+   --runtime-config=rbac.authorization.k8s.io/v1alpha1
+   ```
+
+   Below is an excerpt from the modified section:
+
+   ```yaml  theme={null}
+   --etcd-key-file=/etc/kubernetes/pki/apiserver-etcd-client.key
+   --etcd-servers=https://127.0.0.1:2379
+   --kubelet-client-certificate=/etc/kubernetes/pki/apiserver-kubelet-client.crt
+   --kubelet-client-key=/etc/kubernetes/pki/apiserver-kubelet-client.key
+   --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+   --proxy-client-cert-file=/etc/kubernetes/pki/front-proxy-client.crt
+   --proxy-client-key-file=/etc/kubernetes/pki/front-proxy-client.key
+   --requestheader-allowed-names=front-proxy-client
+   --requestheader-client-ca-file=/etc/kubernetes/pki/front-proxy-ca.crt
+   --requestheader-extra-headers-prefix=X-Remote-Extra-
+   --requestheader-group-headers=X-Remote-Group
+   --requestheader-username-headers=X-Remote-User
+   --secure-port=6443
+   --service-account-issuer=https://kubernetes.default.svc.cluster.local
+   --service-account-signing-key-file=/etc/kubernetes/pki/sa.pub
+   --service-cluster-ip-range=10.96.0.0/12
+   --tls-cert-file=/etc/kubernetes/pki/apiserver.crt
+   --tls-private-key-file=/etc/kubernetes/pki/apiserver.key
+   --runtime-config=rbac.authorization.k8s.io/v1alpha1
+   image: k8s.gcr.io/kube-apiserver:v1.23.0
+   imagePullPolicy: IfNotPresent
+   livenessProbe:
+     failureThreshold: 8
+     httpGet:
+       host: 10.69.230.9
+       path: /livez
+       port: 6443
+       scheme: HTTPS
+     initialDelaySeconds: 10
+   ```
+
+3. **Verify the Update:**\
+   After saving the changes, the kube-apiserver pod will automatically restart. Confirm its status by running:
+
+   ```bash  theme={null}
+   kubectl get pod -n kube-system
+   ```
+
+   Initially, the API server pod might display as **Pending**, but it should soon change to **Running**.
+
+&gt; Always back up your kube-apiserver manifest before making any modifications to ensure you can revert changes if needed.
+
+## Installing the kubectl-convert Plugin
+
+The kubectl-convert plugin is a versatile tool to convert manifest files between different API versions. Follow these steps to install it on the control plane node:
+
+1. **Download the Plugin:**\
+   Retrieve the binary using the commands below:
+
+   ```bash  theme={null}
+   curl -LO &quot;https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert&quot;
+   curl -LO &quot;https://dl.k8s.io/release/stable.txt&quot; | sha256sum --check
+   ```
+
+2. **Make the Binary Executable and Move It:**\
+   Change its permissions and move it to `/usr/local/bin` with these commands:
+
+   ```bash  theme={null}
+   chmod +x kubectl-convert
+   mv kubectl-convert /usr/local/bin/
+   ```
+
+3. **Verify the Installation:**\
+   Execute the help command to ensure the plugin is installed correctly:
+
+   ```bash  theme={null}
+   kubectl convert --help
+   ```
+
+The help output confirms the successful installation of the kubectl-convert plugin.
+
+## Converting an Ingress Manifest
+
+Finally, update an existing Ingress manifest from the deprecated API version (`v1beta1`) to the current `networking.k8s.io/v1`. Follow these steps:
+
+1. **Convert the Manifest:**\
+   The old ingress manifest is located at `/root/ingress-old.yaml`. Convert the API version using the following command:
+
+   ```bash  theme={null}
+   kubectl convert -f ingress-old.yaml --output-version networking.k8s.io/v1 &gt; ingress-new.yaml
+   ```
+
+   This command creates a new file named `ingress-new.yaml` with the updated API version.
+
+2. **Apply the New Manifest:**\
+   Deploy the updated Ingress configuration by running:
+
+   ```bash  theme={null}
+   kubectl apply -f ingress-new.yaml
+   ```
+
+If successful, you should see an output similar to:
+
+```bash  theme={null}
+ingress.networking.k8s.io/ingress-space created
+</code></pre>
+<p>Congratulations! You have successfully updated your Kubernetes resources and managed API deprecations.</p>
+<p>For further reading, check out <a href="https://kubernetes.io/docs/">Kubernetes Documentation</a> and explore related topics such as <a href="https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/">Kubernetes Basics</a>. Enjoy your journey with Kubernetes!</p>
+<p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/ee404020-8c94-4f3b-a69a-240984b9553e/lesson/38ec330b-0357-4977-a9f1-eb428506ee9d" /></p>
+            </div>
+            
+            <div class="technical-corner">
+                <div class="tech-title">🔧 ركن القيادة — مصطلحات</div>
+                <p>
+                    <strong>Original Title:</strong> Solution API VersionsDeprecations<br>
+                    يمكنك استخدام الزر أدناه للعودة للقائمة.
+                </p>
+            </div>
+        </article>
+
+        <!-- ========== LESSON 16: Solution Cluster Roles ========== -->
+        <article class="lesson" id="lesson-16">
+            <span class="lesson-number">الدرس 16</span>
+            <h2>🛸 Solution Cluster Roles</h2>
+            <div class="english-content">
+                <blockquote>
+<h2>Documentation Index</h2>
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+Use this file to discover all available pages before exploring further.</p>
+</blockquote>
+<h1>Solution Cluster Roles</h1>
+<blockquote>
+<p>This article explores cluster roles and bindings, detailing how to inspect, create, and assign permissions for users in a Kubernetes environment.</p>
+</blockquote>
+<p>In this lesson, we will explore the concepts of cluster roles and cluster role bindings. We will inspect the existing cluster roles and their bindings, count them, and review their permissions before creating new roles and bindings for a new team member named Michelle.</p>
+<hr />
+<h2>Inspecting Existing Cluster Roles</h2>
+<p>Begin by examining the currently defined cluster roles in your cluster. These roles include <code>cluster-admin</code>, system-specific roles, and others. Run the following command to list them:</p>
+<p>```plaintext  theme={null}
+system:volume-scheduler
+system:certificates.k8s.io:legacy-unknown-approver
+system:certificates.k8s.io:kubelet-serving-approver
+system:certificates.k8s.io:kube-apiserver-client-approver
+system:certificates.k8s.io:kube-apiserver-client-kubelet-approver
+system:service-account-issuer-discovery
+system:node-proxier
+system:kube-scheduler
+system:controller:attacheddetach-controller
+system:controller:clusteroverlay-aggregation-controller
+system:controller:cronjob-controller
+system:controller:daemon-set-controller
+system:controller:deployment-controller
+system:controller:endpoint-controller
+system:controller:endpointslice-mirroring-controller
+system:controller:expand-controller
+system:controller:ephemeral-volume-controller
+system:controller:generic-garbage-collector
+system:controller:job-controller
+system:controller:namespace-controller
+system:controller:node-controller
+system:controller:persistent-volume-binder
+system:controller:garbage-collector
+system:controller:replicaset-controller
+system:controller:replication-controller
+system:controller:resourcequota-controller
+system:controller:service-account-controller
+system:controller:service-controller
+system:controller:statefulset-controller
+system:controller:ttl-controller
+system:controller:vertical-pod-autoscaler
+system:controller:volume-protection-controller
+system:controller:ttl-after-finished-controller
+system:controller:root-ca-cert-publisher
+k3s-cloud-controller-manager</p>
+<pre><code>
+You can count these roles manually by piping the output to `wc -l`. For example:
+
+```bash  theme={null}
+k get clusterroles --no-headers | wc -l
+</code></pre>
+<p>On one system, this command produced an output of 6, but keep in mind that this example shows a truncated list. In another instance, a total of 69 roles might be expected using a different counting method.</p>
+<blockquote>
+<p>Cluster roles are cluster-scoped and are not limited to any namespace.</p>
+</blockquote>
+<hr />
+<h2>Inspecting Cluster Role Bindings</h2>
+<p>Next, verify the cluster role bindings by counting them with the following command:</p>
+<p>```bash  theme={null}
+k get clusterrolebindings --no-headers | wc -l</p>
+<pre><code>
+This command returned 54 on the system in question, indicating that there are 54 cluster role bindings.
+
+To illustrate further, here is an excerpt displaying some cluster roles and their creation times:
+
+```bash  theme={null}
+k get clusterroles
+NAME                                                                  CREATED AT
+cluster-admin                                                       2022-04-18T00:01:23Z
+system:discovery                                                   2022-04-18T00:01:23Z
+system:monitoring                                                  2022-04-18T00:01:23Z
+system:basic-user                                                  2022-04-18T00:01:23Z
+system:public-info-viewer                                          2022-04-18T00:01:23Z
+system:aggregate-to-admin                                          2022-04-18T00:01:23Z
+system:aggregate-to-edit                                           2022-04-18T00:01:23Z
+system:aggregate-to-view                                           2022-04-18T00:01:23Z
+system:heapster                                                    2022-04-18T00:01:23Z
+system:node                                                       2022-04-18T00:01:23Z
+...
+</code></pre>
+<blockquote>
+<p>Both cluster roles and cluster role bindings are applied across the entire cluster and are not namespace-specific.</p>
+</blockquote>
+<hr />
+<h2>Reviewing Cluster Admin Role Bindings</h2>
+<p>The <code>cluster-admin</code> role represents the highest permission level and is bound to specific user groups via a ClusterRoleBinding. To identify the binding for the <code>cluster-admin</code> role, run:</p>
+<p>```bash  theme={null}
+k get clusterrolebindings | grep cluster-admin</p>
+<pre><code>
+The output may appear as follows:
+
+```bash  theme={null}
+cluster-admin                    12m   ClusterRole/cluster-admin
+helm-kube-system-traefik         12m   ClusterRole/cluster-admin
+helm-kube-system-traefik-crd     12m   ClusterRole/cluster-admin
+</code></pre>
+<p>You can then inspect the details of the cluster-admin binding with:</p>
+<p>```bash  theme={null}
+k describe clusterrolebindings cluster-admin</p>
+<pre><code>
+This command produces output similar to:
+
+```YAML  theme={null}
+Name:         cluster-admin
+Labels:       kubernetes.io/bootstraping=rbac-defaults
+Annotations:  rbac.authorization.kubernetes.io/autoupdate: true
+Role:
+  Kind:  ClusterRole
+  Name:  cluster-admin
+Subjects:
+  Kind  Name                 Namespace
+  ----- ------------------- -----------
+  Group system:masters
+</code></pre>
+<p>This confirms that the <code>cluster-admin</code> role is bound by default to the <code>system:masters</code> group, thereby granting all possible operations (denoted by <code>[*]</code> for all actions on all resources).</p>
+<blockquote>
+<p>Exercise caution when modifying cluster roles as they affect permissions across the entire cluster.</p>
+</blockquote>
+<hr />
+<h2>Granting Node Access to a New User (Michelle)</h2>
+<p>Michelle, a new team member, requires access to manage nodes. Initially, when Michelle runs:</p>
+<p>```bash  theme={null}
+k get nodes --as michelle</p>
+<pre><code>
+she encounters the following error:
+
+```yaml  theme={null}
+Error from server (Forbidden): nodes is forbidden: User &quot;michelle&quot; cannot list resource &quot;nodes&quot; in API group &quot;&quot; at the cluster scope
+</code></pre>
+<p>To resolve this issue, follow these steps:</p>
+<h3>Create the Cluster Role for Node Access</h3>
+<p>Create a cluster role named <code>michelle-role</code> that allows Michelle to get, list, and watch nodes:</p>
+<p>```bash  theme={null}
+k create clusterrole michelle-role --verb=get,list,watch --resource=nodes</p>
+<pre><code>
+Verify the new role by describing it:
+
+```bash  theme={null}
+k describe clusterrole michelle-role
+</code></pre>
+<p>Expected output:</p>
+<p>```yaml  theme={null}
+Name:         michelle-role
+Labels:       <none>
+Annotations:  <none>
+PolicyRule:
+  Resources   Non-Resource URLs   Resource Names   Verbs
+  ---------   -----------------   ---------------  ---------
+  nodes       []                  []               [get list watch]</p>
+<pre><code>
+### Bind the Cluster Role to Michelle
+
+Bind the role to Michelle’s user account with:
+
+```bash  theme={null}
+k create clusterrolebinding michelle-role-binding --clusterrole=michelle-role --user=michelle
+</code></pre>
+<p>Verify this binding with:</p>
+<p>```bash  theme={null}
+k describe clusterrolebinding michelle-role-binding</p>
+<pre><code>
+Expected output:
+
+```text  theme={null}
+Name:         michelle-role-binding
+Labels:       &lt;none&gt;
+Annotations:  &lt;none&gt;
+Role:
+  Kind:  ClusterRole
+  Name:  michelle-role
+Subjects:
+  Kind   Name      Namespace
+  ----   ----      ---------
+  User   michelle
+</code></pre>
+<p>Finally, test Michelle’s access again:</p>
+<p>```bash  theme={null}
+k get nodes --as michelle</p>
+<pre><code>
+A successful command execution will display a list of nodes similar to:
+
+```text  theme={null}
+NAME         STATUS   ROLES                 AGE   VERSION
+controlplane Ready    control-plane,master  16m   v1.23.3+k3s1
+</code></pre>
+<hr />
+<h2>Expanding Michelle's Responsibilities to Storage</h2>
+<p>Michelle’s roles are expanding to include storage management. To grant her access to storage-related resources, first verify the available API resources by running:</p>
+<p>```bash  theme={null}
+kubectl api-resources</p>
+<pre><code>
+This command lists resources along with their short names, API versions, and scope. For storage management, the key resources are persistent volumes and storage classes.
+
+### Create a Cluster Role for Storage Administration
+
+Create a cluster role named `storage-admin` that allows listing, creating, getting, and watching persistent volumes and storage classes:
+
+```bash  theme={null}
+k create clusterrole storage-admin --resource=persistentvolumes,storageclasses --verb=list,create,get,watch
+</code></pre>
+<p>Verify the role in YAML format using:</p>
+<p>```bash  theme={null}
+k get clusterrole storage-admin -o yaml</p>
+<pre><code>
+An expected YAML output is as follows:
+
+```yaml  theme={null}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  creationTimestamp: &quot;2022-04-18T00:20:48Z&quot;
+  name: storage-admin
+  resourceVersion: &quot;921&quot;
+  uid: e0ee52a7-b32c-4a42-bb7a-a783b040cd4e
+rules:
+- apiGroups:
+  - &quot;&quot;
+  resources:
+  - persistentvolumes
+  verbs:
+  - list
+  - create
+  - get
+  - watch
+- apiGroups:
+  - storage.k8s.io
+  resources:
+  - storageclasses
+  verbs:
+  - list
+  - create
+  - get
+  - watch
+</code></pre>
+<h3>Bind the Storage Admin Role to Michelle</h3>
+<p>Bind the <code>storage-admin</code> role to Michelle with the following command:</p>
+<p>```bash  theme={null}
+k create clusterrolebinding michelle-storage-admin --user=michelle --clusterrole=storage-admin</p>
+<pre><code>
+Verify this binding:
+
+```bash  theme={null}
+k describe clusterrolebinding michelle-storage-admin
+</code></pre>
+<p>Expected output:</p>
+<p><code>text  theme={null}
+Name:         michelle-storage-admin
+Labels:       &lt;none&gt;
+Annotations:  &lt;none&gt;
+Role:
+  Kind:  ClusterRole
+  Name:  storage-admin
+Subjects:
+  Kind   Name      Namespace
+  ----   ----      ---------
+  User   michelle</code></p>
+<p>Michelle should now have the necessary permissions to manage storage resources such as persistent volumes and storage classes.</p>
+<hr />
+<p>This concludes the lesson on inspecting, creating, and binding cluster roles and cluster role bindings. By following these steps, you learned how to review existing roles, grant specific permissions to a user, and expand those permissions as job responsibilities change.</p>
+<p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/ee404020-8c94-4f3b-a69a-240984b9553e/lesson/a8218f37-cb6f-4c1a-a28b-e6299542ddee" /></p>
+            </div>
+            
+            <div class="technical-corner">
+                <div class="tech-title">🔧 ركن القيادة — مصطلحات</div>
+                <p>
+                    <strong>Original Title:</strong> Solution Cluster Roles<br>
+                    يمكنك استخدام الزر أدناه للعودة للقائمة.
+                </p>
+            </div>
+        </article>
+
+        <!-- ========== LESSON 17: Solution Role Based Access Controls ========== -->
+        <article class="lesson" id="lesson-17">
+            <span class="lesson-number">الدرس 17</span>
+            <h2>🛸 Solution Role Based Access Controls</h2>
+            <div class="english-content">
+                <blockquote>
+<h2>Documentation Index</h2>
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+Use this file to discover all available pages before exploring further.</p>
+</blockquote>
+<h1>Solution Role Based Access Controls</h1>
+<blockquote>
+<p>This lab explores role-based access controls in Kubernetes, covering API server configuration, roles, permissions, and creating roles and bindings for users.</p>
+</blockquote>
+<p>In this lab, we explore role-based access controls (RBAC) in Kubernetes. The tutorial covers inspecting the API server configuration, reviewing roles and permissions, and creating the necessary roles and bindings for a development user. Follow along to gain hands-on experience with securing your Kubernetes cluster.</p>
+<p>──────────────────────────────</p>
+<h2>Inspecting the API Server Configuration</h2>
+<p>Start by inspecting the kube-apiserver manifest to identify the configured authorization modes. In the manifest snippet below, note the use of "Node,RBAC" for the authorization mode:</p>
+<p>```yaml  theme={null}
+creationTimestamp: null
+labels:
+  component: kube-apiserver
+  tier: control-plane
+name: kube-apiserver
+namespace: kube-system
+spec:
+  containers:
+  - command:
+    - kube-apiserver
+    - --advertise-address=10.48.174.6
+    - --allow-privileged=true
+    - --authorization-mode=Node,RBAC
+    - --client-ca-file=/etc/kubernetes/pki/ca.crt
+    - --enable-admission-plugins=NodeRestriction
+    - --enable-bootstrap-token-auth=true
+    - --etcd-cafile=/etc/kubernetes/pki/etcd/ca.crt
+    - --etcd-certfile=/etc/kubernetes/pki/apiserver-etcd-client.crt
+    - --etcd-keyfile=/etc/kubernetes/pki/apiserver-etcd-client.key
+    - --etcd-servers=https://127.0.0.1:2379
+    - --kubelet-client-certificate=/etc/kubernetes/pki/apiserver-kubelet-client.crt
+    - --kubelet-client-key=/etc/kubernetes/pki/apiserver-kubelet-client.key
+    - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+    - --proxy-client-cert-file=/etc/kubernetes/pki/front-proxy-client.crt
+    - --proxy-client-key-file=/etc/kubernetes/pki/front-proxy-client.key
+    - --requestheader-allowed-names=front-proxy-client
+    - --requestheader-client-ca-file=/etc/kubernetes/pki/front-proxy-ca.crt
+    - --requestheader-extra-headers-prefix=X-Remote-Extra-
+    - --requestheader-group-headers=X-Remote-Group
+    - --requestheader-username-headers=X-Remote-User
+    - --secure-port=6443
+    - --service-account-issuer=https://kubernetes.default.svc.cluster.local
+    - --service-account-key-file=/etc/kubernetes/pki/sa.pub
+    - --service-account-signing-key-file=/etc/kubernetes/pki/sa.key
+    - --tls-cert-file=/etc/kubernetes/pki/apiserver.crt
+    - --tls-private-key-file=/etc/kubernetes/pki/apiserver.key
+  image: k8s.gcr.io/kube-apiserver:v1.23.0
+  imagePullPolicy: IfNotPresent
+  livenessProbe:</p>
+<pre><code>
+An alternative verification method is to inspect the running processes on the control plane. For instance, execute the following command:
+
+```bash  theme={null}
+root@controlplane ~ ps aux | grep authorization
+root      3403  0.0  0.0  830588 115420 ?        Ssl  22:54   0:55 kube-controller-manager --allocate-node-authorization-kubeconfig=/etc/kubernetes/controller-manager.conf --authorization-kubeconfig=/etc/kubernetes/controller-manager.conf --bind-address=127.0.0.1 --client-ca-file=/etc/kubernetes/pki/ca.crt --cluster-cidr=10.244.0.0/16 --kubelet-client-certificate=/etc/kubernetes/pki/ca.key --controllers=*,bootstrapsigner,tokens --kubelet-client-key=/etc/kubernetes/pki/front-proxy-client.key --service-account-privileged=false --service-cluster-ip-range=10.96.0.0/12 --use-service-account-credentials=true
+root      3614  0.0  0.0  759136  55292 ?        Ssl  22:55   0:10 kube-scheduler --authentication-kubeconfig=/etc/kubernetes/scheduler.conf --bind-address=127.0.0.1 --kubeconfig=/etc/kubernetes/scheduler.conf --leader-elect=true
+root      3630  0.0  0.1 111896  316984 ?        S    22:55   2:07 kube-apiserver --advertise-address=10.4.8.174.6 --allow-privileged=true --authorization-mode=Node,RBAC --client-ca-file=/etc/kubernetes/pki/ca.crt --enable-admission-plugins=NodeRestriction --etcd-certfile=/etc/kubernetes/pki/apiserver-etcd-client.crt --etcd-keyfile=/etc/kubernetes/pki/apiserver-etcd-client.key --kubelet-client-certificate=/etc/kubernetes/pki/apiserver-kubelet-client.crt --kubelet-client-key=/etc/kubernetes/pki/apiserver-kubelet-client.key --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname --proxy-client-cert-file=/etc/kubernetes/pki/front-proxy-client.crt --proxy-client-key-file=/etc/kubernetes/pki/front-proxy-client.key --requestheader-allowed-names=X-Remote-Group --requestheader-client-ca-file=/etc/kubernetes/pki/front-proxy-client-ca.crt --requestheader-headers-prefix=X-Remote-Extra --requestheader-group-headers=X-Remote-Group --requestheader-username-headers=X-Remote-User --secure-port=6443 --service-account-issuer=https://kubernetes.default.svc.cluster.local --service-account-key-file=/etc/kubernetes/pki/sa.key --service-cluster-ip-range=10.96.0.0/12 --tls-cert-file=/etc/kubernetes/pki/apiserver.crt --tls-private-key-file=/etc/kubernetes/pki/apiserver.key
+root      25283  0.0  0.0  13444  1068 pts/0    S+   23:40   0:00 grep --color=auto authorization
+</code></pre>
+<p>The output confirms that the kube-apiserver is running with the "Node,RBAC" authorization mode.</p>
+<p>──────────────────────────────</p>
+<h2>Reviewing Roles in the Cluster</h2>
+<p>Begin by identifying the existing roles within the default namespace. The output below shows that no roles exist in that namespace:</p>
+<p>```yaml  theme={null}
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/kube-apiserver.advertise-address.endpoint: 10.48.174.6:6443
+  creationTimestamp: null
+  labels:
+    component: kube-apiserver
+    tier: control-plane
+  name: kube-apiserver
+  namespace: kube-system
+spec:
+  containers:
+  - command:
+    - kube-apiserver
+    - --advertise-address=10.48.174.6
+    - --allow-privileged=true
+    - --authorization-mode=Node,RBAC
+    - --client-ca-file=/etc/kubernetes/pki/ca.crt
+    - --enable-admission-plugins=NodeRestriction
+    - --enable-bootstrap-token-auth=true
+    - --etcd-cafile=/etc/kubernetes/pki/etcd/ca.crt
+    - --etcd-certfile=/etc/kubernetes/pki/apiserver-etcd-client.crt
+    - --etcd-keyfile=/etc/kubernetes/pki/apiserver-etcd-client.key
+    - --etcd-servers=https://127.0.0.1:2379
+    - --kubelet-client-certificate=/etc/kubernetes/pki/apiserver-kubelet-client.crt
+    - --kubelet-client-key=/etc/kubernetes/pki/apiserver-kubelet-client.key
+    - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+    - --proxy-client-cert-file=/etc/kubernetes/pki/front-proxy-client.crt
+    - --proxy-client-key-file=/etc/kubernetes/pki/front-proxy-client.key
+    - --request-header-client-ca-file=/etc/kubernetes/pki/front-proxy-ca.crt
+    - --requestheader-extra-headers-prefix=X-Remote-Extra-
+    - --requestheader-group-headers=X-Remote-Group</p>
+<pre><code>
+To count the roles across all namespaces, use this command:
+
+```bash  theme={null}
+root@controlplane ~ k get roles -A --no-headers | wc -l
+12
+</code></pre>
+<p>There are 12 roles configured cluster-wide.</p>
+<p>──────────────────────────────</p>
+<h2>Examining the kube-proxy Role</h2>
+<p>Next, examine the permissions assigned to the kube-proxy role in the kube-system namespace. Run the following command to display its details:</p>
+<p>```bash  theme={null}
+root@controlplane ~ ✗ k describe role kube-proxy -n kube-system
+Name:         kube-proxy
+Labels:       <none>
+Annotations:  <none>
+PolicyRule:
+  Resources           Non-Resource URLs  Resource Names  Verbs
+  ---------           -----------------  ---------------  -----
+  configmaps          []                                   [get]</p>
+<pre><code>
+From the output, the kube-proxy role is limited to performing the &quot;get&quot; action on ConfigMap resources only. It cannot delete or update ConfigMaps.
+
+──────────────────────────────
+
+## Checking Role Bindings for kube-proxy
+
+Identify which service account is bound to the kube-proxy role by examining the role bindings in the kube-system namespace:
+
+```bash  theme={null}
+root@controlplane ~ ✗ k describe role kube-proxy -n kube-system
+Name:         kube-proxy
+Labels:       &lt;none&gt;
+Annotations:  &lt;none&gt;
+PolicyRules:
+  Resources      Non-Resource URLs  Resource Names  Verbs
+  -----------    -----------------  --------------  -----
+  configmaps     []                  [kube-proxy]    [get]
+</code></pre>
+<p>List the role bindings in the kube-system namespace:</p>
+<p>```bash  theme={null}
+root@controlplane ~ ✗ k get rolebindings -n kube-system
+NAME                                              AGE
+kube-proxy                                        48m
+kubeadm:kubelet-config-1.23                       48m
+kubeadm:nodes-kubeadm-config                      48m
+system:extension-apiserver-authentication-reader  48m
+system:leader-locking-kube-controller-manager     48m
+system:leader-locking-kube-scheduler               48m
+system:controller:bootstrap-signer               48m
+system:controller:cloud-provider                  48m
+system:controller:token-cleaner                   48m</p>
+<pre><code>
+Then, inspect the kube-proxy role binding:
+
+```bash  theme={null}
+root@controlplane ~ ◦ k describe rolebindings kube-proxy -n kube-system
+Name:         kube-proxy
+Labels:       &lt;none&gt;
+Annotations:  &lt;none&gt;
+Role:
+  Kind: Role
+  Name: kube-proxy
+Subjects:
+  Kind   Name
+  ----   ----
+  Group  system:bootstrappers:kubeadm:default-node-token
+</code></pre>
+<p>This confirms that the kube-proxy role is associated with the group "system:bootstrappers:kubeadm:default-node-token".</p>
+<p>──────────────────────────────</p>
+<h2>Inspecting the kubeconfig and User Permissions</h2>
+<p>Review the kubeconfig file to verify the configured users on the cluster:</p>
+<p>```bash  theme={null}
+root@controlplane ~ ⮀ kubectl config view
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: DATA+OMITTED
+    server: https://controlplane:6443
+  name: kubernetes
+contexts:
+- context:
+    cluster: kubernetes
+    user: kubernetes-admin
+  name: kubernetes-admin@kubernetes
+current-context: kubernetes-admin@kubernetes
+kind: Config
+preferences: {}
+users:
+- name: dev-user
+  user:
+    client-certificate-data: REDACTED
+    client-key-data: REDACTED
+- name: kubernetes-admin
+  user:
+    client-certificate-data: REDACTED
+    client-key-data: REDACTED</p>
+<pre><code>
+Test the permissions for the &quot;dev-user&quot; by listing pods in the default namespace:
+
+```bash  theme={null}
+root@controlplane ~ ⮀ k get pods --as dev-user
+Error from server (Forbidden): pods is forbidden: User &quot;dev-user&quot; cannot list resource &quot;pods&quot; in API group &quot;&quot; in the namespace &quot;default&quot;
+</code></pre>
+<p>This error confirms that the "dev-user" currently lacks permission to list pods in the default namespace.</p>
+<p>──────────────────────────────</p>
+<h2>Creating Roles and Role Bindings for the dev-user</h2>
+<p>Before proceeding, review how to create a role in Kubernetes. The following command creates a role named "developer" granting list, create, and delete permissions on pods. Notice that the correct flag is --resource (singular):</p>
+<p>```bash  theme={null}
+root@controlplane ~ ➜ k create role developer --verb=list,create,delete --resource=pods
+role.rbac.authorization.k8s.io/developer created</p>
+<pre><code>
+You can verify the created role by describing it:
+
+```bash  theme={null}
+root@controlplane ~ ➜ k describe role developer
+Name:         developer
+Labels:       &lt;none&gt;
+Annotations:  &lt;none&gt;
+PolicyRule:
+  Resources  Non-Resource URLs  Resource Names  Verbs
+  ---------  -----------------  --------------  --------------
+  pods       []                 []              [list create delete]
+</code></pre>
+<p>Next, assign the "developer" role to "dev-user" by creating a role binding:</p>
+<p>```bash  theme={null}
+root@controlplane ~ ⟩ k create rolebinding dev-user-binding --role=developer --user=dev-user
+rolebinding.rbac.authorization.k8s.io/dev-user-binding created</p>
+<pre><code>
+Verify the role binding:
+
+```bash  theme={null}
+root@controlplane ~ ⟩ k describe rolebinding dev-user-binding
+Name:         dev-user-binding
+Labels:       &lt;none&gt;
+Annotations:  &lt;none&gt;
+Role:
+  Kind:  Role
+  Name:  developer
+Subjects:
+  Kind   Name
+  ----   ----
+  User   dev-user
+</code></pre>
+<p>──────────────────────────────</p>
+<h2>Troubleshooting Access in the Blue Namespace</h2>
+<p>Suppose the dev-user tries to retrieve details of a pod named "dark-blue-app" in the blue namespace:</p>
+<p>```bash  theme={null}
+k --as dev-user get pod dark-blue-app -n blue</p>
+<pre><code>
+The error received is:
+
+```text  theme={null}
+Error from server (Forbidden): pods &quot;dark-blue-app&quot; is forbidden: User &quot;dev-user&quot; cannot get resource &quot;pods&quot; in API group &quot;&quot; in the namespace &quot;blue&quot;
+</code></pre>
+<p>Upon inspection, the blue namespace has an existing "developer" role and the "dev-user-binding" role binding:</p>
+<p>```bash  theme={null}
+root@controlplane ~ ✗ k get roles -n blue
+NAME        CREATED AT
+developer   2022-04-17T23:25:04Z</p>
+<p>root@controlplane ~ ✗ k get rolebindings -n blue
+NAME              ROLE             AGE
+dev-user-binding  Role/developer   24m</p>
+<pre><code>
+Currently, the &quot;developer&quot; role in the blue namespace grants permission only for the pod &quot;dark-blue-app.&quot; To provide the dev-user with the ability to manage that pod and to create new deployments, update the role to include rules for handling deployments in the &quot;apps&quot; API group. Below is an example of the updated role:
+
+```yaml  theme={null}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  creationTimestamp: &quot;2022-04-17T23:25:04Z&quot;
+  name: developer
+  namespace: blue
+  resourceVersion: &quot;4534&quot;
+  uid: b1424ab8-9776-43b0-bddf-433dfff73c1e
+rules:
+- apiGroups:
+  - &quot;&quot;
+  resourceNames:
+  - dark-blue-app
+  resources:
+  - pods
+  verbs:
+  - get
+  - watch
+  - create
+  - delete
+- apiGroups:
+  - &quot;apps&quot;
+  resources:
+  - deployments
+  verbs:
+  - get
+  - watch
+  - create
+  - delete
+</code></pre>
+<p>Save the changes, then test the configuration by creating a deployment as the dev-user:</p>
+<p><code>bash  theme={null}
+root@controlplane ~ ⟫ k --as dev-user create deployment nginx --image=nginx -n blue
+deployment.apps/nginx created</code></p>
+<p>The successful creation of the deployment confirms that the necessary permissions have been granted.</p>
+<blockquote>
+<p>Always verify RBAC changes by testing user permissions in the designated namespace to ensure that the intended access is provided while maintaining security.</p>
+</blockquote>
+<p>──────────────────────────────</p>
+<h2>Conclusion</h2>
+<p>In this lab, you have:</p>
+<ul class="styled-list">
+<li>Inspected the kube-apiserver configuration to confirm the use of Node,RBAC authorization mode.</li>
+<li>Reviewed the roles across namespaces and counted the total number of roles.</li>
+<li>Examined the kube-proxy role’s permissions and its corresponding role binding.</li>
+<li>Inspected the kubeconfig to determine that the dev-user initially lacked permission to list pods.</li>
+<li>Created a role and role binding for the dev-user to grant appropriate pod access in the default namespace.</li>
+<li>Troubleshooted a permission issue in the blue namespace by updating the "developer" role to allow managing deployments.</li>
+</ul>
+<p>This concludes the Kubernetes RBAC lab. For more details on Kubernetes security and RBAC best practices, refer to the <a href="https://kubernetes.io/docs/">Kubernetes Documentation</a>.</p>
+<p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/ee404020-8c94-4f3b-a69a-240984b9553e/lesson/6442a8c6-ae86-4072-938a-c3e59d3916c8" /></p>
+            </div>
+            
+            <div class="technical-corner">
+                <div class="tech-title">🔧 ركن القيادة — مصطلحات</div>
+                <p>
+                    <strong>Original Title:</strong> Solution Role Based Access Controls<br>
+                    يمكنك استخدام الزر أدناه للعودة للقائمة.
+                </p>
+            </div>
+        </article>
+
+        <!-- ========== LESSON 18: Solution Validating and Mutating Admission Controllers ========== -->
+        <article class="lesson" id="lesson-18">
+            <span class="lesson-number">الدرس 18</span>
+            <h2>🛸 Solution Validating and Mutating Admission Controllers</h2>
+            <div class="english-content">
+                <blockquote>
+<h2>Documentation Index</h2>
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+Use this file to discover all available pages before exploring further.</p>
+</blockquote>
+<h1>Solution Validating and Mutating Admission Controllers</h1>
+<blockquote>
+<p>This article provides a hands-on guide for validating and mutating admission controllers in Kubernetes, covering namespace creation, TLS secret management, and webhook server deployment.</p>
+</blockquote>
+<p>In this lesson, we walk through the lab on validating and mutating admission controllers. You'll gain hands-on experience with namespace creation, TLS secret management, deploying webhook servers, and testing pod security contexts.</p>
+<pre><code>    &lt;figure class="img-frame"&gt;
+        &lt;img src="../assets/images/chapter9/Solution-Validating-and-Mutating-Admission-Controllers_frame_0.jpg" alt="KodeKloud practice test interface showing a terminal and a multiple-choice question about mutating and validating admission controllers." loading="lazy"&gt;
+        &lt;figcaption&gt;KodeKloud practice test interface showing a terminal and a multiple-choice question about mutating and validating admission controllers.&lt;/figcaption&gt;
+    &lt;/figure&gt;
+</code></pre>
+<p>The lab begins with a multiple-choice question asking which combination is correct for mutating and validating admission controllers. The key observation is that the namespace auto-provision admission controller performs a mutation by automatically creating or altering a namespace. On the other hand, the namespace existence check is strictly a validation step. Therefore, the correct combination is to treat namespace auto-provisioning as mutating and namespace existence checking as validating.</p>
+<pre><code>    &lt;figure class="img-frame"&gt;
+        &lt;img src="../assets/images/chapter9/Solution-Validating-and-Mutating-Admission-Controllers_frame_50.jpg" alt="KodeKloud practice test interface showing a terminal and a question regarding the flow of invocation of admission controllers." loading="lazy"&gt;
+        &lt;figcaption&gt;KodeKloud practice test interface showing a terminal and a question regarding the flow of invocation of admission controllers.&lt;/figcaption&gt;
+    &lt;/figure&gt;
+</code></pre>
+<h2>Step 1: Create the Namespace</h2>
+<p>First, create a namespace named "webhook-demo" to serve as the environment for the webhook operations.</p>
+<p>```bash  theme={null}
+kubectl create ns webhook-demo</p>
+<pre><code>
+After executing the command, verify that the namespace is created by listing all namespaces:
+
+```bash  theme={null}
+kubectl get ns
+</code></pre>
+<p>You should see the "webhook-demo" namespace included in the output.</p>
+<h2>Step 2: Create a TLS Secret</h2>
+<p>For secure webhook communication, create a TLS secret named "webhook-server-tls" in the "webhook-demo" namespace. Ensure you substitute the correct file paths for the certificate and key:</p>
+<p>```bash  theme={null}
+kubectl -n webhook-demo create secret tls webhook-server-tls \
+  --cert "/root/keys/webhook-server-tls.crt" \
+  --key "/root/keys/webhook-server-tls.key"</p>
+<pre><code>
+A successful creation message will confirm that the TLS secret has been established.
+
+## Step 3: Deploy the Webhook Server
+
+Review the webhook server deployment definition provided in the file `webhook-deployment.yaml`:
+
+```bash  theme={null}
+cat webhook-deployment.yaml
+</code></pre>
+<p>Deploy the webhook server with the following command:</p>
+<p>```bash  theme={null}
+kubectl apply -f webhook-deployment.yaml</p>
+<pre><code>
+## Step 4: Create the Webhook Service
+
+Create a service for the webhook server using the configuration in `webhook-service.yaml`:
+
+```bash  theme={null}
+kubectl apply -f webhook-service.yaml
+</code></pre>
+<h2>Step 5: Apply the Mutating Webhook Configuration</h2>
+<p>Next, apply the mutating webhook configuration defined in <code>webhook-configuration.yaml</code>. This file includes rules under the "rules" section to intercept "CREATE" operations for pods.</p>
+<p>```bash  theme={null}
+kubectl apply -f webhook-configuration.yaml</p>
+<pre><code>
+&gt; When applying the webhook configuration, you might receive a deprecation warning indicating that admissionregistration.k8s.io/v1beta1 is deprecated in favor of v1. Despite the warning, the configuration will still perform its intended function by denying pod creation requests that attempt to run as root when no security context is provided.
+
+In our lab, if no explicit value is given for &quot;runAsNonRoot&quot;, a default value of `true` is applied, and the user ID is defaulted to `1234` unless overridden.
+
+## Step 6: Test the Webhook by Deploying Pods
+
+### Pod with Default Security Context
+
+The next stage involves deploying a pod that does not specify any security context so that the webhook can mutate the configuration. The YAML file `pod-with-defaults.yaml` contains the following configuration:
+
+```yaml  theme={null}
+# A pod with no securityContext specified.
+# Without the webhook, it would run as user root (0). The webhook mutates it
+# to run as the non-root user with uid 1234.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-defaults
+  labels:
+    app: pod-with-defaults
+spec:
+  restartPolicy: OnFailure
+  containers:
+    - name: busybox
+      image: busybox
+      command: [&quot;sh&quot;, &quot;-c&quot;, &quot;echo I am running as user $(id -u)&quot;]
+</code></pre>
+<p>Deploy the pod with:</p>
+<p>```bash  theme={null}
+kubectl apply -f pod-with-defaults.yaml</p>
+<pre><code>
+After deployment, confirm that the pod has been mutated by retrieving the pod details:
+
+```bash  theme={null}
+kubectl get pod pod-with-defaults -o yaml
+</code></pre>
+<p>The webhook should have added a mutated security context, setting <code>runAsNonRoot: true</code> and <code>runAsUser: 1234</code>.</p>
+<h3>Pod with Explicit Override</h3>
+<p>Next, deploy a pod that explicitly sets its security context to allow running as root. Check the <code>pod-with-override.yaml</code> file where the security context is defined with <code>runAsNonRoot</code> set to <code>false</code>:</p>
+<p>```bash  theme={null}
+kubectl apply -f pod-with-override.yaml</p>
+<pre><code>
+Review the file to confirm that the override is applied as intended.
+
+### Pod with Conflicting Security Context
+
+Finally, deploy a pod with a conflicting security configuration in the `pod-with-conflict.yaml` file. This configuration attempts to set `runAsNonRoot: true` while also specifying `runAsUser: 0`, creating a conflict.
+
+```yaml  theme={null}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-conflict
+  labels:
+    app: pod-with-conflict
+spec:
+  restartPolicy: OnFailure
+  securityContext:
+    runAsNonRoot: true
+  containers:
+    - name: busybox
+      image: busybox
+      command: [&quot;sh&quot;, &quot;-c&quot;, &quot;echo I am running as user $(id -u)&quot;]
+</code></pre>
+<p>Deploy the conflicting pod with:</p>
+<p><code>bash  theme={null}
+kubectl apply -f pod-with-conflict.yaml</code></p>
+<blockquote>
+<p>The admission webhook should reject the conflicting pod creation request, displaying an error message similar to the following:
+Error from server: error when creating "pod-with-conflict.yaml": admission webhook "webhook-server.webhook-demo.svc" denied the request: runAsNonRoot specified, but runAsUser set to 0 (the root user)</p>
+</blockquote>
+<p>This rejection confirms that the webhook validation is functioning as expected by preventing pods from running as root when it is not allowed.</p>
+<hr />
+<p>This comprehensive walkthrough demonstrates how to validate and mutate admission controllers effectively. By following these steps, you ensure that your Kubernetes environment enforces the desired security configurations.</p>
+<p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/ee404020-8c94-4f3b-a69a-240984b9553e/lesson/036889b3-2f0f-4bcc-9ffe-ea66ad4e579c" /></p>
+            </div>
+            
+            <div class="technical-corner">
+                <div class="tech-title">🔧 ركن القيادة — مصطلحات</div>
+                <p>
+                    <strong>Original Title:</strong> Solution Validating and Mutating Admission Controllers<br>
+                    يمكنك استخدام الزر أدناه للعودة للقائمة.
+                </p>
+            </div>
+        </article>
+
+        <!-- ========== LESSON 19: Validating and Mutating Admission Controllers ========== -->
+        <article class="lesson" id="lesson-19">
+            <span class="lesson-number">الدرس 19</span>
+            <h2>🛸 Validating and Mutating Admission Controllers</h2>
+            <div class="english-content">
+                <blockquote>
+<h2>Documentation Index</h2>
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+Use this file to discover all available pages before exploring further.</p>
+</blockquote>
+<h1>Validating and Mutating Admission Controllers</h1>
+<blockquote>
+<p>This article explores Admission Controllers in Kubernetes, focusing on validating and mutating controllers and how to configure custom webhook servers.</p>
+</blockquote>
+<p>In this lesson, we explore the different types of Admission Controllers in Kubernetes and demonstrate how to configure custom controllers. We cover both validating and mutating admission controllers, explaining their functions and how Kubernetes processes them during the request lifecycle.</p>
+<h2>Overview of Admission Controllers</h2>
+<p>Admission Controllers are plugins that intercept requests to the Kubernetes API server before persisting an object. They are categorized into two main types:</p>
+<ol>
+<li>
+<p><strong>Validating Admission Controllers:</strong>\
+   These controllers examine incoming requests and reject them if they do not conform to specified policies. For example, a namespace existence validator checks if the requested namespace exists; if it doesn't, the request is rejected.</p>
+</li>
+<li>
+<p><strong>Mutating Admission Controllers:</strong>\
+   These controllers modify incoming requests prior to their persistence. A common example is the default storage class admission controller. When you create a PersistentVolumeClaim (PVC) without specifying a storage class, this controller automatically adds the default storage class to the request.</p>
+</li>
+</ol>
+<p>For instance, consider the following PVC creation request:</p>
+<p>```yaml  theme={null}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: myclaim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi</p>
+<pre><code>
+This request undergoes authentication and authorization, then passes through the admission controllers. Because no storage class is specified, the default storage class admission controller mutates the request. When the PVC is created, inspecting it reveals the storage class added:
+
+```yaml  theme={null}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: myclaim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+  storageClassName: default
+</code></pre>
+<p>You can view the details of the PVC with:</p>
+<p>```bash  theme={null}
+kubectl describe pvc myclaim
+Name:           myclaim
+Namespace:      default
+StorageClass:   default
+Status:         Pending
+Volume:         <none>
+Labels:         <none>
+Annotations:    <none></p>
+<pre><code>
+&gt; Mutating controllers adjust the request (by adding configurations like the storage class), while validating controllers strictly allow or deny requests based on predefined criteria. In many cases, mutating controllers are invoked before validating ones to ensure that any modifications are considered during validation.
+
+If any admission controller in the chain rejects the request, Kubernetes halts further processing and returns an error message to the user.
+
+
+        &lt;figure class=&quot;img-frame&quot;&gt;
+            &lt;img src=&quot;../assets/images/chapter9/Validating-and-Mutating-Admission-Controllers_frame_140.jpg&quot; alt=&quot;The image illustrates a diagram of admission controllers, highlighting mutating and validating processes with examples like AlwaysPullImages and NamespaceAutoProvision.&quot; loading=&quot;lazy&quot;&gt;
+            &lt;figcaption&gt;The image illustrates a diagram of admission controllers, highlighting mutating and validating processes with examples like AlwaysPullImages and NamespaceAutoProvision.&lt;/figcaption&gt;
+        &lt;/figure&gt;
+
+
+## External Admission Controllers: Webhooks
+
+Kubernetes extends its built-in admission controllers with external admission controllers through webhooks. There are two primary webhook types:
+
+* **Mutating Admission Webhook**
+* **Validating Admission Webhook**
+
+These webhooks allow you to deploy a server—either inside or outside your Kubernetes cluster—that implements custom logic for modifying or validating requests. After a request clears all built-in controllers, it is sent as a JSON-formatted admission review object to the webhook server. The server responds with an admission review object indicating whether the request is allowed and, if applicable, provides JSON patches to mutate the request.
+
+For example, a validating webhook admission review request may look like:
+
+```json  theme={null}
+{
+  &quot;apiVersion&quot;: &quot;admission.k8s.io/v1&quot;,
+  &quot;kind&quot;: &quot;AdmissionReview&quot;,
+  &quot;request&quot;: {
+    &quot;uid&quot;: &quot;705ab4f5-6393-11e8-b7cc-42010aa80002&quot;,
+    &quot;kind&quot;: { &quot;group&quot;: &quot;autoscaling&quot;, &quot;version&quot;: &quot;v1&quot;, &quot;kind&quot;: &quot;Scale&quot; },
+    &quot;resource&quot;: { &quot;group&quot;: &quot;apps&quot;, &quot;version&quot;: &quot;v1&quot;, &quot;resource&quot;: &quot;deployments&quot; },
+    &quot;subResource&quot;: &quot;scale&quot;,
+    &quot;requestKind&quot;: { &quot;group&quot;: &quot;autoscaling&quot;, &quot;version&quot;: &quot;v1&quot;, &quot;kind&quot;: &quot;Scale&quot; },
+    &quot;requestResource&quot;: { &quot;group&quot;: &quot;apps&quot;, &quot;version&quot;: &quot;v1&quot;, &quot;resource&quot;: &quot;deployments&quot; }
+  }
+}
+</code></pre>
+<p>And the corresponding webhook response approving the request would be:</p>
+<p>```json  theme={null}
+{
+  "apiVersion": "admission.k8s.io/v1",
+  "kind": "AdmissionReview",
+  "request": {
+    "uid": "705ab4f5-6393-11e8-b7cc-42010aa80002",
+    "kind": {"group": "autoscaling", "version": "v1", "kind": "Scale"},
+    "resource": {"group": "apps", "version": "v1", "resource": "deployments"},
+    "subResource": "scale",
+    "requestKind": {"group": "autoscaling", "version": "v1", "kind": "Scale"},
+    "requestResource": {"group": "apps", "version": "v1", "resource": "deployments"}
+  },
+  "response": {
+    "uid": "<value_from request.uid>",
+    "allowed": true
+  }
+}</p>
+<pre><code>
+## Deploying an Admission Webhook Server
+
+To set up your own admission webhook, follow these general steps:
+
+1. Deploy your webhook server containing custom logic.
+2. Configure Kubernetes to integrate with your webhook by creating the appropriate webhook configuration object.
+
+### Deploying the Webhook Server
+
+You can implement a webhook server in any programming language as long as it supports the mutate and validate APIs and returns the correct JSON response. Below is a simplified example of a webhook server written in Go.
+
+```go  theme={null}
+package main
+
+import (
+    &quot;encoding/json&quot;
+    &quot;flag&quot;
+    &quot;fmt&quot;
+    &quot;io/ioutil&quot;
+    &quot;net/http&quot;
+
+    &quot;k8s.io/api/admission/v1beta1&quot;
+    metav1 &quot;k8s.io/apimachinery/pkg/apis/meta/v1&quot;
+    &quot;k8s.io/klog&quot;
+)
+
+// toAdmissionResponse is a helper function to create an AdmissionResponse with an embedded error.
+func toAdmissionResponse(err error) v1beta1.AdmissionResponse {
+    return v1beta1.AdmissionResponse{
+        Result: &amp;metav1.Status{
+            Message: err.Error(),
+        },
+    }
+}
+
+// admitFunc defines the function type for validators and mutators.
+type admitFunc func(v1beta1.AdmissionReview) v1beta1.AdmissionResponse
+
+// serve handles the HTTP part of a request before passing it to the admit function.
+func serve(w http.ResponseWriter, r *http.Request, admit admitFunc) {
+    var body []byte
+    if r.Body != nil {
+        data, err := ioutil.ReadAll(r.Body)
+        if err == nil {
+            body = data
+        }
+    }
+    // Further processing of the admission review would occur here.
+}
+</code></pre>
+<p>You can implement a similar server in other languages. Below is pseudocode for a sample webhook server in Python that handles both validation and mutation:</p>
+<p>```python  theme={null}
+from flask import Flask, request, jsonify
+import base64
+import json</p>
+<p>app = Flask(<strong>name</strong>)</p>
+<p>@app.route("/validate", methods=["POST"])
+def validate():
+    object_name = request.json["object"]["metadata"]["name"]
+    user_name = request.json["request"]["userInfo"]["name"]
+    allowed = True
+    message = ""
+    if object_name == user_name:
+        message = "You can't create objects with your own name."
+        allowed = False
+    return jsonify({
+        "response": {
+            "allowed": allowed,
+            "uid": request.json["request"]["uid"],
+            "status": {"message": message},
+        }
+    })</p>
+<p>@app.route("/mutate", methods=["POST"])
+def mutate():
+    user_name = request.json["request"]["userInfo"]["name"]
+    patch = [{"op": "add", "path": "/metadata/labels/users", "value": user_name}]
+    # The patch must be base64 encoded before sending in the response.
+    encoded_patch = base64.b64encode(json.dumps(patch).encode()).decode()
+    return jsonify({
+        "response": {
+            "allowed": True,
+            "uid": request.json["request"]["uid"],
+            "patch": encoded_patch,
+            "patchType": "JSONPatch",
+        }
+    })</p>
+<p>if <strong>name</strong> == "<strong>main</strong>":
+    app.run(host="0.0.0.0", port=443, ssl_context=("path/to/tls.crt", "path/to/tls.key"))</p>
+<pre><code>
+&gt; In an exam or production environment, you are not expected to write the full webhook implementation code. The focus should be on understanding how admission webhook servers function and how they integrate with Kubernetes.
+
+## Hosting and Configuring the Webhook
+
+Once your webhook server is ready, you can host it as a standalone server or containerize it and deploy it as a Deployment within your Kubernetes cluster. If you opt to deploy within the cluster, remember to create a corresponding Service so that the API server can communicate with your webhook.
+
+Next, configure your Kubernetes cluster by creating a webhook configuration object. For example, to direct pod creation requests to your validating webhook service, you could use the following configuration:
+
+```yaml  theme={null}
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: &quot;pod-policy.example.com&quot;
+webhooks:
+- name: &quot;pod-policy.example.com&quot;
+  clientConfig:
+    service:
+      namespace: &quot;webhook-namespace&quot;
+      name: &quot;webhook-service&quot;
+    caBundle: &quot;Ci0tLS0tQk.....tLS0K&quot;
+  rules:
+  - apiGroups: [&quot;&quot;]
+    apiVersions: [&quot;v1&quot;]
+    operations: [&quot;CREATE&quot;]
+    resources: [&quot;pods&quot;]
+    scope: &quot;Namespaced&quot;
+</code></pre>
+<p>For a mutating webhook, create a MutatingWebhookConfiguration object instead. In both cases, ensure that TLS is properly configured between the API server and your webhook server by generating the required certificates and providing the CA bundle in the configuration.</p>
+<p>With this configuration, every pod creation request triggers a call to your webhook service. Based on the response, the request will either be allowed or rejected.</p>
+<pre><code>    &lt;figure class="img-frame"&gt;
+        &lt;img src="../assets/images/chapter9/Validating-and-Mutating-Admission-Controllers_frame_460.jpg" alt="The image illustrates deploying an Admission Webhook Server within a Kubernetes cluster, labeled as "webhook-deployment."" loading="lazy"&gt;
+        &lt;figcaption&gt;The image illustrates deploying an Admission Webhook Server within a Kubernetes cluster, labeled as "webhook-deployment."&lt;/figcaption&gt;
+    &lt;/figure&gt;
+</code></pre>
+<p>That concludes this lesson on Validating and Mutating Admission Controllers. Practice these concepts with hands-on exercises, and stay tuned for more advanced topics in the upcoming lessons.</p>
+<p>For further reading, check out the following resources:</p>
+<ul class="styled-list">
+<li><a href="https://kubernetes.io/docs/">Kubernetes Documentation</a></li>
+<li><a href="https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/">Admission Controllers Overview</a></li>
+<li><a href="https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/">Webhook Concepts</a></li>
+</ul>
+<p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/ee404020-8c94-4f3b-a69a-240984b9553e/lesson/0083c2b1-9b90-4da1-ba4a-8f2a0a5c5b26" /></p>
+<p><Card title="Practice Lab" icon="installation" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/ee404020-8c94-4f3b-a69a-240984b9553e/lesson/17c768ae-97bf-4fa4-848c-0df3a882acb8" /></p>
+            </div>
+            
+            <div class="technical-corner">
+                <div class="tech-title">🔧 ركن القيادة — مصطلحات</div>
+                <p>
+                    <strong>Original Title:</strong> Validating and Mutating Admission Controllers<br>
+                    يمكنك استخدام الزر أدناه للعودة للقائمة.
+                </p>
+            </div>
+        </article>
+
+    </div>
+
+    <footer class="site-footer">
+        <p>🚀 كوبسترونات — المهمة 9 خلصت! <a href="chapter10.html" style="color: var(--rocket-orange);">يلا على المهمة 10 ←</a></p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المهمة 10: أساسيات Helm — كوبسترونات 🚀</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="space-bg"></div>
+    <div class="stars-layer"></div>
+
+    <header class="site-header">
+        <a href="../index.html" class="logo">
+            <span class="emoji">🚀</span>
+            Kubestronaut
+        </a>
+        <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="القائمة">☰</button>
+        <nav class="nav-links">
+            <a href="../index.html">🏠 القاعدة</a>
+            <a href="index.html" class="active">🎓 CKAD</a>
+        </nav>
+    </header>
+
+    <section class="chapter-hero">
+        <h1>🚀 المهمة 10: أساسيات Helm</h1>
+        <p class="subtitle">Helm Fundamentals</p>
+    </section>
+
+    <div class="lessons-container">
+
+        <!-- ========== LESSON 1: Helm Introduction ========== -->
+        <article class="lesson" id="lesson-1">
+            <span class="lesson-number">الدرس 1</span>
+            <h2>🛸 Helm Introduction</h2>
+            <div class="english-content">
+                <blockquote>
+<h2>Documentation Index</h2>
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+Use this file to discover all available pages before exploring further.</p>
+</blockquote>
+<h1>Helm Introduction</h1>
+<blockquote>
+<p>This article explores Helms role in simplifying the management of complex Kubernetes applications by treating them as cohesive packages.</p>
+</blockquote>
+<p>In this article, we will explore Helm and its role in simplifying the management of complex Kubernetes applications. While Kubernetes excels at orchestrating infrastructure, handling multiple interconnected objects in a single application can become challenging. For example, deploying a WordPress site might require several components, including:</p>
+<ul class="styled-list">
+<li>A Deployment to run the pods for components such as MySQL database servers or web servers.</li>
+<li>A Persistent Volume for database storage.</li>
+<li>A Persistent Volume Claim to request storage.</li>
+<li>A Service to expose the web server.</li>
+<li>A Secret to securely store the admin password.</li>
+</ul>
+<p>Traditionally, each of these objects would be defined in separate YAML files and applied individually using the <code>kubectl apply</code> command. Managing configurations across multiple files becomes tedious and error-prone—if, for instance, you need to increase the persistent volume size from 20 GB to a higher capacity, every related YAML file must be manually updated. Additionally, upgrading or removing the application involves tracking down and managing all individual objects.</p>
+<p>Consider the following YAML snippet:</p>
+<p>```yaml  theme={null}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: wordpress-admin-password
+data:
+  key: CajnHWVUxSdzIZQzg0SERXhBQTvQ1FzN2JE9PQ==</p>
+<hr />
+<p>apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: wordpress-pv
+spec:
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteOne
+  gcePersistentDisk:
+    pdName: wordpress-2
+    fsType: ext4</p>
+<pre><code>
+While organizing related objects into separate files (for example, placing deployment configurations in `mysql-deployment.yaml`) can offer some clarity, it still requires searching across multiple files to update settings.
+
+
+        &lt;figure class=&quot;img-frame&quot;&gt;
+            &lt;img src=&quot;../assets/images/chapter10/Helm-Introduction_frame_170.jpg&quot; alt=&quot;The image illustrates Helm, a Kubernetes package manager, with components like Service, Deployment, Secret, PVC, and PV.&quot; loading=&quot;lazy&quot;&gt;
+            &lt;figcaption&gt;The image illustrates Helm, a Kubernetes package manager, with components like Service, Deployment, Secret, PVC, and PV.&lt;/figcaption&gt;
+        &lt;/figure&gt;
+
+
+Enter Helm. Unlike Kubernetes, which considers each object independently, Helm recognizes that these objects are part of a cohesive package—such as a WordPress application. With Helm, you manage the application as a single unit instead of juggling multiple YAML files.
+
+Consider this analogy: a computer game is composed of hundreds or thousands of files (executables, audio, graphics, configuration data). Instead of downloading and organizing each file manually, you run an installer that efficiently places everything in the correct locations. Helm provides a similar level of abstraction for your Kubernetes manifests. It allows you to install, upgrade, roll back, and uninstall an application, regardless of how many individual objects it encompasses.
+
+For example, to install a WordPress package using Helm, you would execute:
+
+```bash  theme={null}
+helm install wordpress ...
+</code></pre>
+<p>Helm leverages a central configuration file—typically named <code>values.yaml</code>—to manage custom settings. This file might look like:</p>
+<p>```yaml  theme={null}
+wordpressUsername: user
+wordpressEmail: user@example.com
+wordpressFirstName: FirstName
+wordpressLastName: LastName</p>
+<pre><code>
+This centralized configuration lets you adjust critical settings—such as persistent volume sizes, website names, admin passwords, and database configurations—in one place, eliminating the need to modify multiple YAML files.
+
+&gt; By centralizing configuration management, Helm significantly streamlines application lifecycle management in Kubernetes.
+
+Managing the application lifecycle becomes even simpler with Helm. With a single command, you can upgrade your application, and Helm calculates the necessary changes to each object. Rolling back to a previous version or uninstalling the application is equally straightforward. For example, a typical workflow might involve:
+
+```bash  theme={null}
+helm install wordpress ...
+helm upgrade wordpress ...
+helm rollback wordpress ...
+helm uninstall wordpress ...
+</code></pre>
+<p>By treating Kubernetes applications as cohesive packages rather than isolated objects, Helm reduces administrative overhead and simplifies application management. This package and release management approach allows you to focus on application development rather than micromanaging individual Kubernetes objects.</p>
+<p>For further reading, consider visiting the <a href="https://kubernetes.io/docs/">Kubernetes Documentation</a> and learning more about <a href="https://helm.sh/">Helm</a>.</p>
+<p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/bc61a673-47c3-4bef-b7f5-12f85c65cbbb/lesson/980d80bf-92fb-48ef-abfc-56835f0732e5" /></p>
+            </div>
+            
+            <div class="technical-corner">
+                <div class="tech-title">🔧 ركن القيادة — مصطلحات</div>
+                <p>
+                    <strong>Original Title:</strong> Helm Introduction<br>
+                    يمكنك استخدام الزر أدناه للعودة للقائمة.
+                </p>
+            </div>
+        </article>
+
+        <!-- ========== LESSON 2: Install Helm ========== -->
+        <article class="lesson" id="lesson-2">
+            <span class="lesson-number">الدرس 2</span>
+            <h2>🛸 Install Helm</h2>
+            <div class="english-content">
+                <blockquote>
+<h2>Documentation Index</h2>
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+Use this file to discover all available pages before exploring further.</p>
+</blockquote>
+<h1>Install Helm</h1>
+<blockquote>
+<p>This article provides instructions for installing Helm on Linux systems, including prerequisites and methods using Snap and APT.</p>
+</blockquote>
+<p>Before installing Helm, ensure you have a working Kubernetes cluster and a correctly configured kubectl utility on your local machine. A valid kubeconfig file containing the proper credentials for your target cluster is essential.</p>
+<blockquote>
+<p>Verify that your Kubernetes setup is operational and that kubectl is set up before proceeding with the Helm installation.</p>
+</blockquote>
+<p>Helm supports Linux, Windows, and macOS environments. This guide focuses on the installation process for Linux systems.</p>
+<h2>Installing Helm on Linux</h2>
+<h3>Using Snap</h3>
+<p>If your Linux distribution supports Snap, you can install Helm using the Snap package manager. Snap's classic confinement allows Helm unrestricted access to locate your kubeconfig file (typically in your home directory). Execute the following command:</p>
+<p>```bash  theme={null}
+sudo snap install helm --classic</p>
+<pre><code>
+### Installing Helm on APT-Based Distributions
+
+For Debian, Ubuntu, or similar APT-based distributions, follow these steps:
+
+```bash  theme={null}
+# Install Helm via Snap with classic confinement (if using Snap)
+sudo snap install helm --classic
+
+# Add the Helm GPG key to verify package authenticity
+curl https://baltocdn.com/helm/signing.asc | sudo apt-key add -
+
+# Install apt-transport-https to handle HTTPS repositories
+sudo apt-get install apt-transport-https --yes
+
+# Add the official Helm stable repository to your APT sources list
+echo &quot;deb https://baltocdn.com/helm/stable/debian/ all main&quot; | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+
+# Update APT and install Helm
+sudo apt-get update
+sudo apt-get install helm
+
+# Alternatively, on some package-based systems, you might use:
+pkg install helm
+</code></pre>
+<blockquote>
+<p>For the most up-to-date installation instructions and additional configuration details, refer to the <a href="https://helm.sh/docs/intro/install/">official Helm documentation</a>.</p>
+</blockquote>
+<p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/bc61a673-47c3-4bef-b7f5-12f85c65cbbb/lesson/d6591cc0-9129-4745-8d3e-6fddae4632d6" /></p>
+<p><Card title="Practice Lab" icon="installation" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/bc61a673-47c3-4bef-b7f5-12f85c65cbbb/lesson/8a8835c4-1401-4488-b478-db799ee8c75d" /></p>
+            </div>
+            
+            <div class="technical-corner">
+                <div class="tech-title">🔧 ركن القيادة — مصطلحات</div>
+                <p>
+                    <strong>Original Title:</strong> Install Helm<br>
+                    يمكنك استخدام الزر أدناه للعودة للقائمة.
+                </p>
+            </div>
+        </article>
+
+        <!-- ========== LESSON 3: Solution Helm Concepts ========== -->
+        <article class="lesson" id="lesson-3">
+            <span class="lesson-number">الدرس 3</span>
+            <h2>🛸 Solution Helm Concepts</h2>
+            <div class="english-content">
+                <blockquote>
+<h2>Documentation Index</h2>
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+Use this file to discover all available pages before exploring further.</p>
+</blockquote>
+<h1>Solution Helm Concepts</h1>
+<blockquote>
+<p>This lesson demonstrates how to interact with Helm in a Kubernetes environment, covering tasks like searching, adding repositories, and deploying services.</p>
+</blockquote>
+<p>In this lesson, you’ll learn how to perform various tasks with Helm—from searching for chart packages and adding repositories to configuring and installing charts. Follow the steps below, and refer to the command outputs to validate your progress.</p>
+<hr />
+<h2>1. Searching for a Helm Chart Package</h2>
+<p>To search for a WordPress Helm chart package on Artifact Hub, run the following command:</p>
+<p>```bash  theme={null}
+helm search hub wordpress</p>
+<pre><code>
+This command displays all available WordPress-related chart packages.
+
+***
+
+## 2. Adding a Bitnami Helm Chart Repository
+
+First, add the Bitnami Helm chart repository on your control plane node by executing:
+
+```bash  theme={null}
+helm repo add bitnami https://charts.bitnami.com/bitnami
+</code></pre>
+<p>Once added, search the repository for the Joomla package with:</p>
+<p>```bash  theme={null}
+helm search repo joomla</p>
+<pre><code>
+A sample output might look like:
+
+```bash  theme={null}
+root@controlplane ~ ➜ helm repo add bitnami https://charts.bitnami.com/bitnami
+&quot;bitnami&quot; has been added to your repositories
+
+root@controlplane ~ ➜ helm search repo joomla
+NAME           CHART VERSION APP VERSION DESCRIPTION
+bitnami/joomla 13.2.16     4.1.5     Joomla! is an award winning open source CMS pla...
+</code></pre>
+<p>From this output, observe that the Joomla package has an app version of 4.1.5 and a chart version of 13.2.16.</p>
+<hr />
+<h2>3. Listing Helm Repositories</h2>
+<p>To review all repositories configured on the control plane node, run:</p>
+<p>```bash  theme={null}
+helm repo list</p>
+<pre><code>
+A typical output might be:
+
+```bash  theme={null}
+root@controlplane ~ ➜ helm repo list
+NAME      URL
+bitnami   https://charts.bitnami.com/bitnami
+puppet    https://puppetlabs.github.io/puppetserver-helm-chart
+hashicorp https://helm.releases.hashicorp.com
+</code></pre>
+<p>This indicates that there are three repositories currently added.</p>
+<hr />
+<h2>4. Installing and Uninstalling a Drupal Helm Chart</h2>
+<h3>Installing the Chart</h3>
+<p>Install the Drupal Helm chart from the Bitnami repository using the release name "bravo":</p>
+<p>```bash  theme={null}
+helm install bravo bitnami/drupal</p>
+<pre><code>
+After installation, verify the release by listing all Helm releases:
+
+```bash  theme={null}
+helm list
+</code></pre>
+<p>The output should include an entry for "bravo", similar to:</p>
+<p>```bash  theme={null}
+root@controlplane ~ ➜ helm list
+NAME    NAMESPACE   REVISION   UPDATED                                STATUS    CHART          APP VERSION
+bravo   default     1          2022-08-04 18:50:12.967402693 +0000 UTC deployed  drupal-12.3.3  9.4.4</p>
+<pre><code>
+### Uninstalling the Chart
+
+To remove the Drupal Helm package (release &quot;bravo&quot;), execute:
+
+```bash  theme={null}
+helm uninstall bravo
+</code></pre>
+<p>The command should confirm the uninstallation:</p>
+<p>```bash  theme={null}
+root@controlplane ~ ➜ helm uninstall bravo
+release "bravo" uninstalled</p>
+<pre><code>
+***
+
+## 5. Downloading the Bitnami Apache Package
+
+Download the Bitnami Apache package from the repository to your `/root` directory without installing it. Use the `--untar` flag:
+
+```bash  theme={null}
+helm pull --untar bitnami/apache
+</code></pre>
+<p>After downloading, verify that a new directory named <code>apache</code> has been created:</p>
+<p>```bash  theme={null}
+root@controlplane ~ ➜ ls
+apache</p>
+<pre><code>
+Then, change to the Apache directory with:
+
+```bash  theme={null}
+cd apache/
+</code></pre>
+<hr />
+<h2>6. Modifying the Apache Helm Chart Configuration</h2>
+<p>Open the <code>values.yaml</code> file within the Apache chart directory to make two essential changes:</p>
+<ol>
+<li>Set the replica count for the web server to 2.</li>
+<li>Configure the HTTP service to expose NodePort 30080.</li>
+</ol>
+<p>Search the file for the replica settings. You might see a section like:</p>
+<p>```yaml  theme={null}</p>
+<h2>@section Global parameters</h2>
+<p>global:
+  imageRegistry: ""
+  imagePullSecrets: []
+  storageClass: ""</p>
+<h2>@section Common parameters</h2>
+<p>kubeVersion: ""
+nameOverride: ""
+fullnameOverride: ""</p>
+<pre><code>
+Make the necessary modifications by adding or updating the entries for the replica count and the service configuration. For assistance on the file structure, refer to the official Helm or Bitnami documentation.
+
+Once the changes are complete, install the Apache chart from the current directory using the release name &quot;mywebapp&quot;:
+
+```bash  theme={null}
+helm install mywebapp .
+</code></pre>
+<p>Confirm the deployment by listing your Helm releases:</p>
+<p>```bash  theme={null}
+helm list</p>
+<pre><code>
+***
+
+## 7. Accessing the Apache Service
+
+Retrieve and set the service IP by extracting the external IP of the Apache service, then print the URL:
+
+```bash  theme={null}
+export SERVICE_IP=$(kubectl get svc --namespace default mywebapp-apache --template &quot;{{ range (index .status.loadBalancer.ingress 0) }}{{ . }}{{ end }}&quot;)
+echo URL : http://$SERVICE_IP/
+</code></pre>
+<p>Visit the printed URL in your web browser to confirm that the Apache page is successfully loading.</p>
+<hr />
+<blockquote>
+<p>This lesson demonstrated how to interact with Helm in a Kubernetes environment: from searching and adding repositories to deploying, configuring, and accessing services using Helm. For further details and best practices, consider exploring the <a href="https://helm.sh/docs/">Helm Documentation</a>.</p>
+</blockquote>
+<p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/bc61a673-47c3-4bef-b7f5-12f85c65cbbb/lesson/f61d0f08-4542-4dd1-8742-11d367c554d9" /></p>
+            </div>
+            
+            <div class="technical-corner">
+                <div class="tech-title">🔧 ركن القيادة — مصطلحات</div>
+                <p>
+                    <strong>Original Title:</strong> Solution Helm Concepts<br>
+                    يمكنك استخدام الزر أدناه للعودة للقائمة.
+                </p>
+            </div>
+        </article>
+
+        <!-- ========== LESSON 4: Solution Install Helm ========== -->
+        <article class="lesson" id="lesson-4">
+            <span class="lesson-number">الدرس 4</span>
+            <h2>🛸 Solution Install Helm</h2>
+            <div class="english-content">
+                <blockquote>
+<h2>Documentation Index</h2>
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+Use this file to discover all available pages before exploring further.</p>
+</blockquote>
+<h1>Solution Install Helm</h1>
+<blockquote>
+<p>This article provides a step-by-step guide for installing and validating Helm on Ubuntu.</p>
+</blockquote>
+<p>In this lesson, we will walk through the steps required for the Helm installation lab, covering the process from identifying your operating system to validating your Helm installation.</p>
+<h2>1. Identifying the Operating System</h2>
+<p>Before installing Helm, you need to verify the operating system on your machine. Run the following command to view your OS details:</p>
+<p>```bash  theme={null}
+root@controlplane ~ ➔ cat /etc/<em>release</em>
+DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=18.04
+DISTRIB_CODENAME=bionic
+DISTRIB_DESCRIPTION="Ubuntu 18.04.6 LTS"
+NAME="Ubuntu"
+VERSION="18.04.6 LTS (Bionic Beaver)"
+ID=ubuntu
+ID_LIKE=debian
+PRETTY_NAME="Ubuntu 18.04.6 LTS"
+VERSION_ID="18.04"
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+VERSION_CODENAME=bionic
+UBUNTU_CODENAME=bionic
+root@controlplane ~ ➔</p>
+<pre><code>
+The output confirms that the machine is running Ubuntu. Therefore, we will choose Ubuntu-specific installation steps.
+
+## 2. Installing Helm
+
+Refer to the official [Helm documentation](https://helm.sh/docs/) for the most accurate instructions. For Ubuntu, follow these commands. Depending on your package manager, use one of the methods below:
+
+* **Using Chocolatey:**\
+  (For environments where Chocolatey is available)
+  ```bash  theme={null}
+  choco install kubernetes-helm
+  ```
+
+* **Using Scoop:**\
+  (For environments where Scoop is installed)
+  ```bash  theme={null}
+  scoop install helm
+  ```
+
+* **Using apt (Preferred for Ubuntu):**\
+  Copy and execute the commands in your terminal to add the Helm repository, update your package list, and install Helm:
+
+  ```bash  theme={null}
+  curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg &gt; /dev/null
+  sudo apt-get install apt-transport-https --yes
+  echo &quot;deb [arch=$(dpkg --print-architecture)] signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main&quot; | sudo tee /etc/apt/sources.list.d/helm.list
+  sudo apt-get update
+  sudo apt-get install helm
+  ```
+
+&gt; Ensure you follow only the method applicable to your package management setup.
+
+## 3. Validating the Helm Installation
+
+After installation, it's essential to confirm that Helm has been successfully installed on your system.
+
+### 3.1. Installing Helm from the Repository
+
+When installing Helm from the repository using the apt command, you should see an output similar to the following:
+
+```bash  theme={null}
+root@controlplane ~ ➜ sudo apt-get install helm
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following NEW packages will be installed:
+  helm
+0 upgraded, 1 newly installed, 0 to remove and 47 not upgraded.
+Need to get 14.0 MB of archives.
+After this operation, 46.3 MB of additional disk space will be used.
+Get:1 https://baltocdn.com/helm/stable/debian all/main amd64 helm 3.9.2-1 [14.0 MB]
+Fetched 14.0 MB in 0s (51.8 MB/s)
+debconf: delaying package configuration, since apt-utils is not installed
+Selecting previously unselected package helm.
+(Reading database ... 123456 files and directories currently installed.)
+Preparing to unpack .../helm_3.9.2-1_amd64.deb ...
+Unpacking helm (3.9.2-1) ...
+Setting up helm (3.9.2-1) ...
+Processing triggers for man-db (2.8.3-2ubuntu0.1) ...
+root@controlplane ~ ➜
+</code></pre>
+<h3>3.2. Viewing Helm Commands</h3>
+<p>You can explore Helm's available commands and options by invoking the help command:</p>
+<p>```bash  theme={null}
+Usage:
+helm [command]</p>
+<p>Available Commands:
+  completion  generate autocompletion scripts for the specified shell
+  create      create a new chart with the given name
+  dependency  manage a chart's dependencies
+  env         helm client environment information
+  get         download extended information of a named release
+  help        Help about any command
+  history     fetch release history
+  install     install a chart
+  lint        examine a chart for possible issues
+  list        list releases
+  package     package a chart directory into a chart archive
+  plugin      install, list, or uninstall Helm plugins
+  pull        download a chart from a repository and (optionally) unpack it in local directory
+  push        push a chart to remote
+  registry    login to or logout from a registry
+  repo        add, list, remove, update, and index chart repositories
+  rollback    roll back a release to a previous revision
+  search      search for a keyword in charts
+  show        show information of a chart
+  status      display the status of the named release
+  template    locally render templates
+  test        run tests for a release
+  uninstall   uninstall a release
+  upgrade     upgrade a release</p>
+<pre><code>
+&gt; Remember to use the &quot;env&quot; command in lowercase when checking the Helm client environment information.
+
+### 3.3. Checking the Helm Version
+
+Verify that Helm is correctly installed and check its version by running:
+
+```bash  theme={null}
+root@controlplane ~ ➜ helm version
+version.BuildInfo{Version:&quot;v3.9.2&quot;, GitCommit:&quot;1addefbfe665c30f4daf868a9adc5600cc064fd&quot;, GitTreeState:&quot;clean&quot;, GoVersion:&quot;go1.17.12&quot;}
+</code></pre>
+<p>This confirms that you are running Helm version 3.9.2.</p>
+<h3>3.4. Enabling Verbose Output</h3>
+<p>For troubleshooting and deeper inspection, you can enable verbose output by adding the <code>--debug</code> flag when executing Helm commands. An excerpt from the Helm help output shows available flags:</p>
+<p><code>bash  theme={null}
+Flags:
+  --debug                  enable verbose output
+  -h, --help               help for helm
+  --kube-apiserver string  the address and the port for the Kubernetes API server
+  --kube-as-group stringArray  group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+  --kube-as-user string    username to impersonate for the operation
+  --kube-ca-file string    path to the certificate authority file for the Kubernetes API server connection
+  --kube-context string     name of the kubeconfig context to use
+  --kube-token string       bearer token used for authentication
+  --kubeconfig string       path to the kubeconfig file</code></p>
+<blockquote>
+<p>Using the <code>--debug</code> flag will provide more detailed output, which is useful for diagnosing any issues during Helm operations.</p>
+</blockquote>
+<p>This concludes the Helm installation lab. You now have Helm installed and verified on your Ubuntu machine, with the ability to leverage its extensive command set for managing Kubernetes deployments effectively.</p>
+<p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/bc61a673-47c3-4bef-b7f5-12f85c65cbbb/lesson/80f2d29c-3838-486c-9f1f-4ee16ba8497c" /></p>
+            </div>
+            
+            <div class="technical-corner">
+                <div class="tech-title">🔧 ركن القيادة — مصطلحات</div>
+                <p>
+                    <strong>Original Title:</strong> Solution Install Helm<br>
+                    يمكنك استخدام الزر أدناه للعودة للقائمة.
+                </p>
+            </div>
+        </article>
+
+    </div>
+
+    <footer class="site-footer">
+        <p>🚀 كوبسترونات — المهمة 10 خلصت! <a href="chapter11.html" style="color: var(--rocket-orange);">يلا على المهمة 11 ←</a></p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المهمة 14: الامتحانات التجريبية — كوبسترونات 🚀</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="space-bg"></div>
+    <div class="stars-layer"></div>
+
+    <header class="site-header">
+        <a href="../index.html" class="logo">
+            <span class="emoji">🚀</span>
+            Kubestronaut
+        </a>
+        <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="القائمة">☰</button>
+        <nav class="nav-links">
+            <a href="../index.html">🏠 القاعدة</a>
+            <a href="index.html" class="active">🎓 CKAD</a>
+        </nav>
+    </header>
+
+    <section class="chapter-hero">
+        <h1>🚀 المهمة 14: الامتحانات التجريبية</h1>
+        <p class="subtitle">Mock Exams</p>
+    </section>
+
+    <div class="lessons-container">
+
+        <!-- ========== LESSON 1: Mock Exam 1 Solution ========== -->
+        <article class="lesson" id="lesson-1">
+            <span class="lesson-number">الدرس 1</span>
+            <h2>🛸 Mock Exam 1 Solution</h2>
+            <div class="english-content">
+                <blockquote>
+<h2>Documentation Index</h2>
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+Use this file to discover all available pages before exploring further.</p>
+</blockquote>
+<h1>Mock Exam 1 Solution</h1>
+<blockquote>
+<p>This guide provides solutions for Mock Exam 1 with commands and configurations for various Kubernetes tasks.</p>
+</blockquote>
+<p>This guide provides comprehensive solutions for Mock Exam 1. Each section explains the commands and configurations for various Kubernetes tasks. All commands assume you are operating on a Kubernetes control plane. Follow the sections below for detailed instructions.</p>
+<hr />
+<h2>Question 1: Deploy a Pod using the Nginx Alpine Image</h2>
+<p>Deploy a pod named "nginx-448839" using the Nginx Alpine image:</p>
+<p>```bash  theme={null}
+kubectl run nginx-448839 --image=nginx:alpine</p>
+<pre><code>
+You should see output similar to:
+
+```bash  theme={null}
+pod/nginx-448839 created
+</code></pre>
+<hr />
+<h2>Question 2: Create a Namespace</h2>
+<p>Create a namespace "apx-Z993845" by running:</p>
+<p>```bash  theme={null}
+kubectl create ns apx-Z993845</p>
+<pre><code>
+Expected output:
+
+```bash  theme={null}
+namespace/apx-Z993845 created
+</code></pre>
+<hr />
+<h2>Question 3: Create a Deployment with Replicas</h2>
+<p>Create a deployment named "httpd-frontend" using the <code>httpd:2.4-alpine</code> image and scale it to three replicas:</p>
+<p>```bash  theme={null}
+kubectl create deployment httpd-frontend --image=httpd:2.4-alpine --replicas=3</p>
+<pre><code>
+This command sets up the deployment as specified.
+
+***
+
+## Question 4: Deploy a Messaging Pod with a Label
+
+Deploy a messaging pod using the Redis Alpine image and assign the label `tier=MSG`:
+
+```bash  theme={null}
+kubectl run messaging --image=redis:alpine -l tier=MSG
+</code></pre>
+<p>This command creates the pod with the appropriate image and label.</p>
+<hr />
+<h2>Question 5: Fix the ReplicaSet with Invalid Image Name</h2>
+<p>A ReplicaSet named <code>rs-d33393</code> is not launching pods due to a typo in the image name. Follow these steps to fix the issue:</p>
+<ol>
+<li>Check the ReplicaSet status:</li>
+</ol>
+<p><code>bash  theme={null}
+   kubectl get rs</code></p>
+<ol>
+<li>Describe the ReplicaSet to diagnose the problem:</li>
+</ol>
+<p><code>bash  theme={null}
+   kubectl describe rs rs-d33393</code></p>
+<blockquote>
+<p>Look for the container image field to identify the typo (<code>busyboxXXXXXXXX</code> instead of <code>busybox</code>).</p>
+</blockquote>
+<ol>
+<li>Edit the ReplicaSet to correct the image name:</li>
+</ol>
+<p><code>bash  theme={null}
+   kubectl edit rs rs-d33393</code></p>
+<p>In the YAML, change:</p>
+<p><code>yaml  theme={null}
+   image: busyboxXXXXXXXX</code></p>
+<p>to</p>
+<p><code>yaml  theme={null}
+   image: busybox</code></p>
+<p>Also, update the number of replicas to 4 by ensuring:</p>
+<p><code>yaml  theme={null}
+   spec:
+     replicas: 4</code></p>
+<ol>
+<li>Delete the misconfigured pods to allow the ReplicaSet to recreate them. First, list all pods:</li>
+</ol>
+<p><code>bash  theme={null}
+   kubectl get pod</code></p>
+<p>Then, delete pods with the label <code>name=busybox-pod</code>:</p>
+<p><code>bash  theme={null}
+   kubectl delete pod -l name=busybox-pod</code></p>
+<ol>
+<li>Verify that the ReplicaSet now has 4 ready pods:</li>
+</ol>
+<p><code>bash  theme={null}
+   kubectl get rs</code></p>
+<p>Expected output:</p>
+<p><code>bash  theme={null}
+   NAME          DESIRED   CURRENT   READY   AGE
+   rs-d33393     4         4         4       &lt;age&gt;</code></p>
+<hr />
+<h2>Question 6: Expose the Redis Deployment via a Service</h2>
+<p>Expose the Redis deployment in the <code>marketing</code> namespace by creating a service called "messaging-service" on port 6379:</p>
+<p>```bash  theme={null}
+kubectl expose deployment redis --port=6379 --name=messaging-service --namespace=marketing</p>
+<pre><code>
+This command sets up a ClusterIP service for the deployment.
+
+***
+
+## Question 7: Update the Environment Variable on a Pod
+
+The pod `webapp-color` has an environment variable `APP_COLOR` set to `pink`. Update it to `green` by following these steps:
+
+1. Export the pod configuration to a YAML file:
+
+   ```bash  theme={null}
+   kubectl get pod webapp-color -o yaml &gt; webapp-color.yaml
+   ```
+
+2. Open `webapp-color.yaml` in your preferred editor and locate the environment variable section. Replace:
+
+   ```yaml  theme={null}
+   - name: APP_COLOR
+     value: pink
+   ```
+
+   with
+
+   ```yaml  theme={null}
+   - name: APP_COLOR
+     value: green
+   ```
+
+3. Apply the updated configuration by replacing the pod:
+
+   ```bash  theme={null}
+   kubectl replace -f webapp-color.yaml --force
+   ```
+
+The pod will be re-created with the updated environment variable.
+
+***
+
+## Question 8: Create a ConfigMap with Key-Value Pairs
+
+Create a ConfigMap named &quot;cm-3392845&quot; with the following key-value pairs:
+
+* DB\_NAME: SQL3322
+* DB\_HOST: sql322.mycompany.com
+* DB\_PORT: 3306
+
+Execute the command:
+
+```bash  theme={null}
+kubectl create configmap cm-3392845 --from-literal=DB_NAME=SQL3322 --from-literal=DB_HOST=sql322.mycompany.com --from-literal=DB_PORT=3306
+</code></pre>
+<p>Verify the ConfigMap contents:</p>
+<p>```bash  theme={null}
+kubectl describe cm cm-3392845</p>
+<pre><code>
+***
+
+## Question 9: Create a Secret with Given Data
+
+Create a secret named &quot;db-secret&quot; with the specified key-value pairs:
+
+```bash  theme={null}
+kubectl create secret generic db-secret --from-literal=DB_Host=sql01 --from-literal=DB_User=root --from-literal=DB_Password=password123
+</code></pre>
+<p>This command creates the secret with the provided configurations.</p>
+<hr />
+<h2>Question 10: Update a Pod to Run as Root with SYS_TIME Capability</h2>
+<p>For the pod <code>app-sec-kff3345</code>, update the security context to run as root and enable the <code>SYS_TIME</code> capability:</p>
+<ol>
+<li>Export the pod configuration to a YAML file:</li>
+</ol>
+<p><code>bash  theme={null}
+   kubectl get pod app-sec-kff3345 -o yaml &gt; app-sec.yaml</code></p>
+<ol>
+<li>
+<p>Edit <code>app-sec.yaml</code> with the following modifications:</p>
+</li>
+<li>
+<p>Under <code>spec.securityContext</code>, set <code>runAsUser: 0</code>:</p>
+<p><code>yaml  theme={null}
+ securityContext:
+   runAsUser: 0</code></p>
+</li>
+<li>
+<p>Under the container section (e.g., container "ubuntu"), add a security context to include the <code>SYS_TIME</code> capability:</p>
+<p><code>yaml  theme={null}
+ securityContext:
+   capabilities:
+     add:
+       - SYS_TIME</code></p>
+</li>
+</ol>
+<p>A sample modified section appears as:</p>
+<p><code>yaml  theme={null}
+   spec:
+     containers:
+       - name: ubuntu
+         image: ubuntu
+         command:
+           - sleep
+           - "4800"
+         securityContext:
+           capabilities:
+             add:
+               - SYS_TIME
+     securityContext:
+       runAsUser: 0</code></p>
+<ol>
+<li>Apply the updated configuration by replacing the pod:</li>
+</ol>
+<p><code>bash  theme={null}
+   kubectl replace -f app-sec.yaml --force</code></p>
+<hr />
+<h2>Question 11: Export Pod Logs to a File</h2>
+<p>Export the logs of pod <code>e-com-1123</code> in the <code>e-commerce</code> namespace to a file:</p>
+<p>```bash  theme={null}
+kubectl logs e-com-1123 -n e-commerce &gt; /path/to/your/logfile.txt</p>
+<pre><code>
+This command redirects the pod logs to your specified destination.
+
+***
+
+## Question 12: Create a Persistent Volume
+
+Create a Persistent Volume named &quot;pv-analytics&quot; with the specified details:
+
+* Capacity: 100Mi
+* Access mode: ReadWriteMany
+* Host path: /PV/data-analytics
+
+Create a file called `pv.yaml` with the following content:
+
+```yaml  theme={null}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-analytics
+spec:
+  capacity:
+    storage: 100Mi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: Slow
+  hostPath:
+    path: /PV/data-analytics
+</code></pre>
+<p>Apply the configuration:</p>
+<p>```bash  theme={null}
+kubectl apply -f pv.yaml</p>
+<pre><code>
+***
+
+## Question 13: Create a Redis Deployment and Expose It
+
+1. Create a deployment named &quot;redis&quot; using the `redis:alpine` image with one replica:
+
+   ```bash  theme={null}
+   kubectl create deployment redis --image=redis:alpine --replicas=1
+   ```
+
+2. Expose the deployment with a ClusterIP service on port 6379:
+
+   ```bash  theme={null}
+   kubectl expose deployment redis --name=redis --port=6379 --target-port=6379
+   ```
+
+***
+
+## Question 14: Create a Network Policy for Redis Access
+
+Allow traffic to Redis only from pods with the label `access=redis` by creating a network policy. Create a file named `networkpolicy.yaml` with the following content:
+
+```yaml  theme={null}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: redis-access
+  namespace: default
+spec:
+  podSelector:
+    matchLabels:
+      app: redis
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          access: redis
+    ports:
+    - protocol: TCP
+      port: 6379
+</code></pre>
+<p>Apply the network policy:</p>
+<p>```bash  theme={null}
+kubectl apply -f networkpolicy.yaml</p>
+<pre><code>
+***
+
+## Question 15: Create a Pod with Two Containers
+
+Create a pod named &quot;sega&quot; that includes two containers:
+
+* Container &quot;tails&quot;: uses the `busybox` image and runs a sleep command for 3600 seconds.
+* Container &quot;sonic&quot;: uses the `nginx` image and sets the environment variable `NGINX_PORT` to &quot;8080&quot;.
+
+Create a file called `sega.yaml` with the following content:
+
+```yaml  theme={null}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sega
+spec:
+  containers:
+    - name: tails
+      image: busybox
+      command:
+        - sleep
+        - &quot;3600&quot;
+    - name: sonic
+      image: nginx
+      env:
+        - name: NGINX_PORT
+          value: &quot;8080&quot;
+</code></pre>
+<p>Apply the pod configuration:</p>
+<p>```bash  theme={null}
+kubectl apply -f sega.yaml</p>
+<pre><code>
+If an update is required later, replace the pod with:
+
+```bash  theme={null}
+kubectl replace -f sega.yaml --force
+</code></pre>
+<hr />
+<p>That concludes the steps for Mock Exam 1. Each section documents the command or configuration change required. Happy deploying!</p>
+<p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/36d5003c-cbf5-4311-9e52-78a17776f919/lesson/2d24748c-3f4c-4ecc-b9fa-a1ef91b240d5" /></p>
+<p><Card title="Practice Lab" icon="installation" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/36d5003c-cbf5-4311-9e52-78a17776f919/lesson/3253aaee-d6ce-4d4c-aadf-b855ebebcc70" /></p>
+            </div>
+            
+            <div class="technical-corner">
+                <div class="tech-title">🔧 ركن القيادة — مصطلحات</div>
+                <p>
+                    <strong>Original Title:</strong> Mock Exam 1 Solution<br>
+                    يمكنك استخدام الزر أدناه للعودة للقائمة.
+                </p>
+            </div>
+        </article>
+
+        <!-- ========== LESSON 2: Mock Exam 2 Solution ========== -->
+        <article class="lesson" id="lesson-2">
+            <span class="lesson-number">الدرس 2</span>
+            <h2>🛸 Mock Exam 2 Solution</h2>
+            <div class="english-content">
+                <blockquote>
+<h2>Documentation Index</h2>
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+Use this file to discover all available pages before exploring further.</p>
+</blockquote>
+<h1>Mock Exam 2 Solution</h1>
+<blockquote>
+<p>This guide provides step-by-step instructions for solving a Kubernetes mock exam, covering deployments, services, taints, tolerations, and more.</p>
+</blockquote>
+<p>In this guide, we will walk you through solving a Kubernetes mock exam with step-by-step instructions on creating deployments, services, configuring taints, tolerations, node affinity, ingress resources, readiness and liveness probes, jobs, multi-container pods, and persistent volumes. Follow along to apply these configurations in your Kubernetes environment.</p>
+<hr />
+<h2>1. Create a Deployment and Expose It as a NodePort Service</h2>
+<h3>Creating the Deployment</h3>
+<p>First, create a deployment named <strong>my-webapp</strong> with the following parameters:</p>
+<ul class="styled-list">
+<li><strong>Image:</strong> nginx</li>
+<li><strong>Replicas:</strong> 2</li>
+<li><strong>Label:</strong> tier=front end (as implied)</li>
+</ul>
+<p>Generate a YAML configuration using a dry run and save it to <code>my-webapp.yaml</code>:</p>
+<p>```bash  theme={null}
+kubectl create deployment my-webapp --image=nginx --replicas=2 --dry-run=client -o yaml &gt; my-webapp.yaml</p>
+<pre><code>
+Review the file if necessary, then apply the configuration:
+
+```bash  theme={null}
+kubectl apply -f my-webapp.yaml
+</code></pre>
+<p>Verify the deployment:</p>
+<p>```bash  theme={null}
+kubectl get deployment</p>
+<pre><code>
+### Exposing the Deployment as a Service
+
+Next, expose the **my-webapp** deployment as a NodePort service with these settings:
+
+* **Service Name:** front-end-service
+* **Service Type:** NodePort
+* **Port:** 80
+* **Node Port:** 30083 (to be set manually in the YAML)
+
+Generate the service configuration using a dry run:
+
+```bash  theme={null}
+kubectl expose deployment my-webapp --name front-end-service --type NodePort --port 80 --dry-run=client -o yaml &gt; front-end-service.yaml
+</code></pre>
+<p>Open <code>front-end-service.yaml</code> and add the node port configuration (<code>30083</code>) under the appropriate section. Then, apply the updated configuration:</p>
+<p>```bash  theme={null}
+kubectl apply -f front-end-service.yaml</p>
+<pre><code>
+Verify the service:
+
+```bash  theme={null}
+kubectl get svc
+</code></pre>
+<pre><code>    &lt;figure class="img-frame"&gt;
+        &lt;img src="../assets/images/chapter14/Mock-Exam-2-Solution_frame_0.jpg" alt="The image shows a KodeKloud mock exam interface with a task to create a Kubernetes deployment and NodePort service using specific parameters." loading="lazy"&gt;
+        &lt;figcaption&gt;The image shows a KodeKloud mock exam interface with a task to create a Kubernetes deployment and NodePort service using specific parameters.&lt;/figcaption&gt;
+    &lt;/figure&gt;
+</code></pre>
+<hr />
+<h2>2. Add a Taint to a Node and Create a Pod with a Toleration</h2>
+<h3>Tainting the Node</h3>
+<p>Check the nodes in your cluster:</p>
+<p>```bash  theme={null}
+kubectl get nodes</p>
+<pre><code>
+Apply a taint on the node named **node01** with key `app_type`, value `alpha`, and effect `NoSchedule`:
+
+```bash  theme={null}
+kubectl taint node node01 app_type=alpha:NoSchedule
+</code></pre>
+<p>Confirm the taint by describing the node:</p>
+<p>```bash  theme={null}
+kubectl describe node node01</p>
+<pre><code>
+### Creating the Pod with Toleration
+
+Create a pod named **alpha** using the `redis` image. First, generate the pod's YAML configuration:
+
+```bash  theme={null}
+kubectl run alpha --image=redis --dry-run=client -o yaml &gt; alpha.yaml
+</code></pre>
+<p>Edit the <code>alpha.yaml</code> file to include the following toleration under the pod spec:</p>
+<p>```yaml  theme={null}
+tolerations:
+- key: app_type
+  operator: Equal
+  value: "alpha"
+  effect: NoSchedule</p>
+<pre><code>
+A complete sample configuration should look like this:
+
+```yaml  theme={null}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: alpha
+  labels:
+    run: alpha
+spec:
+  tolerations:
+  - key: app_type
+    operator: Equal
+    value: &quot;alpha&quot;
+    effect: NoSchedule
+  containers:
+  - name: alpha
+    image: redis
+  restartPolicy: Always
+</code></pre>
+<p>Apply the configuration:</p>
+<p>```bash  theme={null}
+kubectl apply -f alpha.yaml</p>
+<pre><code>
+Verify that the pod is running on **node01**:
+
+```bash  theme={null}
+kubectl get pod -o wide
+</code></pre>
+<pre><code>    &lt;figure class="img-frame"&gt;
+        &lt;img src="../assets/images/chapter14/Mock-Exam-2-Solution_frame_200.jpg" alt="The image shows a KodeKloud mock exam task to add a taint to a Kubernetes node and create a pod with specific toleration." loading="lazy"&gt;
+        &lt;figcaption&gt;The image shows a KodeKloud mock exam task to add a taint to a Kubernetes node and create a pod with specific toleration.&lt;/figcaption&gt;
+    &lt;/figure&gt;
+</code></pre>
+<hr />
+<h2>3. Label the Control Plane Node and Create a Deployment with Node Affinity</h2>
+<h3>Labeling the Node</h3>
+<p>List your nodes to find the control plane node:</p>
+<p>```bash  theme={null}
+kubectl get node</p>
+<pre><code>
+Label the control plane node (assumed to be named **controlplane**) with `app_type=beta`:
+
+```bash  theme={null}
+kubectl label node controlplane app_type=beta
+</code></pre>
+<p>Confirm the label is applied:</p>
+<p>```bash  theme={null}
+kubectl get node --show-labels</p>
+<pre><code>
+### Creating the Beta-Apps Deployment with Node Affinity
+
+Create a deployment named **beta-apps** with the following settings:
+
+* **Image:** nginx
+* **Replicas:** 3
+
+Generate the YAML configuration:
+
+```bash  theme={null}
+kubectl create deployment beta-apps --image=nginx --replicas=3 --dry-run=client -o yaml &gt; beta-apps.yaml
+</code></pre>
+<p>Edit the file to add a node affinity section under the pod spec:</p>
+<p>```yaml  theme={null}
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - matchExpressions:
+        - key: app_type
+          operator: In
+          values:
+          - beta</p>
+<pre><code>
+A complete version of the edited deployment YAML will be:
+
+```yaml  theme={null}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: beta-apps
+  labels:
+    app: beta-apps
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: beta-apps
+  template:
+    metadata:
+      labels:
+        app: beta-apps
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - matchExpressions:
+            - key: app_type
+              operator: In
+              values:
+              - beta
+      containers:
+      - name: nginx
+        image: nginx
+        resources: {}
+</code></pre>
+<p>Apply the deployment:</p>
+<p>```bash  theme={null}
+kubectl apply -f beta-apps.yaml</p>
+<pre><code>
+Verify that the pods are scheduled on the control plane node:
+
+```bash  theme={null}
+kubectl get pod -o wide
+</code></pre>
+<hr />
+<h2>4. Create an Ingress Resource for the My-Video Service</h2>
+<p>First, verify the <strong>my-video-service</strong> details (it listens on port 8080):</p>
+<p>```bash  theme={null}
+kubectl get service</p>
+<pre><code>
+You should see output similar to:
+
+```bash  theme={null}
+NAME                TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)         AGE
+front-end-service   NodePort    10.101.45.50    &lt;none&gt;        80:31242/TCP    8m4s
+kubernetes          ClusterIP   10.96.0.1       &lt;none&gt;        443/TCP         23m
+my-video-service    ClusterIP   10.97.57.28     &lt;none&gt;        8080/TCP        2m54s
+</code></pre>
+<p>Create an ingress resource so that <strong>my-video-service</strong> is reachable via the URL <code>ckad-mock-exam-solution.com</code> at the path <code>/video</code>.</p>
+<p>Generate the ingress configuration imperatively:</p>
+<p>```bash  theme={null}
+kubectl create ingress ingress --rule="ckad-mock-exam-solution.com/video= my-video-service:8080" --dry-run=client -o yaml &gt; ingress.yaml</p>
+<pre><code>
+Then, adjust the YAML to ensure it follows the proper format. The final configuration should be:
+
+```yaml  theme={null}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress
+spec:
+  rules:
+  - host: ckad-mock-exam-solution.com
+    http:
+      paths:
+      - path: /video
+        pathType: Prefix
+        backend:
+          service:
+            name: my-video-service
+            port:
+              number: 8080
+status:
+  loadBalancer: {}
+</code></pre>
+<p>Apply the ingress resource:</p>
+<p>```bash  theme={null}
+kubectl apply -f ingress.yaml</p>
+<pre><code>
+Verify the ingress configuration:
+
+```bash  theme={null}
+kubectl get ingress
+</code></pre>
+<pre><code>    &lt;figure class="img-frame"&gt;
+        &lt;img src="../assets/images/chapter14/Mock-Exam-2-Solution_frame_430.jpg" alt="The image shows a KodeKloud mock exam task to create an Ingress Resource for a service, with a terminal ready for input." loading="lazy"&gt;
+        &lt;figcaption&gt;The image shows a KodeKloud mock exam task to create an Ingress Resource for a service, with a terminal ready for input.&lt;/figcaption&gt;
+    &lt;/figure&gt;
+</code></pre>
+<hr />
+<h2>5. Update a Pod with a Readiness Probe</h2>
+<p>Update a pod (named <strong>pod-with-rprobe</strong>) to include a readiness probe. First, retrieve its current configuration:</p>
+<p>```bash  theme={null}
+kubectl get pod pod-with-rprobe -o yaml &gt; pod.yaml</p>
+<pre><code>
+Edit `pod.yaml` and insert the following snippet under the container spec (before the ports section):
+
+```yaml  theme={null}
+readinessProbe:
+  httpGet:
+    path: /ready
+    port: 8080
+</code></pre>
+<p>An updated container section should resemble:</p>
+<p>```yaml  theme={null}
+containers:
+- name: pod-with-rprobe
+  image: kodekloud/webapp-delayed-start
+  env:
+  - name: APP_START_DELAY
+    value: "180"
+  readinessProbe:
+    httpGet:
+      path: /ready
+      port: 8080
+  ports:
+  - containerPort: 8080
+    protocol: TCP</p>
+<pre><code>
+After saving your changes, force replace the existing pod:
+
+```bash  theme={null}
+kubectl replace -f pod.yaml --force
+</code></pre>
+<p>Verify the update:</p>
+<p>```bash  theme={null}
+kubectl get pod pod-with-rprobe</p>
+<pre><code>
+***
+
+## 6. Create a Pod with a Liveness Probe
+
+Create a new pod named **nginx1401** in the default namespace using the **nginx** image. This pod will have a liveness probe that executes a command to check `/var/www/html/probe`. The probe has an initial delay of 10 seconds and executes every 60 seconds.
+
+Create a file called `nginx1401.yaml` with the following content:
+
+```yaml  theme={null}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx1401
+  namespace: default
+spec:
+  containers:
+  - name: nginx1401
+    image: nginx
+    livenessProbe:
+      exec:
+        command: [&quot;ls&quot;, &quot;/var/www/html/probe&quot;]
+      initialDelaySeconds: 10
+      periodSeconds: 60
+</code></pre>
+<p>Apply the configuration:</p>
+<p>```bash  theme={null}
+kubectl apply -f nginx1401.yaml</p>
+<pre><code>
+&gt; If validation errors occur, verify the YAML formatting and ensure the liveness probe is directly placed under the container.
+
+
+        &lt;figure class=&quot;img-frame&quot;&gt;
+            &lt;img src=&quot;../assets/images/chapter14/Mock-Exam-2-Solution_frame_630.jpg&quot; alt=&quot;The image shows a KodeKloud mock exam task to create a Kubernetes pod with a liveness probe using the nginx image.&quot; loading=&quot;lazy&quot;&gt;
+            &lt;figcaption&gt;The image shows a KodeKloud mock exam task to create a Kubernetes pod with a liveness probe using the nginx image.&lt;/figcaption&gt;
+        &lt;/figure&gt;
+
+
+***
+
+## 7. Create a Job Called Whalesay
+
+Create a Kubernetes Job named **whalesay** using the `docker/whalesay` image. This job will execute a command to display &quot;I am going to ace CKAD!&quot;, with 10 completions, a backoff limit of 6, and a restart policy set to Never.
+
+Generate the job configuration using a dry run:
+
+```bash  theme={null}
+kubectl create job whalesay --image=docker/whalesay -- /cowsay &quot;I am going to ace CKAD!&quot; --dry-run=client -o yaml &gt; whalesay.yaml
+</code></pre>
+<p>Edit the <code>whalesay.yaml</code> file to include the completions and backoffLimit fields. The finalized YAML should be:</p>
+<p>```yaml  theme={null}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: whalesay
+spec:
+  completions: 10
+  backoffLimit: 6
+  template:
+    spec:
+      containers:
+      - name: whalesay
+        image: docker/whalesay
+        command:
+        - sh
+        - -c
+        - "/cowsay 'I am going to ace CKAD!'"
+      restartPolicy: Never</p>
+<pre><code>
+Apply the job configuration:
+
+```bash  theme={null}
+kubectl apply -f whalesay.yaml
+</code></pre>
+<p>Monitor the job progress until all 10 completions succeed:</p>
+<p>```bash  theme={null}
+kubectl get jobs -w</p>
+<pre><code>
+
+        &lt;figure class=&quot;img-frame&quot;&gt;
+            &lt;img src=&quot;../assets/images/chapter14/Mock-Exam-2-Solution_frame_740.jpg&quot; alt=&quot;The image shows a KodeKloud mock exam task to create a Kubernetes job named &quot;whalesay&quot; using a specific Docker image and command, with defined completions and backoff limits.&quot; loading=&quot;lazy&quot;&gt;
+            &lt;figcaption&gt;The image shows a KodeKloud mock exam task to create a Kubernetes job named &quot;whalesay&quot; using a specific Docker image and command, with defined completions and backoff limits.&lt;/figcaption&gt;
+        &lt;/figure&gt;
+
+
+***
+
+## 8. Create a Multi-Container Pod
+
+Create a pod named **multi-pod** containing two containers with the configurations below:
+
+* **Container 1:**
+  * Name: jupiter
+  * Image: nginx
+  * Environment Variable: `type=planet`
+* **Container 2:**
+  * Name: europa
+  * Image: busybox
+  * Command: `/bin/sh -c &quot;sleep 4800&quot;`
+  * Environment Variable: `type=moon`
+
+Create a file called `multi-pod.yaml` with the following content:
+
+```yaml  theme={null}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: multi-pod
+spec:
+  containers:
+  - name: jupiter
+    image: nginx
+    env:
+    - name: type
+      value: &quot;planet&quot;
+  - name: europa
+    image: busybox
+    command: [&quot;/bin/sh&quot;, &quot;-c&quot;, &quot;sleep 4800&quot;]
+    env:
+    - name: type
+      value: &quot;moon&quot;
+</code></pre>
+<p>Apply the configuration:</p>
+<p>```bash  theme={null}
+kubectl apply -f multi-pod.yaml</p>
+<pre><code>
+***
+
+## 9. Create a Persistent Volume
+
+Create a persistent volume named **custom-volume** with these attributes:
+
+* **Storage:** 50Mi
+* **Reclaim Policy:** Retain
+* **Access Modes:** ReadWriteMany
+* **Host Path:** /opt/data
+
+Create a file named `pv.yaml` with the configuration below:
+
+```yaml  theme={null}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: custom-volume
+spec:
+  capacity:
+    storage: 50Mi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /opt/data
+</code></pre>
+<p>Apply the persistent volume configuration:</p>
+<p><code>bash  theme={null}
+kubectl apply -f pv.yaml</code></p>
+<pre><code>    &lt;figure class="img-frame"&gt;
+        &lt;img src="../assets/images/chapter14/Mock-Exam-2-Solution_frame_1000.jpg" alt="The image shows a KodeKloud mock exam task to create a Kubernetes PersistentVolume named "custom-volume" with specific attributes, alongside a terminal interface." loading="lazy"&gt;
+        &lt;figcaption&gt;The image shows a KodeKloud mock exam task to create a Kubernetes PersistentVolume named "custom-volume" with specific attributes, alongside a terminal interface.&lt;/figcaption&gt;
+    &lt;/figure&gt;
+</code></pre>
+<hr />
+<p>This concludes the mock exam solutions. Verify each resource with the appropriate kubectl commands to ensure all configurations are applied successfully. Enjoy scaling your Kubernetes expertise!</p>
+<p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/36d5003c-cbf5-4311-9e52-78a17776f919/lesson/7fa46b50-1f26-45c2-beab-960b9c747e95" /></p>
+            </div>
+            
+            <div class="technical-corner">
+                <div class="tech-title">🔧 ركن القيادة — مصطلحات</div>
+                <p>
+                    <strong>Original Title:</strong> Mock Exam 2 Solution<br>
+                    يمكنك استخدام الزر أدناه للعودة للقائمة.
+                </p>
+            </div>
+        </article>
+
+        <!-- ========== LESSON 3: Whats Next ========== -->
+        <article class="lesson" id="lesson-3">
+            <span class="lesson-number">الدرس 3</span>
+            <h2>🛸 Whats Next</h2>
+            <div class="english-content">
+                <blockquote>
+<h2>Documentation Index</h2>
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+Use this file to discover all available pages before exploring further.</p>
+</blockquote>
+<h1>Whats Next</h1>
+<blockquote>
+<p>This guide offers extensive hands-on practice through simulated exam conditions designed to closely mirror the real CKAD experience.</p>
+</blockquote>
+<p>Hello everyone, this is Vijen Palazi from KodeKloud. Welcome to this Ultimate Mock Exam Series for the CKAD certification exam. This guide offers extensive hands-on practice through simulated exam conditions designed to closely mirror the real CKAD experience.</p>
+<h2>Overview of the CKAD Exam</h2>
+<p>The CKAD exam is structured around five key knowledge areas:</p>
+<ul class="styled-list">
+<li><strong>Application Design and Build:</strong> 20%</li>
+<li><strong>Application Deployment:</strong> 20%</li>
+<li><strong>Application Environment Configuration and Security:</strong> 25%</li>
+<li><strong>Observability and Maintenance:</strong> 15%</li>
+<li><strong>Service Networking:</strong> 20%</li>
+</ul>
+<p>Each mock exam consists of 20 tasks to be completed within a two-hour timeframe, and you will have access to up to three Kubernetes clusters during the exam.</p>
+<blockquote>
+<p><strong>Tip:</strong>\
+Before starting your exam, make sure to verify that you are using the correct Kubernetes context. You can switch contexts by running the following command:</p>
+</blockquote>
+<p>```bash  theme={null}
+kubectl config use-context cluster1</p>
+<pre><code>
+## Exam Walkthrough
+
+When the exam begins, you will be presented with 20 questions. Although the order of questions may vary, each question clearly indicates its corresponding knowledge area and assigned weight. For instance, the first question might fall under the Application Design and Build section and could have a 4% weightage.
+
+You can seamlessly navigate through the exam using the &quot;Next Question&quot; and &quot;Back&quot; buttons. As you progress, questions from various knowledge areas will be interleaved, providing a balanced assessment experience.
+
+
+        &lt;figure class=&quot;img-frame&quot;&gt;
+            &lt;img src=&quot;../assets/images/chapter14/Whats-Next_frame_150.jpg&quot; alt=&quot;The image shows a KodeKloud lab interface with a terminal on the right and a task setup progress on the left.&quot; loading=&quot;lazy&quot;&gt;
+            &lt;figcaption&gt;The image shows a KodeKloud lab interface with a terminal on the right and a task setup progress on the left.&lt;/figcaption&gt;
+        &lt;/figure&gt;
+
+
+In the example shown above, the fifth question aligns with the Application Deployment section.
+
+&gt; **Context Switching:**\
+&gt; At any point during the exam, if you need to work on a different cluster, you can switch contexts using the following command:
+
+```bash  theme={null}
+kubectl config use-context cluster2
+</code></pre>
+<p>That’s it for this guide. Best of luck with your preparation and for your CKAD certification exam!</p>
+<h2>Additional Resources</h2>
+<ul class="styled-list">
+<li><a href="https://kubernetes.io/docs/">Kubernetes Documentation</a></li>
+<li><a href="https://kodekloud.com/blog/">KodeKloud Blog</a></li>
+<li><a href="https://hub.docker.com/">Docker Hub</a></li>
+</ul>
+<p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/36d5003c-cbf5-4311-9e52-78a17776f919/lesson/4cd94eb6-50d3-4a45-bf7c-4eeca119044a" /></p>
+            </div>
+            
+            <div class="technical-corner">
+                <div class="tech-title">🔧 ركن القيادة — مصطلحات</div>
+                <p>
+                    <strong>Original Title:</strong> Whats Next<br>
+                    يمكنك استخدام الزر أدناه للعودة للقائمة.
+                </p>
+            </div>
+        </article>
+
+    </div>
+
+    <footer class="site-footer">
+        <p>🚀 كوبسترونات — المهمة 14 خلصت! <a href="../index.html" style="color: var(--rocket-orange);">يلا على المهمة 1 ←</a></p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المهمة 5: المراقبة — كوبسترونات 🚀</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="space-bg"></div>
+    <div class="stars-layer"></div>
+
+    <header class="site-header">
+        <a href="../index.html" class="logo">
+            <span class="emoji">🚀</span>
+            Kubestronaut
+        </a>
+        <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="القائمة">☰</button>
+        <nav class="nav-links">
+            <a href="../index.html">🏠 القاعدة</a>
+            <a href="index.html" class="active">🎓 CKAD</a>
+        </nav>
+    </header>
+
+    <section class="chapter-hero">
+        <h1>🚀 المهمة 5: المراقبة</h1>
+        <p class="subtitle">Observability</p>
+    </section>
+
+    <div class="lessons-container">
+
+        <!-- ========== LESSON 1: Liveness Probes ========== -->
+        <article class="lesson" id="lesson-1">
+            <span class="lesson-number">الدرس 1</span>
+            <h2>🛸 Liveness Probes</h2>
+            <div class="english-content">
+                <blockquote>
+<h2>Documentation Index</h2>
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+Use this file to discover all available pages before exploring further.</p>
+</blockquote>
+<h1>Liveness Probes</h1>
+<blockquote>
+<p>This article explains liveness probes in Kubernetes, detailing their role in maintaining container health and providing configuration examples for developers.</p>
+</blockquote>
+<p>Hello, and welcome to this comprehensive guide on liveness probes in Kubernetes. My name is Mumshad Mannambeth, and in this article, we will explore how liveness probes help maintain container health, ensuring that your applications remain resilient and available.</p>
+<pre><code>    &lt;figure class="img-frame"&gt;
+        &lt;img src="../assets/images/chapter5/Liveness-Probes_frame_10.jpg" alt="The image lists course objectives, including core concepts, configuration, multi-container pods, observability, pod design, services, networking, and state persistence, with some items checked off." loading="lazy"&gt;
+        &lt;figcaption&gt;The image lists course objectives, including core concepts, configuration, multi-container pods, observability, pod design, services, networking, and state persistence, with some items checked off.&lt;/figcaption&gt;
+    &lt;/figure&gt;
+</code></pre>
+<h2>Understanding the Basics</h2>
+<p>When you run an Nginx container using Docker:</p>
+<p>```bash  theme={null}
+docker run nginx</p>
+<pre><code>
+the container starts serving users immediately. However, if the Nginx process crashes, the container will exit. You can inspect the container status with:
+
+```bash  theme={null}
+docker ps -a
+</code></pre>
+<p>which might produce output similar to:</p>
+<p>```text  theme={null}
+CONTAINER ID        IMAGE               CREATED             STATUS                     PORTS
+45aacca36850        nginx               43 seconds ago      Exited (1) 41 seconds ago</p>
+<pre><code>
+Since Docker is not designed for orchestration, the container remains stopped until you manually restart it.
+
+In contrast, running the same web application in Kubernetes provides automated resilience. If the application crashes, Kubernetes will detect the issue and automatically restart the container. For example, you can start the container with:
+
+```bash  theme={null}
+kubectl run nginx --image=nginx
+</code></pre>
+<p>Check the pod status and observe the restart count by executing:</p>
+<p>```bash  theme={null}
+kubectl get pods</p>
+<pre><code>
+A sample output may look like this:
+
+```text  theme={null}
+NAME       READY   STATUS      RESTARTS   AGE
+nginx-pod  0/1     Completed   1          1d
+</code></pre>
+<p>If the application crashes repeatedly, the restart count increases:</p>
+<p>```bash  theme={null}
+kubectl get pods</p>
+<pre><code>
+Output:
+
+```text  theme={null}
+NAME       READY   STATUS      RESTARTS   AGE
+nginx-pod  0/1     Completed   2          1d
+</code></pre>
+<blockquote>
+<p>Even if a container appears "up", the application inside might not function correctly—for example, if it gets stuck in an infinite loop due to a bug. In such cases, Kubernetes would not automatically remedy the issue without further configuration.</p>
+</blockquote>
+<h2>The Role of Liveness Probes</h2>
+<p>This is where liveness probes become essential. A liveness probe periodically checks the health of your application running inside the container. If the probe’s test fails, Kubernetes considers the container unhealthy and recreates it to restore service. As a developer, you define what “healthy” means for your specific application. For a web service, it might mean that the API is responsive; for a database, ensuring the TCP socket is open could be the test; or you may choose to execute a custom command for more complex scenarios.</p>
+<pre><code>    &lt;figure class="img-frame"&gt;
+        &lt;img src="../assets/images/chapter5/Liveness-Probes_frame_140.jpg" alt="The image describes "Liveness Probes" with an HTTP test at "/api/healthy" and a TCP test on port 3306, alongside a globe icon." loading="lazy"&gt;
+        &lt;figcaption&gt;The image describes "Liveness Probes" with an HTTP test at "/api/healthy" and a TCP test on port 3306, alongside a globe icon.&lt;/figcaption&gt;
+    &lt;/figure&gt;
+</code></pre>
+<p>Liveness probes are defined within your pod's container specification in a manner similar to readiness probes but in a distinct configuration section. The available methods include:</p>
+<ul class="styled-list">
+<li><strong>HTTP GET:</strong> Perform an HTTP request to check an API endpoint.</li>
+<li><strong>TCP Socket:</strong> Validate that a specific TCP port is accepting connections.</li>
+<li><strong>Exec Command:</strong> Run a command inside the container to verify application health.</li>
+</ul>
+<p>Additionally, you can customize the behavior of the probe with parameters such as the initial delay, probe frequency, and failure thresholds.</p>
+<h2>Configuring a Liveness Probe</h2>
+<p>Below is an example of a complete pod definition that uses an HTTP GET liveness probe for a simple web application:</p>
+<p>```yaml  theme={null}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: simple-webapp
+  labels:
+    name: simple-webapp
+spec:
+  containers:
+    - name: simple-webapp
+      image: simple-webapp
+      ports:
+        - containerPort: 8080
+      livenessProbe:
+        httpGet:
+          path: /api/healthy
+          port: 8080
+        initialDelaySeconds: 10
+        periodSeconds: 5
+        failureThreshold: 8</p>
+<pre><code>
+Below are additional configuration examples for liveness probes:
+
+### Using a TCP Socket
+
+```yaml  theme={null}
+livenessProbe:
+  tcpSocket:
+    port: 3306
+</code></pre>
+<h3>Using an Exec Command</h3>
+<p><code>yaml  theme={null}
+livenessProbe:
+  exec:
+    command:
+      - cat
+      - /app/is_healthy</code></p>
+<blockquote>
+<p>Ensure that your liveness probe configuration accurately reflects your application's health criteria. Misconfigured probes can lead to unnecessary restarts and disruptions.</p>
+</blockquote>
+<h2>Summary</h2>
+<p>This article has detailed the concept of liveness probes and demonstrated how to configure them to manage container health automatically in Kubernetes. Experiment with these configurations in your development setup to better understand how liveness probes can optimize application availability and reliability.</p>
+<p>For more detailed Kubernetes guides and examples, continue exploring our resources and practical coding exercises.</p>
+<p>See you in the next article!</p>
+<p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/d79d0450-406f-43ef-91ae-2f0c9dc1204c/lesson/b2d2c5ac-df72-4ee4-9b59-80dec7c065b7" /></p>
+<p><Card title="Practice Lab" icon="installation" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/d79d0450-406f-43ef-91ae-2f0c9dc1204c/lesson/9e59f29a-bfcf-41eb-8714-5cc2c08b4928" /></p>
+            </div>
+            
+            <div class="technical-corner">
+                <div class="tech-title">🔧 ركن القيادة — مصطلحات</div>
+                <p>
+                    <strong>Original Title:</strong> Liveness Probes<br>
+                    يمكنك استخدام الزر أدناه للعودة للقائمة.
+                </p>
+            </div>
+        </article>
+
+        <!-- ========== LESSON 2: Logging ========== -->
+        <article class="lesson" id="lesson-2">
+            <span class="lesson-number">الدرس 2</span>
+            <h2>🛸 Logging</h2>
+            <div class="english-content">
+                <blockquote>
+<h2>Documentation Index</h2>
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+Use this file to discover all available pages before exploring further.</p>
+</blockquote>
+<h1>Logging</h1>
+<blockquote>
+<p>This comprehensive guide explores logging mechanisms in Docker and Kubernetes for managing logs and troubleshooting containerized applications.</p>
+</blockquote>
+<p>Welcome to this comprehensive guide on logging mechanisms in containerized environments. In this article, we explore logging in Docker before transitioning to Kubernetes logging practices. This guide is ideal for developers and system administrators looking to efficiently manage logs and troubleshoot containerized applications.</p>
+<h2>Logging in Docker</h2>
+<p>Imagine a Docker container named "event simulator" that produces random events to mimic a web server. This container sends these event logs to its standard output. For instance, executing the container in the foreground using the command below:</p>
+<p>```bash  theme={null}
+docker run kodekloud/event-simulator</p>
+<pre><code>
+may yield output similar to:
+
+```bash  theme={null}
+docker run kodekloud/event-simulator
+2018-10-06 15:57:15,937 - root - INFO - USER1 logged in
+2018-10-06 15:57:16,943 - root - INFO - USER2 logged out
+2018-10-06 15:57:17,944 - root - INFO - USER3 is viewing page3
+2018-10-06 15:57:18,951 - root - INFO - USER4 is viewing page1
+2018-10-06 15:57:19,954 - root - INFO - USER2 logged out
+2018-10-06 15:57:20,955 - root - INFO - USER1 logged in
+2018-10-06 15:57:21,956 - root - INFO - USER3 is viewing page2
+2018-10-06 15:57:22,957 - root - INFO - USER4 is viewing page2
+2018-10-06 15:57:23,959 - root - INFO - USER1 logged out
+2018-10-06 15:57:24,963 - root - INFO - USER2 is viewing page2
+2018-10-06 15:57:25,943 - root - INFO - USER4 is viewing page3
+2018-10-06 15:57:26,965 - root - INFO - USER3 logged out
+2018-10-06 15:57:27,965 - root - INFO - USER1 is viewing page2
+2018-10-06 15:57:28,961 - root - INFO - USER4 is viewing page3
+2018-10-06 15:57:29,967 - root - INFO - USER3 is viewing page1
+2018-10-06 15:57:30,970 - root - INFO - USER4 logged in
+2018-10-06 15:57:31,973 - root - INFO - USER1 is viewing page3
+</code></pre>
+<blockquote>
+<p>If you run the Docker container in detached mode using the <code>-d</code> option, the logs won't display on the console immediately. Instead, you can inspect the logs later by using the <code>docker logs</code> command along with the container ID.</p>
+</blockquote>
+<p>For example, starting the container in detached mode:</p>
+<p>```bash  theme={null}
+docker run -d kodekloud/event-simulator</p>
+<pre><code>
+You can then view the logs with:
+
+```bash  theme={null}
+docker logs &lt;container_id&gt;
+</code></pre>
+<h2>Logging in Kubernetes</h2>
+<p>Transitioning to Kubernetes, the process is similar but integrated into a managed cluster environment. You can create a pod using the same Docker image defined in a pod specification file. Once the pod is running, you can stream its logs with the <code>kubectl logs</code> command using the <code>-f</code> flag.</p>
+<p>Start by creating the pod:</p>
+<p>```bash  theme={null}
+kubectl create -f event-simulator.yaml</p>
+<pre><code>
+Then, follow the logs using:
+
+```bash  theme={null}
+kubectl logs -f event-simulator-pod
+</code></pre>
+<p>Below is the example pod definition file (<code>event-simulator.yaml</code>):</p>
+<p>```yaml  theme={null}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: event-simulator-pod
+spec:
+  containers:
+    - name: event-simulator
+      image: kodekloud/event-simulator</p>
+<pre><code>
+Executing the above commands will display log messages such as:
+
+```bash  theme={null}
+2018-10-06 15:57:15,937 - root - INFO - USER1 logged in
+2018-10-06 15:57:16,943 - root - INFO - USER2 logged out
+2018-10-06 15:57:17,944 - root - INFO - USER2 is viewing page2
+2018-10-06 15:57:18,951 - root - INFO - USER3 is viewing page3
+2018-10-06 15:57:19,954 - root - INFO - USER4 is viewing page1
+2018-10-06 15:57:20,955 - root - INFO - USER2 logged out
+2018-10-06 15:57:21,956 - root - INFO - USER1 logged in
+</code></pre>
+<h3>Multiple Containers in a Pod</h3>
+<p>Kubernetes allows you to create pods with multiple containers. Suppose you update your pod specification to include an additional container called "image-processor" as follows:</p>
+<p>```yaml  theme={null}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: event-simulator-pod
+spec:
+  containers:
+    - name: event-simulator
+      image: kodekloud/event-simulator
+    - name: image-processor
+      image: some-image-processor</p>
+<pre><code>
+&gt; When a pod contains more than one container, running the command:
+&gt; ```bash  theme={null}
+&gt; kubectl logs -f event-simulator-pod
+&gt; ```
+&gt; results in an error because Kubernetes cannot determine which container's logs to display. To view logs for a specific container, explicitly specify the container name. For example, to view logs for the &quot;event-simulator&quot; container:
+&gt; ```bash  theme={null}
+&gt; kubectl logs -f event-simulator-pod event-simulator
+&gt; ```
+
+This command will then output logs similar to:
+
+```bash  theme={null}
+2018-10-06 15:57:15,937 - root - INFO - USER1 logged in
+2018-10-06 15:57:16,943 - root - INFO - USER2 logged out
+2018-10-06 15:57:17,944 - root - INFO - USER2 is viewing page2
+</code></pre>
+<h2>Conclusion</h2>
+<p>This guide has walked you through managing logs in both Docker and Kubernetes environments. Understanding these logging practices is critical for debugging and monitoring your applications. With these insights, you are now ready to move on to coding exercises that further reinforce your knowledge of logging in containerized environments.</p>
+<p>Thank you for reading, and happy logging!</p>
+<p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/d79d0450-406f-43ef-91ae-2f0c9dc1204c/lesson/365b947f-8be9-4d05-83fc-cc5485bcd714" /></p>
+<p><Card title="Practice Lab" icon="installation" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/d79d0450-406f-43ef-91ae-2f0c9dc1204c/lesson/f81c5e2a-68e2-476f-a97f-d54b5930dce7" /></p>
+            </div>
+            
+            <div class="technical-corner">
+                <div class="tech-title">🔧 ركن القيادة — مصطلحات</div>
+                <p>
+                    <strong>Original Title:</strong> Logging<br>
+                    يمكنك استخدام الزر أدناه للعودة للقائمة.
+                </p>
+            </div>
+        </article>
+
+        <!-- ========== LESSON 3: Monitoring ========== -->
+        <article class="lesson" id="lesson-3">
+            <span class="lesson-number">الدرس 3</span>
+            <h2>🛸 Monitoring</h2>
+            <div class="english-content">
+                <blockquote>
+<h2>Documentation Index</h2>
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+Use this file to discover all available pages before exploring further.</p>
+</blockquote>
+<h1>Monitoring</h1>
+<blockquote>
+<p>This article teaches how to monitor Kubernetes clusters, focusing on resource consumption and performance using the Metrics Server.</p>
+</blockquote>
+<p>Welcome to this lesson on monitoring Kubernetes clusters. In this article, you will learn how to track resource consumption and performance in your Kubernetes environment.</p>
+<h2>Why Monitor Kubernetes?</h2>
+<p>Monitoring in Kubernetes is essential for maintaining your cluster’s health and performance. Key metrics to watch include:</p>
+<ul class="styled-list">
+<li><strong>Node-Level Metrics:</strong> Total nodes, their health status, and overall performance.</li>
+<li><strong>Performance Metrics:</strong> CPU, memory, network, and disk usage.</li>
+<li><strong>Pod-Level Metrics:</strong> Number of pods and individual pod performance (e.g., CPU and memory consumption).</li>
+</ul>
+<p>Implementing a monitoring solution enables you to collect, aggregate, and analyze these metrics efficiently. Although Kubernetes does not include a full-featured built-in monitoring system, several open-source options—such as Metrics Server, Prometheus, and Elastic Stack—as well as proprietary solutions like Datadog and Dynatrace are available. In this lesson, we'll focus on the Metrics Server. For more advanced monitoring techniques, see the <a href="https://learn.kodekloud.com/user/courses/k8s-administration-package-management-with-glasskube">Kubernetes Administration: Package Management with Glasskube</a> course.</p>
+<blockquote>
+<p>The Metrics Server is a lightweight, in-memory monitoring solution, ideal for real-time metrics collection. However, it does not persist historical data. For long-term data analysis, consider advanced monitoring systems.</p>
+</blockquote>
+<h2>Historical Perspective</h2>
+<p>Originally, the Hipster project provided monitoring and analysis features for Kubernetes. Even though you might encounter references to Hipster in online resources, it has been deprecated in favor of its streamlined counterpart, the Metrics Server. Remember, you can deploy only one Metrics Server per cluster.</p>
+<h2>How Metrics are Collected</h2>
+<p>Each node in your Kubernetes cluster runs a kubelet, which manages pods and communicates with the Kubernetes API master server. A subcomponent of the kubelet, known as cAdvisor (container advisor), collects performance data from pods and makes it available to the Metrics Server via the kubelet API.</p>
+<h2>Deploying the Metrics Server</h2>
+<h3>For Minikube Users</h3>
+<p>If you’re running a local cluster with Minikube, you can enable the Metrics Server with this simple command:</p>
+<p>```bash  theme={null}
+minikube addons enable metrics-server</p>
+<pre><code>
+### For Other Environments
+
+To deploy the Metrics Server in other environments, first clone the repository, then apply the deployment files as shown below:
+
+```bash  theme={null}
+git clone https://github.com/kubernetes-incubator/metrics-server.git
+</code></pre>
+<p>```bash  theme={null}
+kubectl create -f deploy/1.8+/</p>
+<pre><code>
+After running these commands, you should see output similar to the following:
+
+```text  theme={null}
+clusterrolebinding &quot;metrics-server:system:auth-delegator&quot; created
+rolebinding &quot;metrics-server-auth-reader&quot; created
+apiservice &quot;v1beta1.metrics.k8s.io&quot; created
+serviceaccount &quot;metrics-server&quot; created
+deployment &quot;metrics-server&quot; created
+service &quot;metrics-server&quot; created
+clusterrole &quot;system:metrics-server&quot; created
+clusterrolebinding &quot;system:metrics-server&quot; created
+</code></pre>
+<p>These steps deploy the necessary pods, services, and roles for the Metrics Server to gather real-time performance metrics from your cluster nodes. Allow a few moments for the Metrics Server to start collecting data.</p>
+<h2>Viewing Cluster Metrics</h2>
+<p>After deployment, you can view your cluster's performance metrics using the following commands:</p>
+<h3>Node Metrics</h3>
+<p>To see CPU and memory usage for each node, run:</p>
+<p>```bash  theme={null}
+kubectl top node</p>
+<pre><code>
+Example output:
+
+```text  theme={null}
+NAME          CPU(cores)   CPU%   MEMORY(bytes)   MEMORY%
+kubemaster    166          8%     1337Mi          70%
+kubnode1      36           1%     1046Mi          55%
+kubnode2      39           1%     1048Mi          55%
+</code></pre>
+<h3>Pod Metrics</h3>
+<p>To display pod-level metrics, execute:</p>
+<p>```bash  theme={null}
+kubectl top pod</p>
+<pre><code>
+Example output:
+
+```text  theme={null}
+NAME    CPU(cores)   CPU%   MEMORY(bytes)   MEMORY%
+nginx   166          8%     1337Mi          70%
+redis   36           1%     1046Mi          55%
+</code></pre>
+<h2>Conclusion</h2>
+<p>This article provided an overview of monitoring Kubernetes clusters using the Metrics Server. By deploying this lightweight solution, you can efficiently monitor node and pod performance, ensuring your cluster runs smoothly. For further practice, explore the provided coding exercises to reinforce your monitoring skills in Kubernetes.</p>
+<p>Happy monitoring!</p>
+<p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/d79d0450-406f-43ef-91ae-2f0c9dc1204c/lesson/c6419c6e-96a0-449c-a282-f64f08336703" /></p>
+<p><Card title="Practice Lab" icon="installation" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/d79d0450-406f-43ef-91ae-2f0c9dc1204c/lesson/a4a85ef6-fb7b-4a25-a812-699c63108bd6" /></p>
+            </div>
+            
+            <div class="technical-corner">
+                <div class="tech-title">🔧 ركن القيادة — مصطلحات</div>
+                <p>
+                    <strong>Original Title:</strong> Monitoring<br>
+                    يمكنك استخدام الزر أدناه للعودة للقائمة.
+                </p>
+            </div>
+        </article>
+
+        <!-- ========== LESSON 4: Readiness Probes ========== -->
+        <article class="lesson" id="lesson-4">
+            <span class="lesson-number">الدرس 4</span>
+            <h2>🛸 Readiness Probes</h2>
+            <div class="english-content">
+                <blockquote>
+<h2>Documentation Index</h2>
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+Use this file to discover all available pages before exploring further.</p>
+</blockquote>
+<h1>Readiness Probes</h1>
+<blockquote>
+<p>This article provides a comprehensive guide on readiness probes in Kubernetes, focusing on their configuration and importance for application reliability.</p>
+</blockquote>
+<p>Welcome to this comprehensive guide on observability in Kubernetes. In this guide, we explore readiness and liveness probes, logging, and monitoring concepts to help you build reliable applications.</p>
+<pre><code>    &lt;figure class="img-frame"&gt;
+        &lt;img src="../assets/images/chapter5/Readiness-Probes_frame_10.jpg" alt="The image lists course objectives, including core concepts, configuration, multi-container pods, observability, pod design, services, networking, and state persistence, with specific focus on readiness and liveness probes." loading="lazy"&gt;
+        &lt;figcaption&gt;The image lists course objectives, including core concepts, configuration, multi-container pods, observability, pod design, services, networking, and state persistence, with specific focus on readiness and liveness probes.&lt;/figcaption&gt;
+    &lt;/figure&gt;
+</code></pre>
+<p>Below is a brief recap of the pod lifecycle stages, which is essential for understanding how readiness probes function:</p>
+<ul class="styled-list">
+<li>When a pod is first created, it enters a <strong>Pending</strong> state while the scheduler selects an appropriate node for placement. If no node is immediately available, the pod stays in the Pending state. Use <code>kubectl describe pod</code> to investigate any delays.</li>
+<li>After scheduling, the pod transitions to the <strong>ContainerCreating</strong> state as images are pulled and containers begin their startup process.</li>
+<li>Once all containers launch successfully, the pod moves into the <strong>Running</strong> state and remains there until the application completes execution or is terminated.<pre><code>&lt;figure class="img-frame"&gt;
+    &lt;img src="../assets/images/chapter5/Readiness-Probes_frame_80.jpg" alt="The image shows a "POD Status" chart with labels: "Pending," "Running," and "ContainerCreating," alongside colored bars representing different statuses." loading="lazy"&gt;
+    &lt;figcaption&gt;The image shows a "POD Status" chart with labels: "Pending," "Running," and "ContainerCreating," alongside colored bars representing different statuses.&lt;/figcaption&gt;
+&lt;/figure&gt;
+</code></pre>
+</li>
+</ul>
+<p>To view the current status of your pods, run the following command:</p>
+<p>```bash  theme={null}
+osboxes@kubemaster:~$ kubectl get pods
+NAME                        READY   STATUS    RESTARTS   AGE
+jenkins-566f687bf-c7nzf     1/1     Running   0          12m
+nginx-65899c769f-9lzh       1/1     Running   0          6h
+redis-b48685f8b-fbnmx       1/1     Running   0          6h</p>
+<pre><code>
+For more detailed insights, inspect the pod’s conditions. Initially, when a pod is scheduled, the &quot;PodScheduled&quot; condition becomes true. Following initialization, the &quot;Initialized&quot; condition is set to true, and finally, once all containers are ready, the &quot;ContainersReady&quot; condition is affirmed. When all these conditions are true, the pod is officially considered ready.
+
+
+        &lt;figure class=&quot;img-frame&quot;&gt;
+            &lt;img src=&quot;../assets/images/chapter5/Readiness-Probes_frame_130.jpg&quot; alt=&quot;The image illustrates Kubernetes pod conditions: PodScheduled, Initialized, ContainersReady, and Ready, each with TRUE and FALSE status indicators, alongside a visual representation of a pod.&quot; loading=&quot;lazy&quot;&gt;
+            &lt;figcaption&gt;The image illustrates Kubernetes pod conditions: PodScheduled, Initialized, ContainersReady, and Ready, each with TRUE and FALSE status indicators, alongside a visual representation of a pod.&lt;/figcaption&gt;
+        &lt;/figure&gt;
+
+
+Examine these conditions by running:
+
+```bash  theme={null}
+osboxes@kubemaster:~$ kubectl describe pod &lt;pod-name&gt;
+</code></pre>
+<p>Additionally, the <code>kubectl get pods</code> command output reflects the ready state, confirming whether the application's components are fully operational:</p>
+<p>```bash  theme={null}
+osboxes@kubemaster:~$ kubectl get pods
+NAME                                     READY   STATUS    RESTARTS   AGE
+jenkins-566f687bf-c7nzf                  1/1     Running   0          12m
+nginx-65899c769f-9lwzh                  1/1     Running   0          6h
+redis-b48685f8b-fbnmx                    1/1     Running   0          6h</p>
+<pre><code>
+&gt; The **ready** condition signifies that the application inside the pod can receive traffic. However, this status might not reflect the actual readiness of your application, as different applications require varying warm-up times.
+
+For example:
+
+* A minimal script might be ready within milliseconds.
+* A database service may take several seconds to become responsive.
+* Complex web servers could require minutes to fully initialize.
+
+A Jenkins server, for instance, might take 10 to 15 seconds to initialize followed by a brief warm-up period. Without suitable readiness checks, traffic might be erroneously routed to an unready pod:
+
+```bash  theme={null}
+osboxes@kubemaster:~$ kubectl get all
+NAME          READY   STATUS    RESTARTS   AGE
+pod/jenkins   1/1     Running   0          11s
+</code></pre>
+<p>Kubernetes relies on the pod’s ready condition to determine if it should receive traffic. By default, it assumes that container creation equates to readiness. This is where readiness probes are critically important—they help signal the true readiness of the application within the container.</p>
+<p>As an application developer, you can define tests (probes) that confirm the application has reached a ready state. Examples include:</p>
+<ul class="styled-list">
+<li>An HTTP GET request to check API responsiveness for a web application.</li>
+<li>A TCP port check for database services.</li>
+<li>Executing a custom command that confirms the application is ready.<pre><code>&lt;figure class="img-frame"&gt;
+    &lt;img src="../assets/images/chapter5/Readiness-Probes_frame_330.jpg" alt="The image illustrates three types of readiness probes: HTTP Test, TCP Test, and Exec Command, with corresponding icons and descriptions." loading="lazy"&gt;
+    &lt;figcaption&gt;The image illustrates three types of readiness probes: HTTP Test, TCP Test, and Exec Command, with corresponding icons and descriptions.&lt;/figcaption&gt;
+&lt;/figure&gt;
+</code></pre>
+</li>
+</ul>
+<p>To configure a readiness probe, include the <code>readinessProbe</code> field in your pod specification. For an HTTP-based readiness probe, specify the endpoint path and port. For example:</p>
+<p><code>yaml  theme={null}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: simple-webapp
+  labels:
+    name: simple-webapp
+spec:
+  containers:
+  - name: simple-webapp
+    image: simple-webapp
+    ports:
+    - containerPort: 8080
+    readinessProbe:
+      httpGet:
+        path: /api/ready
+        port: 8080
+      initialDelaySeconds: 10
+      periodSeconds: 5
+      failureThreshold: 8</code></p>
+<p>There are three primary types of readiness probes you can use:</p>
+<ol>
+<li>
+<p><strong>HTTP GET Probe:</strong>
+   <code>yaml  theme={null}
+   readinessProbe:
+     httpGet:
+       path: /api/ready
+       port: 8080</code></p>
+</li>
+<li>
+<p><strong>TCP Socket Probe:</strong>
+   <code>yaml  theme={null}
+   readinessProbe:
+     tcpSocket:
+       port: 3306</code></p>
+</li>
+<li>
+<p><strong>Exec Command Probe:</strong>
+   <code>yaml  theme={null}
+   readinessProbe:
+     exec:
+       command:
+         - cat
+         - /app/is_ready</code></p>
+</li>
+</ol>
+<p>In addition to the probe type, you can also configure parameters such as:</p>
+<ul class="styled-list">
+<li><code>initialDelaySeconds</code>: The delay before the first probe.</li>
+<li><code>periodSeconds</code>: How frequently the probe is executed.</li>
+<li><code>failureThreshold</code>: The number of consecutive failures that trigger the pod to be marked as not ready.</li>
+</ul>
+<p>Now, consider a multi-pod setup under a ReplicaSet or Deployment. When scaling up, a new pod might take a minute or more to warm up. Without properly configured readiness probes, traffic could be routed to a pod that isn't fully ready, leading to potential service disruptions.</p>
+<pre><code>    &lt;figure class="img-frame"&gt;
+        &lt;img src="../assets/images/chapter5/Readiness-Probes_frame_450.jpg" alt="The image illustrates "POD Conditions" with a diagram showing three ready pods connected to a green triangle, indicating successful status." loading="lazy"&gt;
+        &lt;figcaption&gt;The image illustrates "POD Conditions" with a diagram showing three ready pods connected to a green triangle, indicating successful status.&lt;/figcaption&gt;
+    &lt;/figure&gt;
+</code></pre>
+<blockquote>
+<p>A correctly configured readiness probe ensures that only pods that pass the readiness checks will receive traffic. This maintains a smooth user experience even during pod updates or scaling events.</p>
+</blockquote>
+<p>That concludes our discussion on readiness probes. To further reinforce these concepts, we encourage you to practice with the available labs and exercises. For more details on Kubernetes observability, refer to the <a href="https://kubernetes.io/docs/">Kubernetes Documentation</a>.</p>
+<p>Happy probing!</p>
+<p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/d79d0450-406f-43ef-91ae-2f0c9dc1204c/lesson/f99d93ad-d916-49b0-a931-85d105a07d0e" /></p>
+            </div>
+            
+            <div class="technical-corner">
+                <div class="tech-title">🔧 ركن القيادة — مصطلحات</div>
+                <p>
+                    <strong>Original Title:</strong> Readiness Probes<br>
+                    يمكنك استخدام الزر أدناه للعودة للقائمة.
+                </p>
+            </div>
+        </article>
+
+        <!-- ========== LESSON 5: Solution Logging optional ========== -->
+        <article class="lesson" id="lesson-5">
+            <span class="lesson-number">الدرس 5</span>
+            <h2>🛸 Solution Logging optional</h2>
+            <div class="english-content">
+                <blockquote>
+<h2>Documentation Index</h2>
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+Use this file to discover all available pages before exploring further.</p>
+</blockquote>
+<h1>Solution Logging optional</h1>
+<blockquote>
+<p>This article covers managing application logs in Kubernetes, focusing on diagnosing user login issues and handling logs in a multi-container web application.</p>
+</blockquote>
+<p>In this lesson, we walk through a comprehensive lab that focuses on managing application logs using Kubernetes. The lab covers two important scenarios: one diagnosing user login issues and the other addressing issues during an item purchase within a multi-container web application. By leveraging Kubernetes commands and log inspection, you will learn how to quickly identify and resolve problems.</p>
+<hr />
+<h2>Scenario 1: Diagnosing User Login Issues</h2>
+<p>Initially, we deployed a Pod hosting the application. To verify that the Pod is running, execute the following command:</p>
+<p>```bash  theme={null}
+kubectl get pods</p>
+<pre><code>
+The expected output should resemble:
+
+```bash  theme={null}
+NAME       READY   STATUS    RESTARTS   AGE
+webapp-1   1/1     Running   0          110s
+</code></pre>
+<p>When USER5 reported login issues, we inspected the application logs to diagnose the problem. The logs revealed repeated failed login attempts by USER5, which resulted in the account being locked. Below are the log entries outlining the sequence of events:</p>
+<p>```plaintext  theme={null}
+[2022-04-16 19:55:55,919] INFO in event-simulator: USER4 is viewing page3
+[2022-04-16 19:55:56,920] INFO in event-simulator: USER1 is viewing page3
+[2022-04-16 19:55:57,921] INFO in event-simulator: USER2 is viewing page2
+[2022-04-16 19:55:58,923] WARNING in event-simulator: USER5 Failed to Login as the account is locked due to MANY FAILED ATTEMPTS.
+[2022-04-16 19:55:58,923] INFO in event-simulator: USER7 Order failed as the item is OUT OF STOCK.
+[2022-04-16 19:56:01,944] INFO in event-simulator: USER2 logged in
+[2022-04-16 19:56:02,941] INFO in event-simulator: USER4 logged in
+[2022-04-16 19:56:03,950] WARNING in event-simulator: USER5 Failed to Login as the account is locked due to MANY FAILED ATTEMPTS.
+[2022-04-16 19:56:04,950] INFO in event-simulator: USER3 logged out
+[2022-04-16 19:56:06,953] INFO in event-simulator: USER2 is viewing page2
+[2022-04-16 19:56:08,957] INFO in event-simulator: USER4 logged in
+[2022-04-16 19:56:10,958] INFO in event-simulator: USER3 is viewing page2
+[2022-04-16 19:56:12,961] WARNING in event-simulator: USER7 Order failed as the item is OUT OF STOCK.
+[2022-04-16 19:56:13,963] WARNING in event-simulator: USER5 Failed to Login as the account is locked due to MANY FAILED ATTEMPTS.
+[2022-04-16 19:56:16,966] INFO in event-simulator: USER1 is viewing page3
+[2022-04-16 19:56:18,968] INFO in event-simulator: USER3 logged out
+[2022-04-16 19:56:20,969] INFO in event-simulator: USER2 is viewing page1</p>
+<pre><code>
+&gt; The logs make it clear that multiple failed login attempts by USER5 have caused an automatic account lock. This is an essential diagnostic detail when troubleshooting login issues.
+
+***
+
+## Scenario 2: Handling Logs in a Multi-Container Pod
+
+A second application was deployed involving two Pods. To confirm the deployment and status of these Pods, run:
+
+```bash  theme={null}
+kubectl get pods
+</code></pre>
+<p>You should now see two Pods listed:</p>
+<p>```bash  theme={null}
+NAME       READY   STATUS    RESTARTS   AGE
+webapp-1   1/1     Running   0          110s
+webapp-2   2/2     Running   0          9s</p>
+<pre><code>
+When inspecting the logs for the second Pod (`webapp-2`), an error occurs because the Pod contains two containers. Attempting to view the logs without specifying a container name results in this error:
+
+```bash  theme={null}
+kubectl logs webapp-2
+</code></pre>
+<p>```plaintext  theme={null}
+error: a container name must be specified for pod webapp-2, choose one of: [simple-webapp db]</p>
+<pre><code>
+This message indicates that you must specify the container name—either &quot;simple-webapp&quot; or &quot;db&quot;—to view the relevant logs. For examining the web application behavior, you should use the container that manages the web service (typically &quot;simple-webapp&quot;).
+
+Next, to diagnose an item purchase failure, we analyze the logs for clues. A user reported an issue during the purchase process. The log entries below help pinpoint the problem:
+
+```plaintext  theme={null}
+[2022-04-16 19:57:24,773] INFO in event-simulator: USER2 logged in
+[2022-04-16 19:57:25,774] INFO in event-simulator: USER1 logged in
+[2022-04-16 19:57:26,775] WARNING in event-simulator: USER5 Failed to Login as the account is locked due to MANY FAILED ATTEMPTS.
+[2022-04-16 19:57:26,776] INFO in event-simulator: USER4 is viewing page1
+[2022-04-16 19:57:27,781] INFO in event-simulator: USER1 is viewing page1
+[2022-04-16 19:57:28,781] INFO in event-simulator: USER3 is viewing page3
+[2022-04-16 19:57:31,783] INFO in event-simulator: USER2 logged in
+[2022-04-16 19:57:31,784] INFO in event-simulator: USER4 is viewing page1
+[2022-04-16 19:57:31,785] WARNING in event-simulator: USER30 Order failed as the item is OUT OF STOCK.
+[2022-04-16 19:57:34,786] INFO in event-simulator: USER1 logged in
+[2022-04-16 19:57:36,788] WARNING in event-simulator: USER5 Failed to Login as the account is locked due to MANY FAILED ATTEMPTS.
+[2022-04-16 19:57:36,789] WARNING in event-simulator: USER30 Order failed as the item is OUT OF STOCK.
+[2022-04-16 19:57:40,796] INFO in event-simulator: USER3 is viewing page1
+[2022-04-16 19:57:46,791] INFO in event-simulator: USER4 is viewing page1
+[2022-04-16 19:57:46,793] INFO in event-simulator: USER3 logged out
+[2022-04-16 19:57:46,794] INFO in event-simulator: USER1 is viewing page2
+</code></pre>
+<blockquote>
+<p>From the above logs, it is evident that USER30 encountered an issue—the order failed because the item was out of stock. This warning, together with the login failure for USER5, highlights two separate issues within the application.</p>
+</blockquote>
+<hr />
+<h2>Summary</h2>
+<p>By inspecting the logs and using the appropriate Kubernetes commands, we successfully identified the key issues:</p>
+<ul class="styled-list">
+<li>In the first scenario, USER5 experienced login failures due to repeated failed attempts that resulted in an account lock.</li>
+<li>In the second scenario, USER30 was unable to complete an order because the item was out of stock. Additionally, remember to specify a container name when retrieving logs from Pods with multiple containers.</li>
+</ul>
+<p>Happy logging and troubleshooting!</p>
+<p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/d79d0450-406f-43ef-91ae-2f0c9dc1204c/lesson/5ab1eb6a-508a-4ed3-a87e-9c94bf8367dc" /></p>
+            </div>
+            
+            <div class="technical-corner">
+                <div class="tech-title">🔧 ركن القيادة — مصطلحات</div>
+                <p>
+                    <strong>Original Title:</strong> Solution Logging optional<br>
+                    يمكنك استخدام الزر أدناه للعودة للقائمة.
+                </p>
+            </div>
+        </article>
+
+        <!-- ========== LESSON 6: Solution Monitoring optional ========== -->
+        <article class="lesson" id="lesson-6">
+            <span class="lesson-number">الدرس 6</span>
+            <h2>🛸 Solution Monitoring optional</h2>
+            <div class="english-content">
+                <blockquote>
+<h2>Documentation Index</h2>
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+Use this file to discover all available pages before exploring further.</p>
+</blockquote>
+<h1>Solution Monitoring optional</h1>
+<blockquote>
+<p>Learn to monitor your Kubernetes cluster by inspecting Pods and deploying a metrics server for resource usage tracking.</p>
+</blockquote>
+<p>In this lesson, you will learn how to monitor your Kubernetes cluster by inspecting deployed Pods and deploying a metrics server to track resource usage.</p>
+<hr />
+<h2>Inspecting Deployed Pods</h2>
+<p>Begin by verifying the running Pods in your cluster. Execute the following command:</p>
+<p>```bash  theme={null}
+kubectl get pods</p>
+<pre><code>
+You should see output similar to the following:
+
+```bash  theme={null}
+NAME       READY   STATUS              RESTARTS   AGE
+elephant   1/1     Running             0          20s
+lion       1/1     Running             0          20s
+rabbit     0/1     ContainerCreating   0          20s
+</code></pre>
+<p>At this point, the "elephant" and "lion" Pods are running, while "rabbit" is still initializing.</p>
+<hr />
+<h2>Deploying the Metrics Server</h2>
+<p>To monitor resource usage, you'll deploy the metrics server. This lab uses a preconfigured Git repository containing all the necessary configurations.</p>
+<blockquote>
+<p>Do not use these configurations in a production environment. Always refer to the official documentation before deploying to production.</p>
+</blockquote>
+<h3>Step 1: Clone the Repository</h3>
+<p>Clone the repository by running:</p>
+<p>```bash  theme={null}
+git clone https://github.com/kodekloudhub/kubernetes-metrics-server.git</p>
+<pre><code>
+After cloning, you should see output similar to this:
+
+```git  theme={null}
+Cloning into 'kubernetes-metrics-server'...
+remote: Enumerating objects: 24, done.
+remote: Counting objects: 100% (12/12), done.
+remote: Compressing objects: 100% (12/12), done.
+remote: Total 24 (delta 4), reused 0 (delta 0), pack-reused 12
+Unpacking objects: 100% (24/24), done.
+</code></pre>
+<h3>Step 2: Review the Repository Contents</h3>
+<p>First, check the directory structure:</p>
+<p>```bash  theme={null}
+ls</p>
+<pre><code>
+You should see a directory named `kubernetes-metrics-server` and possibly a file like `sample.yaml`. Next, navigate into the repository directory and list its files:
+
+```bash  theme={null}
+cd kubernetes-metrics-server/
+ls
+</code></pre>
+<p>You will find key configuration files such as:</p>
+<ul class="styled-list">
+<li>README.md</li>
+<li>aggregated-metrics-reader.yaml</li>
+<li>auth-delegator.yaml</li>
+<li>metrics-server-deployment.yaml</li>
+<li>metrics-server-service.yaml</li>
+<li>resource-reader.yaml (if present)</li>
+</ul>
+<h3>Step 3: Deploy the Metrics Server</h3>
+<p>Deploy the metrics server by creating all required objects with the following command:</p>
+<p>```bash  theme={null}
+kubectl create -f .</p>
+<pre><code>
+You should see output indicating that roles, role bindings, deployments, and services have been created successfully:
+
+```text  theme={null}
+clusterrole.rbac.authorization.k8s.io/system:aggregated-metrics-reader created
+clusterrole.rbac.authorization.k8s.io/system:metrics-server:system:auth-delegator created
+clusterrole.rbac.authorization.k8s.io/system:metrics-server:auth-reader created
+clusterrole.apiresources.k8s.io created
+deployment.apps/metrics-server created
+service/metrics-server created
+clusterrolebinding.rbac.authorization.k8s.io/system:metrics-server created
+</code></pre>
+<pre><code>    &lt;figure class="img-frame"&gt;
+        &lt;img src="../assets/images/chapter5/Solution-Monitoring-optional_frame_70.jpg" alt="The image shows a GitHub repository for "kubernetes-metrics-server" with files, commit history, and contributor information, intended for development and learning environments." loading="lazy"&gt;
+        &lt;figcaption&gt;The image shows a GitHub repository for "kubernetes-metrics-server" with files, commit history, and contributor information, intended for development and learning environments.&lt;/figcaption&gt;
+    &lt;/figure&gt;
+</code></pre>
+<p>It may take a few minutes for the metrics server to start gathering and reporting data. Verify this by listing the Pods again:</p>
+<p>```bash  theme={null}
+kubectl get pods</p>
+<pre><code>
+***
+
+## Verifying Metrics Collection
+
+After deployment, you can view resource usage by using the `kubectl top` commands.
+
+### Check Node Resource Utilization
+
+Run the following command:
+
+```bash  theme={null}
+kubectl top node
+</code></pre>
+<p>Expected output:</p>
+<p>```bash  theme={null}
+NAME         CPU(cores)   CPU%   MEMORY(bytes)   MEMORY%
+controlplane 470m         1%     1252Mi          0%
+node01       57m          0%     349Mi           0%</p>
+<pre><code>
+### Check Pod Resource Utilization
+
+To view the resource allocation for each Pod, execute:
+
+```bash  theme={null}
+kubectl top pod
+</code></pre>
+<p>Expected output:</p>
+<p>```bash  theme={null}
+NAME       CPU(cores)   MEMORY(bytes)
+elephant   20m          32Mi
+lion       1m           18Mi
+rabbit     131m         252Mi</p>
+<pre><code>
+***
+
+## Analyzing Resource Consumption
+
+Use the collected metrics to identify resource usage by both nodes and Pods.
+
+### Node Resource Analysis
+
+1. **Identifying the Node with the Highest CPU Consumption**
+
+   From the `kubectl top node` output, the &quot;controlplane&quot; node shows a CPU usage of approximately 470 milli cores, which is significantly higher than node01's 57 milli cores.
+
+   **Answer:** The controlplane node consumes the most CPU.
+
+2. **Identifying the Node with the Highest Memory Consumption**
+
+   The controlplane node also consumes 1252Mi of memory compared to node01's 349Mi.
+
+   **Answer:** The controlplane node consumes the most memory.
+
+### Pod Resource Analysis
+
+1. **Identifying the Pod with the Highest Memory Consumption**
+
+   The &quot;rabbit&quot; Pod consumes 252Mi of memory, which is higher than the other two Pods.
+
+   **Answer:** The &quot;rabbit&quot; Pod consumes the most memory.
+
+2. **Identifying the Pod with the Lowest CPU Consumption**
+
+   The &quot;lion&quot; Pod uses only 1m of CPU, making it the least resource-intensive among the Pods.
+
+   **Answer:** The &quot;lion&quot; Pod consumes the least CPU.
+
+***
+
+## Recap
+
+In this lesson, you performed the following steps:
+
+* Inspected running Pods using the `kubectl get pods` command.
+* Cloned and explored a preconfigured metrics server repository.
+* Deployed the metrics server using `kubectl create -f .`.
+* Verified node and Pod resource usage utilizing the `kubectl top` commands.
+* Analyzed resource consumption to identify which nodes and Pods were consuming the most or least CPU and memory.
+
+### Final Verification
+
+Run the following commands one more time to confirm metrics collection:
+
+```bash  theme={null}
+kubectl top node
+</code></pre>
+<p>Expected output:</p>
+<p>```bash  theme={null}
+NAME           CPU(cores)   CPU%   MEMORY(bytes)   MEMORY%
+controlplane   470m         1%     1252Mi          0%
+node01         57m          0%     349Mi           0%</p>
+<pre><code>
+```bash  theme={null}
+kubectl top pod
+</code></pre>
+<p>Expected output:</p>
+<p><code>bash  theme={null}
+NAME        CPU(cores)   MEMORY(bytes)
+elephant    20m          32Mi
+lion        1m           18Mi
+rabbit      131m         252Mi</code></p>
+<p>This concludes the lesson on monitoring cluster components using the metrics server. For additional Kubernetes monitoring resources, consider visiting the <a href="https://kubernetes.io/docs/">Kubernetes Documentation</a>.</p>
+<p>Happy monitoring!</p>
+<p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/d79d0450-406f-43ef-91ae-2f0c9dc1204c/lesson/acefb49a-e3d3-4d33-89b5-a90ffcb948e9" /></p>
+            </div>
+            
+            <div class="technical-corner">
+                <div class="tech-title">🔧 ركن القيادة — مصطلحات</div>
+                <p>
+                    <strong>Original Title:</strong> Solution Monitoring optional<br>
+                    يمكنك استخدام الزر أدناه للعودة للقائمة.
+                </p>
+            </div>
+        </article>
+
+        <!-- ========== LESSON 7: Solution Readiness and Liveness Probes ========== -->
+        <article class="lesson" id="lesson-7">
+            <span class="lesson-number">الدرس 7</span>
+            <h2>🛸 Solution Readiness and Liveness Probes</h2>
+            <div class="english-content">
+                <blockquote>
+<h2>Documentation Index</h2>
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+Use this file to discover all available pages before exploring further.</p>
+</blockquote>
+<h1>Solution Readiness and Liveness Probes</h1>
+<blockquote>
+<p>This lesson explains implementing and validating readiness and liveness probes on Kubernetes web applications to ensure healthy pod traffic management and automatic recovery.</p>
+</blockquote>
+<p>This lesson explains how to implement and validate readiness and liveness probes on your Kubernetes web application. Follow along as we inspect your deployment, test with HTTP requests, scale your application, and configure probes to ensure only healthy pods receive traffic and that failing pods are automatically recovered.</p>
+<hr />
+<h2>1. Inspecting the Initial Deployment</h2>
+<p>To begin, verify that your application is running by inspecting the pods and services in your cluster. Execute the following commands:</p>
+<p>```bash  theme={null}
+root@controlplane ~ ➜ kubectl get pod
+NAME               READY   STATUS     RESTARTS   AGE
+simple-webapp-1    1/1     Running    0          2m28s</p>
+<p>root@controlplane ~ ➜ kubectl get service
+NAME               TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+kubernetes         ClusterIP   10.96.0.1       <none>        443/TCP         6m39s
+webapp-service     NodePort    10.96.70.224    <none>        8080:30080/TCP   2m34s</p>
+<pre><code>
+Opening the web portal via the Kubernetes dashboard confirms that the application is accessible.
+
+***
+
+## 2. Testing the Application with a Script
+
+A provided test script (`curl-test.sh`) sends HTTP requests to verify the web server’s response. Run the script as shown below:
+
+```bash  theme={null}
+root@controlplane ~ ➜ ./curl-test.sh
+Message from simple-webapp-1 : I am ready! OK
+Message from simple-webapp-1 : I am ready! OK
+Message from simple-webapp-1 : I am ready! OK
+Message from simple-webapp-1 : I am ready! OK
+Message from simple-webapp-1 : I am ready! OK
+Message from simple-webapp-1 : I am ready! OK
+Message from simple-webapp-1 : I am ready! OK
+Message from simple-webapp-1 : I am ready! OK
+Message from simple-webapp-1 : I am ready! OK
+Message from simple-webapp-1 : I am ready! OK
+Message from simple-webapp-1 : I am ready! OK
+Message from simple-webapp-1 : I am ready! OK
+^C
+root@controlplane ~ ✗
+</code></pre>
+<p>At this stage, only one pod (simple-webapp-1) is handling the traffic.</p>
+<hr />
+<h2>3. Scaling Up: Adding a Second Pod</h2>
+<p>To improve scaling, a second pod (simple-webapp-2) is introduced. Run the test script again to observe the behavior:</p>
+<p>```bash  theme={null}
+root@controlplane ~ ➜ ./curl-test.sh
+Message from simple-webapp-1 : I am ready! OK
+Message from simple-webapp-1 : I am ready! OK
+Message from simple-webapp-1 : I am ready! OK
+Message from simple-webapp-1 : I am ready! OK
+Failed
+Failed
+Message from simple-webapp-1 : I am ready! OK
+Message from simple-webapp-1 : I am ready! OK
+Failed
+Failed
+Failed
+Failed</p>
+<pre><code>
+Here, although simple-webapp-1 responds correctly, some requests to simple-webapp-2 fail because it is receiving traffic even though it’s not yet ready.
+
+&gt; The readiness probe will ensure that a pod only receives traffic when it is ready, preventing failed requests.
+
+***
+
+## 4. Configuring a Readiness Probe for Pod Two
+
+To stop the failed requests, configure a readiness probe for simple-webapp-2. This probe sends an HTTP GET request to the `/ready` endpoint on port 8080.
+
+1. Export the current configuration of simple-webapp-2:
+
+   ```bash  theme={null}
+   root@controlplane ~ ➜ kubectl get pod simple-webapp-2 -o yaml &gt; webapp2.yaml
+   ```
+
+2. Delete the existing pod to prepare for the updated configuration:
+
+   ```bash  theme={null}
+   root@controlplane ~ ➜ kubectl delete pod simple-webapp-2
+   ```
+
+3. Edit the `webapp2.yaml` file to include the readiness probe under the container configuration. Insert the following snippet:
+
+   ```yaml  theme={null}
+   readinessProbe:
+     httpGet:
+       path: /ready
+       port: 8080
+   ```
+
+   Below is an example configuration for simple-webapp-2:
+
+   ```yaml  theme={null}
+   apiVersion: v1
+   kind: Pod
+   metadata:
+     creationTimestamp: &quot;2022-08-03T15:13:44Z&quot;
+     labels:
+       name: simple-webapp
+     name: simple-webapp-2
+     namespace: default
+     resourceVersion: &quot;1058&quot;
+     uid: ce7bcf8f-dfd4-42e0-a16f-54061fbeb85d
+   spec:
+     containers:
+     - env:
+       - name: APP_START_DELAY
+         value: &quot;80&quot;
+       image: kodekloud/webapp-delayed-start
+       imagePullPolicy: Always
+       name: simple-webapp
+       ports:
+       - containerPort: 8080
+         protocol: TCP
+       readinessProbe:
+         httpGet:
+           path: /ready
+           port: 8080
+     resources: {}
+     terminationMessagePath: /dev/termination-log
+     terminationMessagePolicy: File
+     volumeMounts:
+     - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+   ```
+
+4. Re-deploy the updated pod configuration:
+
+   ```bash  theme={null}
+   root@controlplane ~ ➜ kubectl apply -f webapp2.yaml
+   ```
+
+Verify the effectiveness of the readiness probe by watching the status of your pods.
+
+***
+
+## 5. Verifying Load Balancing After Applying the Readiness Probe
+
+Re-run the test script to ensure that traffic is now only directed to pods that are ready. Initially, traffic might still be sent to simple-webapp-1, but once simple-webapp-2 becomes ready, load balancing will occur:
+
+```bash  theme={null}
+root@controlplane ~ ➜ kubectl apply -f webapp2.yaml
+pod/simple-webapp-2 created
+root@controlplane ~ ➜ ./curl-test.sh
+Message from simple-webapp-1 : I am ready! OK
+Message from simple-webapp-1 : I am ready! OK
+Message from simple-webapp-1 : I am ready! OK
+Message from simple-webapp-1 : I am ready! OK
+Message from simple-webapp-1 : I am ready! OK
+Message from simple-webapp-1 : I am ready! OK
+Message from simple-webapp-1 : I am ready! OK
+Message from simple-webapp-1 : I am ready! OK
+Message from simple-webapp-1 : I am ready! OK
+Message from simple-webapp-2 : I am ready! OK
+^C
+</code></pre>
+<p>At this point, traffic is successfully balanced between the two pods.</p>
+<hr />
+<h2>6. Simulating a Pod Crash</h2>
+<p>To understand the behavior when a pod fails, a crash script (<code>crash-app.sh</code>) is provided to simulate a failure in simple-webapp-2:</p>
+<p>```bash  theme={null}
+root@controlplane ~ ➜ ./crash-app.sh
+Message from simple-webapp-2 : Mayday! Mayday! Going to crash!
+root@controlplane ~ ➜</p>
+<pre><code>
+After running the crash script, check the pods using:
+
+```bash  theme={null}
+root@controlplane ~ ➜ kubectl get pod
+</code></pre>
+<p>The test script (<code>curl-test.sh</code>) will temporarily show that requests are routed only to simple-webapp-1 until Kubernetes restarts the crashed pod automatically.</p>
+<blockquote>
+<p>When a pod crashes, Kubernetes automatically restarts it; however, during the downtime, ensure that your application can handle the temporary loss of a pod.</p>
+</blockquote>
+<hr />
+<h2>7. Implementing a Liveness Probe to Handle Freezing</h2>
+<p>In this final section, you will configure a liveness probe to automatically recover pods that become unresponsive (frozen).</p>
+<h3>Update the Configuration for Both Pods</h3>
+<ol>
+<li>Export the current configuration for your pods:</li>
+</ol>
+<p><code>bash  theme={null}
+   root@controlplane ~ ➜ kubectl get pod -o yaml &gt; webapp.yaml</code></p>
+<ol>
+<li>Delete all existing pods to redeploy them with the new liveness probe configuration:</li>
+</ol>
+<p><code>bash  theme={null}
+   root@controlplane ~ ➜ kubectl delete pod --all</code></p>
+<ol>
+<li>Open the <code>webapp.yaml</code> file and insert the liveness probe under the container specification for each pod. For example, for simple-webapp-1, add:</li>
+</ol>
+<p><code>yaml  theme={null}
+   livenessProbe:
+     httpGet:
+       path: /live
+       port: 8080
+     periodSeconds: 1
+     initialDelaySeconds: 80</code></p>
+<p>The full configuration for simple-webapp-1 might look like this:</p>
+<p><code>yaml  theme={null}
+   apiVersion: v1
+   kind: Pod
+   metadata:
+     creationTimestamp: "2022-08-03T15:10:30Z"
+     labels:
+       name: simple-webapp
+     name: simple-webapp-1
+     namespace: default
+     resourceVersion: "825"
+     uid: 694b5225-1ad4-422c-b514-4f139c84ecf2
+   spec:
+     containers:
+     - image: kodekloud/webapp-delayed-start
+       imagePullPolicy: Always
+       name: simple-webapp
+       ports:
+       - containerPort: 8080
+         protocol: TCP
+       livenessProbe:
+         httpGet:
+           path: /live
+           port: 8080
+         periodSeconds: 1
+         initialDelaySeconds: 80
+     resources: {}
+     terminationMessagePath: /dev/termination-log
+     terminationMessagePolicy: File
+     volumeMounts:
+     - mountPath: /var/run/secrets/kubernetes.io/serviceaccount</code></p>
+<p>Similarly, update the configuration for simple-webapp-2 as follows:</p>
+<p><code>yaml  theme={null}
+   apiVersion: v1
+   kind: Pod
+   metadata:
+     creationTimestamp: "2022-08-03T15:17:03Z"
+     labels:
+       name: simple-webapp
+     name: simple-webapp-2
+     namespace: default
+     resourceVersion: "1858"
+     uid: 82ec848b-b098-45f0-9975-513ef5d21b1d
+   spec:
+     containers:
+     - env:
+       - name: APP_START_DELAY
+         value: "30"
+       image: kodekloud/webapp-delayed-start
+       imagePullPolicy: Always
+       name: simple-webapp
+       ports:
+       - containerPort: 8080
+         protocol: TCP
+       readinessProbe:
+         failureThreshold: 3
+         httpGet:
+           path: /ready
+           port: 8080
+           scheme: HTTP
+         periodSeconds: 10
+         successThreshold: 1
+         timeoutSeconds: 1
+       livenessProbe:
+         httpGet:
+           path: /live
+           port: 8080
+         periodSeconds: 1
+         initialDelaySeconds: 80
+     resources: {}
+     terminationMessagePath: /dev/termination-log
+     terminationMessagePolicy: File</code></p>
+<ol>
+<li>Redeploy the updated configuration:</li>
+</ol>
+<p><code>bash  theme={null}
+   root@controlplane ~ ➜ kubectl apply -f webapp.yaml</code></p>
+<h3>Test the Liveness Probe</h3>
+<p>Simulate a pod freeze by executing the freeze script:</p>
+<p>```bash  theme={null}
+root@controlplane ~ ➜ ./freeze-app.sh</p>
+<pre><code>
+Then, use the test script (`curl-test.sh`) to observe how traffic is affected. Finally, check the pod statuses:
+
+```bash  theme={null}
+root@controlplane ~ ➜ kubectl get pod
+</code></pre>
+<p>You should notice that Kubernetes restarts the frozen pod automatically, ensuring continuous service availability.</p>
+<hr />
+<h2>Summary</h2>
+<ul class="styled-list">
+<li>The <strong>readiness probe</strong> ensures that only pods that are ready receive traffic.</li>
+<li>The <strong>liveness probe</strong> automatically restarts pods that become unresponsive or frozen.</li>
+</ul>
+<p>By following these configurations, you enhance the overall availability and reliability of your Kubernetes-deployed applications. Happy deploying!</p>
+<p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/d79d0450-406f-43ef-91ae-2f0c9dc1204c/lesson/2e19721f-e80a-43e4-9006-26257b3ad18e" /></p>
+            </div>
+            
+            <div class="technical-corner">
+                <div class="tech-title">🔧 ركن القيادة — مصطلحات</div>
+                <p>
+                    <strong>Original Title:</strong> Solution Readiness and Liveness Probes<br>
+                    يمكنك استخدام الزر أدناه للعودة للقائمة.
+                </p>
+            </div>
+        </article>
+
+    </div>
+
+    <footer class="site-footer">
+        <p>🚀 كوبسترونات — المهمة 5 خلصت! <a href="chapter6.html" style="color: var(--rocket-orange);">يلا على المهمة 6 ←</a></p>
+    </footer>
+</body>
+</html>
