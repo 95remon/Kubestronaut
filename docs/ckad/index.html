@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CKAD — كوبسترونات 🚀</title>
+    <meta name="description" content="كورس CKAD بالمصري — ١٢ قسم من أساسيات الكوبرنيتس لحد الشهادة!">
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <div class="space-bg"></div>
+    <div class="stars-layer"></div>
+
+    <header class="site-header">
+        <a href="../index.html" class="logo">
+            <span class="emoji">🚀</span>
+            Kubestronaut
+        </a>
+        <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')"
+            aria-label="القائمة">☰</button>
+        <nav class="nav-links">
+            <a href="../index.html">🏠 القاعدة</a>
+            <a href="index.html" class="active">🎓 CKAD</a>
+        </nav>
+    </header>
+
+    <section class="course-hero">
+        <h1>🎓 CKAD — مسار المطوّر</h1>
+        <p class="subtitle">Certified Kubernetes Application Developer</p>
+        <p>اتعلم تبني وتشغل تطبيقات على الكوبرنيتس — من الصفر لحد الشهادة!</p>
+    </section>
+
+    <div class="ckad-layout">
+
+        <!-- Sidebar: Chapter Navigation -->
+        <aside class="chapter-sidebar" id="chapterSidebar">
+            <button class="sidebar-toggle"
+                onclick="document.getElementById('chapterSidebar').classList.toggle('sidebar-open')"
+                aria-label="القائمة الجانبية">
+                📋 الأقسام
+            </button>
+            <nav class="sidebar-nav">
+                <h3>📋 أقسام الكورس</h3>
+
+                <a href="chapter1.html" class="sidebar-item active-chapter">
+                    <span class="ch-status">✅</span>
+                    <div>
+                        <strong>١. المقدمة</strong>
+                        <small>First Section · ٣ دروس</small>
+                    </div>
+                </a>
+
+                <a href="chapter2.html" class="sidebar-item active-chapter">
+                    <span class="ch-status">✅</span>
+                    <div>
+                        <strong>٢. المفاهيم الأساسية</strong>
+                        <small>Core Concepts · ٧ دروس</small>
+                    </div>
+                </a>
+
+                <div class="sidebar-item disabled-chapter">
+                    <span class="ch-status">🔜</span>
+                    <div>
+                        <strong>٣. الإعدادات</strong>
+                        <small>Configuration</small>
+                    </div>
+                </div>
+
+                <div class="sidebar-item disabled-chapter">
+                    <span class="ch-status">🔜</span>
+                    <div>
+                        <strong>٤. الكبسولات المتعددة</strong>
+                        <small>Multi-Container Pods</small>
+                    </div>
+                </div>
+
+                <div class="sidebar-item disabled-chapter">
+                    <span class="ch-status">🔜</span>
+                    <div>
+                        <strong>٥. المراقبة</strong>
+                        <small>Observability</small>
+                    </div>
+                </div>
+
+                <div class="sidebar-item disabled-chapter">
+                    <span class="ch-status">🔜</span>
+                    <div>
+                        <strong>٦. تصميم الكبسولات</strong>
+                        <small>POD Design</small>
+                    </div>
+                </div>
+
+                <div class="sidebar-item disabled-chapter">
+                    <span class="ch-status">🔜</span>
+                    <div>
+                        <strong>٧. الشبكات والخدمات</strong>
+                        <small>Services & Networking</small>
+                    </div>
+                </div>
+
+                <div class="sidebar-item disabled-chapter">
+                    <span class="ch-status">🔜</span>
+                    <div>
+                        <strong>٨. التخزين الدائم</strong>
+                        <small>State Persistence</small>
+                    </div>
+                </div>
+
+                <div class="sidebar-item disabled-chapter">
+                    <span class="ch-status">🔜</span>
+                    <div>
+                        <strong>٩. الأمان</strong>
+                        <small>Security</small>
+                    </div>
+                </div>
+
+                <div class="sidebar-item disabled-chapter">
+                    <span class="ch-status">🔜</span>
+                    <div>
+                        <strong>١٠. أساسيات Helm</strong>
+                        <small>Helm Fundamentals</small>
+                    </div>
+                </div>
+
+                <div class="sidebar-item disabled-chapter">
+                    <span class="ch-status">🔜</span>
+                    <div>
+                        <strong>١١. أساسيات Kustomize</strong>
+                        <small>Kustomize Basics</small>
+                    </div>
+                </div>
+
+                <div class="sidebar-item disabled-chapter">
+                    <span class="ch-status">🔜</span>
+                    <div>
+                        <strong>١٢. نصائح الامتحان</strong>
+                        <small>Certification Tips</small>
+                    </div>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content: Chapter Cards -->
+        <main class="course-content">
+            <h2>📚 المهمات المتاحة</h2>
+
+            <div class="chapter-cards">
+                <a href="chapter1.html" class="chapter-card">
+                    <div class="chapter-number">٠١</div>
+                    <div class="chapter-info">
+                        <h3>🚀 المقدمة — الانطلاق</h3>
+                        <p>إيه هو الكوبرنيتس؟ ليه محتاجينه؟ وإيه الشهادة بتاعة CKAD دي؟</p>
+                        <div class="chapter-meta">
+                            <span>📝 ٣ دروس</span>
+                            <span class="status-ready">✅ متاح</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="chapter2.html" class="chapter-card">
+                    <div class="chapter-number">٠٢</div>
+                    <div class="chapter-info">
+                        <h3>🛸 المفاهيم الأساسية</h3>
+                        <p>هيكل المحطة، الكبسولات، خطط الإطلاق، الأقسام — كل الأساسيات!</p>
+                        <div class="chapter-meta">
+                            <span>📝 ٧ دروس</span>
+                            <span class="status-ready">✅ متاح</span>
+                        </div>
+                    </div>
+                </a>
+
+                <div class="chapter-card chapter-soon">
+                    <div class="chapter-number">٠٣</div>
+                    <div class="chapter-info">
+                        <h3>⚙️ الإعدادات</h3>
+                        <p>ConfigMaps, Secrets, Security Contexts, Resources — إعدادات السفينة المتقدمة.</p>
+                        <div class="chapter-meta">
+                            <span>📝 ٢٣ درس</span>
+                            <span class="status-soon">🔜 قريباً</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chapter-card chapter-soon">
+                    <div class="chapter-number">٠٤</div>
+                    <div class="chapter-info">
+                        <h3>💊 الكبسولات المتعددة</h3>
+                        <p>كبسولات فيها أكتر من Container — Init Containers وSidecar Patterns.</p>
+                        <div class="chapter-meta">
+                            <span>📝 ٣ دروس</span>
+                            <span class="status-soon">🔜 قريباً</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chapter-card chapter-soon">
+                    <div class="chapter-number">٠٥</div>
+                    <div class="chapter-info">
+                        <h3>👁️ المراقبة</h3>
+                        <p>Readiness Probes, Liveness Probes, Logging, Monitoring — عيون المحطة.</p>
+                        <div class="chapter-meta">
+                            <span>📝 ٧ دروس</span>
+                            <span class="status-soon">🔜 قريباً</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chapter-card chapter-soon">
+                    <div class="chapter-number">٠٦</div>
+                    <div class="chapter-info">
+                        <h3>🎨 تصميم الكبسولات</h3>
+                        <p>Labels, Rolling Updates, Blue/Green, Canary, Jobs, CronJobs.</p>
+                        <div class="chapter-meta">
+                            <span>📝 ١٠ دروس</span>
+                            <span class="status-soon">🔜 قريباً</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chapter-card chapter-soon">
+                    <div class="chapter-number">٠٧</div>
+                    <div class="chapter-info">
+                        <h3>🌐 الشبكات والخدمات</h3>
+                        <p>Services, Network Policies, Ingress — شبكة الاتصالات في المحطة.</p>
+                        <div class="chapter-meta">
+                            <span>📝 ٩ دروس</span>
+                            <span class="status-soon">🔜 قريباً</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chapter-card chapter-soon">
+                    <div class="chapter-number">٠٨</div>
+                    <div class="chapter-info">
+                        <h3>💾 التخزين الدائم</h3>
+                        <p>Volumes, PV, PVC, Storage Classes, StatefulSets — ذاكرة المحطة.</p>
+                        <div class="chapter-meta">
+                            <span>📝 ١٢ درس</span>
+                            <span class="status-soon">🔜 قريباً</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chapter-card chapter-soon">
+                    <div class="chapter-number">٠٩</div>
+                    <div class="chapter-info">
+                        <h3>🔒 الأمان</h3>
+                        <p>RBAC, Admission Controllers, Custom Resources — حماية المحطة.</p>
+                        <div class="chapter-meta">
+                            <span>📝 ٢٠ درس</span>
+                            <span class="status-soon">🔜 قريباً</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chapter-card chapter-soon">
+                    <div class="chapter-number">١٠</div>
+                    <div class="chapter-info">
+                        <h3>⛑️ أساسيات Helm</h3>
+                        <p>Helm Charts — مدير حزم الكوبرنيتس.</p>
+                        <div class="chapter-meta">
+                            <span>📝 ٥ دروس</span>
+                            <span class="status-soon">🔜 قريباً</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chapter-card chapter-soon">
+                    <div class="chapter-number">١١</div>
+                    <div class="chapter-info">
+                        <h3>🔧 أساسيات Kustomize</h3>
+                        <p>Overlays, Patches, Transformers — تخصيص ملفات الكوبرنيتس.</p>
+                        <div class="chapter-meta">
+                            <span>📝 ١٧ درس</span>
+                            <span class="status-soon">🔜 قريباً</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chapter-card chapter-soon">
+                    <div class="chapter-number">١٢</div>
+                    <div class="chapter-info">
+                        <h3>🏅 نصائح الامتحان</h3>
+                        <p>إدارة الوقت، نصائح عملية، وMock Exams.</p>
+                        <div class="chapter-meta">
+                            <span>📝 ٥ دروس</span>
+                            <span class="status-soon">🔜 قريباً</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>🚀 كوبسترونات — مشروع تعليمي مبني بحب لمستكشفين الفضاء الصغيرين</p>
+    </footer>
+</body>
+
+</html>

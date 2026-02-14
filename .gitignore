@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyc
+
+# Scraped content (source material, not needed in deployment)
+scraped_content/
+
+# Agent/IDE config
+.agent/
+.gemini/
+.vscode/
+.cursor/
+
+# Temp files
+*.tmp
+*.bak
+*.swp
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Python scripts (development tools, not part of website)
+*.py
