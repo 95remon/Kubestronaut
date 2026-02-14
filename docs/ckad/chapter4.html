@@ -120,71 +120,100 @@
                 <p class="subtitle">Multi-Container Pods</p>
             </section>
 
-            <div class="lessons-container">
+            <!-- ========== LESSON 1: Multi-Container Pods ========== -->
+            <article class="lesson" id="multi-container-pods">
+                <span class="lesson-number">الدرس 1</span>
+                <h2>👯‍♂️ الكبسولات متعددة المحركات (Multi-Container Pods)</h2>
 
-                <!-- ========== LESSON 1: Main Concept ========== -->
-                <article class="lesson" id="lesson-1">
-                    <span class="lesson-number">الدرس 1</span>
-                    <h2>👯‍♂️ الكبسولات متعددة المحركات (Multi-Container Pods)</h2>
+                <div class="callout-tip">
+                    <div class="tip-title">💡 ملاحظة</div>
+                    <p>المقال ده بيستكشف تصميم، وظائف، وفوائد استخدام Multi-Container Pods في Kubernetes.</p>
+                </div>
 
-                    <p>
-                        أهلاً بيك يا كابتن في المهمة دي! 👨‍🚀
-                        النهاردة هنتكلم عن إزاي نشغل أكتر من "محرك" (Container) جوه نفس "الكبسولة" (Pod).
-                        ده بيسمح لنا نعمل حاجات قوية جداً لما يكون عندنا خدمات لازم تشتغل مع بعض وتتكلم مع بعض
-                        بسرعة.
-                    </p>
+                <p>أهلاً بيك في الدرس الشامل ده عن الكبسولات متعددة المحركات (Multi-Container Pods) في Kubernetes. أنا
+                    Mumshad Mannambeth، وفي الدليل ده، هنستكشف تصميم، وظائف، وفوائد استخدام Multi-Container Pods.</p>
 
-                    <figure class="img-frame">
-                        <img src="../assets/images/chapter4/Multi-Container-Pods_frame_20.jpg"
-                            alt="Course Objectives - Multi-Container Pods" loading="lazy">
-                        <figcaption>أهداف المهمة: هنتعلم أمتى وليه نستخدم كبسولات متعددة المحركات</figcaption>
-                    </figure>
+                <p>الـ Multi-Container Pods في Kubernetes بتسمح لك تشغل اتنين Containers أو أكتر مع بعض في Pod واحد.
+                    الطريقة دي ضرورية لما الخدمات المعبأة في حاويات (Containerized Services) لازم تشتغل بشكل وثيق مع
+                    بعض، زي دمج خادم ويب (Web Server) مع عميل تسجيل (Logging Agent). في الحالات دي، الـ Containers
+                    بيشاركوا نفس دورة الحياة (Lifecycle)، مساحة أسماء الشبكة (Network Namespace)، ووحدات التخزين
+                    (Storage Volumes)، مما يضمن تواصل سلس وسلوك متزامن.</p>
 
-                    <h3>Microservices vs. Tightly Coupled Services</h3>
-                    <p>
-                        في العالم الحديث (Microservices)، إحنا بنحاول نفصل كل حاجة عن بعضها عشان نقدر نطور ونكبر كل
-                        جزء لوحده.
-                        زي ما بنفصل "نظام الملاحة" عن "نظام الاتصالات" في السفينة. كل واحد مستقل.
-                    </p>
-                    <figure class="img-frame">
-                        <img src="../assets/images/chapter4/Multi-Container-Pods_frame_50.jpg"
-                            alt="Microservices Architecture" loading="lazy">
-                    </figure>
+                <figure class="img-frame">
+                    <img src="../assets/images/chapter4/Multi-Container-Pods_frame_20.jpg" alt="Course Objectives"
+                        loading="lazy">
+                    <figcaption>الصورة بتوضح أهداف الكورس، بما في ذلك المفاهيم الأساسية، التكوين، Multi-Container Pods،
+                        المراقبة، تصميم الـ Pod، الخدمات والشبكات، واستمرارية الحالة.</figcaption>
+                </figure>
 
-                    <p>
-                        لكن... ساعات بيبقى فيه خدمات لازم تكون "لازقة" في بعض (Tightly Coupled).
-                        مثلاً: تخيل عندك "سيرفر الويب" (Web Server) ومحتاج معاه "مساعد" (Log Agent) يلم السجلات
-                        بتاعته فوراً ويبعتها للمركز الأرضي.
-                        في الحالة دي، بنحطهم هما الاتنين في <strong>نفس الـ Pod</strong>.
-                    </p>
-                    <figure class="img-frame">
-                        <img src="../assets/images/chapter4/Multi-Container-Pods_frame_80.jpg"
-                            alt="Web Server with Log Agent" loading="lazy">
-                    </figure>
+                <h3>Microservices vs. Tightly Coupled Services</h3>
+                <p>تطوير التطبيقات الحديثة بيفضل بشكل متزايد الـ Microservices، حيث التطبيقات الكبيرة المتجانسة
+                    (Monolithic) بتتقسم لمكونات فرعية أصغر ومستقلة. نموذج التصميم ده بيسمح للمطورين يبنوا، ينشروا،
+                    ويكبروا (Scale) الخدمات الفردية بشكل مستقل، مما يسهل التطوير والصيانة.</p>
 
-                    <h3>✨ مميزات الكبسولات المتعددة (Advantages)</h3>
-                    <ul class="styled-list">
-                        <li><strong>Shared Lifecycle:</strong> بيموتوا ويصحوا مع بعض. لو الكبسولة انفجرت، الاتنين
-                            راحوا! 💀</li>
-                        <li><strong>Unified Network Namespace:</strong> بيكلموا بعض عن طريق <span
-                                class="ltr-text">localhost</span> من غير
-                            تعقيدات الشبكة.</li>
-                        <li><strong>Shared Storage Volumes:</strong> بيقدروا يقروا ويكتبوا في نفس المكان (Disk).
-                        </li>
-                    </ul>
+                <figure class="img-frame">
+                    <img src="../assets/images/chapter4/Multi-Container-Pods_frame_50.jpg"
+                        alt="Microservices Architecture" loading="lazy">
+                    <figcaption>رسم توضيحي لمعمارية Microservices.</figcaption>
+                </figure>
 
-                    <figure class="img-frame">
-                        <img src="../assets/images/chapter4/Multi-Container-Pods_frame_110.jpg"
-                            alt="Shared Network and Storage" loading="lazy">
-                        <figcaption>بيشاركوا نفس التلاجة (Storage) ونفس عنوان البيت (Network)</figcaption>
-                    </figure>
+                <p>ومع ذلك، في حالات معينة لازم خدمتين يشتغلوا جنباً إلى جنب. على سبيل المثال، خادم ويب ممكن يحتاج
+                    Logging Agent مخصص شغال معاه عشان يسجل تفاصيل السجلات (Logs) من غير ما ندمج كود إضافي جوه الـ
+                    Container بتاع خادم الويب. الإعداد ده بيسهل النشر والـ Scaling المستقل مع الحفاظ على كود التطبيق
+                    معياري (Modular).</p>
 
-                    <h3>🛠️ إزاي نعملها؟ (YAML)</h3>
-                    <p>بسيطة جداً! في ملف الـ YAML، تحت قائمة <span class="ltr-text">containers</span>، بنزود واحد كمان.
-                    </p>
+                <figure class="img-frame">
+                    <img src="../assets/images/chapter4/Multi-Container-Pods_frame_80.jpg"
+                        alt="Web Server with Log Agent" loading="lazy">
+                    <figcaption>شكل بيوضح WEB Server مع LOG Agent.</figcaption>
+                </figure>
 
-                    <div class="code-block">
-                        <code>apiVersion: v1
+                <h3>مميزات الكبسولات المتعددة (Advantages)</h3>
+                <p>الـ Multi-Container Pods بتقدم عدة مميزات هامة:</p>
+                <ul>
+                    <li><strong>دورة حياة مشتركة (Shared Lifecycle):</strong> كل الـ Containers في الـ Pod بتبدأ وتقف في
+                        نفس الوقت.</li>
+                    <li><strong>مساحة أسماء شبكة موحدة (Unified Network Namespace):</strong> الـ Containers بتتواصل عبر
+                        localhost من غير تكوين إضافي.</li>
+                    <li><strong>وحدات تخزين مشتركة (Shared Storage Volumes):</strong> تخزين دائم ومشترك متاح بين الـ
+                        Containers.</li>
+                </ul>
+
+                <figure class="img-frame">
+                    <img src="../assets/images/chapter4/Multi-Container-Pods_frame_110.jpg" alt="Shared Layout"
+                        loading="lazy">
+                    <figcaption>رسم بيوضح مكونات دورة الحياة، الشبكة، والتخزين داخل هيكل الـ Pod.</figcaption>
+                </figure>
+
+                <div class="callout-tip">
+                    <div class="tip-title">💡 نصيحة</div>
+                    <p>عشان تنشئ Multi-Container Pod، ببساطة ادرج تعريفات Containers متعددة تحت مصفوفة `containers` في
+                        ملف مواصفات الـ Pod بتاعك.</p>
+                </div>
+
+                <h3>إنشاء Multi-Container Pod</h3>
+                <p>أدناه مثال لتعريف Pod أساسي بـ Container واحد:</p>
+
+                <div class="code-block" dir="ltr">
+                    <code>apiVersion: v1
+kind: Pod
+metadata:
+  name: simple-webapp
+  labels:
+    name: simple-webapp
+spec:
+  containers:
+  - name: simple-webapp
+    image: simple-webapp
+    ports:
+    - containerPort: 8080</code>
+                </div>
+
+                <p>عشان تحوله لـ Multi-Container Pod، ضيف مدخل Container تاني عشان يتضمن، مثلاً، Log Agent Container جنب
+                    الـ Web Server:</p>
+
+                <div class="code-block" dir="ltr">
+                    <code>apiVersion: v1
 kind: Pod
 metadata:
   name: simple-webapp
@@ -198,115 +227,247 @@ spec:
     - containerPort: 8080
   - name: log-agent
     image: log-agent</code>
-                    </div>
+                </div>
 
-                    <h3>🎨 أنماط التصميم (Design Patterns)</h3>
-                    <p>فيه 3 أشكال مشهورة للمساعدين دول، مش لازم تحفظهم نظري بس افهم الفكرة:</p>
+                <h3>أنماط تصميم Multi-Container Pod</h3>
+                <p>في 3 أنماط شائعة لتصميم الـ Multi-Container Pods:</p>
+                <ol>
+                    <li><strong>Sidecar Pattern</strong></li>
+                    <li><strong>Adapter Pattern</strong></li>
+                    <li><strong>Ambassador Pattern</strong></li>
+                </ol>
 
-                    <h4>1. Sidecar Pattern 🏍️</h4>
-                    <p>
-                        زي "الموتوسيكل" اللي فيه "عربية جانبية".
-                        التطبيق الأساسي هو الموتوسيكل، والـ Sidecar هو المساعد اللي بيعمل شغلانة إضافية (زي تجميع
-                        الـ Logs).
-                    </p>
-                    <figure class="img-frame">
-                        <img src="../assets/images/chapter4/Multi-Container-Pods_frame_180.jpg" alt="Sidecar Pattern"
-                            loading="lazy">
-                    </figure>
+                <h4>1. Sidecar Pattern</h4>
+                <p>نمط الـ Sidecar بيتضمن نشر Container تكميلي، زي Logging Agent، جنب الـ Container الأساسي بتاعك. نمط
+                    التصميم ده بيمكن الخدمات من توسيع أو تحسين قدرات التطبيق الرئيسي من غير تعديل الكود بتاعه. هو مفيد
+                    بشكل خاص لما التطبيق بينتج Logs بصيغ متنوعة عبر خدمات مختلفة.</p>
 
-                    <h4>2. Adapter Pattern 🔌</h4>
-                    <p>
-                        زي "مشترك الكهرباء". لو التطبيق بيطلع Logs بشكل غريب، الـ Adapter بياخدها ويحولها لشكل موحد
-                        (Standard) عشان نعرف نقراها.
-                    </p>
+                <figure class="img-frame">
+                    <img src="../assets/images/chapter4/Multi-Container-Pods_frame_180.jpg" alt="Sidecar Pattern"
+                        loading="lazy">
+                    <figcaption>رسم بيوضح نمط Sidecar، مع مكون جانبي متصل بخادم السجلات.</figcaption>
+                </figure>
 
-                    <h4>3. Ambassador Pattern 🤵</h4>
-                    <p>
-                        زي "السفير". التطبيق عايز يكلم الداتابيز، بس مش عارف يكلم "Dev" ولا "Prod".
-                        بيقوم مكلم الـ Ambassador (على <span class="ltr-text">localhost</span>) والسفير هو اللي يوجهه
-                        للمكان الصح.
-                    </p>
-                    <figure class="img-frame">
-                        <img src="../assets/images/chapter4/Multi-Container-Pods_frame_220.jpg" alt="Ambassador Pattern"
-                            loading="lazy">
-                    </figure>
-                </article>
+                <h4>2. Adapter Pattern</h4>
+                <p>نمط الـ Adapter مفيد لما تحتاج توحد (Standardize) صيغ البيانات. مثلاً، لما Logs من مصادر متعددة محتاج
+                    تتوحد قبل ما تتعالج بـ Central Logging Service. رسائل الـ Log ممكن تختلف كالتالي:</p>
 
-                <!-- ========== LESSON 2: Lab 1 ========== -->
-                <article class="lesson" id="lesson-2">
-                    <span class="lesson-number">مختبر 1</span>
-                    <h2>🧪 مختبر: إنشاء كبسولة متعددة (Yellow Pod)</h2>
+                <div class="code-block" dir="ltr">
+                    <code>12-JULY-2018 16:05:49 "GET /index1.html" 200
+12/JUL/2018:16:05:49 -0800 "GET /index2.html" 200
+GET 1531411549 "/index3.html" 200</code>
+                </div>
 
-                    <p>
-                        تعالى نطبق عملي! مطلوب مننا نعمل Pod اسمها <strong>yellow</strong> فيها 2 containers:
-                    </p>
-                    <ul class="styled-list">
-                        <li><strong>lemon:</strong> صورة <span class="ltr-text">busybox</span> (وبتعمل sleep عشان
-                            متقفلش).</li>
-                        <li><strong>gold:</strong> صورة <span class="ltr-text">redis</span>.</li>
-                    </ul>
+                <p>الـ Adapter Container يقدر يوحد الصيغ دي (Normalize)، لضمان الاتساق قبل ما الـ Logs توصل للنظام
+                    المركزي.</p>
 
-                    <figure class="img-frame">
-                        <img src="../assets/images/chapter4/Solution-Multi-Container-Pods-Optional_frame_90.jpg"
-                            alt="Lab Task: Yellow Pod" loading="lazy">
-                    </figure>
+                <h4>3. Ambassador Pattern</h4>
+                <p>نمط الـ Ambassador بيطبق لما تطبيق يحتاج يتواصل مع بيئات قواعد بيانات مختلفة. مثلاً، التطبيق ممكن
+                    يحتاج قاعدة بيانات محلية للتطوير، وتانية للاختبار، وقاعدة بيانات Production في النشر الحي. بدلاً من
+                    دمج منطق للتعامل مع بيئات متعددة في كود التطبيق، الـ Ambassador Container بيشتغل كـ Proxy. التطبيق
+                    دايماً بيبعت الطلبات لـ localhost، بينما الـ Ambassador بيوجه الحركة (Traffic) لـ Database Backend
+                    المناسب.</p>
 
-                    <h3>Step 1: Generate YAML</h3>
-                    <div class="code-block">
-                        <code>kubectl run yellow --image=busybox --dry-run=client -o yaml > yellow.yaml</code>
-                    </div>
+                <figure class="img-frame">
+                    <img src="../assets/images/chapter4/Multi-Container-Pods_frame_220.jpg" alt="Ambassador Pattern"
+                        loading="lazy">
+                    <figcaption>رسم بيوضح نمط Ambassador، مع اتصالات من نقطة مركزية لبيئات Dev، Test، و Prod.
+                    </figcaption>
+                </figure>
 
-                    <h3>Step 2: Update YAML</h3>
-                    <p>هنعدل الملف ونضيف الكونتينر التاني:</p>
-                    <div class="code-block">
-                        <code>apiVersion: v1
+                <p>كل واحد من الأنماط دي بيستغل التصميم المرن لـ Multi-Container Pods من خلال تضمين Containers متعددة
+                    داخل مواصفات Pod واحدة.</p>
+
+                <div class="callout-tip">
+                    <div class="tip-title">💡 تمرن</div>
+                    <p>توجه لقسم تمارين الكود عشان تتدرب على تكوين Multi-Container Pods. الممارسة الواقعية هتثبت فهمك
+                        للأنماط دي وتنفيذها في Kubernetes.</p>
+                </div>
+
+                <p>ده بيختم الدرس ده عن Multi-Container Pods في Kubernetes. شكراً للقراءة، وأشوفك في الدرس الجاي!</p>
+            </article>
+
+            <!-- ========== LESSON 2: Solution Multi-Container Pods Optional ========== -->
+            <article class="lesson" id="solution-multi-container">
+                <span class="lesson-number">الدرس 2</span>
+                <h2>🛠️ حل: Multi-Container Pods (اختياري)</h2>
+
+                <div class="callout-tip">
+                    <div class="tip-title">💡 ملاحظة</div>
+                    <p>المقال ده بيراجع تمرين عملي على إنشاء Multi-Container Pods في Kubernetes وتوجيه الـ Logs لـ
+                        Elasticsearch.</p>
+                </div>
+
+                <p>في المقال ده، بنراجع تمرين عملي على Multi-Container Pods. المختبر بيوضح إزاي تحدد عدد الـ Containers
+                    في الـ Pods، إنشاء Multi-Container Pods باستخدام صور محددة، وإضافة Sidecar Container لتوجيه الـ Logs
+                    لـ Elasticsearch. الدليل الخطوة-بخطوة ده هيساعدك تفهم المفاهيم دي وتنفذها في بيئة Kubernetes بتاعتك.
+                </p>
+
+                <hr>
+
+                <h3>تحديد الـ Containers في الـ Red Pod</h3>
+                <p>عشان تحدد عدد الـ Containers في الـ red pod، عندك خيارين:</p>
+                <ol>
+                    <li>تحقق من عمود "READY" في قائمة الـ Pods — الأرقام بتشير لإجمالي الـ Containers مقابل كام واحد
+                        جاهز.</li>
+                    <li>استخدم أمر `describe` لفحص تفاصيل الـ Pod. في المخرجات، دور على قسم "Containers:". مثلاً، مقتطف
+                        YAML التالي بيوضح 3 مداخل Containers بأسماء `apple`، `wine`، و `searle`:</li>
+                </ol>
+
+                <div class="code-block" dir="ltr">
+                    <code>Containers:
+  apple:
+    Container ID: busybox
+...
+  wine:
+    Container ID: busybox
+...
+  searle:
+    Container ID: busybox
+...</code>
+                </div>
+
+                <p>الطريقتين بيأكدوا إن الـ red pod بيحتوي على 3 Containers.</p>
+
+                <hr>
+
+                <h3>تحديد الـ Containers في الـ Blue Pod</h3>
+                <p>بعد كده، حدد أسماء الـ Containers في الـ blue pod. فحص تفاصيله بيكشف عن 2 Containers، بأسماء `teal` و
+                    `navy`. أدناه مقتطف من تفاصيل الـ Pod:</p>
+
+                <div class="code-block" dir="ltr">
+                    <code>Containers:
+  teal:
+    Image: busybox
+...
+  navy:
+    Image: busybox
+...</code>
+                </div>
+
+                <p>ده بيأكد إن الـ blue pod بيشغل 2 Containers: `teal` و `navy`.</p>
+
+                <hr>
+
+                <h3>إنشاء Multi-Container Pod (Yellow Pod)</h3>
+                <p>المهمة التالية هي إنشاء Multi-Container Pod اسمه <strong>yellow</strong> بيتضمن 2 Containers. اتبع
+                    المواصفات دي:</p>
+                <ul>
+                    <li><strong>Container 1:</strong> اسمه <strong>lemon</strong>، بيستخدم صورة `busybox` مع أمر sleep
+                        (`sleep 1000`) لمنع حالة CrashLoopBackOff.</li>
+                    <li><strong>Container 2:</strong> اسمه <strong>gold</strong>، بيستخدم صورة `redis`.</li>
+                </ul>
+
+                <figure class="img-frame">
+                    <img src="../assets/images/chapter4/Solution-Multi-Container-Pods-Optional_frame_90.jpg"
+                        alt="Lab Task: Create Yellow Pod" loading="lazy">
+                    <figcaption>صورة بتوضح مهمة إنشاء Multi-Container Pod بـ 2 Containers باستخدام صور محددة.
+                    </figcaption>
+                </figure>
+
+                <h4>Step 1: توليد تعريف Pod الأساسي</h4>
+                <p>شغل الأمر التالي باستخدام dry run لتوليد تعريف YAML للـ Pod:</p>
+                <div class="code-block" dir="ltr">
+                    <code>kubectl run yellow --image=busybox --dry-run=client -o yaml</code>
+                </div>
+
+                <h4>Step 2: تحديث الـ YAML</h4>
+                <p>أعد تسمية الـ Container الأول من <strong>yellow</strong> لـ <strong>lemon</strong> وضيف أمر sleep.
+                    بعدين، ضيف Container تاني اسمه <strong>gold</strong> بصورة `redis`. الـ YAML المحدث لازم يشبه ده:
+                </p>
+
+                <div class="code-block" dir="ltr">
+                    <code>apiVersion: v1
 kind: Pod
 metadata:
+  creationTimestamp: null
+  labels:
+    run: yellow
   name: yellow
 spec:
   containers:
   - image: busybox
     name: lemon
+    resources: {}
     command: ["sleep", "1000"]
   - image: redis
-    name: gold</code>
-                    </div>
+    name: gold
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}</code>
+                </div>
 
-                    <h3>Step 3: Apply</h3>
-                    <div class="code-block">
-                        <code>kubectl apply -f yellow.yaml</code>
-                    </div>
-                </article>
+                <p>احفظ الملف ده (مثلاً، باسم `yellow.yaml`) وطبق التكوين:</p>
+                <div class="code-block" dir="ltr">
+                    <code>kubectl apply -f yellow.yaml</code>
+                </div>
 
-                <!-- ========== LESSON 3: Lab 2 ========== -->
-                <article class="lesson" id="lesson-3">
-                    <span class="lesson-number">مختبر 2</span>
-                    <h2>📊 تسجيل الأحداث (Elastic Stack Sidecar)</h2>
+                <h4>التحقق من الـ Yellow Pod</h4>
+                <p>بعد ما الـ Pod يتعمل، تحقق من الحالة بـ:</p>
+                <div class="code-block" dir="ltr">
+                    <code>kubectl get pods</code>
+                </div>
+                <p>المفروض تشوف الـ yellow pod بـ 2 Containers: <strong>lemon</strong> (busybox) شغال بـ `sleep 1000` و
+                    <strong>gold</strong> (redis).</p>
 
-                    <p>
-                        دلوقتي عندنا تطبيق <strong>app</strong> بيطلع Logs، وعايزين نبعتها لـ
-                        <strong>Elasticsearch</strong>.
-                        هنستخدم <strong>Sidecar</strong> عشان يستلم الـ Logs دي ويبعتها.
-                    </p>
+                <hr>
 
-                    <div class="callout-tip">
-                        <div class="tip-title">⚠️ مهم</div>
-                        <p>
-                            عشان نعدل في الـ Containers بتاعة Pod شغال، لازم نمسحه ونعمله تاني (Replace)، أو نستخدم
-                            <span class="ltr-text">kubectl replace --force</span>.
-                        </p>
-                    </div>
+                <h3>استكشاف إعداد Elastic Stack Logging</h3>
+                <p>القسم ده بيغطي نشر تطبيق بسيط و Logging Stack داخل الـ Namespace اللي اسمه
+                    <strong>elastic-stack</strong>. النشر بيتضمن:</p>
+                <ul>
+                    <li><strong>app</strong> pod (بيشغل event simulator)</li>
+                    <li><strong>elastic-search</strong> pod</li>
+                    <li><strong>kibana</strong> pod</li>
+                </ul>
 
-                    <h3>الخطة (Plan):</h3>
-                    <ol>
-                        <li>التطبيق (App) بيكتب في <span class="ltr-text">/log/app.log</span>.</li>
-                        <li>هنعمل <strong>Volume</strong> مشترك بين التطبيق والـ Sidecar.</li>
-                        <li>الـ Sidecar هيقرا من الـ Volume ده ويبعت لـ Elasticsearch.</li>
-                    </ol>
+                <p>استنى لحد ما كل الـ Pods تكون في حالة Running:</p>
+                <div class="code-block" dir="ltr">
+                    <code>kubectl get pods -n elastic-stack</code>
+                </div>
 
-                    <h3>YAML Solution:</h3>
-                    <div class="code-block">
-                        <code>apiVersion: v1
+                <h4>فحص واجهة Kibana</h4>
+                <p>بمجرد ما الـ Pods تقوم، افتح واجهة Kibana باستخدام الرابط الموجود فوق الترمينال بتاعك. Kibana بتخدم
+                    كلوحة تحكم (Dashboard) لعرض الـ Logs اللي جمعها Elasticsearch.</p>
+                <p>عشان تشوف الـ Logs من Kibana، شغل:</p>
+                <div class="code-block" dir="ltr">
+                    <code>kubectl -n elastic-stack logs kibana</code>
+                </div>
+
+                <hr>
+
+                <h3>التحقيق في الـ Application Pod</h3>
+                <p>بعد كده، افحص الـ <strong>app</strong> pod للتحقق من تكوين الـ Container وتفاصيل الصورة. الـ
+                    <strong>app</strong> pod بيشغل Container واحد مع event simulator بيبعت رسائل Log لـ `/log/app.log`.
+                </p>
+                <p>الـ event simulator بيكتب الـ Logs بتاعته في `/log/app.log`. عشان تشوف مدخلات الـ Log مباشرة جوه الـ
+                    Pod، نفذ:</p>
+                <div class="code-block" dir="ltr">
+                    <code>kubectl -n elastic-stack exec -it app -- cat /log/app.log</code>
+                </div>
+
+                <p>افحص المدخلات لتحديد أي مشاكل للمستخدم. مثلاً، الـ Logs بتشير إن <strong>USER5</strong> واجه مشاكل في
+                    تسجيل الدخول لأن الحساب اتقفل بعد محاولات فاشلة متعددة:</p>
+                <div class="code-block" dir="ltr">
+                    <code>[2022-04-17 18:21:58,698] WARNING in event-simulator: USER5 Failed to Login as the account is locked due to MANY FAILED ATTEMPTS.</code>
+                </div>
+                <p>وبالتالي، المستخدم اللي فيه مشكلة هو <strong>USER5</strong>.</p>
+
+                <hr>
+
+                <h3>إضافة Sidecar Container لشحن الـ Logs لـ Elasticsearch</h3>
+                <p>لتوجيه الـ Logs من الـ <strong>app</strong> pod لـ Elasticsearch، لازم نضيف Sidecar Container. الـ
+                    Container ده، واسمه <strong>sidecar</strong>، بيستخدم صورة Fluent Bit مخصصة (مكونة زي Filebeat)
+                    لقراءة الـ Logs من Volume مشترك وتوجيهها لـ Elasticsearch.</p>
+
+                <h4>تعديل تعريف الـ App Pod</h4>
+                <p>التعريف الحالي للـ <strong>app</strong> pod بيتضمن فقط الـ event simulator container. لتنفيذ توجيه
+                    الـ Logs، عدل تعريف الـ Pod ليشمل كلاً من الـ event simulator والـ sidecar container، وتأكد إنهم
+                    بيشاركوا نفس الـ Volume.</p>
+
+                <p>أدناه مثال لمقتطف YAML بالتكوين المحدث:</p>
+                <div class="code-block" dir="ltr">
+                    <code>apiVersion: v1
 kind: Pod
 metadata:
   name: app
@@ -320,6 +481,7 @@ spec:
           name: log-volume
     - image: kodekloud/event-simulator
       name: app
+      imagePullPolicy: Always
       volumeMounts:
         - mountPath: /log
           name: log-volume
@@ -327,63 +489,251 @@ spec:
   - name: log-volume
     hostPath:
       path: /var/log/webapp</code>
-                    </div>
+                </div>
 
-                    <h3>النتيجة في Kibana</h3>
-                    <p>لما نفتح Kibana، هنقدر نشوف الـ Index والـ Logs وهي بتوصل:</p>
+                <p>في التكوين ده:</p>
+                <ul>
+                    <li>الـ <strong>sidecar</strong> container بيعمل Mount لـ `log-volume` في
+                        `/var/log/event-simulator/` (حيث يتوقع Filebeat الـ Logs).</li>
+                    <li>الـ <strong>app</strong> container بيكتب الـ Logs في `/log`.</li>
+                </ul>
 
-                    <figure class="img-frame">
-                        <img src="../assets/images/chapter4/Solution-Multi-Container-Pods-Optional_frame_840.jpg"
-                            alt="Kibana Index Pattern" loading="lazy">
-                    </figure>
+                <h4>تحديث الـ Pod</h4>
+                <p>بما إن Kubernetes "مش بيسمح" بتعديل مجموعة الـ Containers على Live Pod، لازم تعمل Force Replace للـ
+                    Pod الحالي بالـ YAML المحدث. استخدم أمر force replace:</p>
+                <div class="code-block" dir="ltr">
+                    <code>kubectl replace --force -f /tmp/kubectl-edit-3922970489.yaml</code>
+                </div>
 
-                    <figure class="img-frame">
-                        <img src="../assets/images/chapter4/Solution-Multi-Container-Pods-Optional_frame_880.jpg"
-                            alt="Kibana Logs" loading="lazy">
-                    </figure>
-                </article>
+                <p>وأخيراً، تحقق من حالة الـ Pod:</p>
+                <div class="code-block" dir="ltr">
+                    <code>kubectl get pods -n elastic-stack</code>
+                </div>
 
-                <!-- ========== LESSON 4: Init Containers ========== -->
-                <article class="lesson" id="lesson-4">
-                    <span class="lesson-number">الدرس 3</span>
-                    <h2>🛠️ حاويات التجهيز (Init Containers)</h2>
+                <hr>
 
-                    <p>
-                        كل اللي فات ده كان Containers بتشتغل "مع بعض" في نفس الوقت.
-                        بس ساعات بنحتاج حد "يجهز المكان" الأول ويمشي.
-                        ده اسمه <strong>Init Container</strong>. 👷‍♂️
-                    </p>
-                    <p>
-                        بيشتغل <strong>قبل</strong> التطبيق الأساسي، ولازم يخلص بنجاح (Exit Code 0) عشان التطبيق
-                        يبدأ.
-                    </p>
+                <h3>التحقق من الـ Logs في Kibana</h3>
+                <p>بعد تحديث الـ <strong>app</strong> pod بالـ Sidecar Container، افتح واجهة Kibana للتأكد إن الـ Logs
+                    بتتدفق في قسم Discover. اتبع الخطوات دي:</p>
+                <ol>
+                    <li>أنشئ Index Pattern في Kibana (مثلاً، `filebeat-*`).</li>
+                    <li>كون فلتر الوقت حسب الحاجة.</li>
+                    <li>توجه لقسم Discover لعرض مدخلات الـ Log.</li>
+                </ol>
 
-                    <h3>تحليل الألوان (Red, Blue, Green, Purple)</h3>
-                    <ul class="styled-list">
-                        <li><strong>Blue Pod:</strong> كان فيه Init Container عمل <span class="ltr-text">sleep 5</span>
-                            وخلص بنجاح
-                            (Terminated/Completed).</li>
-                        <li><strong>Purple Pod:</strong> كان فيه 2 Init Containers (warm-up-1, warm-up-2) بيشتغلوا
-                            ورا بعض بالترتيب.</li>
-                    </ul>
+                <figure class="img-frame">
+                    <img src="../assets/images/chapter4/Solution-Multi-Container-Pods-Optional_frame_840.jpg"
+                        alt="Kibana Index Pattern" loading="lazy">
+                    <figcaption>واجهة Kibana لإنشاء Index Pattern.</figcaption>
+                </figure>
 
-                    <h3>🚨 مشكلة الـ Orange Pod</h3>
-                    <p>
-                        الكبسولة البرتقالي كانت واقعة في <code class="ltr-text">Init:CrashLoopBackOff</code>.
-                        لما بصينا في الـ YAML، لقينا الغلطة:
-                    </p>
-                    <div class="code-block">
-                        <code>command:
-  - sh
-  - -c
-  - sleeep 2;  # <--- Typo here! ❌</code>
-                    </div>
-                    <p>
-                        صلحناها وخليناها <span class="ltr-text">sleep 2</span> والكبسولة قامت بسلام! ✅
-                    </p>
-                </article>
+                <figure class="img-frame">
+                    <img src="../assets/images/chapter4/Solution-Multi-Container-Pods-Optional_frame_880.jpg"
+                        alt="Kibana Logs" loading="lazy">
+                    <figcaption>واجهة إدارة الـ Logs بتعرض Logs الأحداث.</figcaption>
+                </figure>
 
-            </div>
+                <p>ده بيأكد إن الـ Logs من الـ <strong>app</strong> pod بيتم توجيهها بنجاح لـ Elasticsearch وتصورها في
+                    Kibana.</p>
+
+                <hr>
+
+                <p>ده بيختم الدليل عن إعداد Multi-Container Pods ودمج Sidecar Container لشحن الـ Logs لـ Elasticsearch.
+                    تعلم سعيد!</p>
+            </article>
+
+            <!-- ========== LESSON 3: Solution Init Containers Optional ========== -->
+            <article class="lesson" id="solution-init-containers">
+                <span class="lesson-number">الدرس 3</span>
+                <h2>🛠️ حل: حاويات التجهيز (Init Containers) (اختياري)</h2>
+
+                <div class="callout-tip">
+                    <div class="tip-title">💡 ملاحظة</div>
+                    <p>المقال ده بيقدم دليل شامل عن إدارة Init Containers في Kubernetes، بما في ذلك التحديد، التحديثات،
+                        واستكشاف الأخطاء وإصلاحها.</p>
+                </div>
+
+                <p>في الدرس ده، هنتعامل مع عدة مهام متعلقة بـ Init Containers. هنوضح إزاي نحدد الـ Pods اللي فيها Init
+                    Containers، تحديث تكوين Pod لاستخدام Init Container جديد، وإصلاح مشكلة بتسبب CrashLoopBackOff في
+                    واحد من الـ Pods. اتبع الخطوات أدناه لدليل شامل.</p>
+
+                <hr>
+
+                <h3>تحديد الـ Pod بـ Init Container</h3>
+                <p>أولاً، اعرض كل الـ Pods بـ:</p>
+                <div class="code-block" dir="ltr">
+                    <code>kubectl get pods</code>
+                </div>
+                <p>مثال للمخرجات:</p>
+                <div class="code-block" dir="ltr">
+                    <code>NAME    READY   STATUS    RESTARTS   AGE
+red     1/1     Running   0          54s
+green   2/2     Running   0          54s
+blue    1/1     Running   0          54s</code>
+                </div>
+
+                <p>عندنا 3 Pods: red، green، و blue. لتحديد أي Pod يتضمن Init Container، نفذ:</p>
+                <div class="code-block" dir="ltr">
+                    <code>kubectl describe pod <pod-name></code>
+                </div>
+
+                <h4>تحليل Red Pod</h4>
+                <p>لما تفحص الـ red pod، بتشوف قسم Init Container جنب الـ Main Container. هنا مقتطف من وصف الـ red pod:
+                </p>
+                <div class="code-block" dir="ltr">
+                    <code>Init Containers:
+  init-myservice:
+    Image: busybox
+    Command:
+      sh
+      -c
+      sleep 5
+    State: Terminated
+    Reason: Completed
+    Exit Code: 0</code>
+                </div>
+                <p>رغم ظهور Init Container في الـ red pod، مطلوب تحليل إضافي للـ Pods التانية.</p>
+
+                <h4>تحليل Green Pod</h4>
+                <p>الـ green pod مش بيتضمن Init Container.</p>
+
+                <h4>تحليل Blue Pod</h4>
+                <p>الـ blue pod بيتضمن Init Container معرف بشكل جيد. وصفه بيظهر:</p>
+                <div class="code-block" dir="ltr">
+                    <code>Init Containers:
+  init-myservice:
+    Image: busybox
+    Command:
+      - sh
+      - -c
+      - sleep 5
+    State: Terminated
+    Reason: Completed</code>
+                </div>
+                <p>وبالتالي، الـ blue pod هو اللي بـ Init Container بيستخدم صورة "busybox". الـ Container شغل أمر "sleep
+                    5"، وحالته مؤكدة كـ Terminated (السبب: Completed).</p>
+
+                <hr>
+
+                <h3>ملخص السؤال 1</h3>
+                <ul>
+                    <li><strong>Pod بـ Init Container:</strong> blue</li>
+                    <li><strong>صورة الـ Init Container:</strong> busybox</li>
+                    <li><strong>حالة الـ Init Container:</strong> Terminated (Reason: Completed)</li>
+                </ul>
+
+                <hr>
+
+                <h3>تحليل الـ Purple Pod</h3>
+                <p>تطبيق جديد اسمه purple تم نشره. تكوينه بيتضمن Init Containers متعددة. لفحصه، شغل:</p>
+                <div class="code-block" dir="ltr">
+                    <code>kubectl describe pod purple</code>
+                </div>
+
+                <p>الـ purple pod عنده <strong>2 Init Containers</strong>:</p>
+                <ul>
+                    <li><strong>warm-up-1:</strong> بينام لمدة 600 ثانية (10 دقائق)</li>
+                    <li><strong>warm-up-2:</strong> بينام لمدة 1200 ثانية (20 دقيقة)</li>
+                </ul>
+                <p>بيشتغلوا بالتتابع، يعني الـ Main Container مش بيبدأ إلا بعد ما الاتنين يخلصوا. إجمالي وقت الانتظار
+                    قبل التوفر هو 1800 ثانية (30 دقيقة).</p>
+
+                <hr>
+
+                <h3>تحديث Pod لاستخدام Init Container</h3>
+                <p>المهمة التالية هي تحديث الـ "red" pod لدمج Init Container. الـ Init Container الجديد بيستخدم صورة
+                    busybox للنوم لمدة 20 ثانية بدلاً من مدة أطول.</p>
+
+                <h4>خطوات لتحديث الـ "Red" Pod</h4>
+                <ol>
+                    <li><strong>صدر التكوين الحالي:</strong>
+                        <div class="code-block" dir="ltr"><code>kubectl get pod red -o yaml > red.yaml</code></div>
+                    </li>
+                    <li><strong>احذف الـ red pod الحالي:</strong>
+                        <div class="code-block" dir="ltr"><code>kubectl delete pod red</code></div>
+                    </li>
+                    <li><strong>حرر red.yaml</strong> لإضافة الـ Init Container. أدناه التكوين المحدث:</li>
+                </ol>
+
+                <div class="code-block" dir="ltr">
+                    <code>apiVersion: v1
+kind: Pod
+metadata:
+  name: red
+  namespace: default
+spec:
+  initContainers:
+  - name: red-initcontainer
+    image: busybox
+    command:
+    - "sleep"
+    - "20"
+  containers:
+  - name: red-container
+    image: busybox:1.28
+    imagePullPolicy: IfNotPresent
+    command:
+    - sh
+    - -c
+    - echo The app is running! && sleep 3600</code>
+                </div>
+
+                <p>بعد التطبيق، تحقق إن الـ red pod تم إعادة إنشاؤه وإن الـ Init Container الجديد بينفذ أمر "sleep 20"
+                    قبل بدء الـ Main Container.</p>
+
+                <hr>
+
+                <h3>إصلاح المشكلة مع Orange Pod</h3>
+                <p>الـ orange pod بيواجه مشكلة مع الـ Init Container بتاعه، حيث إنه عالق في Loop (CrashLoopBackOff). وصف
+                    الـ Pod بيكشف خطأ في أمر الـ Init Container:</p>
+                <div class="code-block" dir="ltr">
+                    <code>Command:
+  sh
+  -c
+  sleeep 2;</code>
+                </div>
+                <p>الخطأ المطبعي "sleeep" (بزيادة حرف "e") بيسبب فشل الـ Container (Exit Code: 127) وبيشغل
+                    CrashLoopBackOff.</p>
+
+                <h4>خطوات لإصلاح الـ Orange Pod</h4>
+                <ol>
+                    <li><strong>صدر تكوين الـ orange pod:</strong>
+                        <div class="code-block" dir="ltr"><code>kubectl get pod orange -o yaml > orange.yaml</code>
+                        </div>
+                    </li>
+                    <li><strong>احذف الـ orange pod الحالي:</strong>
+                        <div class="code-block" dir="ltr"><code>kubectl delete pod orange</code></div>
+                    </li>
+                    <li><strong>حرر orange.yaml</strong> لتصحيح الأمر في الـ Init Container. التكوين المحدث لازم يكون:
+                    </li>
+                </ol>
+
+                <div class="code-block" dir="ltr">
+                    <code>spec:
+  initContainers:
+  - name: init-myservice
+    image: busybox
+    command:
+    - sh
+    - -c
+    - sleep 2</code>
+                </div>
+
+                <p>بمجرد التحديث، الـ orange pod المفروض يشتغل بشكل طبيعي من غير ما يدخل في Crash Loop.</p>
+
+                <hr>
+
+                <h3>الخاتمة</h3>
+                <p>الدليل ده قدم شرح خطوة-بخطوة لـ:</p>
+                <ul>
+                    <li>تحديد الـ Pods مع Init Containers.</li>
+                    <li>مراجعة التفاصيل الرئيسية زي أسماء الصور، الأوامر، وحالة الـ Init Containers.</li>
+                    <li>تحديث تكوين Pod لاستبدال أمر sleep طويل في الـ Init Container بـ واحد أقصر.</li>
+                    <li>تشخيص وإصلاح خطأ مطبعي في الـ orange pod تسبب في CrashLoopBackOff.</li>
+                </ul>
+
+                <p>اتباع الخطوات دي هيساعدك تدير وتصلح أخطاء الـ Init Containers بكفاءة في بيئة Kubernetes.</p>
+            </article>
 
             <footer class="site-footer">
                 <p>🚀 كوبسترونات — المهمة 4 تمت بنجاح! <a href="chapter5.html" style="color: var(--rocket-orange);">إلى
