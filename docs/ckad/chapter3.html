@@ -4,476 +4,737 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المهمة 3: الإعدادات — كوبسترونات 🚀</title>
-    <link rel="stylesheet" href="../style.css">
+    <title>Chapter 3: Configuration | Kubestronaut</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
     <style>
-        /* Base text direction is handled by dir="rtl" on html */
-
-        /* Ensure specific English-only blocks are LTR if needed */
-        .ltr-text {
-            direction: ltr;
-            text-align: left;
-            display: inline-block;
+        /* Chapter 3 Specific Styles */
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #f4f4f9;
+            color: #2c3e50;
         }
 
-        /* Ensure images are responsive */
-        .img-frame img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            margin: 20px 0;
-        }
-
-        /* Code blocks must always be LTR */
         .code-block {
             direction: ltr;
             text-align: left;
-            font-family: 'Courier New', Courier, monospace;
             background: #1e1e1e;
-            padding: 15px;
+            color: #d4d4d4;
+            padding: 1.5rem;
             border-radius: 8px;
+            margin: 1.5rem 0;
+            font-family: 'Fira Code', monospace;
             overflow-x: auto;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
 
-        /* Sidebar specific adjustments for chapter pages */
-        .ckad-layout {
-            margin-top: 20px;
+        .code-block code {
+            font-family: 'Fira Code', monospace;
+        }
+
+        .ltr-text {
+            direction: ltr;
+            display: inline-block;
+        }
+
+        .lesson-container {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            margin-bottom: 3rem;
+            border: 1px solid #e1e4e8;
+            transition: transform 0.2s;
+        }
+
+        .lesson-container:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .lesson-header {
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .lesson-title {
+            color: #2c3e50;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .module-title {
+            color: #2980b9;
+            font-size: 2.2rem;
+            margin-top: 4rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            border-bottom: 3px solid #2980b9;
+            padding-bottom: 15px;
+            display: inline-block;
+            width: 100%;
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-top: 2rem;
+            border-right: 5px solid #2980b9;
+            padding-right: 15px;
+        }
+
+        h3 {
+            color: #34495e;
+            margin-top: 1.5rem;
+        }
+
+        h4 {
+            color: #7f8c8d;
+            margin-top: 1.2rem;
+        }
+
+        .img-fluid {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 2rem 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            border: 1px solid #ddd;
+        }
+
+        .alert-box {
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border-right: 5px solid;
+            font-weight: 600;
+        }
+
+        .alert-info {
+            border-color: #17a2b8;
+            background-color: #e2f5f7;
+            color: #0c5460;
+        }
+
+        .alert-warning {
+            border-color: #ffc107;
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .alert-tip {
+            border-color: #28a745;
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .alert-danger {
+            border-color: #dc3545;
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Navigation Buttons */
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #ddd;
+        }
+
+        .nav-btn {
+            padding: 12px 25px;
+            background-color: #2980b9;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: background 0.3s, transform 0.2s;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-btn:hover {
+            background-color: #1abc9c;
+            transform: scale(1.05);
+        }
+
+        /* Sidebar Styling */
+        .sidebar .module-item.active {
+            background: linear-gradient(90deg, #2980b9, #3498db);
+            color: white;
+            border-right: 4px solid #fff;
         }
     </style>
 </head>
 
 <body>
-    <div class="space-bg"></div>
-    <div class="stars-layer"></div>
 
-    <header class="site-header">
-        <a href="../index.html" class="logo">
-            <span class="emoji">🚀</span>
-            Kubestronaut
-        </a>
-        <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')"
-            aria-label="القائمة">☰</button>
-        <nav class="nav-links">
-            <a href="../index.html">🏠 القاعدة</a>
-            <a href="index.html" class="active">🎓 CKAD</a>
-        </nav>
-    </header>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-rocket"></i> Kubestronaut
+        </div>
+        <div class="nav-links">
+            <a href="../index.html">الرئيسية</a>
+            <a href="../curriculum.html">المنهج</a>
+        </div>
+    </nav>
 
-    <div class="ckad-layout">
-        <!-- SIDEBAR -->
-        <aside class="chapter-sidebar" id="chapterSidebar">
-            <button class="sidebar-toggle"
-                onclick="document.getElementById('chapterSidebar').classList.toggle('sidebar-open')"
-                aria-label="القائمة الجانبية">📋 المهام</button>
-            <div class="sidebar-nav">
-                <h3>🛸 خريطة المهام</h3>
-                <a href="chapter1.html" class="sidebar-item "><span class="ch-status">✅</span>
-                    <div><strong>1. المقدمة</strong><small>First Section</small></div>
-                </a>
-                <a href="chapter2.html" class="sidebar-item "><span class="ch-status">✅</span>
-                    <div><strong>2. المفاهيم الأساسية</strong><small>Core Concepts</small></div>
-                </a>
-                <a href="chapter3.html" class="sidebar-item active-chapter"><span class="ch-status">✅</span>
-                    <div><strong>3. الإعدادات</strong><small>Configuration</small></div>
-                </a>
-                <a href="chapter4.html" class="sidebar-item "><span class="ch-status">✅</span>
-                    <div><strong>4. الكبسولات المتعددة</strong><small>Multi-Container Pods</small></div>
-                </a>
-                <a href="chapter5.html" class="sidebar-item "><span class="ch-status">✅</span>
-                    <div><strong>5. المراقبة</strong><small>Observability</small></div>
-                </a>
-                <a href="chapter6.html" class="sidebar-item "><span class="ch-status">✅</span>
-                    <div><strong>6. تصميم الكبسولات</strong><small>POD Design</small></div>
-                </a>
-                <a href="chapter7.html" class="sidebar-item "><span class="ch-status">✅</span>
-                    <div><strong>7. الشبكات والخدمات</strong><small>Services & Networking</small></div>
-                </a>
-                <a href="chapter8.html" class="sidebar-item "><span class="ch-status">✅</span>
-                    <div><strong>8. التخزين الدائم</strong><small>State Persistence</small></div>
-                </a>
-                <a href="chapter9.html" class="sidebar-item "><span class="ch-status">✅</span>
-                    <div><strong>9. الأمان</strong><small>Security</small></div>
-                </a>
-                <a href="chapter10.html" class="sidebar-item "><span class="ch-status">✅</span>
-                    <div><strong>10. أساسيات Helm</strong><small>Helm Fundamentals</small></div>
-                </a>
-                <a href="chapter11.html" class="sidebar-item "><span class="ch-status">✅</span>
-                    <div><strong>11. أساسيات Kustomize</strong><small>Kustomize Basics</small></div>
-                </a>
-                <a href="chapter12.html" class="sidebar-item "><span class="ch-status">✅</span>
-                    <div><strong>12. نصائح الامتحان</strong><small>Certification Tips</small></div>
-                </a>
-                <a href="chapter13.html" class="sidebar-item "><span class="ch-status">✅</span>
-                    <div><strong>13. مختبرات البرق</strong><small>Lightning Labs</small></div>
-                </a>
-                <a href="chapter14.html" class="sidebar-item "><span class="ch-status">✅</span>
-                    <div><strong>14. الامتحانات التجريبية</strong><small>Mock Exams</small></div>
-                </a>
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="module-list">
+                <div class="module-item">
+                    <a href="chapter1.html" class="module-link">
+                        <i class="fas fa-cube"></i> Ch 1: Core Concepts
+                    </a>
+                </div>
+                <div class="module-item">
+                    <a href="chapter2.html" class="module-link">
+                        <i class="fas fa-clock"></i> Ch 2: Scheduling
+                    </a>
+                </div>
+                <div class="module-item active">
+                    <a href="chapter3.html" class="module-link">
+                        <i class="fas fa-cogs"></i> Ch 3: Configuration
+                    </a>
+                </div>
+                <div class="module-item">
+                    <a href="chapter4.html" class="module-link">
+                        <i class="fas fa-boxes"></i> Ch 4: Multi-Container
+                    </a>
+                </div>
+                <div class="module-item">
+                    <a href="chapter5.html" class="module-link">
+                        <i class="fas fa-eye"></i> Ch 5: Observability
+                    </a>
+                </div>
             </div>
         </aside>
 
-        <!-- MAIN CONTENT -->
-        <main class="course-content">
-            <section class="chapter-hero">
-                <h1>🚀 المهمة 3: الإعدادات</h1>
-                <p class="subtitle">Configuration</p>
-            </section>
+        <!-- Main Content -->
+        <main class="content-area">
+            <h1>Chapter 3: Configuration</h1>
+            <p class="lead">يا هلا بيك يا رائد الفضاء! في الشابتر ده هناخد رحلة عميقة جداً في إزاي نكونفيجر التطبيقات
+                بتاعتنا، نتعامل مع الـ Docker Commands بالتفصيل، ونحترف استخدام الـ Secrets والـ ConfigMaps وكمان الـ
+                Resources والتيتانيوم بتاع الـ Scheduling.</p>
 
-            <div class="lessons-container">
+            <!-- ============================================ -->
+            <!-- SECTION 1: DOCKER SECURITY & IMAGES       -->
+            <!-- ============================================ -->
+            <div class="module-section">
+                <h2 class="module-title">1. Docker Security & Images</h2>
 
-                <!-- ========== LESSON 1: Docker Commands ========== -->
-                <article class="lesson" id="lesson-1">
-                    <span class="lesson-number">الدرس 1</span>
-                    <h2>🐳 الأوامر في دوكر (Commands & Arguments)</h2>
+                <!-- Lesson: Pre-requisite Security in Docker -->
+                <div class="lesson-container">
+                    <div class="lesson-header">
+                        <div class="lesson-title"><i class="fab fa-docker"></i> Pre-requisite: Security in Docker</div>
+                    </div>
+                    <p>عشان نفهم الـ Security في الـ Kubernetes كويس، لازم الأول نأسس نفسنا صح في الـ Docker Security.
+                        الموضوع كله بيدور حوالين إزاي نعزل الـ Processes.</p>
 
-                    <p>
-                        أهلاً بيك يا كابتن! 👨‍🚀 قبل ما نطلع بالفضاء بـ Kubernetes، لازم نراجع شوية حاجات في
-                        <strong>محركات الصواريخ (Docker Containers)</strong>.
-                        أهم حاجة لازم نفهمها هي الفرق بين <span class="ltr-text">CMD</span> و <span
-                            class="ltr-text">ENTRYPOINT</span>.
-                    </p>
-
-                    <h3>1. CMD (Command)</h3>
-                    <p>
-                        ده الأمر "الافتراضي" اللي الكونتينر بيعمله لما يشتغل.
-                        تخيل إنك بتركب تاكسي 🚕، والتاكسي ده "مبرمج" إنه يوديك المطار لو مقلتلوش حاجة تانية.
+                    <h3>Process Isolation</h3>
+                    <p>تخيل عندك سيرفر (Host) عليه شوية Services والـ Docker Daemon. لما بتعمل Run لكونتينر، زي مثلاً:
                     </p>
                     <div class="code-block">
-                        <code>FROM ubuntu
-CMD ["sleep", "5"]</code>
+                        <pre><code>docker run ubuntu sleep 3600</code></pre>
                     </div>
-                    <p>
-                        لو شغلت الكونتينر ده: <span class="ltr-text">docker run ubuntu-sleeper</span>، هينام 5 ثواني.
-                        بس لو قلتله: <span class="ltr-text">docker run ubuntu-sleeper sleep 10</span>، الكلام بتاعك
-                        هيمسح الـ CMD القديم وهينفذ الأمر الجديد.
-                    </p>
+                    <p>الكونتينر ده في الحقيقة هو مجرد Process عادي على الـ Host، بس معزول باستخدام حاجة اسمها <span
+                            class="ltr-text">Namespaces</span>. جوه الكونتينر، الـ Process ده شايف نفسه واخد PID رقم 1
+                        (يعني هو الكبير بتاع الكونتينر). لكن لو بصيت من بره الكونتينر (على الـ Host) وعملت
+                        <code>ps aux</code>، هتلاقيه واخد PID مختلف وعادي جداً.</p>
 
-                    <h3>2. ENTRYPOINT</h3>
-                    <p>
-                        ده بقى "الموتور" اللي لازم يشتغل. مش ممكن يتلغي بسهولة، لكن ممكن نزود عليه.
-                        لو التاكسي مبرمج بـ <span class="ltr-text">ENTRYPOINT ["sleep"]</span>، يبقى هو <strong>لازم
-                            ينام</strong>.
-                        أي حاجة هتكتبها بعد <span class="ltr-text">docker run</span> هتعتبر <strong>مدة النوم</strong>
-                        (Argument) مش أمر جديد.
-                    </p>
+                    <h3>User Context</h3>
+                    <p>باي ديفولت، الكونتينر بيشتغل بصلاحيات الـ <span class="ltr-text">root</span>. وده طبعاً مش أحسن
+                        حاجة في الـ Security. ممكن نغير اليوزر ده وإحنا بنشغل الكونتينر:</p>
                     <div class="code-block">
-                        <code>FROM ubuntu
-ENTRYPOINT ["sleep"]
-CMD ["5"]  # <--- دي القيمة الافتراضية لو المستخدم مكنبش حاجة</code>
+                        <pre><code>docker run --user=1000 ubuntu sleep 3600</code></pre>
                     </div>
-
-                    <figure class="img-frame">
-                        <img src="../assets/images/chapter3/Commands-and-Arguments-in-Docker_frame_290.jpg"
-                            alt="CMD vs ENTRYPOINT" loading="lazy">
-                    </figure>
-                </article>
-
-                <!-- ========== LESSON 2: Kubernetes Commands ========== -->
-                <article class="lesson" id="lesson-2">
-                    <span class="lesson-number">الدرس 2</span>
-                    <h2>☸️ التحكم في الأوامر من داخل Kubernetes</h2>
-
-                    <p>
-                        في Kubernetes، المصطلحات بتختلف شوية عن Docker، وده بيلخبط ناس كتير. ركز معايا: 🧐
-                    </p>
-                    <table class="styled-table">
-                        <thead>
-                            <tr>
-                                <th>في Dockerfile</th>
-                                <th>في Kubernetes YAML</th>
-                                <th>الوظيفة</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><code class="ltr-text">ENTRYPOINT</code></td>
-                                <td><code class="ltr-text">command</code></td>
-                                <td>الأمر الأساسي (الموتور)</td>
-                            </tr>
-                            <tr>
-                                <td><code class="ltr-text">CMD</code></td>
-                                <td><code class="ltr-text">args</code></td>
-                                <td>المعطيات (الوقود/الوجهة)</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <p>
-                        يعني لو عايز تغير الـ ENTRYPOINT بتاع الصورة، تستخدم <code class="ltr-text">command</code> في
-                        ملف
-                        الـ Pod.
-                        ولو عايز تغير الـ CMD، تستخدم <code class="ltr-text">args</code>.
-                    </p>
-
+                    <p>أو نحدده بشكل دائم في الـ <strong>Dockerfile</strong>:</p>
                     <div class="code-block">
-                        <code>apiVersion: v1
-kind: Pod
-metadata:
-  name: command-demo
-spec:
-  containers:
-  - name: command-demo-container
-    image: debian
-    command: ["sleep"]   # Override ENTRYPOINT
-    args: ["10"]         # Override CMD</code>
+                        <pre><code>FROM ubuntu
+USER 1000</code></pre>
                     </div>
 
-                    <figure class="img-frame">
-                        <img src="../assets/images/chapter3/Commands-and-Arguments-in-Kubernetes_frame_110.jpg"
-                            alt="K8s Command vs Args" loading="lazy">
-                    </figure>
-                </article>
+                    <h3>Linux Capabilities</h3>
+                    <p>حتى لو أنت Root جوه الكونتينر، الـ Docker مش بيديك كل الصلاحيات المطلقة. بيستخدم ميزة في الكيرنل
+                        اسمها <span class="ltr-text">Linux Capabilities</span> عشان يقلل صلاحيات الـ Root جوه الكونتينر.
+                        يعني مثلاً، الـ Root جوه الكونتينر مايقدرش يعمل Reboot للـ Host.</p>
+                    <img src="../assets/images/chapter3/Pre-requisite-Security-in-Docker_frame_250.jpg"
+                        alt="Linux Capabilities" class="img-fluid">
 
-                <!-- ========== LESSON 3: ConfigMaps & Env Vars ========== -->
-                <article class="lesson" id="lesson-3">
-                    <span class="lesson-number">الدرس 3</span>
-                    <h2>🗺️ خرائط الإعدادات (ConfigMaps & Env Vars)</h2>
-
-                    <p>
-                        عشان نخلي تطبيقاتنا مرنة (Flexible)، مش بنكتب الإعدادات (زي لون الخلفية، عنوان الداتابيز) جوه
-                        الكود.
-                        بنخليها في "متغيرات البيئة" (Environment Variables).
-                    </p>
-
-                    <h3>طرق تعريف المتغيرات:</h3>
-                    <ul class="styled-list">
-                        <li><strong>مباشرة (Direct):</strong> بنكتبها في ملف الـ YAML (مش أحسن حاجة).</li>
-                        <li><strong>ConfigMap:</strong> ودي الطريقة الاحترافية. ملف خارجي بيشيل كل الإعدادات. 📑</li>
-                    </ul>
-
-                    <div class="code-block">
-                        <code># 1. Create ConfigMap
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: app-config
-data:
-  APP_COLOR: blue
-  APP_MODE: prod
-
----
-# 2. Inject into Pod
-apiVersion: v1
-kind: Pod
-metadata:
-  name: simple-webapp
-spec:
-  containers:
-    - name: simple-webapp
-      image: simple-webapp
-      envFrom:              # <--- هات كل الحاجات اللي في الخريطة
-        - configMapRef:
-            name: app-config</code>
+                    <div class="alert-box alert-warning">
+                        <i class="fas fa-exclamation-triangle"></i> <strong>تحذير:</strong> لو استخدمت
+                        <code>--privileged</code>، أنت كدة بتدي الكونتينر كل صلاحيات الـ Root بتاعة الـ Host. ده خطر
+                        جداً إلا لو أنت عارف بتعمل إيه!
                     </div>
+                </div>
 
-                    <figure class="img-frame">
-                        <img src="../assets/images/chapter3/ConfigMaps_frame_280.jpg" alt="ConfigMap Injection"
-                            loading="lazy">
-                    </figure>
-                </article>
-
-                <!-- ========== LESSON 4: Secrets ========== -->
-                <article class="lesson" id="lesson-4">
-                    <span class="lesson-number">الدرس 4</span>
-                    <h2>🔐 الأسرار (Secrets)</h2>
-
-                    <p>
-                        الـ ConfigMap جميل، بس "مكشوف". لو عندك باسورد داتابيز 🔑، مينفعش تحطها فيه كده.
-                        هنا بيجي دور الـ <strong>Secrets</strong>.
-                    </p>
-                    <p>
-                        الـ Secrets بتتشفر بـ Base64 (وده تشفير ضعيف، هو مجرد "تغليف").
-                        عشان كده في الـ Production لازم نفعل <strong>Encryption at Rest</strong> عشان البيانات تكون
-                        مشفرة جوه الـ etcd نفسه.
-                    </p>
-
-                    <h3>إزاي نعمل Secret؟</h3>
-                    <div class="code-block">
-                        <code>kubectl create secret generic db-secret \
-  --from-literal=DB_Host=sql01 \
-  --from-literal=DB_User=root \
-  --from-literal=DB_Password=password123</code>
+                <!-- Lesson: Build and Modify Images -->
+                <div class="lesson-container">
+                    <div class="lesson-header">
+                        <div class="lesson-title"><i class="fas fa-hammer"></i> Define, Build and Modify Container
+                            Images</div>
                     </div>
-
-                    <h3>استخدامها في الـ Pod:</h3>
-                    <p>زي الـ ConfigMap بالظبط، بس بنستخدم <code class="ltr-text">secretRef</code> بدل <code
-                            class="ltr-text">configMapRef</code>.</p>
-
-                    <figure class="img-frame">
-                        <img src="../assets/images/chapter3/Secrets_frame_470.jpg" alt="Secrets Management"
-                            loading="lazy">
-                    </figure>
-
-                    <div class="callout-tip">
-                        <div class="tip-title">🔒 معلومة أمنية</div>
-                        <p>
-                            الـ Base64 مش تشفير حقيقي! أي حد معاه النص يقدر يرجعه لأصله بأمر
-                            <span class="ltr-text">base64 --decode</span>. عشان كده لازم نحمي ملفات الـ YAML بتاعتنا.
-                        </p>
-                    </div>
-                </article>
-
-                <!-- ========== LESSON 5: Service Accounts ========== -->
-                <article class="lesson" id="lesson-5">
-                    <span class="lesson-number">الدرس 5</span>
-                    <h2>🤖 حسابات الخدمات (Service Accounts)</h2>
-
-                    <p>
-                        في نوعين من الحسابات في الكلاستر:
-                    </p>
+                    <p>تعالوا نعمل Docker Image لتطبيق Python Flask بسيط. الخطوات الأساسية لأي تطبيق:</p>
                     <ol>
-                        <li><strong>User Accounts:</strong> للبشر (أنا وأنت). 🧑‍💻</li>
-                        <li><strong>Service Accounts:</strong> للروبوتات (التطبيقات). 🤖</li>
+                        <li>نختار Base OS (مثلاً Ubuntu).</li>
+                        <li>نعمل Update للـ Packages.</li>
+                        <li>ننزل الـ Dependencies (Python, Flask).</li>
+                        <li>ننسخ كود التطبيق جوه الكونتينر.</li>
+                        <li>نحدد الأمر اللي هيشغل التطبيق.</li>
                     </ol>
-                    <p>
-                        لما تطبيق (زي Prometheus) يحتاج يكلم الـ API Server عشان يجيب معلومات عن الكلاستر،
-                        بيستخدم <strong>Service Account</strong>.
-                    </p>
-                    <p>
-                        كل Pod بيتعمل له Mount لـ Token خاص بالـ Service Account بتاعه في المسار:
-                        <span class="ltr-text">/var/run/secrets/kubernetes.io/serviceaccount</span>.
-                    </p>
+                    <img src="../assets/images/chapter3/Define-build-and-modify-container-images_frame_80.jpg"
+                        alt="Building Steps" class="img-fluid">
 
-                    <figure class="img-frame">
-                        <img src="../assets/images/chapter3/Service-Account_frame_280.jpg" alt="Service Accounts"
-                            loading="lazy">
-                    </figure>
-                </article>
-
-                <!-- ========== LESSON 6: Resource Requirements ========== -->
-                <article class="lesson" id="lesson-6">
-                    <span class="lesson-number">الدرس 6</span>
-                    <h2>⚖️ إدارة الموارد (Resource Requirements)</h2>
-
-                    <p>
-                        عشان السفينة متغرقش، لازم نحدد لكل راكب (Container) ياخد أكل قد إيه. 🍱
-                    </p>
-                    <ul class="styled-list">
-                        <li><strong>Requests (الحد الأدنى):</strong> "أنا محتاج على الأقل 500 ميجا رام عشان أقوم من
-                            النوم". الكلاستر بيحجز الكمية دي للكونتينر.</li>
-                        <li><strong>Limits (الحد الأقصى):</strong> "مسموحليش أعدي 1 جيجا رام مهما حصل". لو عداها،
-                            الكلاستر "بيقتله" (OOMKilled). 💀</li>
-                    </ul>
-
+                    <p>كل خطوة من دول بتترجم لسطر في الـ <strong>Dockerfile</strong>:</p>
                     <div class="code-block">
-                        <code>resources:
-  requests:
-    memory: "64Mi"
-    cpu: "250m"  # ربع كور
-  limits:
-    memory: "128Mi"
-    cpu: "500m"  # نص كور</code>
+                        <pre><code>FROM ubuntu
+
+RUN apt-get update && apt-get -y install python python-setuptools python-dev
+RUN pip install flask flask-mysql
+
+COPY . /opt/source-code
+
+ENTRYPOINT FLASK_APP=/opt/source-code/app.py flask run --host=0.0.0.0</code></pre>
                     </div>
-
-                    <figure class="img-frame">
-                        <img src="../assets/images/chapter3/Resource-Requirements_frame_560.jpg"
-                            alt="Resource Requests vs Limits" loading="lazy">
-                        <figcaption>الفرق بين الطلبات والحدود في استهلاك الـ CPU</figcaption>
-                    </figure>
-                </article>
-
-                <!-- ========== LESSON 7: Taints & Tolerations ========== -->
-                <article class="lesson" id="lesson-7">
-                    <span class="lesson-number">الدرس 7</span>
-                    <h2>🦟 التلطيخ والتسامح (Taints & Tolerations)</h2>
-
-                    <p>
-                        تخيل إن عندنا غرفة (Node) رشينا فيها "مبيد حشري" (Taint) لونه أزرق. 🔵
-                        مفيش أي "حشرة" (Pod) هتقدر تدخل الغرفة دي إلا لو عندها "مناعة" (Toleration) ضد المبيد الأزرق.
-                    </p>
-                    <p>
-                        الخاصية دي بنستخدمها عشان <strong>نمنع</strong> الـ Pods إنها تنزل على Nodes معينة (زي الـ
-                        Master Node مثلاً).
-                    </p>
-
-                    <h3>الأمر (Command):</h3>
-                    <div class="code-block">
-                        <code># رش المبيد على النود
-kubectl taint nodes node1 app=blue:NoSchedule</code>
-                    </div>
-
-                    <h3>في الـ Pod YAML:</h3>
-                    <div class="code-block">
-                        <code>tolerations:
-- key: "app"
-  operator: "Equal"
-  value: "blue"
-  effect: "NoSchedule"</code>
-                    </div>
-
-                    <figure class="img-frame">
-                        <img src="../assets/images/chapter3/Taints-and-Tolerations_frame_180.jpg"
-                            alt="Taints and Tolerations" loading="lazy">
-                    </figure>
-                </article>
-
-                <!-- ========== LESSON 8: Node Affinity ========== -->
-                <article class="lesson" id="lesson-8">
-                    <span class="lesson-number">الدرس 8</span>
-                    <h2>🧲 جاذبية النود (Node Affinity)</h2>
-
-                    <p>
-                        عكس الـ Taints (اللي بتطرد)، الـ <strong>Affinity</strong> بتجذب.
-                        عايز الـ Pod دي تنزل على نود قوية (Large)؟ استخدم Affinity.
-                    </p>
-
-                    <h3>أنواع الجاذبية:</h3>
-                    <ul class="styled-list">
-                        <li><strong>Required:</strong> "لازم ولابد وحتماً" تنزل على النود دي. لو مفيش، الـ Pod تفضل
-                            Pending.</li>
-                        <li><strong>Preferred:</strong> "ياريت لو ينفع"، بس لو مفيش مكان، عادي نزلها في أي حتة.</li>
-                    </ul>
-
-                    <div class="code-block">
-                        <code>affinity:
-  nodeAffinity:
-    requiredDuringSchedulingIgnoredDuringExecution:
-      nodeSelectorTerms:
-      - matchExpressions:
-        - key: size
-          operator: In
-          values:
-          - Large</code>
-                    </div>
-
-                    <figure class="img-frame">
-                        <img src="../assets/images/chapter3/Node-Affinity_frame_420.jpg" alt="Node Affinity Types"
-                            loading="lazy">
-                    </figure>
-
-                    <div class="callout-tip">
-                        <div class="tip-title">💡 الخلاصة</div>
-                        <p>
-                            <strong>Taints</strong> = "ابعد عني" (Refusal). 🚫<br>
-                            <strong>Affinity</strong> = "تعالى هنا" (Attraction). 🧲<br>
-                            عشان تخصص نود معينة لتطبيق معين ومحدش غيره يدخلها، استخدم <strong>الاثنين مع
-                                بعض</strong>.
-                        </p>
-                    </div>
-                </article>
-
+                    <p>لما بتعمل <code>docker build</code>، كل سطر بيعمل Layer. لو عدلت سطر واحد، Docker شاطر كفاية إنه
+                        يعيد بناء الـ Layer دي بس والي بعدها، ويستخدم الـ Cache للي قبلها.</p>
+                    <img src="../assets/images/chapter3/Define-build-and-modify-container-images_frame_430.jpg"
+                        alt="Containerize Everything" class="img-fluid">
+                </div>
             </div>
 
-            <footer class="site-footer">
-                <p>🚀 كوبسترونات — المهمة 3 تمت بنجاح! <a href="chapter4.html" style="color: var(--rocket-orange);">إلى
-                        المهمة 4: الكبسولات المتعددة ←</a></p>
-            </footer>
+            <!-- ============================================ -->
+            <!-- SECTION 2: COMMANDS AND ARGUMENTS         -->
+            <!-- ============================================ -->
+            <div class="module-section">
+                <h2 class="module-title">2. Commands & Arguments</h2>
+
+                <!-- Lesson: Commands in Docker -->
+                <div class="lesson-container">
+                    <div class="lesson-header">
+                        <div class="lesson-title"><i class="fab fa-docker"></i> Commands and Arguments in Docker</div>
+                    </div>
+                    <p>دي من أكتر النقط اللي بتلخبط. إيه الفرق بين <code>CMD</code> و <code>ENTRYPOINT</code>؟</p>
+
+                    <h4>CMD (Command)</h4>
+                    <p>ده الأمر الافتراضي اللي بيشتغل لو المستخدم مكتبش أمر وهو بيشغل الكونتينر.</p>
+                    <div class="code-block">
+                        <pre><code>FROM ubuntu
+CMD ["sleep", "5"]</code></pre>
+                    </div>
+                    <p>لو شغلت <code>docker run ubuntu-sleeper</code>، هينفذ <code>sleep 5</code>. لكن لو كتبت
+                        <code>docker run ubuntu-sleeper sleep 10</code>، الأمر الجديد هيمسح الـ CMD القديم وهينفذ
+                        <code>sleep 10</code>.</p>
+
+                    <h4>ENTRYPOINT</h4>
+                    <p>ده الأمر الأساسي اللي <strong>لازم</strong> يشتغل. أي حاجة بتكتبها في الـ <code>docker run</code>
+                        بتتحط <strong>بعده</strong> كـ Arguments.</p>
+                    <div class="code-block">
+                        <pre><code>FROM ubuntu
+ENTRYPOINT ["sleep"]
+CMD ["5"]</code></pre>
+                    </div>
+                    <p>هنا لو عملت <code>docker run ubuntu-sleeper 10</code>، الـ 10 هتيجي مكان الـ 5، والنتيجة هتكون
+                        <code>sleep 10</code>.</p>
+                </div>
+
+                <!-- Lesson: Commands in Kubernetes -->
+                <div class="lesson-container">
+                    <div class="lesson-header">
+                        <div class="lesson-title"><i class="fas fa-project-diagram"></i> Commands and Arguments in
+                            Kubernetes</div>
+                    </div>
+                    <p>في Kubernetes، المصطلحات بتختلف شوية عن Docker:</p>
+                    <table class="table" style="width:100%; border-collapse: collapse; margin-bottom: 20px;">
+                        <tr style="background:#f1f1f1; border-bottom:2px solid #ddd;">
+                            <th style="padding:10px; text-align:right;">Docker Concept</th>
+                            <th style="padding:10px; text-align:right;">Kubernetes Field</th>
+                        </tr>
+                        <tr>
+                            <td style="padding:10px; border-bottom:1px solid #eee;"><code>ENTRYPOINT</code></td>
+                            <td style="padding:10px; border-bottom:1px solid #eee;"><code>command</code></td>
+                        </tr>
+                        <tr>
+                            <td style="padding:10px; border-bottom:1px solid #eee;"><code>CMD</code></td>
+                            <td style="padding:10px; border-bottom:1px solid #eee;"><code>args</code></td>
+                        </tr>
+                    </table>
+
+                    <p>مثال عملي في ملف YAML:</p>
+                    <div class="code-block">
+                        <pre><code>apiVersion: v1
+kind: Pod
+metadata:
+  name: ubuntu-sleeper-pod
+spec:
+  containers:
+    - name: ubuntu-sleeper
+      image: ubuntu-sleeper
+      command: ["sleep2.0"]
+      args: ["10"]</code></pre>
+                    </div>
+                    <p>ده هيترجم للأمر: <code>sleep2.0 10</code> جوه الكونتينر.</p>
+                </div>
+
+                <!-- Lab Solution: Commands (Green) -->
+                <div class="lesson-container" style="border-right: 5px solid #27ae60;">
+                    <div class="lesson-header">
+                        <div class="lesson-title"><i class="fas fa-flask"></i> Lab Solution: Commands & Arguments</div>
+                    </div>
+                    <p>في اللاب ده، اتعلمنا إزاي نعدل الـ Arguments لـ Pod شغال.</p>
+                    <p><strong>المشكلة:</strong> الـ Pod بيشغل <code>sleep 1200</code> وإحنا عايزينه ينام 2000 ثانية.
+                    </p>
+                    <p><strong>الحل:</strong> بما إننا ماينفعش نعدل الـ Command لـ Pod شغال، لازم نعمله Replace.</p>
+                    <div class="code-block">
+                        <pre><code>kubectl get pod webapp-green -o yaml > webapp-green.yaml
+vi webapp-green.yaml
+# (Edit the args to ["--color=green"])
+kubectl replace --force -f webapp-green.yaml</code></pre>
+                    </div>
+                    <img src="../assets/images/chapter3/Solution-Commands-and-Arguments-Optional_frame_1050.jpg"
+                        alt="Lab Solution" class="img-fluid">
+                </div>
+            </div>
+
+            <!-- ============================================ -->
+            <!-- SECTION 3: SECURITY CONTEXTS & ACCOUNTS   -->
+            <!-- ============================================ -->
+            <div class="module-section">
+                <h2 class="module-title">3. Security Contexts & Accounts</h2>
+
+                <!-- Lesson: Security Contexts -->
+                <div class="lesson-container">
+                    <div class="lesson-header">
+                        <div class="lesson-title"><i class="fas fa-user-shield"></i> Security Contexts</div>
+                    </div>
+                    <p>ممكن نتحكم في مين اليوزر اللي بيشغل الكونتينر، وإيه الصلاحيات (Capabilities) اللي معاه.</p>
+                    <div class="code-block">
+                        <pre><code>apiVersion: v1
+kind: Pod
+metadata:
+  name: web-pod
+spec:
+  securityContext:
+    runAsUser: 1000  # (1) Pod Level
+  containers:
+    - name: ubuntu
+      image: ubuntu
+      securityContext:
+        runAsUser: 1001  # (2) Container Level
+        capabilities:
+          add: ["MAC_ADMIN"]</code></pre>
+                    </div>
+                    <div class="alert-box alert-info">
+                        <strong>قاعدة مهمة:</strong> إعدادات الـ <span class="ltr-text">Container Level</span> دائماً
+                        بتغطي وبتعمل Override لإعدادات الـ <span class="ltr-text">Pod Level</span>.
+                    </div>
+                </div>
+
+                <!-- Lab Solution: Security Contexts -->
+                <div class="lesson-container" style="border-right: 5px solid #27ae60;">
+                    <div class="lesson-header">
+                        <div class="lesson-title"><i class="fas fa-flask"></i> Lab Solution: Security Contexts</div>
+                    </div>
+                    <p><strong>التحدي:</strong> تشغيل Pod بصلاحيات Root وإضافة Capability معينة (SYS_TIME) عشان يقدر
+                        يغير وقت النظام.</p>
+                    <div class="code-block">
+                        <pre><code>securityContext:
+  capabilities:
+    add: ['SYS_TIME']</code></pre>
+                    </div>
+                    <p>لو حطينا الـ User ID بـ 1000، مش هيقدر يعمل عمليات بتحتاج Root حتى لو معاه Capabilities، لازم
+                        نتأكد من التوافق.</p>
+                </div>
+
+                <!-- Lesson: Service Accounts -->
+                <div class="lesson-container">
+                    <div class="lesson-header">
+                        <div class="lesson-title"><i class="fas fa-id-card"></i> Service Accounts</div>
+                    </div>
+                    <p>الـ Kubernetes بيميز بين نوعين من الاكونتات:</p>
+                    <ul>
+                        <li><strong>User Accounts:</strong> للبشر (Admins, Developers).</li>
+                        <li><strong>Service Accounts:</strong> للآلات (Pods, Bots).</li>
+                    </ul>
+                    <p>لما بتعمل Pod، أوتوماتيك بيتعمل Mount للـ <code>default</code> Service Account وتوكن عشان يقدر
+                        يكلم الـ API Server.</p>
+                    <img src="../assets/images/chapter3/Service-Account_frame_110.jpg" alt="Service Accounts"
+                        class="img-fluid">
+
+                    <h3>Creating a Service Account</h3>
+                    <div class="code-block">
+                        <pre><code>kubectl create serviceaccount dashboard-sa</code></pre>
+                    </div>
+                    <p>وبعدين تربطه بالـ Pod:</p>
+                    <div class="code-block">
+                        <pre><code>spec:
+  serviceAccountName: dashboard-sa</code></pre>
+                    </div>
+
+                    <img src="../assets/images/chapter3/Service-Account_frame_270.jpg" alt="Token Mounting"
+                        class="img-fluid">
+
+                    <div class="alert-box alert-warning">
+                        <strong>تحديث مهم (K8s 1.24+):</strong> الـ Secret Tokens لم تعد تُنشأ أوتوماتيكياً مع الـ
+                        Service Account. لو محتاج Token دائم، لازم تعمله يدوياً، أو تستخدم الـ
+                        <code>TokenRequest API</code> للحصول على Token مؤقت (وده الأكثر أماناً).
+                    </div>
+                    <img src="../assets/images/chapter3/Service-Account_frame_620.jpg" alt="Time Bound Tokens"
+                        class="img-fluid">
+                </div>
+
+                <!-- Lab Solution: Service Account -->
+                <div class="lesson-container" style="border-right: 5px solid #27ae60;">
+                    <div class="lesson-header">
+                        <div class="lesson-title"><i class="fas fa-flask"></i> Lab Solution: Service Accounts</div>
+                    </div>
+                    <p>في اللاب، شوفنا الـ Dashboard بيحاول يكلم الـ API وفشل. السبب إنه كان بيستخدم الـ
+                        <code>default</code> SA اللي صلاحياته محدودة.</p>
+                    <p><strong>الحل:</strong></p>
+                    <ol>
+                        <li>عملنا SA جديد اسمه <code>dashboard-sa</code>.</li>
+                        <li>عملنا Update للـ Deployment عشان يستخدم الـ SA الجديد.</li>
+                    </ol>
+                    <img src="../assets/images/chapter3/Solutions-Service-Account_frame_300.jpg" alt="Dashboard Access"
+                        class="img-fluid">
+                </div>
+            </div>
+
+            <!-- ============================================ -->
+            <!-- SECTION 4: CONFIGMAPS & SECRETS           -->
+            <!-- ============================================ -->
+            <div class="module-section">
+                <h2 class="module-title">4. ConfigMaps & Secrets</h2>
+
+                <!-- Lesson: Environment Variables -->
+                <div class="lesson-container">
+                    <div class="lesson-header">
+                        <div class="lesson-title"><i class="fas fa-sliders-h"></i> Environment Variables</div>
+                    </div>
+                    <p>أبسط طريقة عشان نخلي التطبيق Configurable هي الـ Env Vars.</p>
+                    <div class="code-block">
+                        <pre><code>env:
+  - name: APP_COLOR
+    value: pink</code></pre>
+                    </div>
+                    <p>لكن لو عندك Pods كتير، الأفضل تستخدم ConfigMaps.</p>
+                </div>
+
+                <!-- Lesson: ConfigMaps -->
+                <div class="lesson-container">
+                    <div class="lesson-header">
+                        <div class="lesson-title"><i class="fas fa-map"></i> ConfigMaps</div>
+                    </div>
+                    <p>الـ ConfigMap بتجمع كل إعداداتك في مكان واحد.</p>
+                    <div class="code-block">
+                        <pre><code>kubectl create configmap app-config --from-literal=APP_COLOR=blue</code></pre>
+                    </div>
+                    <p>وبعدين تحقنها في الـ Pod:</p>
+                    <div class="code-block">
+                        <pre><code>envFrom:
+  - configMapRef:
+      name: app-config</code></pre>
+                    </div>
+                </div>
+
+                <!-- Lab Solution: ConfigMaps -->
+                <div class="lesson-container" style="border-right: 5px solid #27ae60;">
+                    <div class="lesson-header">
+                        <div class="lesson-title"><i class="fas fa-flask"></i> Lab Solution: ConfigMaps</div>
+                    </div>
+                    <p>غيرنا لون التطبيق من Pink لـ Green عن طريق تعديل الـ Env Var، وبعدين عملنا Upgrade عشان نقرأ
+                        اللون من ConfigMap مركزية.</p>
+                    <img src="../assets/images/chapter3/Solution-ConfigMaps-Optional_frame_120.jpg"
+                        alt="ConfigMap Update" class="img-fluid">
+                    <br>
+                    <img src="../assets/images/chapter3/Solution-ConfigMaps-Optional_frame_30.jpg"
+                        alt="App Verification" class="img-fluid">
+                </div>
+
+                <!-- Lesson: Secrets -->
+                <div class="lesson-container">
+                    <div class="lesson-header">
+                        <div class="lesson-title"><i class="fas fa-user-secret"></i> Secrets</div>
+                    </div>
+                    <p>نفس فكرة الـ ConfigMaps، بس للبيانات الحساسة. الفرق الوحيد إنها بتكون <span
+                            class="ltr-text">Base64 Encoded</span>.</p>
+                    <div class="code-block">
+                        <pre><code>kubectl create secret generic app-secret --from-literal=DB_Password=123456</code></pre>
+                    </div>
+                    <img src="../assets/images/chapter3/Secrets_frame_470.jpg" alt="Secrets Flow" class="img-fluid">
+
+                    <div class="alert-box alert-danger">
+                        <i class="fas fa-skull-crossbones"></i> <strong>خد بالك:</strong> الـ Base64 مش طريقة تشفير! أي
+                        حد يقدر يفكه. عشان كدة لازم تفعل الـ <strong>Encryption at Rest</strong>.
+                    </div>
+                </div>
+
+                <!-- Lab Solution: Secrets -->
+                <div class="lesson-container" style="border-right: 5px solid #27ae60;">
+                    <div class="lesson-header">
+                        <div class="lesson-title"><i class="fas fa-flask"></i> Lab Solution: Secrets</div>
+                    </div>
+                    <p>التطبيق مكانش عارف يوصل للداتابيز عشان مفيش Credentials. عملنا Secret وحطينا فيه الـ User والـ
+                        Password، وربطناه بالـ Pod.</p>
+                    <img src="../assets/images/chapter3/Solution-Secrets-Optional_frame_360.jpg" alt="Secret Injection"
+                        class="img-fluid">
+                    <br>
+                    <img src="../assets/images/chapter3/Solution-Secrets-Optional_frame_580.jpg"
+                        alt="Success Connection" class="img-fluid">
+                </div>
+
+                <!-- Demo: Encryption at Rest -->
+                <div class="lesson-container">
+                    <div class="lesson-header">
+                        <div class="lesson-title"><i class="fas fa-lock"></i> Demo: Encrypting Secret Data at Rest</div>
+                    </div>
+                    <p>باي ديفولت، الـ ETCD بيخزن الـ Secrets كـ Plaintext. عشان نأمنها، بنعمل
+                        <code>EncryptionConfiguration</code>.</p>
+                    <img src="../assets/images/chapter3/Demo-Encrypting-Secret-Data-at-Rest_frame_20.jpg"
+                        alt="Encryption Providers" class="img-fluid">
+                    <p>وبعدين نعدل الـ <code>kube-apiserver.yaml</code> عشان يشاور على ملف التشفير ده:</p>
+                    <div class="code-block">
+                        <pre><code>- --encryption-provider-config=/etc/kubernetes/enc/enc.yaml</code></pre>
+                    </div>
+                    <img src="../assets/images/chapter3/Demo-Encrypting-Secret-Data-at-Rest_frame_40.jpg"
+                        alt="Demo Setup" class="img-fluid">
+                </div>
+            </div>
+
+            <!-- ============================================ -->
+            <!-- SECTION 5: RESOURCES & SCHEDULING         -->
+            <!-- ============================================ -->
+            <div class="module-section">
+                <h2 class="module-title">5. Resources & Scheduling</h2>
+
+                <!-- Lesson: Resource Requirements -->
+                <div class="lesson-container">
+                    <div class="lesson-header">
+                        <div class="lesson-title"><i class="fas fa-microchip"></i> Resource Requirements</div>
+                    </div>
+                    <p>الـ Scheduler بيقرر يحط الـ Pod فين بناءً على الموارد اللي بيطلبها.</p>
+                    <ul>
+                        <li><strong>Requests:</strong> الحد الأدنى المضمون (زي حجز الكرسي).</li>
+                        <li><strong>Limits:</strong> الحد الأقصى المسموح (عشان ماياكلش اكل زمايله).</li>
+                    </ul>
+                    <img src="../assets/images/chapter3/Resource-Requirements_frame_60.jpg" alt="Resource Scheduling"
+                        class="img-fluid">
+
+                    <p>لو الكونتينر حاول يعدي الـ CPU Limit، بيحصله <strong>Throttling</strong> (بيبطأ).<br>
+                        لو حاول يعدي الـ Memory Limit، بيحصله <strong>Termination</strong> (OOMKilled).</p>
+                    <img src="../assets/images/chapter3/Resource-Requirements_frame_360.jpg" alt="OOMKilled"
+                        class="img-fluid">
+                    <img src="../assets/images/chapter3/Resource-Requirements_frame_680.jpg" alt="Resource Charts"
+                        class="img-fluid">
+                    <img src="../assets/images/chapter3/Resource-Requirements_frame_890.jpg" alt="Summary"
+                        class="img-fluid">
+                </div>
+
+                <!-- Lesson: Taints and Tolerations -->
+                <div class="lesson-container">
+                    <div class="lesson-header">
+                        <div class="lesson-title"><i class="fas fa-spray-can"></i> Taints and Tolerations</div>
+                    </div>
+                    <p>ده نظام "المبيد الحشري". بترش مبيد (Taint) على النود عشان تمنع أي Pod ييجي عليه، إلا لو الـ Pod
+                        عنده مناعة (Toleration).</p>
+                    <img src="../assets/images/chapter3/Taints-and-Tolerations_frame_180.jpg" alt="Taint Concept"
+                        class="img-fluid">
+                    <div class="code-block">
+                        <pre><code>kubectl taint nodes node1 app=blue:NoSchedule</code></pre>
+                    </div>
+
+                    <p>أنواع الـ Effects:</p>
+                    <ul>
+                        <li><strong>NoSchedule:</strong> ماحدش جديد ينزل.</li>
+                        <li><strong>PreferNoSchedule:</strong> حاول ماتنزلش، بس لو مضطر ماشي.</li>
+                        <li><strong>NoExecute:</strong> الجديد ماينزلش، والقديم اللي معندوش مناعة يطرد فوراً.</li>
+                    </ul>
+                    <img src="../assets/images/chapter3/Taints-and-Tolerations_frame_430.jpg" alt="NoExecute Effect"
+                        class="img-fluid">
+                </div>
+
+                <!-- Lab Solution: Taints -->
+                <div class="lesson-container" style="border-right: 5px solid #27ae60;">
+                    <div class="lesson-header">
+                        <div class="lesson-title"><i class="fas fa-flask"></i> Lab Solution: Taints & Tolerations</div>
+                    </div>
+                    <p>عملنا Taint على Node01. لما حاولنا نعمل Pod "Mosquito" من غير Toleration، فضل Pending. لما عملنا
+                        Pod "Bee" وحطينا فيه Toleration، اشتغل عادي.</p>
+                    <img src="../assets/images/chapter3/Taints-and-Tolerations_frame_10.jpg" alt="Lab Flow"
+                        class="img-fluid">
+                </div>
+
+                <!-- Lesson: Node Selectors & Affinity -->
+                <div class="lesson-container">
+                    <div class="lesson-header">
+                        <div class="lesson-title"><i class="fas fa-magnet"></i> Node Selectors & Affinity</div>
+                    </div>
+                    <p>الـ Taints بتمنع، لكن الـ Affinity بتجذب. لو عايز Pod معين يروح لنود معين (مثلاً نود عليه GPU)،
+                        بتستخدم <code>nodeSelector</code> (بسيط) أو <code>nodeAffinity</code> (متقدم).</p>
+                    <img src="../assets/images/chapter3/Node-Selectors-Logging_frame_190.jpg" alt="Node Selector Limit"
+                        class="img-fluid">
+
+                    <p>الـ Affinity بتديك قدرات زي <code>In</code>, <code>NotIn</code>, <code>Exists</code>.</p>
+                    <img src="../assets/images/chapter3/Node-Affinity_frame_330.jpg" alt="Affinity Types"
+                        class="img-fluid">
+                    <img src="../assets/images/chapter3/Node-Affinity_frame_420.jpg" alt="Complex Affinity"
+                        class="img-fluid">
+                </div>
+
+                <!-- Lab Solution: Node Affinity -->
+                <div class="lesson-container" style="border-right: 5px solid #27ae60;">
+                    <div class="lesson-header">
+                        <div class="lesson-title"><i class="fas fa-flask"></i> Lab Solution: Node Affinity</div>
+                    </div>
+                    <p>لون نود node01 بالأزرق، وعملنا Deployment "Blue" وقولناله لازم تروح للنود اللي لونه أزرق.</p>
+                    <img src="../assets/images/chapter3/Solution-Node-Affinity-Optional_frame_370.jpg"
+                        alt="Node Affinity Lab" class="img-fluid">
+                </div>
+
+                <!-- Lesson: Comparing Strategies -->
+                <div class="lesson-container">
+                    <div class="lesson-header">
+                        <div class="lesson-title"><i class="fas fa-balance-scale"></i> Putting it All Together</div>
+                    </div>
+                    <p>عشان تعمل حجز كامل وحقيقي (Dedicated Node):</p>
+                    <ol>
+                        <li>استخدم <strong>Taint</strong> على النود (عشان تمنع أي حد غريب).</li>
+                        <li>استخدم <strong>Affinity</strong> على الـ Pod (عشان تضمن إنه يروح للنود ده).</li>
+                    </ol>
+                    <img src="../assets/images/chapter3/Taints-Tolerations-vs-Node-Affinity_frame_130.jpg"
+                        alt="Complete Strategy" class="img-fluid">
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="chapter-nav">
+                <a href="chapter2.html" class="nav-btn"><i class="fas fa-arrow-right"></i> Chapter 2: Scheduling</a>
+                <a href="chapter4.html" class="nav-btn">Chapter 4: Multi-Container <i class="fas fa-arrow-left"></i></a>
+            </div>
 
         </main>
     </div>
 
-    <!-- Scripts -->
-    <script>
-        const menuBtn = document.querySelector('.menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
+    <!-- Footer -->
+    <footer>
+        <p>Kubestronaut Mission Control &copy; 2024</p>
+    </footer>
 
-        if (menuBtn && navLinks) {
-            menuBtn.addEventListener('click', () => {
-                navLinks.classList.toggle('open');
-            });
-        }
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
 </body>
 
 </html>
