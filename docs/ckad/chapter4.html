@@ -15,7 +15,15 @@
 
         .english-content h1,
         .english-content h2,
-        .english-content h3 {
+        .english-content h3,
+        .english-content h4 {
+            direction: ltr;
+            text-align: left;
+        }
+
+        .english-content p,
+        .english-content ul,
+        .english-content ol {
             direction: ltr;
             text-align: left;
         }
@@ -26,6 +34,12 @@
             height: auto;
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            margin: 20px 0;
+        }
+
+        .code-block {
+            direction: ltr;
+            text-align: left;
         }
 
         /* Sidebar specific adjustments for chapter pages */
@@ -113,165 +127,276 @@
             </section>
 
             <div class="lessons-container">
-                <!-- ========== LESSON 1: Multi-Container Pods ========== -->
+
+                <!-- ========== LESSON 1: Main Concept ========== -->
                 <article class="lesson" id="lesson-1">
                     <span class="lesson-number">الدرس 1</span>
                     <h2>👯‍♂️ الكبسولات متعددة المحركات (Multi-Container Pods)</h2>
 
                     <div class="english-content">
-                        <p class="mission-brief">
-                            يا كابتن! 👨‍🚀 عرفنا إن الكبسولة (Pod) هي أصغر وحدة في كوبرنيتس.
-                            عادةً بيكون فيها محرك واحد (Container).
-                            بس ساعات بنحتاج نحط أكتر من محرك في نفس الكبسولة عشان يشتغلوا مع بعض.
-                        </p>
-
-                        <h3>🌌 تشبيه الفضاء</h3>
-                        <div class="analogy-box">
-                            <div class="analogy-title">🛸 شركاء السكن (Roommates)</div>
-                            <p>
-                                تخيل الكبسولة زي "شقة استوديو".
-                                <br>
-                                لو حطيت فيها اتنين (2 Containers):
-                            <ul>
-                                <li><strong>Shared Network:</strong> الاتنين ليهم نفس عنوان البيت (IP Address). لو واحد
-                                    قال "localhost"،
-                                    هيكلم التاني.</li>
-                                <li><strong>Shared Storage:</strong> الاتنين يقدروا يفتحوا نفس التلاجة (Volume) وياخدوا
-                                    منها أكل.</li>
-                                <li><strong>Shared Lifecycle:</strong> لو الشقة انفجرت (Pod Deleted)، الاتنين بيموتوا مع
-                                    بعض. 💀</li>
-                            </ul>
-                            </p>
-                        </div>
-
-                        <h3>❓ إمتى نستخدمها؟</h3>
                         <p>
-                            لما يكون عندك وظيفتين "لازم" يشتغلوا مع بعض وتفريقهم صعب.
-                            مثلاً: تطبيق ويب (Web Server) ومساعد بيلم الزبالة (Logs) بتاعته.
+                            أهلاً بيك يا كابتن في المهمة دي! 👨‍🚀
+                            النهاردة هنتكلم عن إزاي نشغل أكتر من "محرك" (Container) جوه نفس "الكبسولة" (Pod).
+                            ده بيسمح لنا نعمل حاجات قوية جداً لما يكون عندنا خدمات لازم تشتغل مع بعض وتتكلم مع بعض
+                            بسرعة.
                         </p>
+
+                        <figure class="img-frame">
+                            <img src="../assets/images/chapter4/Multi-Container-Pods_frame_20.jpg"
+                                alt="Course Objectives - Multi-Container Pods" loading="lazy">
+                            <figcaption>أهداف المهمة: هنتعلم أمتى وليه نستخدم كبسولات متعددة المحركات</figcaption>
+                        </figure>
+
+                        <h3>Microservices vs. Tightly Coupled Services</h3>
+                        <p>
+                            في العالم الحديث (Microservices)، إحنا بنحاول نفصل كل حاجة عن بعضها عشان نقدر نطور ونكبر كل
+                            جزء لوحده.
+                            زي ما بنفصل "نظام الملاحة" عن "نظام الاتصالات" في السفينة. كل واحد مستقل.
+                        </p>
+                        <figure class="img-frame">
+                            <img src="../assets/images/chapter4/Multi-Container-Pods_frame_50.jpg"
+                                alt="Microservices Architecture" loading="lazy">
+                        </figure>
+
+                        <p>
+                            لكن... ساعات بيبقى فيه خدمات لازم تكون "لازقة" في بعض (Tightly Coupled).
+                            مثلاً: تخيل عندك "سيرفر الويب" (Web Server) ومحتاج معاه "مساعد" (Log Agent) يلم السجلات
+                            بتاعته فوراً ويبعتها للمركز الأرضي.
+                            في الحالة دي، بنحطهم هما الاتنين في <strong>نفس الـ Pod</strong>.
+                        </p>
+                        <figure class="img-frame">
+                            <img src="../assets/images/chapter4/Multi-Container-Pods_frame_80.jpg"
+                                alt="Web Server with Log Agent" loading="lazy">
+                        </figure>
+
+                        <h3>✨ مميزات الكبسولات المتعددة (Advantages)</h3>
+                        <ul class="styled-list">
+                            <li><strong>Shared Lifecycle:</strong> بيموتوا ويصحوا مع بعض. لو الكبسولة انفجرت، الاتنين
+                                راحوا! 💀</li>
+                            <li><strong>Unified Network Namespace:</strong> بيكلموا بعض عن طريق `localhost` من غير
+                                تعقيدات الشبكة.</li>
+                            <li><strong>Shared Storage Volumes:</strong> بيقدروا يقروا ويكتبوا في نفس المكان (Disk).
+                            </li>
+                        </ul>
+
+                        <figure class="img-frame">
+                            <img src="../assets/images/chapter4/Multi-Container-Pods_frame_110.jpg"
+                                alt="Shared Network and Storage" loading="lazy">
+                            <figcaption>بيشاركوا نفس التلاجة (Storage) ونفس عنوان البيت (Network)</figcaption>
+                        </figure>
+
+                        <h3>🛠️ إزاي نعملها؟ (YAML)</h3>
+                        <p>بسيطة جداً! في ملف الـ YAML، تحت قائمة `containers`، بنزود واحد كمان.</p>
 
                         <div class="code-block">
                             <code>apiVersion: v1
 kind: Pod
 metadata:
-  name: multi-pod
+  name: simple-webapp
+  labels:
+    name: simple-webapp
 spec:
   containers:
-  - name: main-app
-    image: nginx        # المحرك الأساسي
-  - name: sidecar
-    image: busybox      # المحرك المساعد
-    command: ["sh", "-c", "while true; do echo 'log'; sleep 5; done"]</code>
+  - name: simple-webapp
+    image: simple-webapp
+    ports:
+    - containerPort: 8080
+  - name: log-agent
+    image: log-agent</code>
                         </div>
-                    </div>
-                </article>
 
-                <!-- ========== LESSON 2: Design Patterns ========== -->
-                <article class="lesson" id="lesson-2">
-                    <span class="lesson-number">الدرس 2</span>
-                    <h2>🎨 أنماط التصميم (Design Patterns)</h2>
+                        <h3>🎨 أنماط التصميم (Design Patterns)</h3>
+                        <p>فيه 3 أشكال مشهورة للمساعدين دول، مش لازم تحفظهم نظري بس افهم الفكرة:</p>
 
-                    <div class="english-content">
-                        <p class="mission-brief">
-                            فيه 3 طرق مشهورة (Patterns) لتنظيم الشغل بين الـ Containers جوه الكبسولة.
-                            مش محتاج تحفظهم للامتحان كـ "تعريفات"، بس لازم تفهم الفكرة.
+                        <h4>1. Sidecar Pattern 🏍️</h4>
+                        <p>
+                            زي "الموتوسيكل" اللي فيه "عربية جانبية".
+                            التطبيق الأساسي هو الموتوسيكل، والـ Sidecar هو المساعد اللي بيعمل شغلانة إضافية (زي تجميع
+                            الـ Logs).
+                        </p>
+                        <figure class="img-frame">
+                            <img src="../assets/images/chapter4/Multi-Container-Pods_frame_180.jpg"
+                                alt="Sidecar Pattern" loading="lazy">
+                        </figure>
+
+                        <h4>2. Adapter Pattern 🔌</h4>
+                        <p>
+                            زي "مشترك الكهرباء". لو التطبيق بيطلع Logs بشكل غريب، الـ Adapter بياخدها ويحولها لشكل موحد
+                            (Standard) عشان نعرف نقراها.
                         </p>
 
-                        <div class="analogy-box">
-                            <div class="analogy-title">1. المساعد الشخصي (Sidecar Pattern) 🏍️</div>
-                            <p>
-                                زي الموتوسيكل اللي له عربية جانبية (Sidecar).
-                                الموتوسيكل هو التطبيق الأساسي. والعربية الجانبية فيها مساعد بيعمل شغل ثانوي (زي تجميع
-                                الـ Logs).
-                                <br>
-                                <strong>المثال:</strong> Log Agent بياخد الملفات من التطبيق ويبعتها للسيرفر المركزي.
-                            </p>
+                        <h4>3. Ambassador Pattern 🤵</h4>
+                        <p>
+                            زي "السفير". التطبيق عايز يكلم الداتابيز، بس مش عارف يكلم "Dev" ولا "Prod".
+                            بيقوم مكلم الـ Ambassador (على localhost) والسفير هو اللي يوجهه للمكان الصح.
+                        </p>
+                        <figure class="img-frame">
+                            <img src="../assets/images/chapter4/Multi-Container-Pods_frame_220.jpg"
+                                alt="Ambassador Pattern" loading="lazy">
+                        </figure>
+                    </div>
+                </article>
+
+                <!-- ========== LESSON 2: Lab 1 ========== -->
+                <article class="lesson" id="lesson-2">
+                    <span class="lesson-number">مختبر 1</span>
+                    <h2>🧪 مختبر: إنشاء كبسولة متعددة (Yellow Pod)</h2>
+
+                    <div class="english-content">
+                        <p>
+                            تعالى نطبق عملي! مطلوب مننا نعمل Pod اسمها <strong>yellow</strong> فيها 2 containers:
+                        </p>
+                        <ul class="styled-list">
+                            <li><strong>lemon:</strong> صورة `busybox` (وبتعمل sleep عشان متقفلش).</li>
+                            <li><strong>gold:</strong> صورة `redis`.</li>
+                        </ul>
+
+                        <figure class="img-frame">
+                            <img src="../assets/images/chapter4/Solution-Multi-Container-Pods-Optional_frame_90.jpg"
+                                alt="Lab Task: Yellow Pod" loading="lazy">
+                        </figure>
+
+                        <h3>Step 1: Generate YAML</h3>
+                        <div class="code-block">
+                            <code>kubectl run yellow --image=busybox --dry-run=client -o yaml > yellow.yaml</code>
                         </div>
 
-                        <div class="analogy-box">
-                            <div class="analogy-title">2. المحول (Adapter Pattern) 🔌</div>
-                            <p>
-                                زي مشترك الكهرباء اللي بيحول الفيشة الثلاثية لثنائية.
-                                التطبيق بيطلع Logs مش مفهومة. الـ Adapter بياخدها ويترجمها لشكل موحد (Standard Format)
-                                عشان نظام
-                                المراقبة يفهمها.
-                            </p>
+                        <h3>Step 2: Update YAML</h3>
+                        <p>هنعدل الملف ونضيف الكونتينر التاني:</p>
+                        <div class="code-block">
+                            <code>apiVersion: v1
+kind: Pod
+metadata:
+  name: yellow
+spec:
+  containers:
+  - image: busybox
+    name: lemon
+    command: ["sleep", "1000"]
+  - image: redis
+    name: gold</code>
                         </div>
 
-                        <div class="analogy-box">
-                            <div class="analogy-title">3. السفير (Ambassador Pattern) 🤵</div>
-                            <p>
-                                زي السفير اللي بيمثل دولته.
-                                التطبيق عايز يكلم داتابيز، بس مش عارف هي فين (Dev ولا Prod؟).
-                                فبيكلم الـ Ambassador (على localhost)، والسفير هو اللي بيوجهه للمكان الصح.
-                                كأن السفير هو "Proxy" ذكي جوه الكبسولة.
-                            </p>
+                        <h3>Step 3: Apply</h3>
+                        <div class="code-block">
+                            <code>kubectl apply -f yellow.yaml</code>
                         </div>
                     </div>
                 </article>
 
-                <!-- ========== LESSON 3: Init Containers ========== -->
+                <!-- ========== LESSON 3: Lab 2 ========== -->
                 <article class="lesson" id="lesson-3">
+                    <span class="lesson-number">مختبر 2</span>
+                    <h2>📊 تسجيل الأحداث (Elastic Stack Sidecar)</h2>
+
+                    <div class="english-content">
+                        <p>
+                            دلوقتي عندنا تطبيق <strong>app</strong> بيطلع Logs، وعايزين نبعتها لـ
+                            <strong>Elasticsearch</strong>.
+                            هنستخدم <strong>Sidecar</strong> عشان يستلم الـ Logs دي ويبعتها.
+                        </p>
+
+                        <div class="callout-tip">
+                            <div class="tip-title">⚠️ مهم</div>
+                            <p>
+                                عشان نعدل في الـ Containers بتاعة Pod شغال، لازم نمسحه ونعمله تاني (Replace)، أو نستخدم
+                                `kubectl replace --force`.
+                            </p>
+                        </div>
+
+                        <h3>الخطة (Plan):</h3>
+                        <ol>
+                            <li>التطبيق (App) بيكتب في `/log/app.log`.</li>
+                            <li>هنعمل <strong>Volume</strong> مشترك بين التطبيق والـ Sidecar.</li>
+                            <li>الـ Sidecar هيقرا من الـ Volume ده ويبعت لـ Elasticsearch.</li>
+                        </ol>
+
+                        <h3>YAML Solution:</h3>
+                        <div class="code-block">
+                            <code>apiVersion: v1
+kind: Pod
+metadata:
+  name: app
+  namespace: elastic-stack
+spec:
+  containers:
+    - image: kodekloud/filebeat-configured
+      name: sidecar
+      volumeMounts:
+        - mountPath: /var/log/event-simulator/
+          name: log-volume
+    - image: kodekloud/event-simulator
+      name: app
+      volumeMounts:
+        - mountPath: /log
+          name: log-volume
+  volumes:
+  - name: log-volume
+    hostPath:
+      path: /var/log/webapp</code>
+                        </div>
+
+                        <h3>النتيجة في Kibana</h3>
+                        <p>لما نفتح Kibana، هنقدر نشوف الـ Index والـ Logs وهي بتوصل:</p>
+
+                        <figure class="img-frame">
+                            <img src="../assets/images/chapter4/Solution-Multi-Container-Pods-Optional_frame_840.jpg"
+                                alt="Kibana Index Pattern" loading="lazy">
+                        </figure>
+
+                        <figure class="img-frame">
+                            <img src="../assets/images/chapter4/Solution-Multi-Container-Pods-Optional_frame_880.jpg"
+                                alt="Kibana Logs" loading="lazy">
+                        </figure>
+                    </div>
+                </article>
+
+                <!-- ========== LESSON 4: Init Containers ========== -->
+                <article class="lesson" id="lesson-4">
                     <span class="lesson-number">الدرس 3</span>
                     <h2>🛠️ حاويات التجهيز (Init Containers)</h2>
 
                     <div class="english-content">
-                        <p class="mission-brief">
-                            كل اللي فات ده كان Containers شغالة "مع بعض" طول الوقت.
-                            طب لو محتاج حد يجهز المكان "قبل" ما التطبيق يشتغل؟
-                            هنا بيجي دور <strong>Init Container</strong>. 👷‍♂️
+                        <p>
+                            كل اللي فات ده كان Containers بتشتغل "مع بعض" في نفس الوقت.
+                            بس ساعات بنحتاج حد "يجهز المكان" الأول ويمشي.
+                            ده اسمه <strong>Init Container</strong>. 👷‍♂️
+                        </p>
+                        <p>
+                            بيشتغل <strong>قبل</strong> التطبيق الأساسي، ولازم يخلص بنجاح (Exit Code 0) عشان التطبيق
+                            يبدأ.
                         </p>
 
-                        <h3>🌌 تشبيه الفضاء</h3>
-                        <div class="analogy-box">
-                            <div class="analogy-title">🏗️ فريق التجهيز</div>
-                            <p>
-                                قبل ما رواد الفضاء (Main Containers) يدخلوا الكبسولة ويعيشوا فيها، فيه فريق صيانة (Init
-                                Containers)
-                                بيدخل الأول.
-                                ينظفوا، يظبطوا الضغط، يتأكدوا إن الوقود موجود.
-                                أول ما يخلصوا شغلهم.. <strong>بيمشوا فوراً</strong> (Terminated) والرواد يدخلوا.
-                            </p>
-                        </div>
-
-                        <h3>⚙️ خصائص مهمة</h3>
+                        <h3>تحليل الألوان (Red, Blue, Green, Purple)</h3>
                         <ul class="styled-list">
-                            <li>يشتغلوا <strong>قبل</strong> التطبيق الأساسي.</li>
-                            <li>لازم يخلصوا بنجاح (Exit Code 0). لو فشلوا، الكبسولة مش هتقوم (Restarting).</li>
-                            <li>ممكن يكون فيه أكتر من واحد، بيشتغلوا <strong>بالترتيب</strong> (واحد يخلص، اللي بعده
-                                يبدأ).</li>
+                            <li><strong>Blue Pod:</strong> كان فيه Init Container عمل `sleep 5` وخلص بنجاح
+                                (Terminated/Completed).</li>
+                            <li><strong>Purple Pod:</strong> كان فيه 2 Init Containers (warm-up-1, warm-up-2) بيشتغلوا
+                                ورا بعض بالترتيب.</li>
                         </ul>
 
-                        <h3>💻 مثال عملي (YAML)</h3>
-                        <p>سيناريو: استنى لحد ما خدمة `myservice` تشتغل الأول.</p>
-
+                        <h3>🚨 مشكلة الـ Orange Pod</h3>
+                        <p>
+                            الكبسولة البرتقالي كانت واقعة في <code>Init:CrashLoopBackOff</code>.
+                            لما بصينا في الـ YAML، لقينا الغلطة:
+                        </p>
                         <div class="code-block">
-                            <code>spec:
-  initContainers:
-  - name: wait-for-db
-    image: busybox
-    command: ['sh', '-c', 'until nslookup myservice; do echo waiting for myservice; sleep 2; done;']
-  containers:
-  - name: main-app
-    image: nginx</code>
+                            <code>command:
+  - sh
+  - -c
+  - sleeep 2;  # <--- Typo here! ❌</code>
                         </div>
-
-                        <div class="callout-tip">
-                            <div class="tip-title">🔧 Troubleshooting</div>
-                            <p>
-                                لو الكبسولة واقفة في حالة <code>Init:CrashLoopBackOff</code>، ده معناه إن فريق التجهيز
-                                مش عارف يخلص شغله
-                                (الكود فيه غلطة أو الشرط مش بيتحقق).
-                                لازم تعمل <code>kubectl logs podname -c init-container-name</code> عشان تشوف المشكلة.
-                            </p>
-                        </div>
+                        <p>
+                            صلحناها وخليناها `sleep 2` والكبسولة قامت بسلام! ✅
+                        </p>
                     </div>
                 </article>
+
             </div>
 
             <footer class="site-footer">
-                <p>🚀 كوبسترونات — المهمة 4 (الكبسولات المتعددة) تمت بنجاح! <a href="chapter5.html"
-                        style="color: var(--rocket-orange);">إلى المهمة 5: المراقبة
+                <p>🚀 كوبسترونات — المهمة 4 تمت بنجاح! <a href="chapter5.html" style="color: var(--rocket-orange);">إلى
+                        المهمة 5: المراقبة
                         والصيانة ←</a></p>
             </footer>
 
@@ -280,7 +405,6 @@ spec:
 
     <!-- Scripts -->
     <script>
-        // Use the same script logic as other pages
         const menuBtn = document.querySelector('.menu-toggle');
         const navLinks = document.querySelector('.nav-links');
 
