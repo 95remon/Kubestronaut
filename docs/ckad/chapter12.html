@@ -5,6 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>المهمة 12: نصائح الامتحان — كوبسترونات 🚀</title>
     <link rel="stylesheet" href="../style.css">
+    <style>
+        /* Temporarily ensure english content is LTR */
+        .english-content {
+            direction: ltr;
+            text-align: left;
+        }
+        .english-content h1, .english-content h2, .english-content h3 {
+            direction: ltr;
+            text-align: left;
+        }
+        /* Ensure images are responsive */
+        .img-frame img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        /* Sidebar specific adjustments for chapter pages */
+        .ckad-layout {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
     <div class="space-bg"></div>
@@ -22,67 +44,188 @@
         </nav>
     </header>
 
-    <section class="chapter-hero">
-        <h1>🚀 المهمة 12: نصائح الامتحان</h1>
-        <p class="subtitle">Certification Tips</p>
-    </section>
+    <div class="ckad-layout">
+        <!-- SIDEBAR -->
+        <aside class="chapter-sidebar">
+            <div class="sidebar-nav">
+                <h3>🛸 خريطة المهام</h3>
+                
+        <a href="chapter1.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>1. المقدمة</strong>
+                <small>First Section</small>
+            </div>
+        </a>
+        
+        <a href="chapter2.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>2. المفاهيم الأساسية</strong>
+                <small>Core Concepts</small>
+            </div>
+        </a>
+        
+        <a href="chapter3.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>3. الإعدادات</strong>
+                <small>Configuration</small>
+            </div>
+        </a>
+        
+        <a href="chapter4.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>4. الكبسولات المتعددة</strong>
+                <small>Multi-Container Pods</small>
+            </div>
+        </a>
+        
+        <a href="chapter5.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>5. المراقبة</strong>
+                <small>Observability</small>
+            </div>
+        </a>
+        
+        <a href="chapter6.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>6. تصميم الكبسولات</strong>
+                <small>POD Design</small>
+            </div>
+        </a>
+        
+        <a href="chapter7.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>7. الشبكات والخدمات</strong>
+                <small>Services & Networking</small>
+            </div>
+        </a>
+        
+        <a href="chapter8.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>8. التخزين الدائم</strong>
+                <small>State Persistence</small>
+            </div>
+        </a>
+        
+        <a href="chapter9.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>9. الأمان</strong>
+                <small>Security</small>
+            </div>
+        </a>
+        
+        <a href="chapter10.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>10. أساسيات Helm</strong>
+                <small>Helm Fundamentals</small>
+            </div>
+        </a>
+        
+        <a href="chapter11.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>11. أساسيات Kustomize</strong>
+                <small>Kustomize Basics</small>
+            </div>
+        </a>
+        
+        <a href="chapter12.html" class="sidebar-item active-chapter">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>12. نصائح الامتحان</strong>
+                <small>Certification Tips</small>
+            </div>
+        </a>
+        
+        <a href="chapter13.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>13. مختبرات البرق</strong>
+                <small>Lightning Labs</small>
+            </div>
+        </a>
+        
+        <a href="chapter14.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>14. الامتحانات التجريبية</strong>
+                <small>Mock Exams</small>
+            </div>
+        </a>
+        
+            </div>
+        </aside>
 
-    <div class="lessons-container">
+        <!-- MAIN CONTENT -->
+        <main class="course-content">
+            <section class="chapter-hero">
+                <h1>🚀 المهمة 12: نصائح الامتحان</h1>
+                <p class="subtitle">Certification Tips</p>
+            </section>
+
+            <div class="lessons-container">
 
         <!-- ========== LESSON 1: Time Management ========== -->
         <article class="lesson" id="lesson-1">
             <span class="lesson-number">الدرس 1</span>
             <h2>🛸 Time Management</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Time Management</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This article explores effective time management strategies for candidates preparing for Kubernetes certification exams.</p>
-</blockquote>
+</div>
 <p>Hello and welcome. In this lesson, we’ll explore effective time management strategies specifically designed for practical certification exams such as the Kubernetes certification exams. Many candidates struggle with completing all the questions within the allotted time, so this guide offers practical tips to help you efficiently navigate and manage your exam.</p>
 <p>My name is Mumshad Mannambeth, and throughout this lesson, I’ll share strategies that are applicable across various practical exams. Currently, Kubernetes certification exams typically allocate two to three hours for exam completion. For example, the <a href="https://learn.kodekloud.com/user/courses/cka-certification-course-certified-kubernetes-administrator">Certified Kubernetes Administrator (CKA) exam</a> provides three hours to answer 24 questions, whereas another exam might offer two hours with 19 questions.</p>
-<pre><code>    &lt;figure class="img-frame"&gt;
-        &lt;img src="../assets/images/chapter12/Time-Management_frame_50.jpg" alt="The image compares Certified Kubernetes Administrator (CKA) and Certified Kubernetes Application Developer (CKAD) exams, showing 3 and 2 hours duration, with 24 and 19 questions respectively." loading="lazy"&gt;
-        &lt;figcaption&gt;The image compares Certified Kubernetes Administrator (CKA) and Certified Kubernetes Application Developer (CKAD) exams, showing 3 and 2 hours duration, with 24 and 19 questions respectively.&lt;/figcaption&gt;
-    &lt;/figure&gt;
-</code></pre>
+
+        <figure class="img-frame">
+            <img src="../assets/images/chapter12/Time-Management_frame_50.jpg" alt="The image compares Certified Kubernetes Administrator (CKA) and Certified Kubernetes Application Developer (CKAD) exams, showing 3 and 2 hours duration, with 24 and 19 questions respectively." loading="lazy">
+            <figcaption>The image compares Certified Kubernetes Administrator (CKA) and Certified Kubernetes Application Developer (CKAD) exams, showing 3 and 2 hours duration, with 24 and 19 questions respectively.</figcaption>
+        </figure>
+        
 <p>Due to the limited time, it is crucial to manage your exam effectively. During the test, you will encounter a mix of very easy, moderately challenging, and unfamiliar questions. Remember, your goal is not to answer every question perfectly but to secure a score that meets or exceeds the minimum required to pass. It is essential to attempt all questions and avoid spending too much time on any one, especially the challenging ones.</p>
 <h2>Key Time Management Strategies</h2>
 <h3>1. Attempt Every Question</h3>
 <p>Since you can answer the questions in any order, start by answering the easier questions first. Skipping the difficult ones initially allows you to build confidence and secure marks. Once you have completed the simpler questions, you can return to those you initially skipped if time permits.</p>
 <h3>2. Don’t Get Stuck on a Single Question</h3>
 <p>Even if a question appears simple, avoid spending too much time if you encounter an error. For instance, consider the following scenario:</p>
-<p>```bash  theme={null}
-kubectl create -f deployment-definition.yml
-error: unable to recognize "deployment-definition.yaml": no matches for kind "deployment" in version "apps/v1"</p>
-<pre><code>
-&gt; If you see an error like this and cannot quickly troubleshoot (due to a typo or minor mistake), mark the question for later review and move on. Don’t let one problem eat up valuable time.
+<pre><code class="language-bash">kubectl create -f deployment-definition.yml
+error: unable to recognize &quot;deployment-definition.yaml&quot;: no matches for kind &quot;deployment&quot; in version &quot;apps/v1&quot;
+</code></pre>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
+<p>If you see an error like this and cannot quickly troubleshoot (due to a typo or minor mistake), mark the question for later review and move on. Don’t let one problem eat up valuable time.</p>
+</div>
+<p>A recommended strategy is:</p>
+<ul class="styled-list">
+<li>Start with the easiest question.</li>
+<li>If a question seems too challenging or time-consuming, mark it for review and continue with the next.</li>
+<li>If an attempt fails more than once, do not linger—move on to secure other marks.</li>
+</ul>
 
-A recommended strategy is:
-
-* Start with the easiest question.
-* If a question seems too challenging or time-consuming, mark it for review and continue with the next.
-* If an attempt fails more than once, do not linger—move on to secure other marks.
-
-
-        &lt;figure class=&quot;img-frame&quot;&gt;
-            &lt;img src=&quot;../assets/images/chapter12/Time-Management_frame_230.jpg&quot; alt=&quot;The image shows a grid of yellow circles with icons, including check marks and gears, and a clipboard with the number 3 on it.&quot; loading=&quot;lazy&quot;&gt;
-            &lt;figcaption&gt;The image shows a grid of yellow circles with icons, including check marks and gears, and a clipboard with the number 3 on it.&lt;/figcaption&gt;
-        &lt;/figure&gt;
-
-
-### 3. Master YAML Proficiency
-
-Being comfortable with YAML is essential. Practice creating and troubleshooting YAML files ahead of time. During the exam, repeatedly checking every line for indentation or structure will cost you precious time. Focus on getting the structure and required contents correct rather than perfect formatting.
-
-Below is an example of a well-structured YAML file for creating a Kubernetes Deployment:
-
-```yaml  theme={null}
-apiVersion: apps/v1
+        <figure class="img-frame">
+            <img src="../assets/images/chapter12/Time-Management_frame_230.jpg" alt="The image shows a grid of yellow circles with icons, including check marks and gears, and a clipboard with the number 3 on it." loading="lazy">
+            <figcaption>The image shows a grid of yellow circles with icons, including check marks and gears, and a clipboard with the number 3 on it.</figcaption>
+        </figure>
+        
+<h3>3. Master YAML Proficiency</h3>
+<p>Being comfortable with YAML is essential. Practice creating and troubleshooting YAML files ahead of time. During the exam, repeatedly checking every line for indentation or structure will cost you precious time. Focus on getting the structure and required contents correct rather than perfect formatting.</p>
+<p>Below is an example of a well-structured YAML file for creating a Kubernetes Deployment:</p>
+<pre><code class="language-yaml">apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: myapp-deployment
@@ -121,17 +264,18 @@ spec:
 <li>sa for service accounts</li>
 </ul>
 <p>These aliases might seem minor, but over the duration of the exam, they can save you valuable seconds that add up to extra minutes.</p>
-<pre><code>    &lt;figure class="img-frame"&gt;
-        &lt;img src="../assets/images/chapter12/Time-Management_frame_340.jpg" alt="The image lists Kubernetes shortcuts/aliases for various resources like PODs, ReplicaSets, Deployments, Services, Namespaces, Network policies, Persistent Volumes, PersistentVolumeClaims, and service accounts." loading="lazy"&gt;
-        &lt;figcaption&gt;The image lists Kubernetes shortcuts/aliases for various resources like PODs, ReplicaSets, Deployments, Services, Namespaces, Network policies, Persistent Volumes, PersistentVolumeClaims, and service accounts.&lt;/figcaption&gt;
-    &lt;/figure&gt;
-</code></pre>
+
+        <figure class="img-frame">
+            <img src="../assets/images/chapter12/Time-Management_frame_340.jpg" alt="The image lists Kubernetes shortcuts/aliases for various resources like PODs, ReplicaSets, Deployments, Services, Namespaces, Network policies, Persistent Volumes, PersistentVolumeClaims, and service accounts." loading="lazy">
+            <figcaption>The image lists Kubernetes shortcuts/aliases for various resources like PODs, ReplicaSets, Deployments, Services, Namespaces, Network policies, Persistent Volumes, PersistentVolumeClaims, and service accounts.</figcaption>
+        </figure>
+        
 <h2>Final Thoughts</h2>
 <p>Effective time management during Kubernetes certification exams is about balancing speed and accuracy. By attempting every question, not getting bogged down by a single problem, mastering YAML, and utilizing shortcuts, you can maximize your exam performance and improve your chances of success.</p>
 <p>If you have any additional strategies or tips on time management during practical exams, please feel free to leave a comment below. Thank you for reading, and best of luck on your exams!</p>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>Remember that practice and preparation are key to success. Rehearse these strategies in your mock exams and adjust them according to your personal strengths and weaknesses.</p>
-</blockquote>
+</div>
 <p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/d2b05966-36dc-47f5-9963-d57dc4d68912/lesson/4cdd43d4-58da-4070-9589-8cfd1325c246" /></p>
             </div>
             
@@ -144,10 +288,12 @@ spec:
             </div>
         </article>
 
-    </div>
+            </div>
 
-    <footer class="site-footer">
-        <p>🚀 كوبسترونات — المهمة 12 خلصت! <a href="chapter13.html" style="color: var(--rocket-orange);">يلا على المهمة 13 ←</a></p>
-    </footer>
+            <footer class="site-footer">
+                <p>🚀 كوبسترونات — المهمة 12 خلصت! <a href="chapter13.html" style="color: var(--rocket-orange);">يلا على المهمة 13 ←</a></p>
+            </footer>
+        </main>
+    </div> <!-- End .ckad-layout -->
 </body>
 </html>

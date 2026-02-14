@@ -5,6 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>المهمة 6: تصميم الكبسولات — كوبسترونات 🚀</title>
     <link rel="stylesheet" href="../style.css">
+    <style>
+        /* Temporarily ensure english content is LTR */
+        .english-content {
+            direction: ltr;
+            text-align: left;
+        }
+        .english-content h1, .english-content h2, .english-content h3 {
+            direction: ltr;
+            text-align: left;
+        }
+        /* Ensure images are responsive */
+        .img-frame img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        /* Sidebar specific adjustments for chapter pages */
+        .ckad-layout {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
     <div class="space-bg"></div>
@@ -22,33 +44,157 @@
         </nav>
     </header>
 
-    <section class="chapter-hero">
-        <h1>🚀 المهمة 6: تصميم الكبسولات</h1>
-        <p class="subtitle">POD Design</p>
-    </section>
+    <div class="ckad-layout">
+        <!-- SIDEBAR -->
+        <aside class="chapter-sidebar">
+            <div class="sidebar-nav">
+                <h3>🛸 خريطة المهام</h3>
+                
+        <a href="chapter1.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>1. المقدمة</strong>
+                <small>First Section</small>
+            </div>
+        </a>
+        
+        <a href="chapter2.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>2. المفاهيم الأساسية</strong>
+                <small>Core Concepts</small>
+            </div>
+        </a>
+        
+        <a href="chapter3.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>3. الإعدادات</strong>
+                <small>Configuration</small>
+            </div>
+        </a>
+        
+        <a href="chapter4.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>4. الكبسولات المتعددة</strong>
+                <small>Multi-Container Pods</small>
+            </div>
+        </a>
+        
+        <a href="chapter5.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>5. المراقبة</strong>
+                <small>Observability</small>
+            </div>
+        </a>
+        
+        <a href="chapter6.html" class="sidebar-item active-chapter">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>6. تصميم الكبسولات</strong>
+                <small>POD Design</small>
+            </div>
+        </a>
+        
+        <a href="chapter7.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>7. الشبكات والخدمات</strong>
+                <small>Services & Networking</small>
+            </div>
+        </a>
+        
+        <a href="chapter8.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>8. التخزين الدائم</strong>
+                <small>State Persistence</small>
+            </div>
+        </a>
+        
+        <a href="chapter9.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>9. الأمان</strong>
+                <small>Security</small>
+            </div>
+        </a>
+        
+        <a href="chapter10.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>10. أساسيات Helm</strong>
+                <small>Helm Fundamentals</small>
+            </div>
+        </a>
+        
+        <a href="chapter11.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>11. أساسيات Kustomize</strong>
+                <small>Kustomize Basics</small>
+            </div>
+        </a>
+        
+        <a href="chapter12.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>12. نصائح الامتحان</strong>
+                <small>Certification Tips</small>
+            </div>
+        </a>
+        
+        <a href="chapter13.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>13. مختبرات البرق</strong>
+                <small>Lightning Labs</small>
+            </div>
+        </a>
+        
+        <a href="chapter14.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>14. الامتحانات التجريبية</strong>
+                <small>Mock Exams</small>
+            </div>
+        </a>
+        
+            </div>
+        </aside>
 
-    <div class="lessons-container">
+        <!-- MAIN CONTENT -->
+        <main class="course-content">
+            <section class="chapter-hero">
+                <h1>🚀 المهمة 6: تصميم الكبسولات</h1>
+                <p class="subtitle">POD Design</p>
+            </section>
+
+            <div class="lessons-container">
 
         <!-- ========== LESSON 1: Cron Jobs ========== -->
         <article class="lesson" id="lesson-1">
             <span class="lesson-number">الدرس 1</span>
             <h2>🛸 Cron Jobs</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Cron Jobs</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This article provides a guide on scheduling and executing recurring jobs in Kubernetes using CronJobs.</p>
-</blockquote>
+</div>
 <p>Welcome to this comprehensive guide on CronJobs in Kubernetes. In this article, you'll learn how to schedule and execute recurring jobs in your Kubernetes cluster, similar to using a Cron tab in Linux.</p>
 <p>A CronJob allows you to run tasks on a recurring schedule. For example, you might have a job that generates reports and sends emails. Rather than triggering the job immediately with the "kubectl create" command, you can schedule it with a CronJob to occur periodically.</p>
 <h2>Converting a Basic Job to a CronJob</h2>
 <p>Consider the following basic Job template:</p>
-<p>```yaml  theme={null}
-apiVersion: batch/v1
+<pre><code class="language-yaml">apiVersion: batch/v1
 kind: Job
 metadata:
   name: reporting-job
@@ -60,16 +206,14 @@ spec:
       containers:
       - name: reporting-tool
         image: reporting-tool
-      restartPolicy: Never</p>
-<pre><code>
-To convert this into a CronJob, you need to update the API version to &quot;batch/v1beta1&quot; and change the kind to &quot;CronJob&quot;. Then, add a schedule field with a Cron-formatted string, and embed the original Job template within the CronJob definition under the `jobTemplate` section.
-
-&gt; The schedule field uses a standard Cron format. In this example, `&quot;*/1 * * * *&quot;` schedules the job to run every minute.
-
-Below is the complete YAML definition for a CronJob that runs every minute:
-
-```yaml  theme={null}
-apiVersion: batch/v1beta1
+      restartPolicy: Never
+</code></pre>
+<p>To convert this into a CronJob, you need to update the API version to "batch/v1beta1" and change the kind to "CronJob". Then, add a schedule field with a Cron-formatted string, and embed the original Job template within the CronJob definition under the <code>jobTemplate</code> section.</p>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
+<p>The schedule field uses a standard Cron format. In this example, <code>"*/1 * * * *"</code> schedules the job to run every minute.</p>
+</div>
+<p>Below is the complete YAML definition for a CronJob that runs every minute:</p>
+<pre><code class="language-yaml">apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: reporting-cron-job
@@ -88,21 +232,18 @@ spec:
 </code></pre>
 <h2>Creating and Verifying Your CronJob</h2>
 <p>After saving your CronJob definition (for example, as <code>cron-job-definition.yaml</code>), you can create the CronJob in your Kubernetes cluster with the following command:</p>
-<p>```bash  theme={null}
-kubectl create -f cron-job-definition.yaml</p>
-<pre><code>
-To verify that your CronJob has been created correctly, run:
-
-```bash  theme={null}
-kubectl get cronjob
+<pre><code class="language-bash">kubectl create -f cron-job-definition.yaml
+</code></pre>
+<p>To verify that your CronJob has been created correctly, run:</p>
+<pre><code class="language-bash">kubectl get cronjob
 </code></pre>
 <p>A typical output might resemble:</p>
-<p><code>plaintext  theme={null}
-NAME                  SCHEDULE      SUSPEND   ACTIVE
-reporting-cron-job    */1 * * * *   False     0</code></p>
-<blockquote>
+<pre><code class="language-plaintext">NAME                  SCHEDULE      SUSPEND   ACTIVE
+reporting-cron-job    */1 * * * *   False     0
+</code></pre>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>Ensure your YAML file is properly formatted and saved before executing the <code>kubectl create</code> command to avoid any deployment issues.</p>
-</blockquote>
+</div>
 <h2>Conclusion</h2>
 <p>With this guide, you now understand how to transform a standard Kubernetes Job into a CronJob, enabling you to automate and schedule recurring tasks. Practice with different scheduling configurations to get the most out of CronJobs in your Kubernetes environment.</p>
 <p>For further reading, explore additional resources:</p>
@@ -130,25 +271,27 @@ reporting-cron-job    */1 * * * *   False     0</code></p>
         <article class="lesson" id="lesson-2">
             <span class="lesson-number">الدرس 2</span>
             <h2>🛸 Deployment Strategy Blue Green</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Deployment Strategy Blue Green</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This article explores the Blue-Green deployment strategy, highlighting its advantages and implementation using Kubernetes for minimizing downtime and risks during application updates.</p>
-</blockquote>
+</div>
 <p>In this article, we explore the Blue-Green deployment strategy—a method that complements the previously discussed Recreate and Rolling Update strategies.</p>
 <p>Earlier, we reviewed two common deployment methods:</p>
 <ol>
 <li>
-<p><strong>Recreate Strategy:</strong>\
+<p><strong>Recreate Strategy:</strong>\<br />
    The old version of the application is completely shut down before deploying the new version. This results in temporary unavailability for users during the transition.</p>
 </li>
 <li>
-<p><strong>Rolling Update Strategy:</strong>\
+<p><strong>Rolling Update Strategy:</strong>\<br />
    Instances of the old version are gradually replaced with newer ones one at a time. This approach minimizes downtime and facilitates a smoother upgrade process. Many systems default to this strategy.</p>
 </li>
 </ol>
@@ -161,40 +304,37 @@ Use this file to discover all available pages before exploring further.</p>
 </ul>
 <p>Initially, 100% of user traffic is directed to the blue environment. The green environment is then set up with the new version, tested, and validated. Once testing confirms that the green version meets quality standards, traffic is switched over to it with a single update.</p>
 <p>This strategy can be implemented using service meshes like <a href="https://learn.kodekloud.com/user/courses/istio-service-mesh">Istio Service Mesh</a> for more granular traffic control. Alternatively, you can achieve blue-green deployment using native Kubernetes components such as Deployments and Services.</p>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>Blue-green deployment minimizes risk by allowing testing of a new release in a live but isolated environment before directing all user traffic to it.</p>
-</blockquote>
+</div>
 <h3>How Blue-Green Deployment Works with Kubernetes</h3>
 <ol>
 <li>
-<p><strong>Deploy the Blue Version (Current Production):</strong>\
+<p><strong>Deploy the Blue Version (Current Production):</strong>\<br />
    Deploy the original application version as the blue deployment with a label (e.g., <code>version: v1</code>). A Kubernetes Service is created with a selector that matches this label, ensuring that all user traffic is routed to the blue Pods.</p>
 </li>
 <li>
-<p><strong>Deploy the Green Version (New Release):</strong>\
+<p><strong>Deploy the Green Version (New Release):</strong>\<br />
    Deploy a separate green deployment that includes the new application version. Label these Pods with <code>version: v2</code>. Although both blue and green deployments run concurrently, the Service continues routing traffic based on the label selector, initially favoring the blue version.</p>
 </li>
 <li>
-<p><strong>Switch Traffic After Testing:</strong>\
+<p><strong>Switch Traffic After Testing:</strong>\<br />
    After thorough testing confirms that the green version is stable, update the Service’s label selector to point from <code>version: v1</code> to <code>version: v2</code>. This update directs all incoming traffic to the green Pods, effectively switching the live environment.</p>
 </li>
 </ol>
 <h3>Blue Deployment Example</h3>
 <p>The following YAML file defines the Service that initially directs traffic to the blue version:</p>
-<p>```yaml  theme={null}</p>
-<h1>service-definition.yaml</h1>
-<p>apiVersion: v1
+<pre><code class="language-yaml"># service-definition.yaml
+apiVersion: v1
 kind: Service
 metadata:
   name: my-service
 spec:
   selector:
-    version: v1</p>
-<pre><code>
-Here is the deployment definition for the blue version:
-
-```yaml  theme={null}
-# myapp-blue.yml
+    version: v1
+</code></pre>
+<p>Here is the deployment definition for the blue version:</p>
+<pre><code class="language-yaml"># myapp-blue.yml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -218,32 +358,31 @@ spec:
 </code></pre>
 <p>After the blue version is deployed and receiving all user traffic, you can deploy the green version by creating a similar deployment with the updated image (for example, <code>myapp-image:2.0</code>) and labeling it as <code>version: v2</code>.</p>
 <p>Once the green version has been rigorously tested, update the Service to switch traffic to it:</p>
-<p>```yaml  theme={null}</p>
-<h1>Updated service-definition.yaml to route traffic to the green version</h1>
-<p>apiVersion: v1
+<pre><code class="language-yaml"># Updated service-definition.yaml to route traffic to the green version
+apiVersion: v1
 kind: Service
 metadata:
   name: my-service
 spec:
   selector:
     version: v2
-```</p>
-<p>This change ensures that all incoming traffic will now be routed to the green deployment, completing the blue-green transition.</p>
-<pre><code>    &lt;figure class="img-frame"&gt;
-        &lt;img src="../assets/images/chapter6/Deployment-Strategy-Blue-Green_frame_170.jpg" alt="The image illustrates a Blue/Green deployment strategy with two versions, v1 (blue) and v2 (green), managed by a service." loading="lazy"&gt;
-        &lt;figcaption&gt;The image illustrates a Blue/Green deployment strategy with two versions, v1 (blue) and v2 (green), managed by a service.&lt;/figcaption&gt;
-    &lt;/figure&gt;
-
-
-
-    &lt;figure class="img-frame"&gt;
-        &lt;img src="../assets/images/chapter6/Deployment-Strategy-Blue-Green_frame_180.jpg" alt="The image illustrates a blue/green deployment strategy, showing two versions (v1 and v2) with a service directing traffic to version v2." loading="lazy"&gt;
-        &lt;figcaption&gt;The image illustrates a blue/green deployment strategy, showing two versions (v1 and v2) with a service directing traffic to version v2.&lt;/figcaption&gt;
-    &lt;/figure&gt;
 </code></pre>
-<blockquote>
+<p>This change ensures that all incoming traffic will now be routed to the green deployment, completing the blue-green transition.</p>
+
+        <figure class="img-frame">
+            <img src="../assets/images/chapter6/Deployment-Strategy-Blue-Green_frame_170.jpg" alt="The image illustrates a Blue/Green deployment strategy with two versions, v1 (blue) and v2 (green), managed by a service." loading="lazy">
+            <figcaption>The image illustrates a Blue/Green deployment strategy with two versions, v1 (blue) and v2 (green), managed by a service.</figcaption>
+        </figure>
+        
+
+        <figure class="img-frame">
+            <img src="../assets/images/chapter6/Deployment-Strategy-Blue-Green_frame_180.jpg" alt="The image illustrates a blue/green deployment strategy, showing two versions (v1 and v2) with a service directing traffic to version v2." loading="lazy">
+            <figcaption>The image illustrates a blue/green deployment strategy, showing two versions (v1 and v2) with a service directing traffic to version v2.</figcaption>
+        </figure>
+        
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>By utilizing blue-green deployments, you can reduce downtime and mitigate risks during application updates by ensuring the new version is fully tested before it takes over production traffic.</p>
-</blockquote>
+</div>
 <p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/c44b5e7c-5854-4c65-87bf-7e07cb026e71/lesson/ace0df47-d390-4f27-8745-365de5febbc3" /></p>
             </div>
             
@@ -260,16 +399,18 @@ spec:
         <article class="lesson" id="lesson-3">
             <span class="lesson-number">الدرس 3</span>
             <h2>🛸 Deployment Strategy Canary</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Deployment Strategy Canary</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This guide explores implementing canary deployments in Kubernetes to safely introduce new changes while minimizing risk during production testing.</p>
-</blockquote>
+</div>
 <p>In this guide, we explore how to implement canary deployments in Kubernetes to safely introduce new changes. A canary deployment enables you to deploy a new version of your application alongside the current version while routing only a small percentage of traffic to the latest version. This approach minimizes risk while testing new features in production.</p>
 <p>Below you will find a detailed explanation of how to achieve this strategy using Kubernetes Deployments and Services.</p>
 <h2>Overview of the Canary Deployment Process</h2>
@@ -282,26 +423,26 @@ Use this file to discover all available pages before exploring further.</p>
 <li>Once testing is successful, upgrading the primary deployment to the new version and removing the canary deployment.</li>
 </ol>
 <p>Consider the following diagram that illustrates the traffic distribution, with roughly 83% of traffic directed to version v1 and 17% to version v2:</p>
-<pre><code>    &lt;figure class="img-frame"&gt;
-        &lt;img src="../assets/images/chapter6/Deployment-Strategy-Canary_frame_170.jpg" alt="The image illustrates a canary deployment strategy, routing 83% of traffic to version v1 and 17% to version v2 of a front-end app." loading="lazy"&gt;
-        &lt;figcaption&gt;The image illustrates a canary deployment strategy, routing 83% of traffic to version v1 and 17% to version v2 of a front-end app.&lt;/figcaption&gt;
-    &lt;/figure&gt;
-</code></pre>
+
+        <figure class="img-frame">
+            <img src="../assets/images/chapter6/Deployment-Strategy-Canary_frame_170.jpg" alt="The image illustrates a canary deployment strategy, routing 83% of traffic to version v1 and 17% to version v2 of a front-end app." loading="lazy">
+            <figcaption>The image illustrates a canary deployment strategy, routing 83% of traffic to version v1 and 17% to version v2 of a front-end app.</figcaption>
+        </figure>
+        
 <h2>Implementation Details</h2>
 <h3>Primary Deployment and Service</h3>
 <p>The primary version of the application is deployed using a Kubernetes Deployment. A corresponding Service directs traffic to the pods, which are marked with the label <code>app: front-end</code> to ensure correct routing.</p>
 <h3>Canary Deployment</h3>
 <p>A separate deployment is created for the canary version, which uses a new image (e.g., version 2.0) and labels the pods with <code>version: v2</code>. Although both deployments share the common label <code>app: front-end</code>, setting the canary deployment’s replica count to 1 ensures that only a minor portion of traffic is routed to the new version.</p>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>Keep in mind that the percentage of traffic routed to each version is directly influenced by the number of pod replicas. The inherent traffic distribution mechanism in Kubernetes spreads traffic evenly across all pods.</p>
-</blockquote>
+</div>
 <h3>Limitation</h3>
 <p>One limitation of this Kubernetes-only setup is that traffic distribution is solely determined by the number of pods in each deployment. For example, if you want an exact percentage split (e.g., precisely 1% to the canary), Kubernetes alone may not suffice unless you have a very high number of pods. For more granular control, consider using a service mesh like <a href="https://learn.kodekloud.com/user/courses/istio-service-mesh">Istio Service Mesh</a>, which allows for precise, percentage-based traffic routing regardless of pod count.</p>
 <h2>Code Example</h2>
 <p>Below are examples of Kubernetes configuration files to define your primary and canary deployments alongside a Service.</p>
-<p>```yaml  theme={null}</p>
-<h1>myapp-primary.yml</h1>
-<p>apiVersion: apps/v1
+<pre><code class="language-yaml"># myapp-primary.yml
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: myapp-primary
@@ -321,19 +462,19 @@ spec:
     spec:
       containers:
         - name: app-container
-          image: myapp-image:1.0</p>
-<hr />
-<h1>service-definition.yaml</h1>
-<p>apiVersion: v1
+          image: myapp-image:1.0
+---
+# service-definition.yaml
+apiVersion: v1
 kind: Service
 metadata:
   name: my-service
 spec:
   selector:
-    app: front-end</p>
-<hr />
-<h1>myapp-canary.yml</h1>
-<p>apiVersion: apps/v1
+    app: front-end
+---
+# myapp-canary.yml
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: myapp-canary
@@ -354,7 +495,7 @@ spec:
       containers:
         - name: app-container
           image: myapp-image:2.0
-```</p>
+</code></pre>
 <p>In this setup:</p>
 <ul class="styled-list">
 <li>The primary deployment (<code>myapp-primary.yml</code>) operates with five replicas of version v1.</li>
@@ -387,16 +528,18 @@ spec:
         <article class="lesson" id="lesson-4">
             <span class="lesson-number">الدرس 4</span>
             <h2>🛸 Jobs</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Jobs</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This article explores Kubernetes Jobs, their implementation, and how they differ from long-running workloads for batch processing tasks.</p>
-</blockquote>
+</div>
 <p>Welcome to this article on Kubernetes Jobs. In this guide, we’ll explore Jobs in Kubernetes and learn how they differ from long-running workloads. By the end, you’ll understand how to implement both simple operations and more complex batch processing tasks using Kubernetes Jobs.</p>
 <h2>Understanding Container Workloads</h2>
 <p>Containerized workloads are typically classified into two categories:</p>
@@ -407,21 +550,16 @@ Use this file to discover all available pages before exploring further.</p>
 <p>We'll start by examining how a simple workload behaves in Docker, and afterward, we’ll translate the concept into Kubernetes.</p>
 <h2>Simple Workload Example in Docker</h2>
 <p>When you run a Docker container tasked with a basic math operation—like adding two numbers—the container starts, performs the calculation, prints the output, and then exits. For example:</p>
-<p>```bash  theme={null}
-docker run ubuntu expr 3 + 2
+<pre><code class="language-bash">docker run ubuntu expr 3 + 2
 5
 docker ps -a
 CONTAINER ID        IMAGE               CREATED             STATUS                      PORTS
-45aacca36850        ubuntu              43 seconds ago      Exited (0) 41 seconds ago</p>
-<pre><code>
-In this case, the task completed successfully as indicated by a return code of zero.
-
-## Replicating the Task in Kubernetes
-
-To replicate the math addition in Kubernetes, you first need to create a pod definition file. When this pod is created, it launches a container that performs the computation and exits. Here is the pod definition:
-
-```yaml  theme={null}
-apiVersion: v1
+45aacca36850        ubuntu              43 seconds ago      Exited (0) 41 seconds ago
+</code></pre>
+<p>In this case, the task completed successfully as indicated by a return code of zero.</p>
+<h2>Replicating the Task in Kubernetes</h2>
+<p>To replicate the math addition in Kubernetes, you first need to create a pod definition file. When this pod is created, it launches a container that performs the computation and exits. Here is the pod definition:</p>
+<pre><code class="language-yaml">apiVersion: v1
 kind: Pod
 metadata:
   name: math-pod
@@ -432,26 +570,20 @@ spec:
     command: ['expr', '3', '+', '2']
 </code></pre>
 <p>Create the pod using:</p>
-<p>```bash  theme={null}
-kubectl create -f pod-definition.yaml</p>
-<pre><code>
-Check the pod status with:
-
-```bash  theme={null}
-kubectl get pods
+<pre><code class="language-bash">kubectl create -f pod-definition.yaml
+</code></pre>
+<p>Check the pod status with:</p>
+<pre><code class="language-bash">kubectl get pods
 NAME      READY   STATUS    RESTARTS   AGE
 math-pod  0/1     Running   0          1d
 </code></pre>
 <p>Even though the container finishes its task, Kubernetes will attempt to keep the pod running by default. After a short period, you will notice:</p>
-<p>```bash  theme={null}
-kubectl get pods
+<pre><code class="language-bash">kubectl get pods
 NAME       READY   STATUS      RESTARTS   AGE
-math-pod   0/1     Completed   3          1d</p>
-<pre><code>
-This is due to the default restart policy being set to Always. To prevent Kubernetes from restarting the container after the job finishes, override the restart policy by setting it to Never (or OnFailure, as needed):
-
-```yaml  theme={null}
-apiVersion: v1
+math-pod   0/1     Completed   3          1d
+</code></pre>
+<p>This is due to the default restart policy being set to Always. To prevent Kubernetes from restarting the container after the job finishes, override the restart policy by setting it to Never (or OnFailure, as needed):</p>
+<pre><code class="language-yaml">apiVersion: v1
 kind: Pod
 metadata:
   name: math-pod
@@ -462,14 +594,13 @@ spec:
     command: ['expr', '3', '+', '2']
   restartPolicy: Never
 </code></pre>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>Setting the restart policy to Never ensures that the pod does not restart automatically after the command has completed, which is ideal for one-off tasks.</p>
-</blockquote>
+</div>
 <h2>Introducing Jobs for Batch Processing</h2>
 <p>For batch processing or large-scale data tasks, you might need multiple pods working together concurrently. Unlike ReplicaSets, which ensure a certain number of pods remain running, Kubernetes Jobs are designed to run pods until the specified task is completed successfully.</p>
 <p>To create a Job, start with a job definition file that uses the API version <code>batch/v1</code> and kind <code>Job</code>. In the job specification, a template holds the pod definition. Here’s an example job definition that performs our math addition:</p>
-<p>```yaml  theme={null}
-apiVersion: batch/v1
+<pre><code class="language-yaml">apiVersion: batch/v1
 kind: Job
 metadata:
   name: math-add-job
@@ -480,37 +611,28 @@ spec:
       - name: math-add
         image: ubuntu
         command: ['expr', '3', '+', '2']
-      restartPolicy: Never</p>
-<pre><code>
-Create the job with:
-
-```bash  theme={null}
-kubectl create -f job-definition.yaml
+      restartPolicy: Never
+</code></pre>
+<p>Create the job with:</p>
+<pre><code class="language-bash">kubectl create -f job-definition.yaml
 </code></pre>
 <p>Verify the job creation and its completion status:</p>
-<p>```bash  theme={null}
-kubectl get jobs
+<pre><code class="language-bash">kubectl get jobs
 NAME          DESIRED   SUCCESSFUL   AGE
-math-add-job  1         1            38s</p>
-<pre><code>
-Fetch the pod created by the job:
-
-```bash  theme={null}
-kubectl get pods
+math-add-job  1         1            38s
+</code></pre>
+<p>Fetch the pod created by the job:</p>
+<pre><code class="language-bash">kubectl get pods
 NAME                     READY   STATUS      RESTARTS   AGE
 math-add-job-&lt;suffix&gt;    0/1     Completed   0          38s
 </code></pre>
 <p>The job remains in a completed state with zero restarts, indicating that Kubernetes did not attempt to restart the pod after a successful completion. You can view the output of the command inside the container using the <code>kubectl logs</code> command with the pod name.</p>
 <p>To delete the job along with its associated pods, run:</p>
-<p>```bash  theme={null}
-kubectl delete job math-add-job</p>
-<pre><code>
-## Running Multiple Pods with Job Completions
-
-In many real-world scenarios, you might require a job to run multiple pods simultaneously to process data in parallel or handle retries for failed operations. To run three pods for a single job, set the `completions` field to 3:
-
-```yaml  theme={null}
-apiVersion: batch/v1
+<pre><code class="language-bash">kubectl delete job math-add-job
+</code></pre>
+<h2>Running Multiple Pods with Job Completions</h2>
+<p>In many real-world scenarios, you might require a job to run multiple pods simultaneously to process data in parallel or handle retries for failed operations. To run three pods for a single job, set the <code>completions</code> field to 3:</p>
+<pre><code class="language-yaml">apiVersion: batch/v1
 kind: Job
 metadata:
   name: math-add-job
@@ -525,16 +647,13 @@ spec:
       restartPolicy: Never
 </code></pre>
 <p>After creating the job:</p>
-<p>```bash  theme={null}
-kubectl create -f job-definition.yaml
+<pre><code class="language-bash">kubectl create -f job-definition.yaml
 kubectl get jobs
 NAME            DESIRED   SUCCESSFUL   AGE
-math-add-job    3         1            38s</p>
-<pre><code>
-And checking the pod status:
-
-```bash  theme={null}
-kubectl get pods
+math-add-job    3         1            38s
+</code></pre>
+<p>And checking the pod status:</p>
+<pre><code class="language-bash">kubectl get pods
 NAME                     READY   STATUS      RESTARTS   AGE
 math-add-job-25j9p       0/1     Completed   0          2m
 math-add-job-87g4m       0/1     Completed   0          2m
@@ -544,8 +663,7 @@ math-add-job-ds295       0/1     Completed   0          2m
 <h2>Handling Failures with Jobs</h2>
 <p>Consider a scenario where you use an image like <code>kodekloud/random-error</code> that randomly either completes successfully or fails. In such cases, if one pod fails, Kubernetes will create another pod until it achieves the specified number of successful completions.</p>
 <p>Here is an example job definition to handle this scenario:</p>
-<p>```yaml  theme={null}
-apiVersion: batch/v1
+<pre><code class="language-yaml">apiVersion: batch/v1
 kind: Job
 metadata:
   name: random-error-job
@@ -556,23 +674,18 @@ spec:
       containers:
       - name: random-error
         image: kodekloud/random-error
-      restartPolicy: Never</p>
-<pre><code>
-Create the job:
-
-```bash  theme={null}
-kubectl create -f job-definition.yaml
+      restartPolicy: Never
+</code></pre>
+<p>Create the job:</p>
+<pre><code class="language-bash">kubectl create -f job-definition.yaml
 </code></pre>
 <p>Check the job status:</p>
-<p>```bash  theme={null}
-kubectl get jobs
+<pre><code class="language-bash">kubectl get jobs
 NAME               DESIRED   SUCCESSFUL   AGE
-random-error-job   3         2            38s</p>
-<pre><code>
-And review the pods:
-
-```bash  theme={null}
-kubectl get pods
+random-error-job   3         2            38s
+</code></pre>
+<p>And review the pods:</p>
+<pre><code class="language-bash">kubectl get pods
 NAME                     READY   STATUS     RESTARTS
 random-error-job-ktmtt   0/1     Completed  0
 random-error-job-sdsrf   0/1     Error      0
@@ -581,8 +694,7 @@ random-error-job-wwqbn   0/1     Completed  0
 <p>Kubernetes continues to create new pods until three pods complete successfully.</p>
 <h2>Running Pods in Parallel with Jobs</h2>
 <p>For scenarios where you want the pods to run concurrently, you can set the <code>parallelism</code> property. This allows multiple pods to be created simultaneously. For example, to run up to three pods in parallel:</p>
-<p>```yaml  theme={null}
-apiVersion: batch/v1
+<pre><code class="language-yaml">apiVersion: batch/v1
 kind: Job
 metadata:
   name: random-error-job
@@ -594,32 +706,27 @@ spec:
       containers:
       - name: random-error
         image: kodekloud/random-error
-      restartPolicy: Never</p>
-<pre><code>
-Create the job with:
-
-```bash  theme={null}
-kubectl create -f job-definition.yaml
+      restartPolicy: Never
+</code></pre>
+<p>Create the job with:</p>
+<pre><code class="language-bash">kubectl create -f job-definition.yaml
 </code></pre>
 <p>Check the job status:</p>
-<p>```bash  theme={null}
-kubectl get jobs
+<pre><code class="language-bash">kubectl get jobs
 NAME                DESIRED   SUCCESSFUL   AGE
-random-error-job    3         2            38s</p>
-<pre><code>
-And inspect the pods:
-
-```bash  theme={null}
-kubectl get pods
+random-error-job    3         2            38s
+</code></pre>
+<p>And inspect the pods:</p>
+<pre><code class="language-bash">kubectl get pods
 NAME                       READY   STATUS      RESTARTS
 random-error-job-ktmtt     0/1     Completed   0
 random-error-job-sdsrf     0/1     Error       0
 random-error-job-wwqbn     0/1     Completed   0
 </code></pre>
 <p>Kubernetes will intelligently create new pods as necessary until all three completions are successful.</p>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>Kubernetes Jobs are ideal for managing batch tasks where tasks must complete successfully before termination. They allow for sequential or parallel pod execution and include robust failure handling.</p>
-</blockquote>
+</div>
 <p>This concludes our article on Kubernetes Jobs. Try these examples yourself to reinforce your understanding, and explore further to see how Jobs can help you manage batch processing in Kubernetes effectively. Happy learning!</p>
 <p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/c44b5e7c-5854-4c65-87bf-7e07cb026e71/lesson/ecf1fd5a-3851-4d21-93c7-850cc652b61f" /></p>
             </div>
@@ -637,40 +744,44 @@ random-error-job-wwqbn     0/1     Completed   0
         <article class="lesson" id="lesson-5">
             <span class="lesson-number">الدرس 5</span>
             <h2>🛸 Labels Selectors Annotations</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Labels Selectors Annotations</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This article explores how Kubernetes uses labels, selectors, and annotations to organize and manage objects within a cluster.</p>
-</blockquote>
+</div>
 <p>Hello and welcome! I'm Mumshad Mannambeth, and in this article we explore how Kubernetes leverages labels, selectors, and annotations to efficiently organize and manage objects within a cluster. Understanding these concepts is crucial for maintaining large-scale, dynamic environments.</p>
 <p>Labels and selectors offer a systematic approach for grouping and filtering objects. Think of them like product filters in an online store or YouTube video tags; you attach specific properties (labels) to each item and then use selectors to filter items based on those properties. This helps when you want to narrow down a collection—for instance, filtering for green animals or green birds from a larger set.</p>
 <p>In Kubernetes, objects such as Pods, Services, ReplicaSets, and Deployments are often created simultaneously. Over time, as clusters grow to include hundreds or thousands of these objects, using labels and selectors to group and locate them by attributes like type, application, or functionality is essential.</p>
-<pre><code>    &lt;figure class="img-frame"&gt;
-        &lt;img src="../assets/images/chapter6/Labels-Selectors-Annotations_frame_120.jpg" alt="The image shows various colorful shapes and patterns under the title "Labels &amp; Selectors in Kubernetes."" loading="lazy"&gt;
-        &lt;figcaption&gt;The image shows various colorful shapes and patterns under the title "Labels &amp; Selectors in Kubernetes."&lt;/figcaption&gt;
-    &lt;/figure&gt;
-</code></pre>
+
+        <figure class="img-frame">
+            <img src="../assets/images/chapter6/Labels-Selectors-Annotations_frame_120.jpg" alt="The image shows various colorful shapes and patterns under the title "Labels &amp; Selectors in Kubernetes."" loading="lazy">
+            <figcaption>The image shows various colorful shapes and patterns under the title "Labels &amp; Selectors in Kubernetes."</figcaption>
+        </figure>
+        
 <p>For each Kubernetes object, you can attach labels (e.g., app, function, etc.). When selecting objects, you define a condition—such as app equals "App1"—to filter exactly the objects you need.</p>
-<pre><code>    &lt;figure class="img-frame"&gt;
-        &lt;img src="../assets/images/chapter6/Labels-Selectors-Annotations_frame_150.jpg" alt="The image illustrates "Labels &amp; Selectors in Kubernetes" using various colored shapes representing different applications (APP1 to APP5)." loading="lazy"&gt;
-        &lt;figcaption&gt;The image illustrates "Labels &amp; Selectors in Kubernetes" using various colored shapes representing different applications (APP1 to APP5).&lt;/figcaption&gt;
-    &lt;/figure&gt;
-</code></pre>
+
+        <figure class="img-frame">
+            <img src="../assets/images/chapter6/Labels-Selectors-Annotations_frame_150.jpg" alt="The image illustrates "Labels &amp; Selectors in Kubernetes" using various colored shapes representing different applications (APP1 to APP5)." loading="lazy">
+            <figcaption>The image illustrates "Labels &amp; Selectors in Kubernetes" using various colored shapes representing different applications (APP1 to APP5).</figcaption>
+        </figure>
+        
 <p>Consider the following diagram that demonstrates how you can label objects with attributes like "Front-end," "Auth," and "DB" and then filter them accordingly:</p>
-<pre><code>    &lt;figure class="img-frame"&gt;
-        &lt;img src="../assets/images/chapter6/Labels-Selectors-Annotations_frame_170.jpg" alt="The image shows a diagram with labeled shapes representing different applications and their functions, such as "Front-end," "Auth," and "DB."" loading="lazy"&gt;
-        &lt;figcaption&gt;The image shows a diagram with labeled shapes representing different applications and their functions, such as "Front-end," "Auth," and "DB."&lt;/figcaption&gt;
-    &lt;/figure&gt;
-</code></pre>
+
+        <figure class="img-frame">
+            <img src="../assets/images/chapter6/Labels-Selectors-Annotations_frame_170.jpg" alt="The image shows a diagram with labeled shapes representing different applications and their functions, such as "Front-end," "Auth," and "DB."" loading="lazy">
+            <figcaption>The image shows a diagram with labeled shapes representing different applications and their functions, such as "Front-end," "Auth," and "DB."</figcaption>
+        </figure>
+        
 <h2>Specifying Labels in Kubernetes</h2>
 <p>Labels are specified in a Pod definition file under the metadata section as key-value pairs. For example:</p>
-<p>```yaml  theme={null}
-apiVersion: v1
+<pre><code class="language-yaml">apiVersion: v1
 kind: Pod
 metadata:
   name: simple-webapp
@@ -682,24 +793,18 @@ spec:
   - name: simple-webapp
     image: simple-webapp
     ports:
-    - containerPort: 8080</p>
-<pre><code>
-Once the Pod is created, use the following command to select it based on its label:
-
-```bash  theme={null}
-kubectl get pods --selector app=App1
+    - containerPort: 8080
+</code></pre>
+<p>Once the Pod is created, use the following command to select it based on its label:</p>
+<pre><code class="language-bash">kubectl get pods --selector app=App1
 </code></pre>
 <p>The output might look similar to:</p>
-<p>```bash  theme={null}
-NAME            READY   STATUS      RESTARTS   AGE
-simple-webapp   0/1     Completed   0          1d</p>
-<pre><code>
-## Using Labels and Selectors with ReplicaSets
-
-Kubernetes objects use labels and selectors to form relationships. For instance, when deploying a ReplicaSet that manages multiple Pods, each Pod's definition includes labels that the ReplicaSet uses to identify and manage them. See the example below of a ReplicaSet definition:
-
-```yaml  theme={null}
-apiVersion: apps/v1
+<pre><code class="language-bash">NAME            READY   STATUS      RESTARTS   AGE
+simple-webapp   0/1     Completed   0          1d
+</code></pre>
+<h2>Using Labels and Selectors with ReplicaSets</h2>
+<p>Kubernetes objects use labels and selectors to form relationships. For instance, when deploying a ReplicaSet that manages multiple Pods, each Pod's definition includes labels that the ReplicaSet uses to identify and manage them. See the example below of a ReplicaSet definition:</p>
+<pre><code class="language-yaml">apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
   name: simple-webapp
@@ -723,21 +828,21 @@ spec:
       - name: simple-webapp
         image: simple-webapp
 </code></pre>
-<blockquote>
-<p>In the ReplicaSet configuration above:
-* The labels in the ReplicaSet <code>metadata</code> describe its properties.
-* The <code>selector</code> matches the Pods based on labels.
-* The labels in the Pod template (<code>metadata.labels</code>) specify which Pods the ReplicaSet should manage.
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
+<p>In the ReplicaSet configuration above:<br />
+* The labels in the ReplicaSet <code>metadata</code> describe its properties.<br />
+* The <code>selector</code> matches the Pods based on labels.<br />
+* The labels in the Pod template (<code>metadata.labels</code>) specify which Pods the ReplicaSet should manage.<br />
 * Annotations, like <code>buildversion: "1.34"</code>, are used for storing metadata that does not affect selection.</p>
-</blockquote>
+</div>
 <p>Beginners often confuse the labels on the ReplicaSet with those on the Pods. Remember, the ReplicaSet’s <code>selector</code> is key—it connects the ReplicaSet to the corresponding Pods based on matching labels. Using a single common label (e.g., <code>app: App1</code>) will cause the ReplicaSet to manage only those Pods. For finer control, additional labels can be added to avoid unintentional matches.</p>
 <p>Whenever other objects (such as Services) need to identify these Pods, they use selectors that match the labels assigned directly to the Pods.</p>
 <h2>Understanding Annotations</h2>
 <p>While labels and selectors are used for grouping and selection, annotations are designed for storing non-identifying metadata. This metadata might include tool information, version numbers, build details, or contact information. Annotations provide additional context for integrations, debugging, and information sharing without affecting how objects are grouped or selected.</p>
 <p>In our ReplicaSet example, the annotation <code>buildversion: "1.34"</code> demonstrates how version-specific metadata can be coupled with object definitions.</p>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>Annotations are especially useful for external systems or processes that require insight into the object's metadata without impacting the operational logic in Kubernetes.</p>
-</blockquote>
+</div>
 <p>That concludes our comprehensive review of labels, selectors, and annotations. Practice these concepts to enhance your expertise on how Kubernetes organizes and manages its objects.</p>
 <p>For further reading, visit the following resources:</p>
 <ul class="styled-list">
@@ -763,33 +868,33 @@ spec:
         <article class="lesson" id="lesson-6">
             <span class="lesson-number">الدرس 6</span>
             <h2>🛸 Rolling Updates Rollbacks</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Rolling Updates Rollbacks</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This article explains how to manage updates and rollbacks in Kubernetes deployments, covering rollout strategies, commands, and processes for minimal downtime.</p>
-</blockquote>
+</div>
 <p>Welcome to this comprehensive guide on how updates and rollbacks work within a Kubernetes deployment. In this article, we will explore the concepts of rollouts, versioning, and deployment strategies, empowering you to manage application upgrades with minimal downtime.</p>
 <p>When you create a deployment, Kubernetes triggers an initial rollout, creating the first deployment revision (revision one). Later, when you update your application—for example, by changing the container image version—a new rollout occurs and a new deployment revision (revision two) is generated. This mechanism enables tracking changes and facilitates rolling back to a previous stable version if needed.</p>
-<pre><code>    &lt;figure class="img-frame"&gt;
-        &lt;img src="../assets/images/chapter6/Rolling-Updates-Rollbacks_frame_40.jpg" alt="The image illustrates a rollout and versioning process, showing two revisions of nginx versions 1.7.0 and 1.7.1, with corresponding icons." loading="lazy"&gt;
-        &lt;figcaption&gt;The image illustrates a rollout and versioning process, showing two revisions of nginx versions 1.7.0 and 1.7.1, with corresponding icons.&lt;/figcaption&gt;
-    &lt;/figure&gt;
-</code></pre>
-<blockquote>
-<p><strong>Tip:</strong> Use the following command to view the status of your rollout:</p>
-</blockquote>
-<p>```bash  theme={null}
-kubectl rollout status deployment/myapp-deployment</p>
-<pre><code>
-The command output will be similar to:
 
-```bash  theme={null}
-Waiting for rollout to finish: 0 of 10 updated replicas are available...
+        <figure class="img-frame">
+            <img src="../assets/images/chapter6/Rolling-Updates-Rollbacks_frame_40.jpg" alt="The image illustrates a rollout and versioning process, showing two revisions of nginx versions 1.7.0 and 1.7.1, with corresponding icons." loading="lazy">
+            <figcaption>The image illustrates a rollout and versioning process, showing two revisions of nginx versions 1.7.0 and 1.7.1, with corresponding icons.</figcaption>
+        </figure>
+        
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
+<p><strong>Tip:</strong> Use the following command to view the status of your rollout:</p>
+</div>
+<pre><code class="language-bash">kubectl rollout status deployment/myapp-deployment
+</code></pre>
+<p>The command output will be similar to:</p>
+<pre><code class="language-bash">Waiting for rollout to finish: 0 of 10 updated replicas are available...
 Waiting for rollout to finish: 1 of 10 updated replicas are available...
 Waiting for rollout to finish: 2 of 10 updated replicas are available...
 Waiting for rollout to finish: 3 of 10 updated replicas are available...
@@ -802,48 +907,38 @@ Waiting for rollout to finish: 9 of 10 updated replicas are available...
 deployment &quot;myapp-deployment&quot; successfully rolled out
 </code></pre>
 <p>To review the revision history of your deployment, run:</p>
-<p>```bash  theme={null}
-kubectl rollout history deployment/myapp-deployment</p>
-<pre><code>
-## Deployment Strategies
+<pre><code class="language-bash">kubectl rollout history deployment/myapp-deployment
+</code></pre>
+<h2>Deployment Strategies</h2>
+<p>Kubernetes supports two primary deployment strategies:</p>
+<ol>
+<li><strong>Recreate Strategy</strong></li>
+</ol>
+<p>With the recreate strategy, if you have, for example, five replicas, all replicas are terminated and then replaced with new ones running the updated version. The main drawback is potential downtime, as the application is temporarily unavailable.</p>
+<ol start="2">
+<li><strong>Rolling Update Strategy</strong></li>
+</ol>
+<p>The rolling update strategy gradually replaces the old version with the new one by updating replicas one at a time. This ensures continuous application availability during the upgrade. Note that Kubernetes uses the rolling update strategy by default when no specific strategy is configured.</p>
+<p>The diagram below visually compares the two strategies:</p>
 
-Kubernetes supports two primary deployment strategies:
-
-1. **Recreate Strategy**
-
-   With the recreate strategy, if you have, for example, five replicas, all replicas are terminated and then replaced with new ones running the updated version. The main drawback is potential downtime, as the application is temporarily unavailable.
-
-2. **Rolling Update Strategy**
-
-   The rolling update strategy gradually replaces the old version with the new one by updating replicas one at a time. This ensures continuous application availability during the upgrade. Note that Kubernetes uses the rolling update strategy by default when no specific strategy is configured.
-
-The diagram below visually compares the two strategies:
-
-
-        &lt;figure class=&quot;img-frame&quot;&gt;
-            &lt;img src=&quot;../assets/images/chapter6/Rolling-Updates-Rollbacks_frame_150.jpg&quot; alt=&quot;The image illustrates two deployment strategies, &quot;Recreate&quot; and &quot;Rolling Update,&quot; showing the transition from nginx:1.7.0 to nginx:1.7.1 with application downtime in &quot;Recreate.&quot;&quot; loading=&quot;lazy&quot;&gt;
-            &lt;figcaption&gt;The image illustrates two deployment strategies, &quot;Recreate&quot; and &quot;Rolling Update,&quot; showing the transition from nginx:1.7.0 to nginx:1.7.1 with application downtime in &quot;Recreate.&quot;&lt;/figcaption&gt;
-        &lt;/figure&gt;
-
-
-## Updating a Deployment
-
-There are multiple methods to update your deployment. You can update the container image version, modify labels, or adjust the number of replicas. If you are using a deployment definition file, simply modify the file and apply the update:
-
-```bash  theme={null}
-kubectl apply -f deployment-definition.yml
+        <figure class="img-frame">
+            <img src="../assets/images/chapter6/Rolling-Updates-Rollbacks_frame_150.jpg" alt="The image illustrates two deployment strategies, "Recreate" and "Rolling Update," showing the transition from nginx:1.7.0 to nginx:1.7.1 with application downtime in "Recreate."" loading="lazy">
+            <figcaption>The image illustrates two deployment strategies, "Recreate" and "Rolling Update," showing the transition from nginx:1.7.0 to nginx:1.7.1 with application downtime in "Recreate."</figcaption>
+        </figure>
+        
+<h2>Updating a Deployment</h2>
+<p>There are multiple methods to update your deployment. You can update the container image version, modify labels, or adjust the number of replicas. If you are using a deployment definition file, simply modify the file and apply the update:</p>
+<pre><code class="language-bash">kubectl apply -f deployment-definition.yml
 </code></pre>
 <p>This triggers a new rollout and creates a new deployment revision.</p>
 <p>Alternatively, update just the container image with:</p>
-<p>```bash  theme={null}
-kubectl set image deployment/myapp-deployment nginx=nginx:1.9.1</p>
-<pre><code>
-&gt; **Caution:** Updating with `kubectl set image` modifies the running configuration, which may differ from the file-based configuration. Remember to update your deployment definition file accordingly.
-
-Below is an example deployment definition file after updating the container image version:
-
-```yaml  theme={null}
-apiVersion: apps/v1
+<pre><code class="language-bash">kubectl set image deployment/myapp-deployment nginx=nginx:1.9.1
+</code></pre>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
+<p><strong>Caution:</strong> Updating with <code>kubectl set image</code> modifies the running configuration, which may differ from the file-based configuration. Remember to update your deployment definition file accordingly.</p>
+</div>
+<p>Below is an example deployment definition file after updating the container image version:</p>
+<pre><code class="language-yaml">apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: myapp-deployment
@@ -869,13 +964,10 @@ spec:
 <h2>Examining Deployment Details</h2>
 <p>Describing your deployment provides insights into the underlying processes and differences between deployment strategies.</p>
 <p>When using the recreate strategy, the old ReplicaSet scales down to zero before the new one scales up. Run:</p>
-<p>```bash  theme={null}
-kubectl describe deployment myapp-deployment</p>
-<pre><code>
-You might see output similar to:
-
-```plaintext  theme={null}
-Name:                   myapp-deployment
+<pre><code class="language-bash">kubectl describe deployment myapp-deployment
+</code></pre>
+<p>You might see output similar to:</p>
+<pre><code class="language-plaintext">Name:                   myapp-deployment
 Namespace:              default
 CreationTimestamp:      Sat, 03 Mar 2018 17:01:55 +0000
 Labels:                 app=myapp
@@ -907,13 +999,10 @@ Events:
   Normal  ScalingReplicaSet  56s   deployment-controller Scaled up replica set myapp-deployment-54c76dccc to 5
 </code></pre>
 <p>For the rolling update strategy, the output indicates that the old ReplicaSet reduces gradually as the new one scales up:</p>
-<p>```bash  theme={null}
-kubectl describe deployment myapp-deployment</p>
-<pre><code>
-This produces an output similar to:
-
-```plaintext  theme={null}
-Name:                   myapp-deployment
+<pre><code class="language-bash">kubectl describe deployment myapp-deployment
+</code></pre>
+<p>This produces an output similar to:</p>
+<pre><code class="language-plaintext">Name:                   myapp-deployment
 Namespace:              default
 CreationTimestamp:      Sat, 03 Mar 2018 17:16:53 +0800
 Labels:                 app=myapp
@@ -949,38 +1038,29 @@ Events:
 <p>The rolling update strategy preserves application availability by gradually transitioning from the old to the new ReplicaSet.</p>
 <h2>Understanding the Underlying Process</h2>
 <p>When you create a deployment (for example, with five replicas), Kubernetes automatically creates a ReplicaSet that manages the corresponding pods. During an upgrade, a new ReplicaSet is created for the updated configuration while the old ReplicaSet gradually terminates its pods. You can monitor these changes by running:</p>
-<p>```bash  theme={null}
-kubectl get replicasets</p>
-<pre><code>
-This command displays both the old ReplicaSet (with zero pods) and the new ReplicaSet with the desired number of pods. If issues arise with the new release, Kubernetes allows you to roll back to the previous revision.
-
-To perform a rollback, use:
-
-```bash  theme={null}
-kubectl rollout undo deployment/myapp-deployment
+<pre><code class="language-bash">kubectl get replicasets
+</code></pre>
+<p>This command displays both the old ReplicaSet (with zero pods) and the new ReplicaSet with the desired number of pods. If issues arise with the new release, Kubernetes allows you to roll back to the previous revision.</p>
+<p>To perform a rollback, use:</p>
+<pre><code class="language-bash">kubectl rollout undo deployment/myapp-deployment
 </code></pre>
 <p>This command terminates the pods in the new ReplicaSet and restores the previous stable version. Compare the ReplicaSet status before and after the rollback:</p>
 <p>Before rollback:</p>
-<p>```bash  theme={null}
-kubectl get replicasets
+<pre><code class="language-bash">kubectl get replicasets
 NAME                        DESIRED   CURRENT   READY   AGE
 myapp-deployment-67c749c58c  0         0         0       22m
-myapp-deployment-7d57dbd8d   5         5         5       20m</p>
-<pre><code>
-After rollback:
-
-```bash  theme={null}
-kubectl get replicasets
+myapp-deployment-7d57dbd8d   5         5         5       20m
+</code></pre>
+<p>After rollback:</p>
+<pre><code class="language-bash">kubectl get replicasets
 NAME                        DESIRED   CURRENT   READY   AGE
 myapp-deployment-67c749c58c  5         5         5       22m
 myapp-deployment-7d57dbd8d   0         0         0       20m
 </code></pre>
 <p>When you run the undo command, you should see:</p>
-<p>```bash  theme={null}
-kubectl rollout undo deployment/myapp-deployment</p>
-<pre><code>
-```plaintext  theme={null}
-deployment &quot;myapp-deployment&quot; rolled back
+<pre><code class="language-bash">kubectl rollout undo deployment/myapp-deployment
+</code></pre>
+<pre><code class="language-plaintext">deployment &quot;myapp-deployment&quot; rolled back
 </code></pre>
 <h2>Quick Reference Summary</h2>
 <p>Below is a summary of the key commands used to create, update, monitor, and roll back your deployments:</p>
@@ -1019,11 +1099,12 @@ deployment &quot;myapp-deployment&quot; rolled back
 </tbody>
 </table>
 <p>By mastering both the recreate and rolling update strategies along with the associated commands, you can effectively manage your Kubernetes deployments and minimize downtime during application updates.</p>
-<pre><code>    &lt;figure class="img-frame"&gt;
-        &lt;img src="../assets/images/chapter6/Rolling-Updates-Rollbacks_frame_300.jpg" alt="The image illustrates a Kubernetes deployment upgrade, showing two replica sets with pods, indicating a transition from one set to another." loading="lazy"&gt;
-        &lt;figcaption&gt;The image illustrates a Kubernetes deployment upgrade, showing two replica sets with pods, indicating a transition from one set to another.&lt;/figcaption&gt;
-    &lt;/figure&gt;
-</code></pre>
+
+        <figure class="img-frame">
+            <img src="../assets/images/chapter6/Rolling-Updates-Rollbacks_frame_300.jpg" alt="The image illustrates a Kubernetes deployment upgrade, showing two replica sets with pods, indicating a transition from one set to another." loading="lazy">
+            <figcaption>The image illustrates a Kubernetes deployment upgrade, showing two replica sets with pods, indicating a transition from one set to another.</figcaption>
+        </figure>
+        
 <p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/c44b5e7c-5854-4c65-87bf-7e07cb026e71/lesson/e345d998-2d41-477d-b388-1f34615504c8" /></p>
             </div>
             
@@ -1040,16 +1121,18 @@ deployment &quot;myapp-deployment&quot; rolled back
         <article class="lesson" id="lesson-7">
             <span class="lesson-number">الدرس 7</span>
             <h2>🛸 Solution Deployment strategies</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Solution Deployment strategies</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This article reviews deployment strategies, service verification, and traffic management for safe application rollouts.</p>
-</blockquote>
+</div>
 <p>In this lesson, we will review the deployment strategies used in our lab exercise. This guide details how to identify the deployment strategy, verify service configurations, and gradually shift traffic between application versions for a safe rollout.</p>
 <hr />
 <h2>Question 1: Identify the Deployment Strategy</h2>
@@ -1057,14 +1140,14 @@ Use this file to discover all available pages before exploring further.</p>
 <ol>
 <li>List all deployments by running:</li>
 </ol>
-<p><code>bash  theme={null}
+<p><code>bash 
    root@controlplane ~ ➜ kubectl get deployments
    NAME      READY   UP-TO-DATE   AVAILABLE   AGE
    frontend  5/5     5            5           30s</code></p>
-<ol>
+<ol start="2">
 <li>Next, inspect the details of the "frontend" deployment to check its strategy:</li>
 </ol>
-<p><code>bash  theme={null}
+<p><code>bash 
    root@controlplane ~ ➜ kubectl describe deployment frontend
    Name:                   frontend
    Namespace:              default
@@ -1097,15 +1180,15 @@ Use this file to discover all available pages before exploring further.</p>
 <ol>
 <li>List the services:</li>
 </ol>
-<p><code>bash  theme={null}
+<p><code>bash 
    root@controlplane ~ ➜ kubectl get service
    NAME                TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)            AGE
    frontend-service    NodePort       10.97.89.251   &lt;none&gt;        8080:30080/TCP    65s
    kubernetes          ClusterIP      10.96.0.1      &lt;none&gt;        443/TCP           16m</code></p>
-<ol>
+<ol start="2">
 <li>Describe the service to inspect its configuration:</li>
 </ol>
-<p><code>bash  theme={null}
+<p><code>bash 
    root@controlplane ~ ➜ kubectl describe service frontend-service
    Name:                     frontend-service
    Namespace:                default
@@ -1119,31 +1202,31 @@ Use this file to discover all available pages before exploring further.</p>
 <hr />
 <h2>Question 3: Accessing the Web Application</h2>
 <p>To confirm that the web application is running, click the web app button provided in the interface. This step verifies that the application is accessible and functioning as expected.</p>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>Reload the web application multiple times to observe consistency in responses from the running version.</p>
-</blockquote>
+</div>
 <hr />
 <h2>Question 4: Traffic Splitting with a New Deployment</h2>
 <p>A new deployment, <strong>frontend-v2</strong>, has been created in the default namespace with an updated image. The goal is to divert less than 20% of traffic to this new version, while keeping the total number of pods unchanged.</p>
 <ol>
 <li>Verify both deployments:</li>
 </ol>
-<p><code>bash  theme={null}
+<p><code>bash 
    root@controlplane ~ ➜ kubectl get deployments
    NAME           READY   UP-TO-DATE   AVAILABLE   AGE
    frontend       5/5     5            5           2m43s
    frontend-v2    2/2     2            2           35s</code></p>
 <p>With the same selector (<code>app=frontend</code>), traffic is balanced across 7 pods (5 for <strong>frontend</strong> and 2 for <strong>frontend-v2</strong>), meaning <strong>frontend-v2</strong> receives approximately 28% of the traffic.</p>
-<ol>
+<ol start="2">
 <li>To reduce the traffic to about 16.7%, scale down <strong>frontend-v2</strong> to 1 replica:</li>
 </ol>
-<p><code>bash  theme={null}
+<p><code>bash 
    root@controlplane ~ ➜ kubectl scale deployment --replicas=1 frontend-v2
    deployment.apps/frontend-v2 scaled</code></p>
-<ol>
+<ol start="3">
 <li>Confirm the change:</li>
 </ol>
-<p><code>bash  theme={null}
+<p><code>bash 
    root@controlplane ~ ➜ kubectl get deployments
    NAME           READY   UP-TO-DATE   AVAILABLE   AGE
    frontend       5/5     5            5           4m52s
@@ -1155,38 +1238,39 @@ Use this file to discover all available pages before exploring further.</p>
 <ol>
 <li>Scale down the original <strong>frontend</strong> deployment:</li>
 </ol>
-<p><code>bash  theme={null}
+<p><code>bash 
    root@controlplane ~ ➜ kubectl scale deployment --replicas=0 frontend
    deployment.apps/frontend scaled</code></p>
-<ol>
+<ol start="2">
 <li>Scale up the <strong>frontend-v2</strong> deployment to handle all traffic:</li>
 </ol>
-<p><code>bash  theme={null}
+<p><code>bash 
    root@controlplane ~ ➜ kubectl scale deployment --replicas=5 frontend-v2
    deployment.apps/frontend-v2 scaled</code></p>
-<ol>
+<ol start="3">
 <li>Verify the updates:</li>
 </ol>
-<p><code>bash  theme={null}
+<p><code>bash 
    root@controlplane ~ ➜ kubectl get deployments
    NAME           READY   UP-TO-DATE   AVAILABLE   AGE
    frontend       0/0     0            0           4m52s
    frontend-v2    5/5     5            5           2m44s</code></p>
-<ol>
+<ol start="4">
 <li>Finally, remove the old <strong>frontend</strong> deployment entirely:</li>
 </ol>
-<p><code>bash  theme={null}
+<p><code>bash 
    root@controlplane ~ ➜ kubectl delete deployment frontend</code></p>
 <p>After reloading the application tab, only version 2 of the application should be active.</p>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>Ensure that your testing confirms the new deployment is stable before fully decommissioning the original version.</p>
-</blockquote>
+</div>
 <hr />
-<pre><code>    &lt;figure class="img-frame"&gt;
-        &lt;img src="../assets/images/chapter6/Solution-Deployment-strategies_frame_340.jpg" alt="The image shows a green background with text displaying "Hello from frontend-v2-69d77d4d95-xgwj4!" and "Application Version: v2" in white." loading="lazy"&gt;
-        &lt;figcaption&gt;The image shows a green background with text displaying "Hello from frontend-v2-69d77d4d95-xgwj4!" and "Application Version: v2" in white.&lt;/figcaption&gt;
-    &lt;/figure&gt;
-</code></pre>
+
+        <figure class="img-frame">
+            <img src="../assets/images/chapter6/Solution-Deployment-strategies_frame_340.jpg" alt="The image shows a green background with text displaying "Hello from frontend-v2-69d77d4d95-xgwj4!" and "Application Version: v2" in white." loading="lazy">
+            <figcaption>The image shows a green background with text displaying "Hello from frontend-v2-69d77d4d95-xgwj4!" and "Application Version: v2" in white.</figcaption>
+        </figure>
+        
 <p>This successful adjustment in the deployment strategy confirms that all user traffic is now routed to version 2 of the web application.</p>
 <p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/c44b5e7c-5854-4c65-87bf-7e07cb026e71/lesson/2c217fe1-d916-42f0-b627-44f8a31028dd" /></p>
             </div>
@@ -1204,30 +1288,30 @@ Use this file to discover all available pages before exploring further.</p>
         <article class="lesson" id="lesson-8">
             <span class="lesson-number">الدرس 8</span>
             <h2>🛸 Solution Jobs and Cronjobs optional</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Solution Jobs and Cronjobs optional</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This article explains how to deploy a pod, create and update a Job, run jobs in parallel, and set up a CronJob in Kubernetes.</p>
-</blockquote>
+</div>
 <p>In this lesson, we will walk through a series of steps to deploy a pod, create and update a Job, run jobs in parallel, and set up a CronJob in Kubernetes. Follow along to see how each component is implemented.</p>
 <p>─────────────────────────────</p>
 <h2>1. Deploying the Pod</h2>
 <p>We begin with a pod definition in the file <strong>throw-dice-pod.yaml</strong>. This pod runs a container using the <code>kodekloud/throw-dice</code> image. The container randomly generates a number between one and six. Here, a six indicates success while any other number signals failure. Our goal is to deploy the pod and review its logs to inspect the generated number.</p>
 <p>First, list the file and preview its contents:</p>
-<p>```bash  theme={null}
-root@controlplane ~ ➜ ls
-throw-dice-pod.yaml</p>
-<p>root@controlplane ~ ➜ cat throw-dice-pod.yaml</p>
-<pre><code>
-The contents of **throw-dice-pod.yaml** are as follows:
+<pre><code class="language-bash">root@controlplane ~ ➜ ls
+throw-dice-pod.yaml
 
-```yaml  theme={null}
-apiVersion: v1
+root@controlplane ~ ➜ cat throw-dice-pod.yaml
+</code></pre>
+<p>The contents of <strong>throw-dice-pod.yaml</strong> are as follows:</p>
+<pre><code class="language-yaml">apiVersion: v1
 kind: Pod
 metadata:
   name: throw-dice-pod
@@ -1238,22 +1322,16 @@ spec:
   restartPolicy: Never
 </code></pre>
 <p>Deploy the pod using:</p>
-<p>```bash  theme={null}
-kubectl apply -f throw-dice-pod.yaml</p>
-<pre><code>
-Then, check the pod's status:
-
-```bash  theme={null}
-kubectl get pod
+<pre><code class="language-bash">kubectl apply -f throw-dice-pod.yaml
+</code></pre>
+<p>Then, check the pod's status:</p>
+<pre><code class="language-bash">kubectl get pod
 </code></pre>
 <p>If the pod status shows <strong>Error</strong>, it means the container generated a number other than six. Verify the result by inspecting the logs:</p>
-<p>```bash  theme={null}
-kubectl logs throw-dice-pod</p>
-<pre><code>
-For example, an output like:
-
-```plaintext  theme={null}
-4
+<pre><code class="language-bash">kubectl logs throw-dice-pod
+</code></pre>
+<p>For example, an output like:</p>
+<pre><code class="language-plaintext">4
 </code></pre>
 <p>indicates the container generated a four.</p>
 <p>─────────────────────────────</p>
@@ -1261,8 +1339,7 @@ For example, an output like:
 <p>Next, we will create a Kubernetes Job named <strong>throw-dice-job</strong>. This Job uses the same pod definition (without extra commands) to determine how many attempts it takes to roll a six.</p>
 <p>For further details, refer to the official Kubernetes Jobs documentation <a href="https://kubernetes.io/docs/concepts/workloads/controllers/job/">here</a>.</p>
 <p>Create a file named <strong>throw-dice-job.yaml</strong> with the following content:</p>
-<p>```yaml  theme={null}
-apiVersion: batch/v1
+<pre><code class="language-yaml">apiVersion: batch/v1
 kind: Job
 metadata:
   name: throw-dice-job
@@ -1273,31 +1350,23 @@ spec:
       - name: throw-dice-job
         image: kodekloud/throw-dice
       restartPolicy: Never
-  backoffLimit: 25</p>
-<pre><code>
-Deploy the Job:
-
-```bash  theme={null}
-kubectl apply -f throw-dice-job.yaml
+  backoffLimit: 25
+</code></pre>
+<p>Deploy the Job:</p>
+<pre><code class="language-bash">kubectl apply -f throw-dice-job.yaml
 </code></pre>
 <p>Check its status with:</p>
-<p>```bash  theme={null}
-kubectl get job</p>
-<pre><code>
-You might see an output like:
-
-```plaintext  theme={null}
-NAME              COMPLETIONS   DURATION   AGE
+<pre><code class="language-bash">kubectl get job
+</code></pre>
+<p>You might see an output like:</p>
+<pre><code class="language-plaintext">NAME              COMPLETIONS   DURATION   AGE
 throw-dice-job    0/1           9s         9s
 </code></pre>
 <p>To review detailed pod events and status, describe the Job:</p>
-<p>```bash  theme={null}
-kubectl describe job throw-dice-job</p>
-<pre><code>
-A sample output might display:
-
-```plaintext  theme={null}
-Labels: 
+<pre><code class="language-bash">kubectl describe job throw-dice-job
+</code></pre>
+<p>A sample output might display:</p>
+<pre><code class="language-plaintext">Labels: 
   controller-uid: bbe00c05-eb94-4fed-a8b3-d064a2fd1dc5
   job-name: throw-dice-job
 Annotations: 
@@ -1311,21 +1380,21 @@ Duration: 18s
 Pods Statuses: 0 Active / 1 Succeeded / 3 Failed
 ...
 </code></pre>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>In this example, the Job ran a total of 4 attempts (1 succeeded and 3 failed) until a pod succeeded in generating a six.</p>
-</blockquote>
+</div>
 <p>─────────────────────────────</p>
 <h2>3. Updating the Job for Multiple Completions</h2>
 <p>To modify the Job such that it continues running until it achieves three successful completions, follow these steps:</p>
 <ol>
 <li>Delete the current Job:</li>
 </ol>
-<p><code>bash  theme={null}
+<p><code>bash 
    kubectl delete -f throw-dice-job.yaml</code></p>
-<ol>
+<ol start="2">
 <li>Update <strong>throw-dice-job.yaml</strong> to include the <code>completions</code> property. You can also increase the <code>backoffLimit</code> if more attempts are expected:</li>
 </ol>
-<p><code>yaml  theme={null}
+<p><code>yaml 
    apiVersion: batch/v1
    kind: Job
    metadata:
@@ -1339,19 +1408,16 @@ Pods Statuses: 0 Active / 1 Succeeded / 3 Failed
          restartPolicy: Never
      backoffLimit: 25
      completions: 3</code></p>
-<ol>
+<ol start="3">
 <li>Apply the updated Job:</li>
 </ol>
-<p><code>bash  theme={null}
+<p><code>bash 
    kubectl apply -f throw-dice-job.yaml</code></p>
 <p>Monitor the Job’s status using:</p>
-<p>```bash  theme={null}
-kubectl describe job throw-dice-job</p>
-<pre><code>
-A sample output might be:
-
-```plaintext  theme={null}
-Labels:
+<pre><code class="language-bash">kubectl describe job throw-dice-job
+</code></pre>
+<p>A sample output might be:</p>
+<pre><code class="language-plaintext">Labels:
   controller-uid: 5b26aa1c-d92b-4634-85d3-ca1031f2ab0c
   job-name: throw-dice-job
 Parallelism: 1
@@ -1366,8 +1432,7 @@ Pods Statuses: 0 Active / 3 Succeeded / 1 Failed
 <p>─────────────────────────────</p>
 <h2>4. Running Jobs in Parallel</h2>
 <p>To run the Job in parallel instead of sequentially, add the <code>parallelism</code> property to the definition. If necessary, delete the existing Job and update <strong>throw-dice-job.yaml</strong> as follows:</p>
-<p>```yaml  theme={null}
-apiVersion: batch/v1
+<pre><code class="language-yaml">apiVersion: batch/v1
 kind: Job
 metadata:
   name: throw-dice-job
@@ -1380,24 +1445,21 @@ spec:
       - name: throw-dice-job
         image: kodekloud/throw-dice
       restartPolicy: Never
-  backoffLimit: 35</p>
-<pre><code>
-Deploy the updated Job:
-
-```bash  theme={null}
-kubectl apply -f throw-dice-job.yaml
+  backoffLimit: 35
+</code></pre>
+<p>Deploy the updated Job:</p>
+<pre><code class="language-bash">kubectl apply -f throw-dice-job.yaml
 </code></pre>
 <p>You can describe the Job to verify that pods are now running in parallel and that you achieve three successful completions more quickly.</p>
 <p>─────────────────────────────</p>
 <h2>5. Creating a CronJob</h2>
 <p>The final task is to create a CronJob that executes the job daily at 21:30. Create a file named <strong>throw-dice-cronjob.yaml</strong> with the following definition:</p>
-<p>```yaml  theme={null}
-apiVersion: batch/v1
+<pre><code class="language-yaml">apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: throw-dice-cron-job
 spec:
-  schedule: "30 21 * * *"
+  schedule: &quot;30 21 * * *&quot;
   jobTemplate:
     spec:
       template:
@@ -1405,18 +1467,17 @@ spec:
           containers:
           - name: throw-dice
             image: kodekloud/throw-dice
-          restartPolicy: Never</p>
-<pre><code>
-&gt; Ensure that the restart policy is specified as **Never** (with a capital “N”). Using &quot;never&quot; (all lowercase) will result in an error.
-
-Deploy the CronJob:
-
-```bash  theme={null}
-kubectl apply -f throw-dice-cronjob.yaml
+          restartPolicy: Never
+</code></pre>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
+<p>Ensure that the restart policy is specified as <strong>Never</strong> (with a capital “N”). Using "never" (all lowercase) will result in an error.</p>
+</div>
+<p>Deploy the CronJob:</p>
+<pre><code class="language-bash">kubectl apply -f throw-dice-cronjob.yaml
 </code></pre>
 <p>A successful deployment might return:</p>
-<p><code>bash  theme={null}
-cronjob.batch/throw-dice-cron-job created</code></p>
+<pre><code class="language-bash">cronjob.batch/throw-dice-cron-job created
+</code></pre>
 <p>─────────────────────────────</p>
 <h2>Conclusion</h2>
 <p>In this lesson, we covered how to:</p>
@@ -1449,73 +1510,61 @@ cronjob.batch/throw-dice-cron-job created</code></p>
         <article class="lesson" id="lesson-9">
             <span class="lesson-number">الدرس 9</span>
             <h2>🛸 Solution Labels and Selectors optional</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Solution Labels and Selectors optional</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This lesson covers techniques for using labels and selectors to manage Kubernetes objects, including filtering Pods and troubleshooting configuration issues.</p>
-</blockquote>
+</div>
 <p>In this lesson, we explore practical techniques for using labels and selectors to manage Kubernetes objects. You will learn how to filter Pods, count resources, and troubleshoot configuration issues using real-world examples.</p>
 <hr />
 <h2>Step 1: Count Pods in the Dev Environment</h2>
 <p>Begin by listing all the Pods:</p>
-<p>```bash  theme={null}
-kubectl get pods</p>
-<pre><code>
-To filter Pods running in the dev environment, assume the environment label key is `env` and the value is `&quot;dev&quot;`:
-
-```bash  theme={null}
-kubectl get pods --selector env=dev
+<pre><code class="language-bash">kubectl get pods
+</code></pre>
+<p>To filter Pods running in the dev environment, assume the environment label key is <code>env</code> and the value is <code>"dev"</code>:</p>
+<pre><code class="language-bash">kubectl get pods --selector env=dev
 </code></pre>
 <p>For a manual count, you might simply observe the output if there are few Pods. However, for larger sets, use the following command to count Pods, excluding the header line by adding the <code>--no-headers</code> option:</p>
-<p>```bash  theme={null}
-kubectl get pods --selector env=dev --no-headers | wc -l</p>
-<pre><code>
-&gt; The command above returns the number of Pods in the dev environment. In our example, the output shows there are seven Pods.
-
-***
-
-## Step 2: Count Pods in the Finance Business Unit
-
-To count the Pods that belong to the finance business unit, assume the business unit label key is `bu` and filter by the value `&quot;finance&quot;`. Run:
-
-```bash  theme={null}
-kubectl get pods --selector bu=finance --no-headers | wc -l
+<pre><code class="language-bash">kubectl get pods --selector env=dev --no-headers | wc -l
+</code></pre>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
+<p>The command above returns the number of Pods in the dev environment. In our example, the output shows there are seven Pods.</p>
+</div>
+<hr />
+<h2>Step 2: Count Pods in the Finance Business Unit</h2>
+<p>To count the Pods that belong to the finance business unit, assume the business unit label key is <code>bu</code> and filter by the value <code>"finance"</code>. Run:</p>
+<pre><code class="language-bash">kubectl get pods --selector bu=finance --no-headers | wc -l
 </code></pre>
 <p>The result indicates that there are six Pods associated with the finance business unit.</p>
 <hr />
 <h2>Step 3: Count All Objects in the Prod Environment</h2>
 <p>In this step, you'll count all Kubernetes objects (including Pods, Services, ReplicaSets, etc.) in the prod environment. Replace the Pod-specific command with <code>kubectl get all</code>:</p>
-<p>```bash  theme={null}
-kubectl get all --selector env=prod --no-headers | wc -l</p>
-<pre><code>
-This command returns the total number of objects in the prod environment. In our case, the output is seven.
-
-***
-
-## Step 4: Identify a Specific Pod in the Prod Environment
-
-Next, identify the Pod that meets all of the following criteria:
-
-* It is in the prod environment.
-* It belongs to the finance business unit.
-* It is part of the frontend tier.
-
-Combine multiple labels by separating them with commas:
-
-```bash  theme={null}
-kubectl get all --selector env=prod,bu=finance,tier=frontend
+<pre><code class="language-bash">kubectl get all --selector env=prod --no-headers | wc -l
+</code></pre>
+<p>This command returns the total number of objects in the prod environment. In our case, the output is seven.</p>
+<hr />
+<h2>Step 4: Identify a Specific Pod in the Prod Environment</h2>
+<p>Next, identify the Pod that meets all of the following criteria:</p>
+<ul class="styled-list">
+<li>It is in the prod environment.</li>
+<li>It belongs to the finance business unit.</li>
+<li>It is part of the frontend tier.</li>
+</ul>
+<p>Combine multiple labels by separating them with commas:</p>
+<pre><code class="language-bash">kubectl get all --selector env=prod,bu=finance,tier=frontend
 </code></pre>
 <p>This command returns the specific Pod. In our example, the Pod name begins with "ZZ XDF…".</p>
 <hr />
 <h2>Step 5: Fixing a ReplicaSet Definition</h2>
 <p>The final task involves troubleshooting an issue with a ReplicaSet definition. Below is the original YAML file:</p>
-<p>```yaml  theme={null}
-apiVersion: apps/v1
+<pre><code class="language-yaml">apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
   name: replicaset-1
@@ -1531,23 +1580,19 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: nginx</p>
-<pre><code>
-When attempting to create this ReplicaSet:
-
-```bash  theme={null}
-kubectl create -f replicaset-definition-1.yaml
+          image: nginx
+</code></pre>
+<p>When attempting to create this ReplicaSet:</p>
+<pre><code class="language-bash">kubectl create -f replicaset-definition-1.yaml
 </code></pre>
 <p>You receive the following error:</p>
-<p>```text  theme={null}
-The ReplicaSet "replicaset-1" is invalid: spec.template.metadata.labels: Invalid value: map[string]string{"tier":"nginx"}: selector does not match template labels</p>
-<pre><code>
-&gt; The error occurs because the `matchLabels` in the selector (`tier: front-end`) do not match the label defined in the Pod template (`tier: nginx`). Ensure that the selector and the template labels are identical.
-
-To resolve the error, update the template labels to match the selector:
-
-```yaml  theme={null}
-apiVersion: apps/v1
+<pre><code class="language-text">The ReplicaSet &quot;replicaset-1&quot; is invalid: spec.template.metadata.labels: Invalid value: map[string]string{&quot;tier&quot;:&quot;nginx&quot;}: selector does not match template labels
+</code></pre>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
+<p>The error occurs because the <code>matchLabels</code> in the selector (<code>tier: front-end</code>) do not match the label defined in the Pod template (<code>tier: nginx</code>). Ensure that the selector and the template labels are identical.</p>
+</div>
+<p>To resolve the error, update the template labels to match the selector:</p>
+<pre><code class="language-yaml">apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
   name: replicaset-1
@@ -1566,8 +1611,8 @@ spec:
         image: nginx
 </code></pre>
 <p>After updating the YAML file, create the ReplicaSet again:</p>
-<p><code>bash  theme={null}
-kubectl create -f replicaset-definition-1.yaml</code></p>
+<pre><code class="language-bash">kubectl create -f replicaset-definition-1.yaml
+</code></pre>
 <p>The ReplicaSet should now be created successfully. Verify its creation by listing the ReplicaSets.</p>
 <hr />
 <p>That concludes this lesson on using labels and selectors with Kubernetes. For more advanced topics and troubleshooting, refer to the <a href="https://kubernetes.io/docs/">Kubernetes Documentation</a>.</p>
@@ -1587,33 +1632,34 @@ kubectl create -f replicaset-definition-1.yaml</code></p>
         <article class="lesson" id="lesson-10">
             <span class="lesson-number">الدرس 10</span>
             <h2>🛸 Solution Rolling Updates and Rollbacks optional</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Solution Rolling Updates and Rollbacks optional</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This article explores rolling updates and rollbacks, demonstrating how to update applications with minimal downtime using Kubernetes.</p>
-</blockquote>
+</div>
 <p>In this lesson, we explore rolling updates and rollbacks, with a focus on rolling updates. We will demonstrate how to verify your environment and update your application while ensuring minimal downtime. For simplicity, we use an alias (k) for kubectl. The alias is confirmed to be set with the following output:</p>
-<p>```bash  theme={null}
-kubectl [flags] [options]</p>
-<p>Use "kubectl <command> --help" for more information about a given command.
-Use "kubectl options" for a list of global command-line options (applies to all commands).</p>
-<p>controlplane ~ ⬢ alias
+<pre><code class="language-bash">kubectl [flags] [options]
+
+Use &quot;kubectl &lt;command&gt; --help&quot; for more information about a given command.
+Use &quot;kubectl options&quot; for a list of global command-line options (applies to all commands).
+
+controlplane ~ ⬢ alias
 alias k='kubectl'
 alias kubectl='k3s kubectl'
-alias vi='vim'</p>
-<p>controlplane ~ ⬢ cl</p>
-<pre><code>
-## Checking the Application Deployment
+alias vi='vim'
 
-We have deployed a simple web application. First, inspect the Pods:
-
-```bash  theme={null}
-controlplane ~ ⟩ k get pod
+controlplane ~ ⬢ cl
+</code></pre>
+<h2>Checking the Application Deployment</h2>
+<p>We have deployed a simple web application. First, inspect the Pods:</p>
+<pre><code class="language-bash">controlplane ~ ⟩ k get pod
 NAME                            READY   STATUS    RESTARTS   AGE
 frontend-5c74c57d95-mkjgh      1/1     Running   0          48s
 frontend-5c74c57d95-dkbjj      1/1     Running   0          48s
@@ -1621,20 +1667,16 @@ frontend-5c74c57d95-gk6xp      1/1     Running   0          48s
 frontend-5c74c57d95-xpwbt      1/1     Running   0          48s
 </code></pre>
 <p>Then, check the Deployment details:</p>
-<p>```bash  theme={null}
-controlplane ~ ⟩ k get deploy
+<pre><code class="language-bash">controlplane ~ ⟩ k get deploy
 NAME       READY   UP-TO-DATE   AVAILABLE   AGE
-frontend   4/4     4            4           55s</p>
-<p>controlplane ~ ⟩</p>
-<pre><code>
-Wait for the application to be fully deployed. Once it is ready, open the provided web app portal in your browser. The application displays the message “hello, front end moment.”
+frontend   4/4     4            4           55s
 
-## Q1: What Is the Current Color of the Web Application?
-
-Recheck the Pods and Deployment information:
-
-```bash  theme={null}
-controlplane ~ ↗ k get pod
+controlplane ~ ⟩
+</code></pre>
+<p>Wait for the application to be fully deployed. Once it is ready, open the provided web app portal in your browser. The application displays the message “hello, front end moment.”</p>
+<h2>Q1: What Is the Current Color of the Web Application?</h2>
+<p>Recheck the Pods and Deployment information:</p>
+<pre><code class="language-bash">controlplane ~ ↗ k get pod
 NAME                                     READY   STATUS    RESTARTS   AGE
 frontend-5c74c57d95-nkgjh                1/1     Running   0          48s
 frontend-5c74c57d95-dkbj1                 1/1     Running   0          48s
@@ -1646,31 +1688,25 @@ NAME      READY   UP-TO-DATE   AVAILABLE   AGE
 frontend  4/4     4            4           55s
 </code></pre>
 <p>After running a test script that sends multiple requests, the output confirms the application color is blue:</p>
-<p>```bash  theme={null}
+<pre><code class="language-bash">Hello, Application Version: v1 ; Color: blue OK
 Hello, Application Version: v1 ; Color: blue OK
-Hello, Application Version: v1 ; Color: blue OK
-...</p>
-<pre><code>
-This script simulates multiple users accessing the web application, confirming that all responses return the blue color. Additionally, the deployment details confirm that four Pods have been created as expected.
-
-## Q2: What Container Image Is Used to Deploy the Application?
-
-To inspect the container image, first get the deployment details:
-
-```bash  theme={null}
-controlplane ~ ⟩ k get deploy
+...
+</code></pre>
+<p>This script simulates multiple users accessing the web application, confirming that all responses return the blue color. Additionally, the deployment details confirm that four Pods have been created as expected.</p>
+<h2>Q2: What Container Image Is Used to Deploy the Application?</h2>
+<p>To inspect the container image, first get the deployment details:</p>
+<pre><code class="language-bash">controlplane ~ ⟩ k get deploy
 NAME      READY   UP-TO-DATE   AVAILABLE   AGE
 frontend  4/4     4            4           2m41s
 
 controlplane ~ ⟩ []
 </code></pre>
 <p>Then, describe the deployment to view the pod template:</p>
-<p>```bash  theme={null}
-controlplane ~ ⟩ k describe deploy frontend
+<pre><code class="language-bash">controlplane ~ ⟩ k describe deploy frontend
 Name:                   frontend
 Namespace:              default
 CreationTimestamp:      Sat, 16 Apr 2022 20:35:48 +0000
-Labels:                 <none>
+Labels:                 &lt;none&gt;
 Annotations:            deployment.kubernetes.io/revision: 1
 Selector:               name=webapp
 Replicas:               4 desired | 4 updated | 4 total | 4 available | 0 unavailable
@@ -1684,53 +1720,45 @@ Pod Template:
       Image: kodekloud/web-app-color:v1
       Port: 8080/TCP
       Host Port: 0/TCP
-      Environment: <none>
-      Mounts: <none>
+      Environment: &lt;none&gt;
+      Mounts: &lt;none&gt;
 Conditions:
   Type              Status  Reason
   Available         True    MinimumReplicasAvailable
   Progressing       True    NewReplicaSetAvailable
-OldReplicaSet:      <none>
+OldReplicaSet:      &lt;none&gt;
 NewReplicaSet:      frontend-5c74c57d95 (4/4 replicas created)
 Events:
   Type    Reason            Age   From                      Message
   Normal  ScalingReplicaSet  3m4s  deployment-controller     Scaled up replica set frontend-5c74c57d95 to 4
-controlplane ~ ⟩</p>
-<pre><code>
-The container image used is &quot;kodekloud/web-app-color:v1&quot;.
-
-## Q3: What Is the Current Deployment Strategy?
-
-The deployment details show that a rolling update strategy is in use. With this strategy, Pods are replaced one at a time, ensuring continuous availability. Specifically, only 25% of Pods are allowed to be unavailable at any given moment, preventing complete downtime.
-
-&gt; A rolling update strategy allows gradual replacement of Pods to ensure that some instances are always available during an upgrade.
-
-## Upgrading the Application to Version 2
-
-To upgrade the application, update the image in the deployment to version 2 using the &quot;kubectl set image&quot; command. Our container name is &quot;simple-webapp&quot;. Run the following command:
-
-```bash  theme={null}
-kubectl set image deploy frontend simple-webapp=kodekloud/webapp-color:v2
+controlplane ~ ⟩
+</code></pre>
+<p>The container image used is "kodekloud/web-app-color:v1".</p>
+<h2>Q3: What Is the Current Deployment Strategy?</h2>
+<p>The deployment details show that a rolling update strategy is in use. With this strategy, Pods are replaced one at a time, ensuring continuous availability. Specifically, only 25% of Pods are allowed to be unavailable at any given moment, preventing complete downtime.</p>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
+<p>A rolling update strategy allows gradual replacement of Pods to ensure that some instances are always available during an upgrade.</p>
+</div>
+<h2>Upgrading the Application to Version 2</h2>
+<p>To upgrade the application, update the image in the deployment to version 2 using the "kubectl set image" command. Our container name is "simple-webapp". Run the following command:</p>
+<pre><code class="language-bash">kubectl set image deploy frontend simple-webapp=kodekloud/webapp-color:v2
 </code></pre>
 <p>After executing the command, verify that the image has been updated by describing the deployment again. You should now see version v2 in the container image field.</p>
 <p>Run the curl test (or your test script) again:</p>
-<p>```bash  theme={null}
-./curl-test.sh</p>
-<pre><code>
-The output may initially show a mix of blue and green responses:
-
-```bash  theme={null}
-Hello, Application Version: v1 ; Color: blue OK
+<pre><code class="language-bash">./curl-test.sh
+</code></pre>
+<p>The output may initially show a mix of blue and green responses:</p>
+<pre><code class="language-bash">Hello, Application Version: v1 ; Color: blue OK
 Hello, Application Version: v2 ; Color: green OK
 ...
 </code></pre>
 <p>This indicates a gradual rollout where some Pods still run the older version (blue) and others have been updated (green). Eventually, all responses will reflect the new version.</p>
 <h2>Scaling Considerations During a Rollout</h2>
 <p>With the current rolling update settings (25% max unavailable) and a deployment of 4 replicas, only one Pod is taken down at a time. The following command confirms these updates and settings:</p>
-<p>```bash  theme={null}
-controlplane ~ ✗ k set image deploy frontend simple-webapp=kodekloud/webapp-color:v2
-deployment.apps/frontend image updated</p>
-<p>controlplane ~ ✗ k describe deploy frontend
+<pre><code class="language-bash">controlplane ~ ✗ k set image deploy frontend simple-webapp=kodekloud/webapp-color:v2
+deployment.apps/frontend image updated
+
+controlplane ~ ✗ k describe deploy frontend
 Name:                   frontend
 Namespace:              default
 CreationTimestamp:      Sat, 16 Apr 2022 20:35:48 +0000
@@ -1739,14 +1767,11 @@ Replicas:               4 desired | 2 updated | 5 total | 3 available | 2 unavai
 StrategyType:           RollingUpdate
 MinReadySeconds:        20
 RollingUpdateStrategy:  25% max unavailable, 25% max surge
-...</p>
-<pre><code>
-## Changing the Deployment Strategy to Recreate
-
-If you prefer to minimize complexities related to gradual updates, you can change the deployment strategy to &quot;Recreate&quot;. This strategy terminates all running Pods before creating new ones. To update the deployment strategy, use `kubectl edit` on the deployment and modify the strategy section as shown below:
-
-```yaml  theme={null}
-apiVersion: apps/v1
+...
+</code></pre>
+<h2>Changing the Deployment Strategy to Recreate</h2>
+<p>If you prefer to minimize complexities related to gradual updates, you can change the deployment strategy to "Recreate". This strategy terminates all running Pods before creating new ones. To update the deployment strategy, use <code>kubectl edit</code> on the deployment and modify the strategy section as shown below:</p>
+<pre><code class="language-yaml">apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
@@ -1781,24 +1806,21 @@ spec:
         - /tmp/kubectl-edit-2730099630.yaml 68L, 181B
 </code></pre>
 <p>After saving the changes, verify that the strategy has been updated to "Recreate". Note that the recreate strategy does not support rolling update parameters.</p>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>Switching to the "Recreate" strategy may cause temporary downtime since all Pods are terminated before new ones are created.</p>
-</blockquote>
+</div>
 <h2>Upgrading the Application to Version 3</h2>
 <p>Finally, upgrade the application by setting the deployment image to version 3:</p>
-<p>```bash  theme={null}
-kubectl set image deploy frontend simple-webapp=kodekloud/webapp-color:v3</p>
-<pre><code>
-Then, run your test script once again:
-
-```bash  theme={null}
-./curl-test.sh
+<pre><code class="language-bash">kubectl set image deploy frontend simple-webapp=kodekloud/webapp-color:v3
+</code></pre>
+<p>Then, run your test script once again:</p>
+<pre><code class="language-bash">./curl-test.sh
 </code></pre>
 <p>Since the deployment strategy is now set to “Recreate”, you might experience a brief period of downtime with failed requests (e.g., "Failed" messages or "bad gateway" errors) during the Pod replacement process. Once the new Pods are running, the output should stabilize to:</p>
-<p><code>bash  theme={null}
+<pre><code class="language-bash">Hello, Application Version: v3 ; Color: red OK
 Hello, Application Version: v3 ; Color: red OK
-Hello, Application Version: v3 ; Color: red OK
-...</code></p>
+...
+</code></pre>
 <p>This confirms that the new version (v3) displaying red is fully deployed.</p>
 <p>That concludes the lesson on rolling updates and rollbacks.</p>
 <p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/c44b5e7c-5854-4c65-87bf-7e07cb026e71/lesson/9019fdb8-e076-4a54-ac3f-8cf1f5d9ae26" /></p>
@@ -1813,10 +1835,12 @@ Hello, Application Version: v3 ; Color: red OK
             </div>
         </article>
 
-    </div>
+            </div>
 
-    <footer class="site-footer">
-        <p>🚀 كوبسترونات — المهمة 6 خلصت! <a href="chapter7.html" style="color: var(--rocket-orange);">يلا على المهمة 7 ←</a></p>
-    </footer>
+            <footer class="site-footer">
+                <p>🚀 كوبسترونات — المهمة 6 خلصت! <a href="chapter7.html" style="color: var(--rocket-orange);">يلا على المهمة 7 ←</a></p>
+            </footer>
+        </main>
+    </div> <!-- End .ckad-layout -->
 </body>
 </html>

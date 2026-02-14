@@ -5,6 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>المهمة 11: أساسيات Kustomize — كوبسترونات 🚀</title>
     <link rel="stylesheet" href="../style.css">
+    <style>
+        /* Temporarily ensure english content is LTR */
+        .english-content {
+            direction: ltr;
+            text-align: left;
+        }
+        .english-content h1, .english-content h2, .english-content h3 {
+            direction: ltr;
+            text-align: left;
+        }
+        /* Ensure images are responsive */
+        .img-frame img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        /* Sidebar specific adjustments for chapter pages */
+        .ckad-layout {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
     <div class="space-bg"></div>
@@ -22,32 +44,156 @@
         </nav>
     </header>
 
-    <section class="chapter-hero">
-        <h1>🚀 المهمة 11: أساسيات Kustomize</h1>
-        <p class="subtitle">Kustomize Basics</p>
-    </section>
+    <div class="ckad-layout">
+        <!-- SIDEBAR -->
+        <aside class="chapter-sidebar">
+            <div class="sidebar-nav">
+                <h3>🛸 خريطة المهام</h3>
+                
+        <a href="chapter1.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>1. المقدمة</strong>
+                <small>First Section</small>
+            </div>
+        </a>
+        
+        <a href="chapter2.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>2. المفاهيم الأساسية</strong>
+                <small>Core Concepts</small>
+            </div>
+        </a>
+        
+        <a href="chapter3.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>3. الإعدادات</strong>
+                <small>Configuration</small>
+            </div>
+        </a>
+        
+        <a href="chapter4.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>4. الكبسولات المتعددة</strong>
+                <small>Multi-Container Pods</small>
+            </div>
+        </a>
+        
+        <a href="chapter5.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>5. المراقبة</strong>
+                <small>Observability</small>
+            </div>
+        </a>
+        
+        <a href="chapter6.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>6. تصميم الكبسولات</strong>
+                <small>POD Design</small>
+            </div>
+        </a>
+        
+        <a href="chapter7.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>7. الشبكات والخدمات</strong>
+                <small>Services & Networking</small>
+            </div>
+        </a>
+        
+        <a href="chapter8.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>8. التخزين الدائم</strong>
+                <small>State Persistence</small>
+            </div>
+        </a>
+        
+        <a href="chapter9.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>9. الأمان</strong>
+                <small>Security</small>
+            </div>
+        </a>
+        
+        <a href="chapter10.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>10. أساسيات Helm</strong>
+                <small>Helm Fundamentals</small>
+            </div>
+        </a>
+        
+        <a href="chapter11.html" class="sidebar-item active-chapter">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>11. أساسيات Kustomize</strong>
+                <small>Kustomize Basics</small>
+            </div>
+        </a>
+        
+        <a href="chapter12.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>12. نصائح الامتحان</strong>
+                <small>Certification Tips</small>
+            </div>
+        </a>
+        
+        <a href="chapter13.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>13. مختبرات البرق</strong>
+                <small>Lightning Labs</small>
+            </div>
+        </a>
+        
+        <a href="chapter14.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>14. الامتحانات التجريبية</strong>
+                <small>Mock Exams</small>
+            </div>
+        </a>
+        
+            </div>
+        </aside>
 
-    <div class="lessons-container">
+        <!-- MAIN CONTENT -->
+        <main class="course-content">
+            <section class="chapter-hero">
+                <h1>🚀 المهمة 11: أساسيات Kustomize</h1>
+                <p class="subtitle">Kustomize Basics</p>
+            </section>
+
+            <div class="lessons-container">
 
         <!-- ========== LESSON 1: Common Transformers ========== -->
         <article class="lesson" id="lesson-1">
             <span class="lesson-number">الدرس 1</span>
             <h2>🛸 Common Transformers</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Common Transformers</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>Learn to modify and manage Kubernetes manifests efficiently using Kustomize's Common Transformers for consistent changes across multiple YAML files.</p>
-</blockquote>
+</div>
 <p>In this lesson, you'll learn how to efficiently modify and manage your Kubernetes manifests using Kustomize. Kustomize streamlines the process of updating common configurations across multiple YAML files by leveraging built-in transformers. This article focuses on a subgroup known as Common Transformers, which help you apply consistent changes such as labels, namespaces, prefixes/suffixes, and annotations without manually updating each resource.</p>
 <p>Consider an example where you have a basic Deployment and Service defined in separate YAML files:</p>
-<p>```yaml  theme={null}</p>
-<h1>db-depl.yaml</h1>
-<p>apiVersion: apps/v1
+<pre><code class="language-yaml"># db-depl.yaml
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: api-deployment
@@ -63,9 +209,10 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx</p>
-<h1>db-service.yaml</h1>
-<p>apiVersion: v1
+        image: nginx
+
+# db-service.yaml
+apiVersion: v1
 kind: Service
 metadata:
   name: db-service
@@ -73,17 +220,14 @@ spec:
   selector:
     component: db-depl
   ports:
-  - protocol: "TCP"
+  - protocol: &quot;TCP&quot;
     port: 27017
     targetPort: 27017
-  type: LoadBalancer</p>
-<pre><code>
-Suppose you want to add a common configuration—such as a label identifying your organization—to all your Kubernetes resources. Manually editing each YAML file is not scalable, particularly in environments with dozens of resources. Instead, Kustomize applies these common changes automatically using transformers.
-
-For example, to add the label &quot;org: KodeKloud&quot; to every resource, you might update your files as follows:
-
-```yaml  theme={null}
-# db-depl.yaml
+  type: LoadBalancer
+</code></pre>
+<p>Suppose you want to add a common configuration—such as a label identifying your organization—to all your Kubernetes resources. Manually editing each YAML file is not scalable, particularly in environments with dozens of resources. Instead, Kustomize applies these common changes automatically using transformers.</p>
+<p>For example, to add the label "org: KodeKloud" to every resource, you might update your files as follows:</p>
+<pre><code class="language-yaml"># db-depl.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -121,9 +265,8 @@ spec:
   type: LoadBalancer
 </code></pre>
 <p>Or, if you need to append a suffix (e.g., "-dev") to resource names, your Deployment could be modified like this:</p>
-<p>```yaml  theme={null}</p>
-<h1>db-depl.yaml</h1>
-<p>apiVersion: apps/v1
+<pre><code class="language-yaml"># db-depl.yaml
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: api-deployment-dev
@@ -141,27 +284,21 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx</p>
-<pre><code>
-Rather than editing each file manually, Kustomize uses transformers to automate these updates. Below are several common transformers you can leverage:
-
-***
-
-## Common Label Transformation
-
-The common label transformer automatically adds a specified label to every resource included in your kustomization.yaml file. For instance, to ensure every resource includes the label &quot;org: KodeKloud&quot;, add the following to your configuration:
-
-```yaml  theme={null}
-commonLabels:
+        image: nginx
+</code></pre>
+<p>Rather than editing each file manually, Kustomize uses transformers to automate these updates. Below are several common transformers you can leverage:</p>
+<hr />
+<h2>Common Label Transformation</h2>
+<p>The common label transformer automatically adds a specified label to every resource included in your kustomization.yaml file. For instance, to ensure every resource includes the label "org: KodeKloud", add the following to your configuration:</p>
+<pre><code class="language-yaml">commonLabels:
   org: KodeKloud
 </code></pre>
 <p>When applied, this transformer injects the label into the metadata of every resource, streamlining updates and reducing human error.</p>
 <hr />
 <h2>Namespace Transformation</h2>
 <p>Assigning resources to a specific namespace is simplified with the namespace transformer. By specifying the namespace in your kustomization.yaml, you ensure that all resources are deployed into that namespace. For example, consider the following Service definition:</p>
-<p>```yaml  theme={null}</p>
-<h1>db-service.yaml</h1>
-<p>apiVersion: v1
+<pre><code class="language-yaml"># db-service.yaml
+apiVersion: v1
 kind: Service
 metadata:
   name: api-service
@@ -176,27 +313,22 @@ spec:
   - port: 80
     protocol: TCP
     targetPort: 3000
-  type: LoadBalancer</p>
-<pre><code>
-And in your configuration file, include:
-
-```yaml  theme={null}
-namespace: lab
+  type: LoadBalancer
 </code></pre>
-<blockquote>
+<p>And in your configuration file, include:</p>
+<pre><code class="language-yaml">namespace: lab
+</code></pre>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This setting ensures that the Service, along with all other defined resources, will be deployed to the "lab" namespace.</p>
-</blockquote>
+</div>
 <hr />
 <h2>Prefix and Suffix Transformation</h2>
 <p>With the prefix/suffix transformer, you can automatically alter the names of your resources without manually editing every file. For example, to add the prefix "KodeKLOUD-" and suffix "-dev" to a Service name, use the following configuration:</p>
-<p>```yaml  theme={null}
-namePrefix: KodeKLOUD-
-nameSuffix: -dev</p>
-<pre><code>
-After transformation, the Service's name will be updated to &quot;KodeKLOUD-api-service-dev&quot;. Here’s an example of the transformed Service resource:
-
-```yaml  theme={null}
-# db-service.yaml
+<pre><code class="language-yaml">namePrefix: KodeKLOUD-
+nameSuffix: -dev
+</code></pre>
+<p>After transformation, the Service's name will be updated to "KodeKLOUD-api-service-dev". Here’s an example of the transformed Service resource:</p>
+<pre><code class="language-yaml"># db-service.yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -213,9 +345,8 @@ spec:
 <hr />
 <h2>Common Annotations Transformation</h2>
 <p>If you need to add common annotations to all Kubernetes objects, you can define these in your kustomization.yaml file. For example, to add the annotation "branch: master" everywhere, your configuration might look like this:</p>
-<p>```yaml  theme={null}</p>
-<h1>db-service.yaml</h1>
-<p>apiVersion: v1
+<pre><code class="language-yaml"># db-service.yaml
+apiVersion: v1
 kind: Service
 metadata:
   name: api-service
@@ -231,11 +362,12 @@ spec:
     - port: 80
       protocol: TCP
       targetPort: 3000
-  type: LoadBalancer</p>
-<h1>Kustomization.yaml</h1>
-<p>commonAnnotations:
+  type: LoadBalancer
+
+# Kustomization.yaml
+commonAnnotations:
   branch: master
-```</p>
+</code></pre>
 <p>This setup guarantees that the annotation is consistently applied across all resources, eliminating the need for repetitive edits.</p>
 <hr />
 <h2>Summary of Common Transformers</h2>
@@ -295,32 +427,34 @@ spec:
         <article class="lesson" id="lesson-2">
             <span class="lesson-number">الدرس 2</span>
             <h2>🛸 Components</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Components</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This article explains Kustomize components for reusable configuration logic in Kubernetes, enabling optional features in specific application overlays.</p>
-</blockquote>
+</div>
 <p>In this lesson, we'll dive into a Kustomize feature called components. Components let you define reusable configuration logic that can be imported into multiple overlays. This approach is ideal when your application supports several optional features that should only be enabled in specific overlays.</p>
 <p>Consider a scenario where you have feature-specific configurations. If the feature is required in every overlay, you might include the configuration in your base. However, when a feature should only be active in a subset of overlays, duplicating the configuration across these environments can lead to drift and maintenance headaches. Components address this challenge by allowing you to keep your configuration logic in one location and import it into the overlays that need it.</p>
 <p>For example, imagine an application deployed in three variations: development, premium, and self-hosted. The shared base configuration applies to all overlays. Now, suppose the application supports two optional features:</p>
 <ol>
 <li>Caching – enabled only for the premium and self-hosted versions. This requires a Redis database and its associated configurations.</li>
-<li>An external database service (e.g., Postgres) – enabled only for the development and premium versions.<pre><code>&lt;figure class="img-frame"&gt;
-    &lt;img src="../assets/images/chapter11/Components_frame_20.jpg" alt="The image describes components as reusable configuration logic pieces, useful for enabling optional features in specific application overlays." loading="lazy"&gt;
-    &lt;figcaption&gt;The image describes components as reusable configuration logic pieces, useful for enabling optional features in specific application overlays.&lt;/figcaption&gt;
-&lt;/figure&gt;
-</code></pre>
-</li>
+<li>An external database service (e.g., Postgres) – enabled only for the development and premium versions.</li>
 </ol>
+
+        <figure class="img-frame">
+            <img src="../assets/images/chapter11/Components_frame_20.jpg" alt="The image describes components as reusable configuration logic pieces, useful for enabling optional features in specific application overlays." loading="lazy">
+            <figcaption>The image describes components as reusable configuration logic pieces, useful for enabling optional features in specific application overlays.</figcaption>
+        </figure>
+        
 <p>Without components, you might consider placing the caching configuration in the base. However, this would enable caching for all overlays, including development, which is not desired. Alternatively, you could copy the caching configuration into the premium and self-hosted overlays, but this risks configuration drift and complicates scaling when more overlays are added. Components allow you to define the caching logic just once and import it wherever it's required.</p>
 <p>Let's visualize how the project structure might look. Imagine a directory structure with overlays for development, premium, and self-hosted deployments, a base folder for shared configurations, and a separate directory for components:</p>
-<p>```text  theme={null}
-k8s/
+<pre><code class="language-text">k8s/
 ├── base/
 │   ├── kustomization.yaml
 │   └── api-depl.yaml
@@ -339,37 +473,30 @@ k8s/
     ├── premium/
     │   └── kustomization.yaml
     └── standalone/
-        └── kustomization.yaml</p>
-<pre><code>
-The three overlays each contain a minimal `kustomization.yaml` file that imports shared configurations from the base folder. The new &quot;components&quot; directory houses two distinct components: one for caching and one for the external database. For instance, the caching component includes all Kubernetes configurations necessary for setting up Redis (deployments, secrets, patches, etc.), while the database component manages all configurations needed for an external Postgres database.
+        └── kustomization.yaml
+</code></pre>
+<p>The three overlays each contain a minimal <code>kustomization.yaml</code> file that imports shared configurations from the base folder. The new "components" directory houses two distinct components: one for caching and one for the external database. For instance, the caching component includes all Kubernetes configurations necessary for setting up Redis (deployments, secrets, patches, etc.), while the database component manages all configurations needed for an external Postgres database.</p>
 
-
-        &lt;figure class=&quot;img-frame&quot;&gt;
-            &lt;img src=&quot;../assets/images/chapter11/Components_frame_250.jpg&quot; alt=&quot;The image is a flowchart showing components like base, dev, Premium, Self-hosted, caching, and db, connected by arrows, under the title &quot;Components.&quot;&quot; loading=&quot;lazy&quot;&gt;
-            &lt;figcaption&gt;The image is a flowchart showing components like base, dev, Premium, Self-hosted, caching, and db, connected by arrows, under the title &quot;Components.&quot;&lt;/figcaption&gt;
-        &lt;/figure&gt;
-
-
-&gt; By isolating the configuration logic into components, overlays that require specific features—such as caching or an external database—can simply import the corresponding component. This method minimizes duplicate code and reduces the chance of error.
-
-***
-
-## Implementing a Component
-
-Consider the project structure described above. The `base` directory contains common configurations, including a `kustomization.yaml` file and an API deployment file. The `components` directory holds feature-specific folders for caching and the database, while the `overlays` directory contains environment-specific configurations for dev, premium, and standalone deployments.
-
-Let's focus on the database component. Within the database component folder, you will find the following files:
-
-* **postgres-depl.yaml:** Defines the Kubernetes Deployment required for a Postgres instance.
-* **deployment-patch.yaml:** A strategic merge patch that modifies the base API deployment by adding an environment variable for the new database connection.
-* **kustomization.yaml:** Specifies the component metadata, resources, secret generator, and patch references.
-
-### Postgres Deployment Configuration
-
-Below is an example of the Postgres Deployment configuration defined in `postgres-depl.yaml`:
-
-```yaml  theme={null}
-apiVersion: apps/v1
+        <figure class="img-frame">
+            <img src="../assets/images/chapter11/Components_frame_250.jpg" alt="The image is a flowchart showing components like base, dev, Premium, Self-hosted, caching, and db, connected by arrows, under the title "Components."" loading="lazy">
+            <figcaption>The image is a flowchart showing components like base, dev, Premium, Self-hosted, caching, and db, connected by arrows, under the title "Components."</figcaption>
+        </figure>
+        
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
+<p>By isolating the configuration logic into components, overlays that require specific features—such as caching or an external database—can simply import the corresponding component. This method minimizes duplicate code and reduces the chance of error.</p>
+</div>
+<hr />
+<h2>Implementing a Component</h2>
+<p>Consider the project structure described above. The <code>base</code> directory contains common configurations, including a <code>kustomization.yaml</code> file and an API deployment file. The <code>components</code> directory holds feature-specific folders for caching and the database, while the <code>overlays</code> directory contains environment-specific configurations for dev, premium, and standalone deployments.</p>
+<p>Let's focus on the database component. Within the database component folder, you will find the following files:</p>
+<ul class="styled-list">
+<li><strong>postgres-depl.yaml:</strong> Defines the Kubernetes Deployment required for a Postgres instance.</li>
+<li><strong>deployment-patch.yaml:</strong> A strategic merge patch that modifies the base API deployment by adding an environment variable for the new database connection.</li>
+<li><strong>kustomization.yaml:</strong> Specifies the component metadata, resources, secret generator, and patch references.</li>
+</ul>
+<h3>Postgres Deployment Configuration</h3>
+<p>Below is an example of the Postgres Deployment configuration defined in <code>postgres-depl.yaml</code>:</p>
+<pre><code class="language-yaml">apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: postgres-deployment
@@ -389,8 +516,7 @@ spec:
 </code></pre>
 <h3>Component kustomization.yaml</h3>
 <p>In the component's <code>kustomization.yaml</code> file, notice that the ApiVersion and Kind differ from a typical configuration file. Because this is defined as a component, the ApiVersion is <code>kustomize.config.k8s.io/v1alpha1</code> and the Kind is <code>Component</code>. This file references the resources for the component, defines a secret for the database password, and applies any necessary patches:</p>
-<p>```yaml  theme={null}
-apiVersion: kustomize.config.k8s.io/v1alpha1
+<pre><code class="language-yaml">apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 resources:
   - postgres-depl.yaml
@@ -399,16 +525,12 @@ secretGenerator:
     literals:
       - password=postgres123
 patches:
-  - deployment-patch.yaml</p>
-<pre><code>
-The secret generator ensures that the database password is managed and injected securely. Meanwhile, the patch described in `deployment-patch.yaml` adjusts the base API deployment to use the newly created secret.
-
-### Updating the Base Deployment
-
-The `deployment-patch.yaml` file adds an environment variable to the API deployment so that the application can connect to the new Postgres database. An example patch looks like this:
-
-```yaml  theme={null}
-apiVersion: apps/v1
+  - deployment-patch.yaml
+</code></pre>
+<p>The secret generator ensures that the database password is managed and injected securely. Meanwhile, the patch described in <code>deployment-patch.yaml</code> adjusts the base API deployment to use the newly created secret.</p>
+<h3>Updating the Base Deployment</h3>
+<p>The <code>deployment-patch.yaml</code> file adds an environment variable to the API deployment so that the application can connect to the new Postgres database. An example patch looks like this:</p>
+<pre><code class="language-yaml">apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: api-deployment
@@ -426,15 +548,15 @@ spec:
 </code></pre>
 <h3>Importing Components in Overlays</h3>
 <p>To incorporate the external database settings, overlays that require this feature (for example, the dev overlay) import the database component. The overlay's <code>kustomization.yaml</code> file includes the base configuration and then adds the component:</p>
-<p><code>yaml  theme={null}
-bases:
+<pre><code class="language-yaml">bases:
   - ../../base
 components:
-  - ../../components/db</code></p>
+  - ../../components/db
+</code></pre>
 <p>This setup ensures that the base API deployment is patched with the database settings from the imported component.</p>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>Using components in your Kubernetes configuration allows you to manage optional features efficiently. It simplifies maintenance, reduces duplicate code, and minimizes the risk of configuration drift across multiple environments.</p>
-</blockquote>
+</div>
 <p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/2503ab74-a871-4b65-a677-7180c001d5c5/lesson/19fbbe24-267f-48ea-9a01-56cf06d6c842" /></p>
 <p><Card title="Practice Lab" icon="installation" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/2503ab74-a871-4b65-a677-7180c001d5c5/lesson/66fefe64-87fd-4d25-a46f-c66dce62def7" /></p>
             </div>
@@ -452,37 +574,35 @@ components:
         <article class="lesson" id="lesson-3">
             <span class="lesson-number">الدرس 3</span>
             <h2>🛸 Different Types of Patches</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Different Types of Patches</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This article explains methods for defining patches in Kubernetes using JSON 6902 and strategic merge patches, with options for inline or external file references.</p>
-</blockquote>
+</div>
 <p>This article explains two methods for defining patches in Kubernetes: JSON 6902 patches and strategic merge patches. You have the flexibility to define patches either inline within the kustomization.yaml file or by referencing external patch files. Inline patches consolidate everything in one file, while external files keep your kustomization.yaml concise, especially when managing numerous patches.</p>
 <h2>JSON 6902 Patches</h2>
 <h3>Inline Definition in kustomization.yaml</h3>
 <p>Below is an example of an inline patch applied to the "api-deployment":</p>
-<p>```yaml  theme={null}</p>
-<h1>Inline patch for api-deployment</h1>
-<p>patches:
+<pre><code class="language-yaml"># Inline patch for api-deployment
+patches:
   - target:
       kind: Deployment
       name: api-deployment
     patch: |-
       - op: replace
         path: /spec/replicas
-        value: 5</p>
-<pre><code>
-### Referencing an External Patch File
-
-Alternatively, you can reference a separate file. In this example, the external file (`replica-patch.yaml`) is used for the &quot;nginx-deployment&quot;:
-
-```yaml  theme={null}
-# Reference to an external file for nginx-deployment
+        value: 5
+</code></pre>
+<h3>Referencing an External Patch File</h3>
+<p>Alternatively, you can reference a separate file. In this example, the external file (<code>replica-patch.yaml</code>) is used for the "nginx-deployment":</p>
+<pre><code class="language-yaml"># Reference to an external file for nginx-deployment
 patches:
   - path: replica-patch.yaml
     target:
@@ -490,21 +610,15 @@ patches:
       name: nginx-deployment
 </code></pre>
 <p>In the external file (<code>replica-patch.yaml</code>), the patch is defined as follows:</p>
-<p>```yaml  theme={null}
-- op: replace
+<pre><code class="language-yaml">- op: replace
   path: /spec/replicas
-  value: 5</p>
-<pre><code>
-## Strategic Merge Patches
-
-For strategic merge patches, you can similarly choose between inline definitions or referencing an external file.
-
-### Inline Strategic Merge Patch in kustomization.yaml
-
-The following example shows an inline strategic merge patch for the &quot;api-deployment&quot;:
-
-```yaml  theme={null}
-patches:
+  value: 5
+</code></pre>
+<h2>Strategic Merge Patches</h2>
+<p>For strategic merge patches, you can similarly choose between inline definitions or referencing an external file.</p>
+<h3>Inline Strategic Merge Patch in kustomization.yaml</h3>
+<p>The following example shows an inline strategic merge patch for the "api-deployment":</p>
+<pre><code class="language-yaml">patches:
   - patch: |-
       apiVersion: apps/v1
       kind: Deployment
@@ -515,12 +629,12 @@ patches:
 </code></pre>
 <h3>Using an External YAML File for Strategic Merge Patch</h3>
 <p>To reference a file for a strategic merge patch, simply include the file path in your kustomization.yaml:</p>
-<p><code>yaml  theme={null}
-patches:
-  - path: replica-patch.yaml</code></p>
-<blockquote>
+<pre><code class="language-yaml">patches:
+  - path: replica-patch.yaml
+</code></pre>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>Both inline definitions and separate patch files are valid options. Choose the approach that best suits your project structure and maintenance preferences.</p>
-</blockquote>
+</div>
 <h2>Summary Table</h2>
 <table>
 <thead>
@@ -561,20 +675,21 @@ patches:
         <article class="lesson" id="lesson-4">
             <span class="lesson-number">الدرس 4</span>
             <h2>🛸 Image Transformers</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Image Transformers</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This guide demonstrates how to leverage Kustomize's image transformer for efficient container image and tag modifications in Kubernetes manifests.</p>
-</blockquote>
+</div>
 <p>In this article, we explore how to modify container images in Kubernetes manifests using Kustomize image transformers. This powerful technique enables you to update image references—and even image tags—in your deployment files without editing them manually.</p>
 <p>Below is an example deployment manifest (deployment.yaml) for an Nginx server:</p>
-<p>```yaml  theme={null}
-apiVersion: apps/v1
+<pre><code class="language-yaml">apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: web-deployment
@@ -590,22 +705,19 @@ spec:
     spec:
       containers:
       - name: web
-        image: nginx</p>
-<pre><code>
-To modify the image used by this deployment, create a Kustomize image transformer in a file named `kustomization.yaml`. In the transformer, the `name` property specifies the image to search for (in this case, &quot;nginx&quot;), and the `newName` property defines the replacement image. For example, to replace Nginx with HAProxy, use the following configuration:
-
-```yaml  theme={null}
-images:
+        image: nginx
+</code></pre>
+<p>To modify the image used by this deployment, create a Kustomize image transformer in a file named <code>kustomization.yaml</code>. In the transformer, the <code>name</code> property specifies the image to search for (in this case, "nginx"), and the <code>newName</code> property defines the replacement image. For example, to replace Nginx with HAProxy, use the following configuration:</p>
+<pre><code class="language-yaml">images:
 - name: nginx
   newName: haproxy
 </code></pre>
 <p>The image transformer scans all Kubernetes configuration files for containers using an image named "nginx" and replaces it with "haproxy."</p>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>The <code>name</code> field in the <code>kustomization.yaml</code> file strictly refers to the image name and is not related to the container name specified in the deployment manifest.</p>
-</blockquote>
+</div>
 <p>After applying this transformation, the deployment manifest is updated so that the container image changes from "nginx" to "haproxy." The modified deployment appears as follows:</p>
-<p>```yaml  theme={null}
-apiVersion: apps/v1
+<pre><code class="language-yaml">apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: web-deployment
@@ -621,16 +733,12 @@ spec:
     spec:
       containers:
       - name: web
-        image: haproxy</p>
-<pre><code>
-***
-
-## Changing the Image Tag
-
-If you want to update only the image tag without switching the image itself, the image transformer can modify the tag value. Begin with the original deployment manifest:
-
-```yaml  theme={null}
-apiVersion: apps/v1
+        image: haproxy
+</code></pre>
+<hr />
+<h2>Changing the Image Tag</h2>
+<p>If you want to update only the image tag without switching the image itself, the image transformer can modify the tag value. Begin with the original deployment manifest:</p>
+<pre><code class="language-yaml">apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: web-deployment
@@ -649,15 +757,12 @@ spec:
         image: nginx
 </code></pre>
 <p>Next, update your <code>kustomization.yaml</code> to specify the new tag:</p>
-<p>```yaml  theme={null}
-images:
+<pre><code class="language-yaml">images:
 - name: nginx
-  newTag: 2.4</p>
-<pre><code>
-Once applied, the container image in the deployment is updated to include the new tag, yielding the following transformed manifest:
-
-```yaml  theme={null}
-apiVersion: apps/v1
+  newTag: 2.4
+</code></pre>
+<p>Once applied, the container image in the deployment is updated to include the new tag, yielding the following transformed manifest:</p>
+<pre><code class="language-yaml">apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: web-deployment
@@ -678,11 +783,11 @@ spec:
 <hr />
 <h2>Combining Image and Tag Transformations</h2>
 <p>You can perform both image name and tag transformations simultaneously in a single <code>kustomization.yaml</code> file. For instance, if you want to change the Nginx image to HAProxy and update its tag to "2.4," use the following configuration:</p>
-<p><code>yaml  theme={null}
-images:
+<pre><code class="language-yaml">images:
 - name: nginx
   newName: haproxy
-  newTag: 2.4</code></p>
+  newTag: 2.4
+</code></pre>
 <p>After applying this configuration, the final deployment manifest will feature the container image updated to "haproxy:2.4."</p>
 <hr />
 <p>This guide demonstrates how to leverage Kustomize's image transformer for efficient container image and tag modifications, ensuring a consistent deployment process while minimizing manual edits.</p>
@@ -702,16 +807,18 @@ images:
         <article class="lesson" id="lesson-5">
             <span class="lesson-number">الدرس 5</span>
             <h2>🛸 InstallationSetup</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>InstallationSetup</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This guide explains how to install and configure Kustomize for customizing Kubernetes configurations.</p>
-</blockquote>
+</div>
 <p>In this guide, you'll learn how to install and configure Kustomize—a powerful tool for customizing Kubernetes configurations. Before you begin, ensure that you have the following prerequisites:</p>
 <ul class="styled-list">
 <li>A running Kubernetes cluster.</li>
@@ -721,21 +828,18 @@ Use this file to discover all available pages before exploring further.</p>
 <p>The Kustomize installation script automatically detects your operating system and installs the appropriate version.</p>
 <h2>Installing Kustomize</h2>
 <p>To install Kustomize, open your terminal and execute the command below. This command downloads and runs the installation script:</p>
-<p>```bash  theme={null}
-curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash</p>
-<pre><code>
-Once the installation is complete, verify the installation by running:
-
-```bash  theme={null}
-kustomize version --short
+<pre><code class="language-bash">curl -s &quot;https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh&quot; | bash
+</code></pre>
+<p>Once the installation is complete, verify the installation by running:</p>
+<pre><code class="language-bash">kustomize version --short
 </code></pre>
 <p>You should see an output similar to the following:</p>
-<p><code>bash  theme={null}
-{kustomize/v4.4.1 2021-11-11T23:36:27Z}</code></p>
-<blockquote>
+<pre><code class="language-bash">{kustomize/v4.4.1 2021-11-11T23:36:27Z}
+</code></pre>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>If you do not see the expected output or if you encounter any issues, it may be due to environment variables not being updated in your current terminal session. Close and reopen your terminal, then try the verification step again.</p>
 <p>If problems persist after restarting your terminal, re-run the installation script to ensure that Kustomize is correctly set up.</p>
-</blockquote>
+</div>
 <p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/2503ab74-a871-4b65-a677-7180c001d5c5/lesson/14461618-374d-4ca2-983d-5ef86944661d" /></p>
             </div>
             
@@ -752,16 +856,18 @@ kustomize version --short
         <article class="lesson" id="lesson-6">
             <span class="lesson-number">الدرس 6</span>
             <h2>🛸 kustomization</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>kustomization</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This article explains how to use the kustomization.yaml file with Kustomize for managing Kubernetes configurations and applying transformations.</p>
-</blockquote>
+</div>
 <p>Now that you have installed and configured the Kustomize tool, let's dive into how to work with it using the kustomization.yaml file. In this lesson, you'll learn what the kustomization.yaml file is, why it's essential, and how to set it up for your projects.</p>
 <p>Consider a directory named "K8s" containing your Kubernetes configurations. In this example, the directory includes two YAML files: one for the nginx deployment and one for the nginx service. Keep in mind that Kustomize does not automatically read all YAML files in a directory—it specifically searches for a file named kustomization.yaml. You must create this file manually and ensure it is named exactly as kustomization.yaml.</p>
 <p>Inside the kustomization.yaml file, there are two primary sections:</p>
@@ -770,28 +876,25 @@ Use this file to discover all available pages before exploring further.</p>
 <li>A section for customizations or transformations that will be applied to those resources.</li>
 </ol>
 <p>For example, the following kustomization.yaml file manages both the nginx deployment and service, while applying a common label to all resources:</p>
-<p>```yaml  theme={null}</p>
-<h1>Kubernetes resources to be managed by Kustomize</h1>
-<p>resources:
+<pre><code class="language-yaml"># Kubernetes resources to be managed by Kustomize
+resources:
   - nginx-deployment.yaml
-  - nginx-service.yaml</p>
-<h1>Customizations to be applied</h1>
-<p>commonLabels:
-  company: KodeKloud</p>
-<pre><code>
-In this configuration:
+  - nginx-service.yaml
 
-* The `resources` list enumerates the YAML files that Kustomize should process.
-* The `commonLabels` transformation adds an extra label with the key `company` and the value `KodeKloud` to every resource.
-
-Once your kustomization.yaml file is ready, run the Kustomize build command by pointing it to the directory containing the file:
-
-```bash  theme={null}
-$ kustomize build k8s/
+# Customizations to be applied
+commonLabels:
+  company: KodeKloud
+</code></pre>
+<p>In this configuration:</p>
+<ul class="styled-list">
+<li>The <code>resources</code> list enumerates the YAML files that Kustomize should process.</li>
+<li>The <code>commonLabels</code> transformation adds an extra label with the key <code>company</code> and the value <code>KodeKloud</code> to every resource.</li>
+</ul>
+<p>Once your kustomization.yaml file is ready, run the Kustomize build command by pointing it to the directory containing the file:</p>
+<pre><code class="language-bash">$ kustomize build k8s/
 </code></pre>
 <p>This command imports the defined resources, applies the specified transformations, and outputs the final configuration. Below is an example of the output after executing the command:</p>
-<p>```yaml  theme={null}
-apiVersion: v1
+<pre><code class="language-yaml">apiVersion: v1
 kind: Service
 metadata:
   labels:
@@ -805,9 +908,9 @@ spec:
   selector:
     company: KodeKloud
     component: nginx
-  type: LoadBalancer</p>
-<hr />
-<p>apiVersion: apps/v1
+  type: LoadBalancer
+---
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
@@ -828,11 +931,11 @@ spec:
       containers:
         - image: nginx
           name: nginx
-```</p>
+</code></pre>
 <p>As shown in the output, both the nginx service and deployment now include the <code>company: KodeKloud</code> label as defined by the common label transformation.</p>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>The <code>kustomize build</code> command generates the final configuration but does not deploy the resources to your cluster. To apply these configurations, you can redirect the output to kubectl using a command like <code>kustomize build k8s/ | kubectl apply -f -</code>.</p>
-</blockquote>
+</div>
 <p>In summary, this lesson covered the following key points:</p>
 <ul class="styled-list">
 <li>Kustomize searches for a kustomization.yaml file in the target directory.</li>
@@ -856,32 +959,35 @@ spec:
         <article class="lesson" id="lesson-7">
             <span class="lesson-number">الدرس 7</span>
             <h2>🛸 Kustomize ApiVersion Kind</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Kustomize ApiVersion Kind</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This article explains the importance of specifying ApiVersion and Kind in kustomization.yaml for better configuration management in Kustomize.</p>
-</blockquote>
+</div>
 <p>Just like other Kubernetes resource files, you can specify the ApiVersion and Kind properties explicitly in your kustomization.yaml file. Although these properties are optional—since Kustomize assigns default values by default—it is highly recommended to hardcode them. This proactive approach helps safeguard your configuration against potential breaking changes in future Kustomize releases.</p>
 <p>Below is an example of a kustomization.yaml file that includes the ApiVersion and Kind properties, along with a defined list of resources and common labels for customization:</p>
-<p>```yaml  theme={null}
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization</p>
-<h1>Kubernetes resources to be managed by Kustomize</h1>
-<p>resources:
+<pre><code class="language-yaml">apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Kubernetes resources to be managed by Kustomize
+resources:
   - nginx-depl.yaml
-  - nginx-service.yaml</p>
-<h1>Customizations to be applied</h1>
-<p>commonLabels:
+  - nginx-service.yaml
+
+# Customizations to be applied
+commonLabels:
   company: KodeKloud
-```</p>
-<blockquote>
+</code></pre>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>Hardcoding the ApiVersion and Kind properties ensures compatibility and clarity in your configuration files, making them more predictable and easier to manage.</p>
-</blockquote>
+</div>
 <p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/2503ab74-a871-4b65-a677-7180c001d5c5/lesson/0a9df343-8d0f-4db4-a85e-15945d53ef14" /></p>
             </div>
             
@@ -898,36 +1004,35 @@ kind: Kustomization</p>
         <article class="lesson" id="lesson-8">
             <span class="lesson-number">الدرس 8</span>
             <h2>🛸 Kustomize Output</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Kustomize Output</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This article explains how to deploy and remove Kubernetes resources using Kustomize and kubectl commands.</p>
-</blockquote>
+</div>
 <p>In the previous lesson, we explored the Kustomize build command. This command collects all your resource configurations, applies the necessary transformations, and outputs the final configurations to the console. Remember that these configurations are <em>not</em> automatically deployed to your Kubernetes cluster. Running commands like <code>kubectl get pods</code>, <code>kubectl get deployments</code>, or <code>kubectl get services</code> will not show any new resources until you explicitly apply them.</p>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>The output from Kustomize build is solely for previewing your final configuration. To deploy these changes, you must apply them using <code>kubectl</code>.</p>
-</blockquote>
+</div>
 <h2>Deploying Configurations</h2>
 <p>To deploy the configurations generated by Kustomize, you can pipe its output directly into <code>kubectl apply</code> using the Linux pipe (<code>|</code>) operator. This operator takes the output of one command and passes it as input to the next command. Below is an example demonstrating this approach:</p>
-<p>```bash  theme={null}
-$ kustomize build k8s/ | kubectl apply -f -
+<pre><code class="language-bash">$ kustomize build k8s/ | kubectl apply -f -
 service/nginx-loadbalancer-service created
-deployment.apps/nginx-deployment created</p>
-<pre><code>
-This multi-step command performs the following tasks:
-
-1. Runs `kustomize build k8s/` to generate the final configuration.
-2. Pipes the output to `kubectl apply -f -`, which applies the configuration to your Kubernetes cluster.
-
-Alternatively, Kubernetes facilitates this process natively with the `-k` flag, enabling both methods as shown below:
-
-```bash  theme={null}
-# Using Kustomize with a pipe:
+deployment.apps/nginx-deployment created
+</code></pre>
+<p>This multi-step command performs the following tasks:</p>
+<ol>
+<li>Runs <code>kustomize build k8s/</code> to generate the final configuration.</li>
+<li>Pipes the output to <code>kubectl apply -f -</code>, which applies the configuration to your Kubernetes cluster.</li>
+</ol>
+<p>Alternatively, Kubernetes facilitates this process natively with the <code>-k</code> flag, enabling both methods as shown below:</p>
+<pre><code class="language-bash"># Using Kustomize with a pipe:
 $ kustomize build k8s/ | kubectl apply -f -
 service/nginx-loadbalancer-service created
 deployment.apps/nginx-deployment created
@@ -939,21 +1044,18 @@ deployment.apps/nginx-deployment created
 </code></pre>
 <h2>Removing Configurations</h2>
 <p>Deleting the deployed resources follows a process similar to deployment. Simply replace the <code>apply</code> keyword with <code>delete</code>. The first method pipes the output of the Kustomize build command directly into <code>kubectl delete</code>:</p>
-<p>```bash  theme={null}
-$ kustomize build k8s/ | kubectl delete -f -
-service "nginx-loadbalancer-service" deleted
-deployment.apps "nginx-deployment" deleted</p>
-<pre><code>
-Alternatively, use the native method with the `-k` flag:
-
-```bash  theme={null}
-$ kubectl delete -k k8s/
+<pre><code class="language-bash">$ kustomize build k8s/ | kubectl delete -f -
 service &quot;nginx-loadbalancer-service&quot; deleted
 deployment.apps &quot;nginx-deployment&quot; deleted
 </code></pre>
-<blockquote>
+<p>Alternatively, use the native method with the <code>-k</code> flag:</p>
+<pre><code class="language-bash">$ kubectl delete -k k8s/
+service &quot;nginx-loadbalancer-service&quot; deleted
+deployment.apps &quot;nginx-deployment&quot; deleted
+</code></pre>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>Always verify that the correct configurations are being applied or deleted by reviewing the Kustomize output before proceeding. This helps in avoiding accidental misconfigurations.</p>
-</blockquote>
+</div>
 <p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/2503ab74-a871-4b65-a677-7180c001d5c5/lesson/b2ed246e-9cf4-484f-b1e0-8fad82d87034" /></p>
             </div>
             
@@ -970,20 +1072,21 @@ deployment.apps &quot;nginx-deployment&quot; deleted
         <article class="lesson" id="lesson-9">
             <span class="lesson-number">الدرس 9</span>
             <h2>🛸 Kustomize Problem Statement idealogy</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Kustomize Problem Statement idealogy</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This article explains Kustomize, a tool for managing Kubernetes configurations by reducing duplication and allowing environment-specific customizations.</p>
-</blockquote>
+</div>
 <p>Before diving into what Kustomize is and how to use it, it's essential to understand the problem it addresses and why it was created.</p>
 <p>Imagine you start with a simple NGINX deployment YAML file that deploys a single NGINX pod:</p>
-<p>```yaml  theme={null}
-apiVersion: apps/v1
+<pre><code class="language-yaml">apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-deployment
@@ -999,18 +1102,16 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx</p>
-<pre><code>
-Now, consider multiple environments such as development, staging, and production. Each environment might require different replica counts based on resource availability and varying traffic:
-
-* Development: 1 replica
-* Staging: 2 or 3 replicas
-* Production: 5 to 10 replicas
-
-A basic solution might be to create three separate directories (one for each environment) and duplicate the same configuration file with only the replica count changed. For example:
-
-```yaml  theme={null}
-# dev/nginx.yml
+        image: nginx
+</code></pre>
+<p>Now, consider multiple environments such as development, staging, and production. Each environment might require different replica counts based on resource availability and varying traffic:</p>
+<ul class="styled-list">
+<li>Development: 1 replica</li>
+<li>Staging: 2 or 3 replicas</li>
+<li>Production: 5 to 10 replicas</li>
+</ul>
+<p>A basic solution might be to create three separate directories (one for each environment) and duplicate the same configuration file with only the replica count changed. For example:</p>
+<pre><code class="language-yaml"># dev/nginx.yml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -1029,9 +1130,8 @@ spec:
       - name: nginx
         image: nginx
 </code></pre>
-<p>```yaml  theme={null}</p>
-<h1>stg/nginx.yml</h1>
-<p>apiVersion: apps/v1
+<pre><code class="language-yaml"># stg/nginx.yml
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-deployment
@@ -1047,10 +1147,9 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx</p>
-<pre><code>
-```yaml  theme={null}
-# prod/nginx.yml
+        image: nginx
+</code></pre>
+<pre><code class="language-yaml"># prod/nginx.yml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -1070,24 +1169,22 @@ spec:
         image: nginx
 </code></pre>
 <p>You would then apply each configuration per environment. For instance, in the development folder, run:</p>
-<p>```bash  theme={null}
-$ kubectl apply -f dev/
-deployment.apps/nginx-deployment created</p>
-<pre><code>
-And for staging:
-
-```bash  theme={null}
-$ kubectl apply -f stg/
+<pre><code class="language-bash">$ kubectl apply -f dev/
 deployment.apps/nginx-deployment created
 </code></pre>
-<blockquote>
-<p>While this method works, it quickly becomes unmanageable. When new resources (like a <code>service.yaml</code>) are added, you need to duplicate and update the file in every environment directory.</p>
-</blockquote>
-<pre><code>    &lt;figure class="img-frame"&gt;
-        &lt;img src="../assets/images/chapter11/Kustomize-Problem-Statement-idealogy_frame_170.jpg" alt="The image shows a directory structure for Kubernetes configurations with folders for dev, stg, and prod environments, each containing "nginx-depl.yml" and "service.yml" files." loading="lazy"&gt;
-        &lt;figcaption&gt;The image shows a directory structure for Kubernetes configurations with folders for dev, stg, and prod environments, each containing "nginx-depl.yml" and "service.yml" files.&lt;/figcaption&gt;
-    &lt;/figure&gt;
+<p>And for staging:</p>
+<pre><code class="language-bash">$ kubectl apply -f stg/
+deployment.apps/nginx-deployment created
 </code></pre>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
+<p>While this method works, it quickly becomes unmanageable. When new resources (like a <code>service.yaml</code>) are added, you need to duplicate and update the file in every environment directory.</p>
+</div>
+
+        <figure class="img-frame">
+            <img src="../assets/images/chapter11/Kustomize-Problem-Statement-idealogy_frame_170.jpg" alt="The image shows a directory structure for Kubernetes configurations with folders for dev, stg, and prod environments, each containing "nginx-depl.yml" and "service.yml" files." loading="lazy">
+            <figcaption>The image shows a directory structure for Kubernetes configurations with folders for dev, stg, and prod environments, each containing "nginx-depl.yml" and "service.yml" files.</figcaption>
+        </figure>
+        
 <p>This duplication increases the chance of human errors and inconsistencies across environments, especially as your Kubernetes infrastructure scales.</p>
 <h2>Kustomize: Base and Overlays</h2>
 <p>Kustomize was created to address these challenges by eliminating code duplication while allowing environment-specific customizations. It introduces two key concepts:</p>
@@ -1096,9 +1193,8 @@ deployment.apps/nginx-deployment created
 <li><strong>Overlays:</strong> Customize the Base configuration for specific environments by modifying only the parameters that vary.</li>
 </ul>
 <p>Consider this Base configuration for the NGINX deployment:</p>
-<p>```yaml  theme={null}</p>
-<h1>base/nginx-depl.yaml</h1>
-<p>apiVersion: apps/v1
+<pre><code class="language-yaml"># base/nginx-depl.yaml
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-deployment
@@ -1114,12 +1210,10 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx</p>
-<pre><code>
-Since staging and production require different replica counts, you create overlays that override the default replica settings:
-
-```yaml  theme={null}
-# overlays/kustomization.yaml (Conceptual Representation)
+        image: nginx
+</code></pre>
+<p>Since staging and production require different replica counts, you create overlays that override the default replica settings:</p>
+<pre><code class="language-yaml"># overlays/kustomization.yaml (Conceptual Representation)
 base:
   apiVersion: apps/v1
   kind: Deployment
@@ -1153,8 +1247,7 @@ overlays:
 <p>In this setup, the development overlay retains the same settings as the Base, while staging and production override the <code>replicas</code> count.</p>
 <h3>Project Directory Structure</h3>
 <p>A typical Kustomize project structure might look like this:</p>
-<p><code>text  theme={null}
-k8s/
+<pre><code class="language-text">k8s/
 ├── base/
 │   ├── kustomization.yaml
 │   ├── nginx-depl.yaml
@@ -1169,30 +1262,33 @@ k8s/
     │   └── config-map.yaml
     └── prod/
         ├── kustomization.yaml
-        └── config-map.yaml</code></p>
+        └── config-map.yaml
+</code></pre>
 <p>Here, the Base folder holds the shared configurations, while each environment-specific overlay directory contains its own <code>kustomization.yaml</code> and any additional configuration files.</p>
 <p>After combining the Base and the appropriate Overlay, Kustomize generates the final Kubernetes manifest ready to be applied to your cluster.</p>
-<pre><code>    &lt;figure class="img-frame"&gt;
-        &lt;img src="../assets/images/chapter11/Kustomize-Problem-Statement-idealogy_frame_410.jpg" alt="The image illustrates the Kustomize process, combining "Base" and "Overlay" to produce "Final Manifests."" loading="lazy"&gt;
-        &lt;figcaption&gt;The image illustrates the Kustomize process, combining "Base" and "Overlay" to produce "Final Manifests."&lt;/figcaption&gt;
-    &lt;/figure&gt;
-</code></pre>
+
+        <figure class="img-frame">
+            <img src="../assets/images/chapter11/Kustomize-Problem-Statement-idealogy_frame_410.jpg" alt="The image illustrates the Kustomize process, combining "Base" and "Overlay" to produce "Final Manifests."" loading="lazy">
+            <figcaption>The image illustrates the Kustomize process, combining "Base" and "Overlay" to produce "Final Manifests."</figcaption>
+        </figure>
+        
 <h2>Advantages of Using Kustomize</h2>
 <p>Kustomize is integrated into kubectl, so there's no need for additional installations. Although the built-in version works well, you might consider installing the latest version of Kustomize for access to new features.</p>
 <p>Unlike Helm, Kustomize avoids templating and works entirely with plain YAML files, which offers several benefits:</p>
 <ul class="styled-list">
 <li>No need to learn or manage a templating language.</li>
 <li>Improved readability and maintainability of configuration files.</li>
-<li>Seamless validation and processing with existing YAML tools.<pre><code>&lt;figure class="img-frame"&gt;
-    &lt;img src="../assets/images/chapter11/Kustomize-Problem-Statement-idealogy_frame_470.jpg" alt="The image describes Kustomize's integration with kubectl, its simplicity over templating systems, and its use of plain YAML for validation and processing." loading="lazy"&gt;
-    &lt;figcaption&gt;The image describes Kustomize's integration with kubectl, its simplicity over templating systems, and its use of plain YAML for validation and processing.&lt;/figcaption&gt;
-&lt;/figure&gt;
-</code></pre>
-</li>
+<li>Seamless validation and processing with existing YAML tools.</li>
 </ul>
-<blockquote>
+
+        <figure class="img-frame">
+            <img src="../assets/images/chapter11/Kustomize-Problem-Statement-idealogy_frame_470.jpg" alt="The image describes Kustomize's integration with kubectl, its simplicity over templating systems, and its use of plain YAML for validation and processing." loading="lazy">
+            <figcaption>The image describes Kustomize's integration with kubectl, its simplicity over templating systems, and its use of plain YAML for validation and processing.</figcaption>
+        </figure>
+        
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>Kustomize enables you to maintain a single base configuration while selectively overriding parameters for each environment. This approach reduces duplication, minimizes errors, and scales efficiently as your Kubernetes environment grows.</p>
-</blockquote>
+</div>
 <p>By leveraging Base and Overlays, Kustomize treats configuration files like regular application code, enhancing consistency and manageability across all deployment environments.</p>
 <h2>Additional Resources</h2>
 <p>For further information on Kubernetes and Kustomize, consider exploring these resources:</p>
@@ -1217,22 +1313,23 @@ k8s/
         <article class="lesson" id="lesson-10">
             <span class="lesson-number">الدرس 10</span>
             <h2>🛸 Kustomize vs Helm</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Kustomize vs Helm</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This article offers a comparison between Helm and Kustomize for modifying Kubernetes manifests across different environments.</p>
-</blockquote>
+</div>
 <p>This article offers a high-level comparison between Helm and Kustomize for modifying Kubernetes manifests across different environments. Understanding both tools is crucial when selecting the best fit for your project.</p>
 <h2>Helm's Templating Approach</h2>
 <p>Helm uses Go templating syntax to inject variable values into Kubernetes manifests. Rather than hard coding values, Helm defines placeholders that can be dynamically replaced with environment-specific configurations. Consider the following example:</p>
-<p>```yaml  theme={null}</p>
-<h1>Deployment template (Deployment.yaml)</h1>
-<p>apiVersion: apps/v1
+<pre><code class="language-yaml"># Deployment template (Deployment.yaml)
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.name }}
@@ -1248,22 +1345,20 @@ spec:
     spec:
       containers:
       - name: {{ .Chart.Name }}
-        image: "nginx:{{ .Values.image.tag }}"</p>
-<h1>Values file (values.yaml)</h1>
-<p>replicaCount: 1
+        image: &quot;nginx:{{ .Values.image.tag }}&quot;
+
+# Values file (values.yaml)
+replicaCount: 1
 image:
-  tag: "2.4.4"</p>
-<pre><code>
-In this example, the double curly braces `{{ ... }}` denote variables for properties such as `name`, `replicaCount`, and `image.tag`. When deploying your application, Helm replaces these placeholders with the corresponding values defined in `values.yaml`.
-
-&gt; Helm's templating mechanism enables advanced customization by allowing developers to pass different configuration values for each environment.
-
-## Organizing a Helm Project
-
-A well-structured Helm project separates Kubernetes manifests (templates) from environment-specific values files. Here’s an example of a typical project structure:
-
-```plaintext  theme={null}
-k8s/
+  tag: &quot;2.4.4&quot;
+</code></pre>
+<p>In this example, the double curly braces <code>{{ ... }}</code> denote variables for properties such as <code>name</code>, <code>replicaCount</code>, and <code>image.tag</code>. When deploying your application, Helm replaces these placeholders with the corresponding values defined in <code>values.yaml</code>.</p>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
+<p>Helm's templating mechanism enables advanced customization by allowing developers to pass different configuration values for each environment.</p>
+</div>
+<h2>Organizing a Helm Project</h2>
+<p>A well-structured Helm project separates Kubernetes manifests (templates) from environment-specific values files. Here’s an example of a typical project structure:</p>
+<pre><code class="language-plaintext">k8s/
 └── environments/
     ├── values.dev.yaml
     ├── values.stg.yaml
@@ -1278,9 +1373,9 @@ k8s/
 <h2>Additional Features and Trade-offs</h2>
 <p>Helm is not only a configuration customization tool but also a comprehensive package manager for Kubernetes applications—similar to how package managers like yum or apt work for Linux systems. Its support for advanced features such as conditionals, loops, functions, and hooks makes it superior for complex deployments compared to Kustomize.</p>
 <p>However, this added functionality also introduces extra complexity. Since Helm templates are not valid YAML until rendered, reading and understanding Helm charts can be challenging due to the intensive use of templating logic. In contrast, Kustomize relies on plain YAML for both base configurations and overlays, which can enhance clarity and ease of reading.</p>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>When choosing between Kustomize and Helm, consider the trade-off between the simplicity of Kustomize and the advanced, but more complex, capabilities of Helm.</p>
-</blockquote>
+</div>
 <h2>Feature Comparison</h2>
 <table>
 <thead>
@@ -1336,16 +1431,18 @@ k8s/
         <article class="lesson" id="lesson-11">
             <span class="lesson-number">الدرس 11</span>
             <h2>🛸 Managing Directories Demo</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Managing Directories Demo</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>Learn to organize Kubernetes manifests into directories and apply them using kubectl commands and Kustomize for improved manageability and scalability.</p>
-</blockquote>
+</div>
 <p>In this lesson, you'll learn how to organize Kubernetes manifests into directories and apply them using both standard kubectl commands and Kustomize. This approach helps maintain a clean, modular structure for your Kubernetes configurations, improving manageability and scalability.</p>
 <p>The directory structure is organized as follows:</p>
 <ul class="styled-list">
@@ -1357,8 +1454,7 @@ Use this file to discover all available pages before exploring further.</p>
 <p>Within each folder, YAML files define deployments, services, and config maps. For example, the database folder includes a deployment YAML for a MongoDB container, while the other folders typically feature either a ClusterIP or LoadBalancer service and, optionally, a config map.</p>
 <hr />
 <p>Below is an example Kubernetes Service configuration for Redis:</p>
-<p>```yaml  theme={null}
-apiVersion: v1
+<pre><code class="language-yaml">apiVersion: v1
 kind: Service
 metadata:
   name: redis-cluster-ip-service
@@ -1368,12 +1464,10 @@ spec:
     component: redis
   ports:
     - port: 6379
-      targetPort: 6379</p>
-<pre><code>
-Before using Kustomize, resources are deployed using the standard methodologies. For instance, here is a ConfigMap definition for Redis credentials:
-
-```yaml  theme={null}
-apiVersion: v1
+      targetPort: 6379
+</code></pre>
+<p>Before using Kustomize, resources are deployed using the standard methodologies. For instance, here is a ConfigMap definition for Redis credentials:</p>
+<pre><code class="language-yaml">apiVersion: v1
 kind: ConfigMap
 metadata:
   name: redis-credentials
@@ -1384,16 +1478,13 @@ data:
 <hr />
 <h2>Deploying Without Kustomize</h2>
 <p>To deploy resources without Kustomize, open your terminal, navigate into each directory, and run the appropriate commands. For example:</p>
-<p>```bash  theme={null}
-kubectl apply -f k8s/api
+<pre><code class="language-bash">kubectl apply -f k8s/api
 deployment.apps/api-deployment created
 service/api-service created
-kubectl apply -f k8s/cache</p>
-<pre><code>
-You can apply the resources sequentially for clarity:
-
-```bash  theme={null}
-kubectl apply -f k8s/api
+kubectl apply -f k8s/cache
+</code></pre>
+<p>You can apply the resources sequentially for clarity:</p>
+<pre><code class="language-bash">kubectl apply -f k8s/api
 deployment.apps/api-deployment created
 service/api-service created
 
@@ -1408,32 +1499,26 @@ deployment.apps/db-deployment created
 service/db-service created
 </code></pre>
 <p>Alternatively, you can deploy all resources in one command. Note that reapplying resources will not change their state if nothing has been updated:</p>
-<p>```bash  theme={null}
-kubectl apply -f k8s/db -f k8s/cache -f k8s/api</p>
-<pre><code>
-To clean up the applied resources, execute:
-
-```bash  theme={null}
-kubectl delete -f k8s/db -f k8s/cache -f k8s/api
+<pre><code class="language-bash">kubectl apply -f k8s/db -f k8s/cache -f k8s/api
 </code></pre>
-<blockquote>
+<p>To clean up the applied resources, execute:</p>
+<pre><code class="language-bash">kubectl delete -f k8s/db -f k8s/cache -f k8s/api
+</code></pre>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>Deploying resources sequentially can help troubleshoot issues more effectively, as you can pinpoint where a problem occurs.</p>
-</blockquote>
+</div>
 <hr />
 <h2>Introducing Kustomize</h2>
 <p>Kustomize simplifies resource management by allowing you to create a single, consolidated kustomization file at the root of your "K8s" directory. Begin by creating a <code>kustomization.yaml</code> file in the K8s directory with the content below:</p>
-<p>```yaml  theme={null}
-apiVersion: kustomize.config.k8s.io/v1beta1
+<pre><code class="language-yaml">apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - api/
   - cache/
-  - db/</p>
-<pre><code>
-Before proceeding, delete the previously applied resources to avoid conflicts:
-
-```bash  theme={null}
-kubectl delete -f k8s/db -f k8s/cache -f k8s/api
+  - db/
+</code></pre>
+<p>Before proceeding, delete the previously applied resources to avoid conflicts:</p>
+<pre><code class="language-bash">kubectl delete -f k8s/db -f k8s/cache -f k8s/api
 configmap &quot;db-credentials&quot; deleted
 deployment.apps &quot;db-deployment&quot; deleted
 service &quot;db-service&quot; deleted
@@ -1444,16 +1529,13 @@ deployment.apps &quot;api-deployment&quot; deleted
 service &quot;api-service&quot; deleted
 </code></pre>
 <p>The kustomization file begins by defining the API version and the kind. Next, specify the paths of the individual resource directories (or individual YAML files if desired). For example, to include resources from the API folder:</p>
-<p>```yaml  theme={null}
-apiVersion: kustomize.config.k8s.io/v1beta1
+<pre><code class="language-yaml">apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - api/</p>
-<pre><code>
-A complete kustomization file that imports configurations from all directories might look like this:
-
-```yaml  theme={null}
-apiVersion: kustomize.config.k8s.io/v1beta1
+  - api/
+</code></pre>
+<p>A complete kustomization file that imports configurations from all directories might look like this:</p>
+<pre><code class="language-yaml">apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - api/api-depl.yaml
@@ -1466,22 +1548,16 @@ resources:
   - db/db-service.yaml
 </code></pre>
 <p>Run the following command to perform a Kustomize build, which outputs the consolidated Kubernetes manifests:</p>
-<p>```bash  theme={null}
-kustomize build k8s/</p>
-<pre><code>
-The output will include configurations from the cache, database, and API folders. Keep in mind that `kustomize build` only displays the final output without applying the configurations. To apply the built manifests, pipe the output into `kubectl apply`:
-
-```bash  theme={null}
-kustomize build k8s/ | kubectl apply -f -
+<pre><code class="language-bash">kustomize build k8s/
+</code></pre>
+<p>The output will include configurations from the cache, database, and API folders. Keep in mind that <code>kustomize build</code> only displays the final output without applying the configurations. To apply the built manifests, pipe the output into <code>kubectl apply</code>:</p>
+<pre><code class="language-bash">kustomize build k8s/ | kubectl apply -f -
 </code></pre>
 <p>Alternatively, use the built-in Kustomize functionality built into kubectl:</p>
-<p>```bash  theme={null}
-kubectl apply -k k8s/</p>
-<pre><code>
-A successful output should indicate that all resources have been created:
-
-```bash  theme={null}
-configmap/db-credentials created
+<pre><code class="language-bash">kubectl apply -k k8s/
+</code></pre>
+<p>A successful output should indicate that all resources have been created:</p>
+<pre><code class="language-bash">configmap/db-credentials created
 configmap/redis-credentials created
 service/api-service created
 service/db-service created
@@ -1491,27 +1567,21 @@ deployment.apps/db-deployment created
 deployment.apps/redis-deployment created
 </code></pre>
 <p>Verify that your pods are running with:</p>
-<p>```bash  theme={null}
-kubectl get pods
+<pre><code class="language-bash">kubectl get pods
 NAME                                      READY   STATUS    RESTARTS   AGE
 api-deployment-64dd567b46-1mw4c          1/1     Running   0          27s
 db-deployment-657c8ffbd-vnjs7            1/1     Running   0          26s
-redis-deployment-587fd758cf-7pt57        1/1     Running   0          26s</p>
-<pre><code>
-&gt; Using Kustomize can significantly reduce the complexity of managing resources in your cluster, especially as your application scales.
-
-***
-
-## Refining the Directory Structure with Nested Kustomization Files
-
-For enhanced scalability, you can place a `kustomization.yaml` file within each subdirectory. This modular approach lets each folder manage its own resources independently. The root `kustomization.yaml` then simply references these subdirectories.
-
-### For the API Folder
-
-Create a `kustomization.yaml` file inside the &quot;api&quot; folder with the following content:
-
-```yaml  theme={null}
-apiVersion: kustomize.config.k8s.io/v1beta1
+redis-deployment-587fd758cf-7pt57        1/1     Running   0          26s
+</code></pre>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
+<p>Using Kustomize can significantly reduce the complexity of managing resources in your cluster, especially as your application scales.</p>
+</div>
+<hr />
+<h2>Refining the Directory Structure with Nested Kustomization Files</h2>
+<p>For enhanced scalability, you can place a <code>kustomization.yaml</code> file within each subdirectory. This modular approach lets each folder manage its own resources independently. The root <code>kustomization.yaml</code> then simply references these subdirectories.</p>
+<h3>For the API Folder</h3>
+<p>Create a <code>kustomization.yaml</code> file inside the "api" folder with the following content:</p>
+<pre><code class="language-yaml">apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - api-depl.yaml
@@ -1519,20 +1589,16 @@ resources:
 </code></pre>
 <h3>For the Cache Folder</h3>
 <p>Inside the "cache" folder, create a <code>kustomization.yaml</code> file:</p>
-<p>```yaml  theme={null}
-apiVersion: kustomize.config.k8s.io/v1beta1
+<pre><code class="language-yaml">apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - redis-config.yaml
   - redis-depl.yaml
-  - redis-service.yaml</p>
-<pre><code>
-### For the DB Folder
-
-Similarly, in the &quot;db&quot; folder, create a `kustomization.yaml` file:
-
-```yaml  theme={null}
-apiVersion: kustomize.config.k8s.io/v1beta1
+  - redis-service.yaml
+</code></pre>
+<h3>For the DB Folder</h3>
+<p>Similarly, in the "db" folder, create a <code>kustomization.yaml</code> file:</p>
+<pre><code class="language-yaml">apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - db-config.yaml
@@ -1540,33 +1606,27 @@ resources:
   - db-service.yaml
 </code></pre>
 <p>Finally, update the root <code>kustomization.yaml</code> to reference the subdirectories, each containing its own <code>kustomization.yaml</code>:</p>
-<p>```yaml  theme={null}
-apiVersion: kustomize.config.k8s.io/v1beta1
+<pre><code class="language-yaml">apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - api/
   - cache/
-  - db/</p>
-<pre><code>
-After deleting any old resources, apply the new configuration with:
-
-```bash  theme={null}
-kubectl apply -k k8s/
+  - db/
+</code></pre>
+<p>After deleting any old resources, apply the new configuration with:</p>
+<pre><code class="language-bash">kubectl apply -k k8s/
 </code></pre>
 <p>The output should confirm that all resources have been created:</p>
-<p>```bash  theme={null}
-configmap/redis-credentials created
+<pre><code class="language-bash">configmap/redis-credentials created
 service/api-service created
 service/db-service created
 service/redis-cluster-ip-service created
 deployment.apps/api-deployment created
 deployment.apps/db-deployment created
-deployment.apps/redis-deployment created</p>
-<pre><code>
-Verify the status of your pods with:
-
-```bash  theme={null}
-kubectl get pods
+deployment.apps/redis-deployment created
+</code></pre>
+<p>Verify the status of your pods with:</p>
+<pre><code class="language-bash">kubectl get pods
 NAME                                      READY   STATUS    RESTARTS   AGE
 api-deployment-64dd567b46-lmw4c           1/1     Running   0          27s
 db-deployment-657c8ffb8-vmjs7              1/1     Running   0          26s
@@ -1596,16 +1656,18 @@ redis-deployment-587fd758cf-7pt57         1/1     Running   0          26s
         <article class="lesson" id="lesson-12">
             <span class="lesson-number">الدرس 12</span>
             <h2>🛸 Managing Directories</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Managing Directories</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>Learn to efficiently manage Kubernetes manifests across multiple directories using Kustomize for streamlined configurations and deployments.</p>
-</blockquote>
+</div>
 <p>Up to this point, we've only covered the absolute basics of a kustomization.yaml file. While we haven't explored every feature of Kustomize, you already have the tools to perform some powerful operations. One common requirement is managing Kubernetes manifests distributed across multiple directories. In this guide, you'll learn how to organize and apply configurations efficiently using Kustomize.</p>
 <hr />
 <h2>Traditional Organization and Its Limitations</h2>
@@ -1617,67 +1679,56 @@ Use this file to discover all available pages before exploring further.</p>
 <li>A database service manifest</li>
 </ul>
 <p>With this simple setup, you might navigate to the "k8s" directory and run:</p>
-<p>```bash  theme={null}
-$ kubectl apply -f .</p>
-<pre><code>
-This approach works based on standard Kubernetes behavior without requiring Kustomize. However, as the number of YAML files increases—perhaps to 20, 30, 50, or more—the directory can quickly become cluttered. To better manage the files, you might group related manifests into subdirectories. For example:
-
-* Move the API deployment and service YAML files into an `api` subdirectory.
-* Move the database deployment and service YAML files into a `db` subdirectory.
-
-After reorganizing, you can no longer apply the configuration files from the root directory using one command. Instead, you must apply each group with separate commands like:
-
-```bash  theme={null}
-$ kubectl apply -f k8s/api/
+<pre><code class="language-bash">$ kubectl apply -f .
+</code></pre>
+<p>This approach works based on standard Kubernetes behavior without requiring Kustomize. However, as the number of YAML files increases—perhaps to 20, 30, 50, or more—the directory can quickly become cluttered. To better manage the files, you might group related manifests into subdirectories. For example:</p>
+<ul class="styled-list">
+<li>Move the API deployment and service YAML files into an <code>api</code> subdirectory.</li>
+<li>Move the database deployment and service YAML files into a <code>db</code> subdirectory.</li>
+</ul>
+<p>After reorganizing, you can no longer apply the configuration files from the root directory using one command. Instead, you must apply each group with separate commands like:</p>
+<pre><code class="language-bash">$ kubectl apply -f k8s/api/
 $ kubectl apply -f k8s/db/
 </code></pre>
 <p>This approach soon becomes cumbersome, especially when updating configurations or automating deployments with CI/CD pipelines.</p>
 <hr />
 <h2>Simplifying with Kustomize</h2>
 <p>Kustomize can significantly streamline the process by allowing you to manage multiple directories from a single kustomization.yaml file.</p>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>With Kustomize, you can maintain a single command to deploy resources, reducing manual steps and potential errors.</p>
-</blockquote>
+</div>
 <h3>Setting Up Your Root kustomization.yaml</h3>
 <ol>
 <li>In the root of your "k8s" directory, create a <code>kustomization.yaml</code> file.</li>
 <li>List all individual resource files using their relative paths.</li>
 </ol>
 <p>For example:</p>
-<p>```yaml  theme={null}
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization</p>
-<h1>Kubernetes resources to be managed by Kustomize</h1>
-<p>resources:
+<pre><code class="language-yaml">apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Kubernetes resources to be managed by Kustomize
+resources:
   - api/api-depl.yaml
   - api/api-service.yaml
   - db/db-depl.yaml
-  - db/db-service.yaml</p>
-<pre><code>
-Now, instead of applying each subdirectory manually, you can deploy all the resources with a single command. There are two primary options:
-
-1. Build the complete configuration and pipe it to kubectl:
-
-   ```bash  theme={null}
-   $ kustomize build k8s/ | kubectl apply -f -
-   ```
-
-2. Apply directly using kubectl’s built-in Kustomize support:
-
-   ```bash  theme={null}
-   $ kubectl apply -k k8s/
-   ```
-
-Both commands process the `kustomization.yaml` file and deploy the defined resources automatically.
-
-***
-
-## Scaling with Additional Directories
-
-Over time, your application may bring in new components—such as a cache for Redis or a Kafka service. In that case, your root kustomization.yaml might expand to list many individual resources:
-
-```yaml  theme={null}
-apiVersion: kustomize.config.k8s.io/v1beta1
+  - db/db-service.yaml
+</code></pre>
+<p>Now, instead of applying each subdirectory manually, you can deploy all the resources with a single command. There are two primary options:</p>
+<ol>
+<li>Build the complete configuration and pipe it to kubectl:</li>
+</ol>
+<p><code>bash 
+   $ kustomize build k8s/ | kubectl apply -f -</code></p>
+<ol start="2">
+<li>Apply directly using kubectl’s built-in Kustomize support:</li>
+</ol>
+<p><code>bash 
+   $ kubectl apply -k k8s/</code></p>
+<p>Both commands process the <code>kustomization.yaml</code> file and deploy the defined resources automatically.</p>
+<hr />
+<h2>Scaling with Additional Directories</h2>
+<p>Over time, your application may bring in new components—such as a cache for Redis or a Kafka service. In that case, your root kustomization.yaml might expand to list many individual resources:</p>
+<pre><code class="language-yaml">apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 # Kubernetes resources to be managed by Kustomize
@@ -1698,19 +1749,16 @@ resources:
 <h2>A Cleaner Approach with Subdirectory kustomization.yaml Files</h2>
 <p>A more elegant solution delegates resource management to the individual subdirectories. In each subdirectory (e.g., <code>api</code>, <code>db</code>, <code>cache</code>, and <code>kafka</code>), create a separate <code>kustomization.yaml</code> file that lists only the YAML files contained within that directory.</p>
 <p>For example, the <code>db</code> directory might have the following kustomization.yaml file:</p>
-<p>```yaml  theme={null}
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization</p>
-<p>resources:
+<pre><code class="language-yaml">apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
   - db-depl.yaml
-  - db-service.yaml</p>
-<pre><code>
-Repeat a similar configuration for the other subdirectories.
-
-Next, update the root kustomization.yaml file to reference these directories:
-
-```yaml  theme={null}
-apiVersion: kustomize.config.k8s.io/v1beta1
+  - db-service.yaml
+</code></pre>
+<p>Repeat a similar configuration for the other subdirectories.</p>
+<p>Next, update the root kustomization.yaml file to reference these directories:</p>
+<pre><code class="language-yaml">apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
@@ -1720,13 +1768,10 @@ resources:
   - kafka/
 </code></pre>
 <p>Now, when you run either:</p>
-<p>```bash  theme={null}
-$ kustomize build k8s/ | kubectl apply -f -</p>
-<pre><code>
-or
-
-```bash  theme={null}
-$ kubectl apply -k k8s/
+<pre><code class="language-bash">$ kustomize build k8s/ | kubectl apply -f -
+</code></pre>
+<p>or</p>
+<pre><code class="language-bash">$ kubectl apply -k k8s/
 </code></pre>
 <p>Kustomize will traverse each subdirectory, process the individual kustomization.yaml files, and aggregate all the specified resources into one cohesive deployment. This approach keeps your root configuration clean, scalable, and easier to maintain.</p>
 <hr />
@@ -1749,16 +1794,18 @@ $ kubectl apply -k k8s/
         <article class="lesson" id="lesson-13">
             <span class="lesson-number">الدرس 13</span>
             <h2>🛸 Overlays</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Overlays</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This guide explores leveraging Kustomize overlays to customize a base Kubernetes configuration for different environments while maintaining a consistent base configuration.</p>
-</blockquote>
+</div>
 <p>This guide explores how to leverage Kustomize overlays to customize a base Kubernetes configuration for different environments. Using overlays allows you to maintain a single, consistent base configuration while easily applying environment-specific changes for development, staging, and production.</p>
 <h2>Folder Structure</h2>
 <p>A typical Kustomize project is organized into two main sections:</p>
@@ -1767,8 +1814,7 @@ Use this file to discover all available pages before exploring further.</p>
 <li><strong>Overlay Directories:</strong> Contains environment-specific folders where you can adjust or extend the base configuration using patches or by adding new resources.</li>
 </ol>
 <p>Below is an example directory structure:</p>
-<p>```plaintext  theme={null}
-k8s/
+<pre><code class="language-plaintext">k8s/
 └── base/
     ├── kustomization.yaml
     ├── nginx-depl.yaml
@@ -1783,37 +1829,28 @@ k8s/
     │   └── config-map.yaml
     └── prod/
         ├── kustomization.yaml
-        └── config-map.yaml</p>
-<pre><code>
-## Base Configuration
-
-The base configuration contains all the shared resources used across environments. For example, a base `kustomization.yaml` could reference your primary Kubernetes resources:
-
-```yaml  theme={null}
-resources:
+        └── config-map.yaml
+</code></pre>
+<h2>Base Configuration</h2>
+<p>The base configuration contains all the shared resources used across environments. For example, a base <code>kustomization.yaml</code> could reference your primary Kubernetes resources:</p>
+<pre><code class="language-yaml">resources:
   - nginx-depl.yaml
   - service.yaml
   - redis-depl.yaml
 </code></pre>
 <p>An example deployment file, <code>nginx-depl.yaml</code>, might look like this:</p>
-<p>```yaml  theme={null}
-apiVersion: apps/v1
+<pre><code class="language-yaml">apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-deployment
 spec:
-  replicas: 1</p>
-<pre><code>
-## Overlays Using Patches
-
-One of the key benefits of Kustomize is its ability to use overlays to modify the base configuration specific to each environment. Overlays allow you to apply patches that adjust parameters such as replica counts without duplicating the entire base configuration.
-
-### Example: Development Environment
-
-In the development overlay, you may want to increase the replica count from 1 to 2. The `kustomization.yaml` file in the `dev` directory could be structured as follows:
-
-```yaml  theme={null}
-bases:
+  replicas: 1
+</code></pre>
+<h2>Overlays Using Patches</h2>
+<p>One of the key benefits of Kustomize is its ability to use overlays to modify the base configuration specific to each environment. Overlays allow you to apply patches that adjust parameters such as replica counts without duplicating the entire base configuration.</p>
+<h3>Example: Development Environment</h3>
+<p>In the development overlay, you may want to increase the replica count from 1 to 2. The <code>kustomization.yaml</code> file in the <code>dev</code> directory could be structured as follows:</p>
+<pre><code class="language-yaml">bases:
   - ../../base
 patch: |-
   - op: replace
@@ -1823,22 +1860,17 @@ patch: |-
 <p>Here, the <code>bases</code> field points to the common base configuration, and the patch adjusts the <code>/spec/replicas</code> property specifically for the development environment.</p>
 <h3>Example: Production Environment</h3>
 <p>For the production environment, if you want to set the replica count to 3, the overlay's <code>kustomization.yaml</code> would look similar with a slight change:</p>
-<p>```yaml  theme={null}
-bases:
+<pre><code class="language-yaml">bases:
   - ../../base
 patch: |-
   - op: replace
     path: /spec/replicas
-    value: 3</p>
-<pre><code>
-This mechanism allows each overlay to tailor the configuration to meet specific operational requirements.
-
-## Adding New Resources in Overlays
-
-Overlays are not limited to patching existing resources; they can also introduce new resources that are unique to an environment. For example, in a production overlay, you might add a Grafana deployment. The directory structure can be updated as follows:
-
-```plaintext  theme={null}
-k8s/
+    value: 3
+</code></pre>
+<p>This mechanism allows each overlay to tailor the configuration to meet specific operational requirements.</p>
+<h2>Adding New Resources in Overlays</h2>
+<p>Overlays are not limited to patching existing resources; they can also introduce new resources that are unique to an environment. For example, in a production overlay, you might add a Grafana deployment. The directory structure can be updated as follows:</p>
+<pre><code class="language-plaintext">k8s/
 └── base/
     ├── kustomization.yaml
     ├── nginx-depl.yaml
@@ -1858,21 +1890,21 @@ k8s/
         └── grafana-depl.yaml
 </code></pre>
 <p>In the production overlay’s <code>kustomization.yaml</code>, you can include the additional Grafana resource:</p>
-<p><code>yaml  theme={null}
-bases:
+<pre><code class="language-yaml">bases:
   - ../../base
 resources:
   - grafana-depl.yaml
 patch: |-
   - op: replace
     path: /spec/replicas
-    value: 2</code></p>
+    value: 2
+</code></pre>
 <p>This configuration continues to import the common resources from the base while adding the unique Grafana deployment specific to production.</p>
 <h2>Flexibility in Directory Structure</h2>
 <p>Kustomize's flexible design helps manage complexity by separating common configurations from environment-specific customizations. This approach lets you centralize shared settings in one place and maintain clear, organized overlays for each environment.</p>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>Using overlays reduces configuration duplication and streamlines the management of different deployment environments. This approach ensures consistency across environments while allowing specific modifications as needed.</p>
-</blockquote>
+</div>
 <p>By understanding and utilizing Kustomize overlays, you can efficiently manage Kubernetes configurations across multiple environments, making your deployment workflows more robust and easier to maintain.</p>
 <p>For more detailed information on how to implement and optimize Kustomize for your projects, consider exploring additional resources on <a href="https://kubernetes.io/docs/">Kubernetes Documentation</a> and related tools.</p>
 <p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/2503ab74-a871-4b65-a677-7180c001d5c5/lesson/d02f6c7a-d704-4c64-b08b-d3ef01ee9a4d" /></p>
@@ -1892,23 +1924,24 @@ patch: |-
         <article class="lesson" id="lesson-14">
             <span class="lesson-number">الدرس 14</span>
             <h2>🛸 Patches Dictionary</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Patches Dictionary</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This article explains how to update, add, and remove keys in a Kubernetes Deployment configuration using JSON 6902 and Strategic Merge patches.</p>
-</blockquote>
+</div>
 <p>This article explains how to update, add, and remove keys in a Kubernetes Deployment configuration using patches. It covers examples with both JSON 6902 patches and Strategic Merge patches. In each example, we start with a deployment configuration that contains the label "component: api" and then modify it as required.</p>
-<p>──────────────────────────────
-Updating a Label Using a JSON 6902 Patch
+<p>──────────────────────────────<br />
+Updating a Label Using a JSON 6902 Patch<br />
 ──────────────────────────────</p>
 <p>Suppose you have a deployment configuration and want to change the label from "component: api" to "component: web". Consider the following original deployment configuration stored in <em>api-deployment.yaml</em>:</p>
-<p>```yaml  theme={null}
-apiVersion: apps/v1
+<pre><code class="language-yaml">apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: api-deployment
@@ -1924,12 +1957,10 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx</p>
-<pre><code>
-To update the label, use the JSON 6902 patch defined in your *kustomization.yaml* file:
-
-```yaml  theme={null}
-kustomization:
+        image: nginx
+</code></pre>
+<p>To update the label, use the JSON 6902 patch defined in your <em>kustomization.yaml</em> file:</p>
+<pre><code class="language-yaml">kustomization:
   patches:
   - target:
       kind: Deployment
@@ -1940,18 +1971,15 @@ kustomization:
         value: web
 </code></pre>
 <p>In this patch, the <code>replace</code> operation updates the specified label from "api" to "web".</p>
-<p>──────────────────────────────
-Updating a Label Using a Strategic Merge Patch
+<p>──────────────────────────────<br />
+Updating a Label Using a Strategic Merge Patch<br />
 ──────────────────────────────</p>
 <p>Alternatively, you can update the label using a Strategic Merge Patch stored in a separate file (e.g., <em>label-patch.yaml</em>). In your <em>kustomization.yaml</em>, reference the patch file as shown below:</p>
-<p>```yaml  theme={null}
-patches:
-  - label-patch.yaml</p>
-<pre><code>
-Inside *label-patch.yaml*, include only the fields that need to be changed:
-
-```yaml  theme={null}
-apiVersion: apps/v1
+<pre><code class="language-yaml">patches:
+  - label-patch.yaml
+</code></pre>
+<p>Inside <em>label-patch.yaml</em>, include only the fields that need to be changed:</p>
+<pre><code class="language-yaml">apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: api-deployment
@@ -1962,39 +1990,33 @@ spec:
         component: web
 </code></pre>
 <p>Kustomize merges this patch with the original configuration and updates the "component" label accordingly.</p>
-<p>──────────────────────────────
-Adding a New Label Using a JSON 6902 Patch
+<p>──────────────────────────────<br />
+Adding a New Label Using a JSON 6902 Patch<br />
 ──────────────────────────────</p>
 <p>If you wish to add a new label, such as "org: KodeKloud", while retaining the original "component: api" label, apply the following JSON 6902 patch in <em>kustomization.yaml</em>:</p>
-<p>```yaml  theme={null}
-patches:
+<pre><code class="language-yaml">patches:
   - target:
       kind: Deployment
       name: api-deployment
     patch: |-
       - op: add
         path: /spec/template/metadata/labels/org
-        value: KodeKloud</p>
-<pre><code>
-This patch uses the `add` operation to insert a new key &quot;org&quot; under the labels dictionary. After applying the patch, the labels section will appear as:
-
-```yaml  theme={null}
-labels:
+        value: KodeKloud
+</code></pre>
+<p>This patch uses the <code>add</code> operation to insert a new key "org" under the labels dictionary. After applying the patch, the labels section will appear as:</p>
+<pre><code class="language-yaml">labels:
   component: api
   org: KodeKloud
 </code></pre>
-<p>──────────────────────────────
-Adding a New Label Using a Strategic Merge Patch
+<p>──────────────────────────────<br />
+Adding a New Label Using a Strategic Merge Patch<br />
 ──────────────────────────────</p>
 <p>Another approach to add a label is to use a Strategic Merge Patch. Reference the separate patch file in <em>kustomization.yaml</em>:</p>
-<p>```yaml  theme={null}
-patches:
-  - label-patch.yaml</p>
-<pre><code>
-Inside *label-patch.yaml*, specify the new label as follows:
-
-```yaml  theme={null}
-apiVersion: apps/v1
+<pre><code class="language-yaml">patches:
+  - label-patch.yaml
+</code></pre>
+<p>Inside <em>label-patch.yaml</em>, specify the new label as follows:</p>
+<pre><code class="language-yaml">apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: api-deployment
@@ -2005,12 +2027,11 @@ spec:
         org: kodekloud
 </code></pre>
 <p>When merged, the configuration retains the original "component: api" label while adding the new "org: kodekloud" label.</p>
-<p>──────────────────────────────
-Removing a Label Using a JSON 6902 Patch
+<p>──────────────────────────────<br />
+Removing a Label Using a JSON 6902 Patch<br />
 ──────────────────────────────</p>
 <p>To remove a specific label, such as the "org" label, begin with a deployment configuration that includes both labels:</p>
-<p>```yaml  theme={null}
-apiVersion: apps/v1
+<pre><code class="language-yaml">apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: api-deployment
@@ -2027,12 +2048,10 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx</p>
-<pre><code>
-Then, apply the following JSON 6902 patch in *kustomization.yaml* to remove the &quot;org&quot; key:
-
-```yaml  theme={null}
-patches:
+        image: nginx
+</code></pre>
+<p>Then, apply the following JSON 6902 patch in <em>kustomization.yaml</em> to remove the "org" key:</p>
+<pre><code class="language-yaml">patches:
   - target:
       kind: Deployment
       name: api-deployment
@@ -2041,18 +2060,15 @@ patches:
         path: /spec/template/metadata/labels/org
 </code></pre>
 <p>This patch eliminates the "org" key from the labels, leaving only the "component" label intact.</p>
-<p>──────────────────────────────
-Removing a Label Using a Strategic Merge Patch
+<p>──────────────────────────────<br />
+Removing a Label Using a Strategic Merge Patch<br />
 ──────────────────────────────</p>
 <p>For a Strategic Merge Patch, you can remove a label by setting its value to null. First, reference the patch file (e.g., <em>label-patch.yaml</em>) in your <em>kustomization.yaml</em>:</p>
-<p>```yaml  theme={null}
-patches:
-  - label-patch.yaml</p>
-<pre><code>
-Then, inside *label-patch.yaml*, set the &quot;org&quot; label to null:
-
-```yaml  theme={null}
-apiVersion: apps/v1
+<pre><code class="language-yaml">patches:
+  - label-patch.yaml
+</code></pre>
+<p>Then, inside <em>label-patch.yaml</em>, set the "org" label to null:</p>
+<pre><code class="language-yaml">apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: api-deployment
@@ -2063,13 +2079,13 @@ spec:
         org: null
 </code></pre>
 <p>When Kustomize merges this patch with your deployment configuration, the "org" label is removed.</p>
-<p>──────────────────────────────
-Summary
+<p>──────────────────────────────<br />
+Summary<br />
 ──────────────────────────────</p>
 <p>In this article, we demonstrated multiple techniques for managing Kubernetes Deployment configurations using patches. Whether you use JSON 6902 or Strategic Merge patches, the essential step is to identify the correct configuration path and select the appropriate operation (either "replace", "add", or "remove"/null assignment). This method enables you to maintain concise patch files while effectively managing configuration updates.</p>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>For more detailed information on Kubernetes configuration management, visit the <a href="https://kubernetes.io/docs/">Kubernetes Documentation</a>.</p>
-</blockquote>
+</div>
 <p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/2503ab74-a871-4b65-a677-7180c001d5c5/lesson/045b04b8-d4bc-42a1-8c50-dfb934e67cce" /></p>
             </div>
             
@@ -2086,44 +2102,43 @@ Summary
         <article class="lesson" id="lesson-15">
             <span class="lesson-number">الدرس 15</span>
             <h2>🛸 Patches Intro</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Patches Intro</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This article explores customized patches for modifying Kubernetes configurations, enabling precise changes to specific objects or fields without affecting the entire configuration.</p>
-</blockquote>
+</div>
 <p>In this article, we explore how customized patches provide a surgical approach to modifying Kubernetes configurations. Unlike common transformers that apply changes broadly (e.g., assigning a label or namespace to all objects), patches enable you to target specific objects—or even individual fields within an object. For example, if you need to update the replica count in a deployment, a patch lets you modify only that value.</p>
 <p>To create a patch, you must provide three components:</p>
 <ol>
-<li>
-<p><strong>Operation Type</strong>\
-   This specifies the action you want to perform. The three most common operations are:</p>
-</li>
-<li>
-<p><strong>add</strong>: Introduces a new element. For instance, adding a container to an existing list.</p>
-</li>
+<li><strong>Operation Type</strong>\<br />
+   This specifies the action you want to perform. The three most common operations are:</li>
+</ol>
+<ul class="styled-list">
+<li><strong>add</strong>: Introduces a new element. For instance, adding a container to an existing list.</li>
 <li><strong>remove</strong>: Eliminates an existing element, such as taking away a container or label.</li>
+<li><strong>replace</strong>: Substitutes an existing value with a new one. For example, changing the replica count from 5 to 10.</li>
+</ul>
+<ol start="2">
 <li>
-<p><strong>replace</strong>: Substitutes an existing value with a new one. For example, changing the replica count from 5 to 10.</p>
-</li>
-<li>
-<p><strong>Target</strong>\
+<p><strong>Target</strong>\<br />
    The target defines the match criteria for determining which Kubernetes object(s) the patch should apply to. This may include properties such as kind, version, name, namespace, label selectors, or annotation selectors. You can combine multiple criteria to precisely identify the desired resource(s).</p>
 </li>
 <li>
-<p><strong>Value</strong>\
+<p><strong>Value</strong>\<br />
    This represents the new data to add or use for replacement. Note that if the operation is <code>remove</code>, no value is required.</p>
 </li>
 </ol>
 <p>Below is an example that demonstrates these concepts using a Kustomize patch.</p>
 <hr />
 <p>Consider the following sample deployment configuration in <code>deployment.yaml</code>, where the deployment's name is currently set to "api-deployment". The goal is to update it to "web-deployment".</p>
-<p>```yaml  theme={null}
-apiVersion: apps/v1
+<pre><code class="language-yaml">apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: api-deployment
@@ -2139,12 +2154,10 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: nginx</p>
-<pre><code>
-The corresponding patch defined in `kustomization.yaml` is shown below:
-
-```yaml  theme={null}
-patches:
+          image: nginx
+</code></pre>
+<p>The corresponding patch defined in <code>kustomization.yaml</code> is shown below:</p>
+<pre><code class="language-yaml">patches:
   - target:
       kind: Deployment
       name: api-deployment
@@ -2161,8 +2174,7 @@ patches:
 <li><code>value</code> provides the new value ("web-deployment").</li>
 </ul>
 <p>After applying this patch, the deployment configuration is updated as follows:</p>
-<p>```yaml  theme={null}
-apiVersion: apps/v1
+<pre><code class="language-yaml">apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: web-deployment
@@ -2178,18 +2190,15 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: nginx</p>
-<pre><code>
-***
-
-&gt; Patches are especially useful when you need to make precise, minimal modifications without affecting the entire configuration. This helps in managing changes in large-scale deployments.
-
-## Example: Updating the Replica Count
-
-Let's explore another scenario. Suppose you want to update the replica count from 1 to 5 in your deployment. The original `deployment.yaml` looks like this:
-
-```yaml  theme={null}
-apiVersion: apps/v1
+          image: nginx
+</code></pre>
+<hr />
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
+<p>Patches are especially useful when you need to make precise, minimal modifications without affecting the entire configuration. This helps in managing changes in large-scale deployments.</p>
+</div>
+<h2>Example: Updating the Replica Count</h2>
+<p>Let's explore another scenario. Suppose you want to update the replica count from 1 to 5 in your deployment. The original <code>deployment.yaml</code> looks like this:</p>
+<pre><code class="language-yaml">apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: api-deployment
@@ -2208,30 +2217,22 @@ spec:
           image: nginx
 </code></pre>
 <p>You can define the patch in <code>kustomization.yaml</code> as follows:</p>
-<p>```yaml  theme={null}
-patches:
+<pre><code class="language-yaml">patches:
   - target:
       kind: Deployment
       name: api-deployment
     patch: |
       - op: replace
         path: /spec/replicas
-        value: 5</p>
-<pre><code>
-In this example, the path `/spec/replicas` pinpoints the replica count field under the spec, which is then updated with the new value.
-
-***
-
-## Two Methods for Defining Patches
-
-Kustomize supports two primary methods for defining patches:
-
-### 1. JSON 6902 Patch
-
-This method explicitly specifies both the target and patch details using JSON patch semantics. For example:
-
-```yaml  theme={null}
-# JSON 6902 Patch:
+        value: 5
+</code></pre>
+<p>In this example, the path <code>/spec/replicas</code> pinpoints the replica count field under the spec, which is then updated with the new value.</p>
+<hr />
+<h2>Two Methods for Defining Patches</h2>
+<p>Kustomize supports two primary methods for defining patches:</p>
+<h3>1. JSON 6902 Patch</h3>
+<p>This method explicitly specifies both the target and patch details using JSON patch semantics. For example:</p>
+<pre><code class="language-yaml"># JSON 6902 Patch:
 kustomization:
   patches:
     - target:
@@ -2244,9 +2245,8 @@ kustomization:
 </code></pre>
 <h3>2. Strategic Merge Patch</h3>
 <p>This approach resembles a standard Kubernetes configuration file. You provide a snippet that mirrors the original resource configuration and includes only the fields to be updated:</p>
-<p>```yaml  theme={null}</p>
-<h1>Strategic Merge Patch:</h1>
-<p>kustomization:
+<pre><code class="language-yaml"># Strategic Merge Patch:
+kustomization:
   patches:
     - patch: |
         apiVersion: apps/v1
@@ -2255,11 +2255,11 @@ kustomization:
           name: api-deployment
         spec:
           replicas: 5
-```</p>
+</code></pre>
 <p>With the strategic merge patch, Kustomize merges the provided snippet with the original configuration, ensuring that only the specified fields are updated.</p>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>Both JSON 6902 and strategic merge patches are valid options. Choose JSON 6902 for detailed control when you need explicit patch operations, or opt for strategic merge patches for a more readable and Kubernetes-native configuration style.</p>
-</blockquote>
+</div>
 <h2>Summary</h2>
 <p>Patches in Kustomize allow for precise modifications to Kubernetes objects by specifying:</p>
 <ul class="styled-list">
@@ -2285,20 +2285,21 @@ kustomization:
         <article class="lesson" id="lesson-16">
             <span class="lesson-number">الدرس 16</span>
             <h2>🛸 Patches list</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Patches list</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This article explores methods for managing list operations in Kubernetes configurations, including removing, replacing, and adding items using patches.</p>
-</blockquote>
+</div>
 <p>In this article, we explore several methods for managing list operations in Kubernetes configurations. Specifically, you'll learn how to remove, replace, and add items using patches. We begin with a deployment configuration that includes a single container named "nginx" running the "nginx" image. Since the containers are defined as a list (indicated by the dash before each item), you can easily extend the configuration to include multiple containers if needed.</p>
 <p>Below is the initial deployment configuration:</p>
-<p>```yaml  theme={null}
-apiVersion: apps/v1
+<pre><code class="language-yaml">apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: api-deployment
@@ -2314,14 +2315,11 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx</p>
-<pre><code>
-## Replacing a Container Using a JSON 6902 Patch
-
-To update the container by changing its name and image, you can use a JSON 6902 patch. In your `kustomization.yaml` file, the patch targets the specific Deployment object and applies a replace operation on the container at index 0. Remember that list indexes start at 0; hence, the first (and only) container is at index 0.
-
-```yaml  theme={null}
-patches:
+        image: nginx
+</code></pre>
+<h2>Replacing a Container Using a JSON 6902 Patch</h2>
+<p>To update the container by changing its name and image, you can use a JSON 6902 patch. In your <code>kustomization.yaml</code> file, the patch targets the specific Deployment object and applies a replace operation on the container at index 0. Remember that list indexes start at 0; hence, the first (and only) container is at index 0.</p>
+<pre><code class="language-yaml">patches:
   - target:
       kind: Deployment
       name: api-deployment
@@ -2336,8 +2334,7 @@ patches:
 <h2>Replacing a Container Using a Strategic Merge Patch</h2>
 <p>Alternatively, a strategic merge patch can update a container. With this method, you create a separate patch file (for example, <code>label-patch.yaml</code>) that specifies the container properties to be merged with the original configuration. The patch file identifies the container by name (in this case, "nginx") and details the new image.</p>
 <p>Assuming your original deployment configuration is as shown above, your <code>label-patch.yaml</code> might look like this:</p>
-<p>```yaml  theme={null}
-apiVersion: apps/v1
+<pre><code class="language-yaml">apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: api-deployment
@@ -2346,20 +2343,17 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: haproxy</p>
-<pre><code>
-In your `kustomization.yaml` file, reference the patch as follows:
-
-```yaml  theme={null}
-patches:
+        image: haproxy
+</code></pre>
+<p>In your <code>kustomization.yaml</code> file, reference the patch as follows:</p>
+<pre><code class="language-yaml">patches:
   - label-patch.yaml
 </code></pre>
 <p>This approach instructs Kustomize to locate the container named "nginx" and update its image to "haproxy".</p>
 <h2>Adding a Container to the List Using a JSON 6902 Patch</h2>
 <p>To add a second container to your Deployment, you can use a JSON 6902 patch with an "add" operation. The dash (<code>-</code>) at the end of the path indicates that the new container should be appended to the existing list.</p>
 <p>Given the initial one-container configuration, the following patch adds a second container:</p>
-<p>```yaml  theme={null}
-patches:
+<pre><code class="language-yaml">patches:
   - target:
       kind: Deployment
       name: api-deployment
@@ -2368,14 +2362,11 @@ patches:
         path: /spec/template/spec/containers/-
         value:
           name: haproxy
-          image: haproxy</p>
-<pre><code>
-In this patch, the dash after `containers/` signals Kustomize to append the new container. After applying the patch, the Deployment will include two containers: the original &quot;nginx&quot; container and the added &quot;haproxy&quot; container.
-
-Below is a representation of the final configuration after adding the new container:
-
-```yaml  theme={null}
-apiVersion: apps/v1
+          image: haproxy
+</code></pre>
+<p>In this patch, the dash after <code>containers/</code> signals Kustomize to append the new container. After applying the patch, the Deployment will include two containers: the original "nginx" container and the added "haproxy" container.</p>
+<p>Below is a representation of the final configuration after adding the new container:</p>
+<pre><code class="language-yaml">apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: api-deployment
@@ -2397,8 +2388,7 @@ spec:
 </code></pre>
 <h2>Deleting a Container from the List Using a JSON 6902 Patch</h2>
 <p>Next, we demonstrate how to remove an item from the list. Consider a Deployment configuration with two containers—one named "web" running nginx and another named "database" running mongo:</p>
-<p>```yaml  theme={null}
-apiVersion: apps/v1
+<pre><code class="language-yaml">apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: api-deployment
@@ -2416,12 +2406,10 @@ spec:
         - name: web
           image: nginx
         - name: database
-          image: mongo</p>
-<pre><code>
-To remove the second container (i.e., the &quot;database&quot; container), apply the following patch. Since list indexes are zero-based, the &quot;database&quot; container is at index 1:
-
-```yaml  theme={null}
-patches:
+          image: mongo
+</code></pre>
+<p>To remove the second container (i.e., the "database" container), apply the following patch. Since list indexes are zero-based, the "database" container is at index 1:</p>
+<pre><code class="language-yaml">patches:
   - target:
       kind: Deployment
       name: api-deployment
@@ -2430,13 +2418,12 @@ patches:
         path: /spec/template/spec/containers/1
 </code></pre>
 <p>After applying this patch, only the "web" container remains in the configuration.</p>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>If you are working with multiple containers, always verify the correct index of the container you want to modify. Misidentifying the index can lead to unexpected configuration errors.</p>
-</blockquote>
+</div>
 <h2>Deleting a Container Using a Strategic Merge Patch</h2>
 <p>Another method to remove a container is by using a strategic merge patch. In this approach, you create a patch file (for example, <code>label-patch.yaml</code>) and leverage the <code>$patch: delete</code> directive, which explicitly marks the container for removal. Using the previous configuration that contains both "web" and "database" containers, the patch to delete the "database" container is as follows:</p>
-<p>```yaml  theme={null}
-apiVersion: apps/v1
+<pre><code class="language-yaml">apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: api-deployment
@@ -2445,12 +2432,10 @@ spec:
     spec:
       containers:
       - $patch: delete
-        name: database</p>
-<pre><code>
-Then, reference the patch file in your `kustomization.yaml` like so:
-
-```yaml  theme={null}
-patches:
+        name: database
+</code></pre>
+<p>Then, reference the patch file in your <code>kustomization.yaml</code> like so:</p>
+<pre><code class="language-yaml">patches:
   - label-patch.yaml
 </code></pre>
 <p>This configuration instructs Kustomize to remove the container with the name "database", leaving only the "web" container in your Deployment.</p>
@@ -2474,16 +2459,18 @@ patches:
         <article class="lesson" id="lesson-17">
             <span class="lesson-number">الدرس 17</span>
             <h2>🛸 Transformers Demo</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Transformers Demo</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>Learn to use Kustomize transformations in Kubernetes configurations, including labels, namespaces, and image updates through a structured demo project.</p>
-</blockquote>
+</div>
 <p>In this lesson, you will learn how to leverage various common Kustomize transformations—including the image transformer—in a Kubernetes configuration demo. We will walk you through using global and folder-specific settings for labels, namespaces, name prefixes/suffixes, annotations, and image updates to simplify and standardize your configurations.</p>
 <p>The demo project is organized with a clear directory structure:</p>
 <ul class="styled-list">
@@ -2503,17 +2490,14 @@ Use this file to discover all available pages before exploring further.</p>
 </li>
 </ul>
 <p>Both subdirectories use a kustomization.yaml file configured to import all relevant YAML files. For example, the API directory’s kustomization.yaml is defined as:</p>
-<p>```yaml  theme={null}
-apiVersion: kustomize.config.k8s.io/v1beta1
+<pre><code class="language-yaml">apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - api-depl.yaml
-  - api-service.yaml</p>
-<pre><code>
-Likewise, the database directory’s kustomization.yaml is set up as follows:
-
-```yaml  theme={null}
-apiVersion: kustomize.config.k8s.io/v1beta1
+  - api-service.yaml
+</code></pre>
+<p>Likewise, the database directory’s kustomization.yaml is set up as follows:</p>
+<pre><code class="language-yaml">apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - db-config.yaml
@@ -2521,27 +2505,20 @@ resources:
   - db-service.yaml
 </code></pre>
 <p>At the root level, the main kustomization.yaml imports both subdirectories:</p>
-<p>```yaml  theme={null}
-apiVersion: kustomize.config.k8s.io/v1beta1
+<pre><code class="language-yaml">apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - api/
-  - db/</p>
-<pre><code>
-***
-
-## Adding a Common Label to All Resources
-
-To ensure every Kubernetes resource is marked with a common label such as `department: engineering`, update the root kustomization.yaml. This change propagates the label to both the API and database configurations.
-
-After adding the label, run the following command in your terminal (from the correct directory):
-
-```bash  theme={null}
-kustomize build k8s/
+  - db/
+</code></pre>
+<hr />
+<h2>Adding a Common Label to All Resources</h2>
+<p>To ensure every Kubernetes resource is marked with a common label such as <code>department: engineering</code>, update the root kustomization.yaml. This change propagates the label to both the API and database configurations.</p>
+<p>After adding the label, run the following command in your terminal (from the correct directory):</p>
+<pre><code class="language-bash">kustomize build k8s/
 </code></pre>
 <p>The built output will show every resource containing the label. For example, a ConfigMap might appear as:</p>
-<p>```yaml  theme={null}
-apiVersion: v1
+<pre><code class="language-yaml">apiVersion: v1
 data:
   password: example
   username: root
@@ -2549,9 +2526,9 @@ kind: ConfigMap
 metadata:
   labels:
     department: engineering
-  name: db-credentials</p>
-<hr />
-<p>apiVersion: v1
+  name: db-credentials
+---
+apiVersion: v1
 kind: Service
 metadata:
   labels:
@@ -2561,18 +2538,15 @@ spec:
   ports:
     - port: 80
       protocol: TCP
-      targetPort: 3000</p>
-<pre><code>
-&gt; Review the configuration output to verify that resources from both the API and database directories now include the `department: engineering` label.
-
-***
-
-## Applying Labels in Subdirectories Versus the Root
-
-If you need to add an additional label only for a specific group of resources, add the extra label in the corresponding subdirectory’s kustomization.yaml. For instance, to assign the label `feature: api` only to API resources, update the API folder’s kustomization.yaml as follows:
-
-```yaml  theme={null}
-apiVersion: kustomize.config.k8s.io/v1beta1
+      targetPort: 3000
+</code></pre>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
+<p>Review the configuration output to verify that resources from both the API and database directories now include the <code>department: engineering</code> label.</p>
+</div>
+<hr />
+<h2>Applying Labels in Subdirectories Versus the Root</h2>
+<p>If you need to add an additional label only for a specific group of resources, add the extra label in the corresponding subdirectory’s kustomization.yaml. For instance, to assign the label <code>feature: api</code> only to API resources, update the API folder’s kustomization.yaml as follows:</p>
+<pre><code class="language-yaml">apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
@@ -2586,30 +2560,22 @@ commonLabels:
 <hr />
 <h2>Adding a Namespace to All Configurations</h2>
 <p>To assign a uniform namespace (such as <code>debugging</code>) for all resources, the root kustomization.yaml must be updated. For example:</p>
-<p>```yaml  theme={null}
-apiVersion: kustomize.config.k8s.io/v1beta1
+<pre><code class="language-yaml">apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - api/
   - db/
 commonLabels:
   department: engineering
-namespace: debugging</p>
-<pre><code>
-Executing `kustomize build k8s/` will produce YAML with every resource set to the `debugging` namespace.
-
-***
-
-## Configuring Name Prefixes and Suffixes
-
-To modify resource names for easier identification and organization, you can define a common name prefix as well as folder-specific name suffixes.
-
-### Global Name Prefix
-
-Apply a common prefix (e.g., &quot;KodeKloud-&quot;) in the root kustomization.yaml:
-
-```yaml  theme={null}
-apiVersion: kustomize.config.k8s.io/v1beta1
+namespace: debugging
+</code></pre>
+<p>Executing <code>kustomize build k8s/</code> will produce YAML with every resource set to the <code>debugging</code> namespace.</p>
+<hr />
+<h2>Configuring Name Prefixes and Suffixes</h2>
+<p>To modify resource names for easier identification and organization, you can define a common name prefix as well as folder-specific name suffixes.</p>
+<h3>Global Name Prefix</h3>
+<p>Apply a common prefix (e.g., "KodeKloud-") in the root kustomization.yaml:</p>
+<pre><code class="language-yaml">apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - api/
@@ -2621,20 +2587,17 @@ namePrefix: KodeKloud-
 </code></pre>
 <h3>Folder-Specific Name Suffixes</h3>
 <p>For the API folder, include a suffix (e.g., <code>-web</code>) by updating its kustomization.yaml:</p>
-<p>```yaml  theme={null}
-apiVersion: kustomize.config.k8s.io/v1beta1
+<pre><code class="language-yaml">apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - api-depl.yaml
   - api-service.yaml
 commonLabels:
   feature: api
-nameSuffix: -web</p>
-<pre><code>
-Similarly, for the database folder, set a suffix (e.g., `-storage`):
-
-```yaml  theme={null}
-apiVersion: kustomize.config.k8s.io/v1beta1
+nameSuffix: -web
+</code></pre>
+<p>Similarly, for the database folder, set a suffix (e.g., <code>-storage</code>):</p>
+<pre><code class="language-yaml">apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - db-config.yaml
@@ -2645,14 +2608,13 @@ commonLabels:
 nameSuffix: -storage
 </code></pre>
 <p>After rebuilding the configuration, you will see resource names like <code>KodeKloud-api-deployment-web</code> for API resources and <code>KodeKloud-db-deployment-storage</code> for database resources.</p>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>Using both global name prefixes and folder-specific suffixes helps maintain a consistent naming convention across your deployments, making management and identification much easier.</p>
-</blockquote>
+</div>
 <hr />
 <h2>Adding a Common Annotation</h2>
 <p>To add the same annotation to every resource, include the <code>commonAnnotations</code> field in the root kustomization.yaml. For example, to add <code>logging: verbose</code>:</p>
-<p>```yaml  theme={null}
-apiVersion: kustomize.config.k8s.io/v1beta1
+<pre><code class="language-yaml">apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - api/
@@ -2662,18 +2624,13 @@ commonLabels:
 namespace: debugging
 namePrefix: KodeKloud-
 commonAnnotations:
-  logging: verbose</p>
-<pre><code>
-After running the build process, every resource will have the `logging: verbose` annotation in its metadata.
-
-***
-
-## Using the Image Transformer
-
-The image transformer allows you to update container images in your deployment configuration. Suppose your database deployment currently uses MongoDB, and you need to change it to PostgreSQL. In the database folder’s kustomization.yaml, define an `images` block:
-
-```yaml  theme={null}
-apiVersion: kustomize.config.k8s.io/v1beta1
+  logging: verbose
+</code></pre>
+<p>After running the build process, every resource will have the <code>logging: verbose</code> annotation in its metadata.</p>
+<hr />
+<h2>Using the Image Transformer</h2>
+<p>The image transformer allows you to update container images in your deployment configuration. Suppose your database deployment currently uses MongoDB, and you need to change it to PostgreSQL. In the database folder’s kustomization.yaml, define an <code>images</code> block:</p>
+<pre><code class="language-yaml">apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - db-config.yaml
@@ -2695,8 +2652,7 @@ images:
 <li>Apply the transformer specifically to a subdirectory if you want to limit the scope of the change.</li>
 </ul>
 <p>After running <code>kustomize build k8s/</code>, the database deployment will reference the image <code>postgres:4.2</code> while retaining the original container name ("mongo"). An excerpt from the output might look like this:</p>
-<p><code>yaml  theme={null}
-...
+<pre><code class="language-yaml">...
 spec:
   containers:
     - name: mongo
@@ -2712,10 +2668,11 @@ spec:
             configMapKeyRef:
               key: password
               name: KodeKloud-db-credentials-storage
-...</code></p>
-<blockquote>
+...
+</code></pre>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>If you encounter an error indicating a type conversion issue, ensure that the image tag value is provided as a string using quotes.</p>
-</blockquote>
+</div>
 <hr />
 <h2>Summary of Kustomize Transformations</h2>
 <p>Below is a summary table of the transformations we covered in this lesson:</p>
@@ -2789,10 +2746,12 @@ spec:
             </div>
         </article>
 
-    </div>
+            </div>
 
-    <footer class="site-footer">
-        <p>🚀 كوبسترونات — المهمة 11 خلصت! <a href="chapter12.html" style="color: var(--rocket-orange);">يلا على المهمة 12 ←</a></p>
-    </footer>
+            <footer class="site-footer">
+                <p>🚀 كوبسترونات — المهمة 11 خلصت! <a href="chapter12.html" style="color: var(--rocket-orange);">يلا على المهمة 12 ←</a></p>
+            </footer>
+        </main>
+    </div> <!-- End .ckad-layout -->
 </body>
 </html>

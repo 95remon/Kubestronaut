@@ -5,6 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>المهمة 13: مختبرات البرق — كوبسترونات 🚀</title>
     <link rel="stylesheet" href="../style.css">
+    <style>
+        /* Temporarily ensure english content is LTR */
+        .english-content {
+            direction: ltr;
+            text-align: left;
+        }
+        .english-content h1, .english-content h2, .english-content h3 {
+            direction: ltr;
+            text-align: left;
+        }
+        /* Ensure images are responsive */
+        .img-frame img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        /* Sidebar specific adjustments for chapter pages */
+        .ckad-layout {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
     <div class="space-bg"></div>
@@ -22,27 +44,152 @@
         </nav>
     </header>
 
-    <section class="chapter-hero">
-        <h1>🚀 المهمة 13: مختبرات البرق</h1>
-        <p class="subtitle">Lightning Labs</p>
-    </section>
+    <div class="ckad-layout">
+        <!-- SIDEBAR -->
+        <aside class="chapter-sidebar">
+            <div class="sidebar-nav">
+                <h3>🛸 خريطة المهام</h3>
+                
+        <a href="chapter1.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>1. المقدمة</strong>
+                <small>First Section</small>
+            </div>
+        </a>
+        
+        <a href="chapter2.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>2. المفاهيم الأساسية</strong>
+                <small>Core Concepts</small>
+            </div>
+        </a>
+        
+        <a href="chapter3.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>3. الإعدادات</strong>
+                <small>Configuration</small>
+            </div>
+        </a>
+        
+        <a href="chapter4.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>4. الكبسولات المتعددة</strong>
+                <small>Multi-Container Pods</small>
+            </div>
+        </a>
+        
+        <a href="chapter5.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>5. المراقبة</strong>
+                <small>Observability</small>
+            </div>
+        </a>
+        
+        <a href="chapter6.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>6. تصميم الكبسولات</strong>
+                <small>POD Design</small>
+            </div>
+        </a>
+        
+        <a href="chapter7.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>7. الشبكات والخدمات</strong>
+                <small>Services & Networking</small>
+            </div>
+        </a>
+        
+        <a href="chapter8.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>8. التخزين الدائم</strong>
+                <small>State Persistence</small>
+            </div>
+        </a>
+        
+        <a href="chapter9.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>9. الأمان</strong>
+                <small>Security</small>
+            </div>
+        </a>
+        
+        <a href="chapter10.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>10. أساسيات Helm</strong>
+                <small>Helm Fundamentals</small>
+            </div>
+        </a>
+        
+        <a href="chapter11.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>11. أساسيات Kustomize</strong>
+                <small>Kustomize Basics</small>
+            </div>
+        </a>
+        
+        <a href="chapter12.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>12. نصائح الامتحان</strong>
+                <small>Certification Tips</small>
+            </div>
+        </a>
+        
+        <a href="chapter13.html" class="sidebar-item active-chapter">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>13. مختبرات البرق</strong>
+                <small>Lightning Labs</small>
+            </div>
+        </a>
+        
+        <a href="chapter14.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>14. الامتحانات التجريبية</strong>
+                <small>Mock Exams</small>
+            </div>
+        </a>
+        
+            </div>
+        </aside>
 
-    <div class="lessons-container">
+        <!-- MAIN CONTENT -->
+        <main class="course-content">
+            <section class="chapter-hero">
+                <h1>🚀 المهمة 13: مختبرات البرق</h1>
+                <p class="subtitle">Lightning Labs</p>
+            </section>
+
+            <div class="lessons-container">
 
         <!-- ========== LESSON 1: Solution Lightning Lab 1 ========== -->
         <article class="lesson" id="lesson-1">
             <span class="lesson-number">الدرس 1</span>
             <h2>🛸 Solution Lightning Lab 1</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Solution Lightning Lab 1</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This guide provides step-by-step solutions for completing tasks in Lightning Lab 1, including creating persistent volumes, claims, and troubleshooting network connectivity.</p>
-</blockquote>
+</div>
 <p>In this guide, we walk through the solutions for Lightning Lab 1 step by step. Each task includes detailed configuration files and commands to accomplish the requirements effectively.</p>
 <hr />
 <h2>Task 1: Create a Persistent Volume</h2>
@@ -54,30 +201,27 @@ Use this file to discover all available pages before exploring further.</p>
 <li><strong>Host Path:</strong> /opt/volume/nginx</li>
 </ul>
 <p>A common starting point is referencing the Kubernetes documentation. Here’s an example snippet that you might have encountered:</p>
-<p>```yaml  theme={null}
-apiVersion: v1
+<pre><code class="language-yaml">apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: foo-pvc
   namespace: foo
 spec:
-  storageClassName: "" # Empty string must be explicitly set otherwise default StorageClass will be set
-  volumeName: foo-pv</p>
-<hr />
-<p>apiVersion: v1
+  storageClassName: &quot;&quot; # Empty string must be explicitly set otherwise default StorageClass will be set
+  volumeName: foo-pv
+---
+apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: foo-pv
 spec:
-  storageClassName: ""
+  storageClassName: &quot;&quot;
   claimRef:
     name: foo-pvc
-    namespace: foo</p>
-<pre><code>
-Adjust this example to match our requirements. The complete persistent volume configuration becomes:
-
-```yaml  theme={null}
-apiVersion: v1
+    namespace: foo
+</code></pre>
+<p>Adjust this example to match our requirements. The complete persistent volume configuration becomes:</p>
+<pre><code class="language-yaml">apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: log-volume
@@ -91,13 +235,10 @@ spec:
     path: /opt/volume/nginx
 </code></pre>
 <p>Apply the configuration:</p>
-<p>```bash  theme={null}
-kubectl apply -f log-volume.yaml</p>
-<pre><code>
-Then verify the persistent volume is created:
-
-```bash  theme={null}
-kubectl get pv
+<pre><code class="language-bash">kubectl apply -f log-volume.yaml
+</code></pre>
+<p>Then verify the persistent volume is created:</p>
+<pre><code class="language-bash">kubectl get pv
 </code></pre>
 <hr />
 <h2>Task 2: Create a Persistent Volume Claim</h2>
@@ -108,8 +249,7 @@ kubectl get pv
 <li><strong>Storage Class:</strong> manual</li>
 </ul>
 <p>Use the following YAML configuration:</p>
-<p>```yaml  theme={null}
-apiVersion: v1
+<pre><code class="language-yaml">apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: log-claim
@@ -119,29 +259,20 @@ spec:
   resources:
     requests:
       storage: 8Gi
-  storageClassName: manual</p>
-<pre><code>
-Save this as `log-claim.yaml` and apply it:
-
-```bash  theme={null}
-kubectl apply -f log-claim.yaml
+  storageClassName: manual
+</code></pre>
+<p>Save this as <code>log-claim.yaml</code> and apply it:</p>
+<pre><code class="language-bash">kubectl apply -f log-claim.yaml
 </code></pre>
 <p>After applying, check the PVC status:</p>
-<p>```bash  theme={null}
-kubectl get pvc</p>
-<pre><code>
-***
-
-## Task 3: Mount the Volume in a Pod
-
-Now, mount the PVC into a pod named **logger** at the mount path **/var/www/nginx**. This pod will run a container using the `nginx:alpine` image.
-
-### Step 1: Generate the Initial Pod YAML
-
-Create the pod configuration using a dry-run:
-
-```bash  theme={null}
-kubectl run logger --image=nginx:alpine --dry-run=client -o yaml &gt; logger.yaml
+<pre><code class="language-bash">kubectl get pvc
+</code></pre>
+<hr />
+<h2>Task 3: Mount the Volume in a Pod</h2>
+<p>Now, mount the PVC into a pod named <strong>logger</strong> at the mount path <strong>/var/www/nginx</strong>. This pod will run a container using the <code>nginx:alpine</code> image.</p>
+<h3>Step 1: Generate the Initial Pod YAML</h3>
+<p>Create the pod configuration using a dry-run:</p>
+<pre><code class="language-bash">kubectl run logger --image=nginx:alpine --dry-run=client -o yaml &gt; logger.yaml
 </code></pre>
 <h3>Step 2: Edit the YAML to Add Volumes and Volume Mounts</h3>
 <p>Modify <code>logger.yaml</code> to include:</p>
@@ -150,98 +281,74 @@ kubectl run logger --image=nginx:alpine --dry-run=client -o yaml &gt; logger.yam
 <li>A <strong>volumeMounts</strong> section under the container to specify the mount path.</li>
 </ul>
 <p>Place the following snippet under the <code>spec</code>:</p>
-<p>```yaml  theme={null}
-volumes:
+<pre><code class="language-yaml">volumes:
   - name: log
     persistentVolumeClaim:
-      claimName: log-claim</p>
-<pre><code>
-And under the container definition, add:
-
-```yaml  theme={null}
-volumeMounts:
+      claimName: log-claim
+</code></pre>
+<p>And under the container definition, add:</p>
+<pre><code class="language-yaml">volumeMounts:
   - name: log
     mountPath: /var/www/nginx
 </code></pre>
 <p>After ensuring the field name is correctly spelled (<code>persistentVolumeClaim</code> with an "s"), apply the updated configuration:</p>
-<p>```bash  theme={null}
-kubectl apply -f logger.yaml</p>
-<pre><code>
-If you encounter an error like:
-
-&gt; Ensure that the field name `persistentVolumeClaim` is spelled correctly and that you have saved the file appropriately before re-applying.
-
-Verify the pod creation:
-
-```bash  theme={null}
-kubectl get pod
+<pre><code class="language-bash">kubectl apply -f logger.yaml
+</code></pre>
+<p>If you encounter an error like:</p>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
+<p>Ensure that the field name <code>persistentVolumeClaim</code> is spelled correctly and that you have saved the file appropriately before re-applying.</p>
+</div>
+<p>Verify the pod creation:</p>
+<pre><code class="language-bash">kubectl get pod
 </code></pre>
 <hr />
 <h2>Task 4: Troubleshoot Network Connectivity for Secure Pod</h2>
 <p>A pod named <strong>secure-pod</strong> and a service named <strong>secure-service</strong> are deployed. However, incoming and outgoing connections to the secure pod are currently failing, and traffic from the <strong>webapp-color</strong> pod using <strong>secure-service</strong> is not working.</p>
 <h3>Step 1: Verify Pods and Service</h3>
 <p>Check the pods:</p>
-<p>```bash  theme={null}
-kubectl get pod</p>
-<pre><code>
-Expected output:
-
-```text  theme={null}
-NAME           READY   STATUS    RESTARTS   AGE
+<pre><code class="language-bash">kubectl get pod
+</code></pre>
+<p>Expected output:</p>
+<pre><code class="language-text">NAME           READY   STATUS    RESTARTS   AGE
 logger         1/1     Running   0          98s
 secure-pod     1/1     Running   0          88s
 webapp-color   1/1     Running   0          8m7s
 </code></pre>
 <p>Check the service:</p>
-<p>```bash  theme={null}
-kubectl get svc</p>
-<pre><code>
-Expected output:
-
-```text  theme={null}
-NAME             TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE
+<pre><code class="language-bash">kubectl get svc
+</code></pre>
+<p>Expected output:</p>
+<pre><code class="language-text">NAME             TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE
 kubernetes       ClusterIP   10.96.0.1      &lt;none&gt;        443/TCP    61m
 secure-service   ClusterIP   10.102.116.150 &lt;none&gt;        80/TCP     96s
 </code></pre>
 <h3>Step 2: Test Connectivity from the webapp-color Pod</h3>
 <p>Enter the pod shell:</p>
-<p>```bash  theme={null}
-kubectl exec -it webapp-color -- sh</p>
-<pre><code>
-Inside the pod, test connectivity with netcat:
-
-```bash  theme={null}
-nc -v -z -w 2 secure-service 80
+<pre><code class="language-bash">kubectl exec -it webapp-color -- sh
+</code></pre>
+<p>Inside the pod, test connectivity with netcat:</p>
+<pre><code class="language-bash">nc -v -z -w 2 secure-service 80
 </code></pre>
 <p>A timeout error confirms the issue.</p>
 <h3>Step 3: Check the Existing Network Policy</h3>
 <p>Run:</p>
-<p>```bash  theme={null}
-kubectl get netpol
-kubectl describe netpol default-deny</p>
-<pre><code>
-The output will reveal that a default deny policy is in effect.
-
-### Step 4: Identify Pod Labels
-
-Determine the pod labels with:
-
-```bash  theme={null}
-kubectl get pod --show-labels
+<pre><code class="language-bash">kubectl get netpol
+kubectl describe netpol default-deny
+</code></pre>
+<p>The output will reveal that a default deny policy is in effect.</p>
+<h3>Step 4: Identify Pod Labels</h3>
+<p>Determine the pod labels with:</p>
+<pre><code class="language-bash">kubectl get pod --show-labels
 </code></pre>
 <p>Example output:</p>
-<p>```text  theme={null}
-NAME          READY   STATUS    RESTARTS   AGE     LABELS
+<pre><code class="language-text">NAME          READY   STATUS    RESTARTS   AGE     LABELS
 logger        1/1     Running   0          3m31s   run=logger
 secure-pod    1/1     Running   0          3m21s   run=secure-pod
-webapp-color  1/1     Running   0          10m     name=webapp-color</p>
-<pre><code>
-### Step 5: Create a Network Policy
-
-Create a network policy YAML (`netpol.yaml`) to allow ingress traffic from pods labeled `name=webapp-color` to the pod labeled `run=secure-pod` on port 80:
-
-```yaml  theme={null}
-apiVersion: networking.k8s.io/v1
+webapp-color  1/1     Running   0          10m     name=webapp-color
+</code></pre>
+<h3>Step 5: Create a Network Policy</h3>
+<p>Create a network policy YAML (<code>netpol.yaml</code>) to allow ingress traffic from pods labeled <code>name=webapp-color</code> to the pod labeled <code>run=secure-pod</code> on port 80:</p>
+<pre><code class="language-yaml">apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: network-policy
@@ -262,15 +369,11 @@ spec:
           port: 80
 </code></pre>
 <p>Apply the policy:</p>
-<p>```bash  theme={null}
-kubectl apply -f netpol.yaml</p>
-<pre><code>
-### Step 6: Retest Connectivity
-
-From the **webapp-color** pod, execute:
-
-```bash  theme={null}
-nc -v -z -w 2 secure-service 80
+<pre><code class="language-bash">kubectl apply -f netpol.yaml
+</code></pre>
+<h3>Step 6: Retest Connectivity</h3>
+<p>From the <strong>webapp-color</strong> pod, execute:</p>
+<pre><code class="language-bash">nc -v -z -w 2 secure-service 80
 </code></pre>
 <p>A successful connection message confirms that the issue has been resolved.</p>
 <hr />
@@ -278,31 +381,22 @@ nc -v -z -w 2 secure-service 80
 <p>In this task, we create a pod that periodically checks the system time. This pod is deployed in a new namespace (for example, <code>dv11987</code>).</p>
 <h3>Step 1: Create the Namespace</h3>
 <p>If the namespace doesn’t already exist, create it:</p>
-<p>```bash  theme={null}
-kubectl create ns dv11987</p>
-<pre><code>
-### Step 2: Create the ConfigMap
-
-Create a ConfigMap named **time-config** with the key-value pair `TIME_FREQ=10`:
-
-```bash  theme={null}
-kubectl create cm time-config -n dv11987 --from-literal=TIME_FREQ=10
+<pre><code class="language-bash">kubectl create ns dv11987
+</code></pre>
+<h3>Step 2: Create the ConfigMap</h3>
+<p>Create a ConfigMap named <strong>time-config</strong> with the key-value pair <code>TIME_FREQ=10</code>:</p>
+<pre><code class="language-bash">kubectl create cm time-config -n dv11987 --from-literal=TIME_FREQ=10
 </code></pre>
 <p>Verify the ConfigMap:</p>
-<p>```bash  theme={null}
-kubectl get cm -n dv11987</p>
-<pre><code>
-### Step 3: Generate the Pod YAML
-
-Generate a pod configuration for **time-check** using the `busybox` image:
-
-```bash  theme={null}
-kubectl run time-check --image=busybox --dry-run=client -o yaml &gt; time-check.yaml
+<pre><code class="language-bash">kubectl get cm -n dv11987
+</code></pre>
+<h3>Step 3: Generate the Pod YAML</h3>
+<p>Generate a pod configuration for <strong>time-check</strong> using the <code>busybox</code> image:</p>
+<pre><code class="language-bash">kubectl run time-check --image=busybox --dry-run=client -o yaml &gt; time-check.yaml
 </code></pre>
 <h3>Step 4: Edit the Pod Configuration</h3>
 <p>Update <code>time-check.yaml</code> to include the environment variable from the ConfigMap, a command that logs the current date, and a volume mounted at <code>/opt/time</code> using <code>emptyDir</code>:</p>
-<p>```yaml  theme={null}
-apiVersion: v1
+<pre><code class="language-yaml">apiVersion: v1
 kind: Pod
 metadata:
   name: time-check
@@ -319,7 +413,7 @@ spec:
             configMapKeyRef:
               name: time-config
               key: TIME_FREQ
-      command: ["/bin/sh", "-c"]
+      command: [&quot;/bin/sh&quot;, &quot;-c&quot;]
       args:
         - while true; do date &gt;&gt; /opt/time/time-check.log; sleep $TIME_FREQ; done
       volumeMounts:
@@ -328,42 +422,32 @@ spec:
   volumes:
     - name: time-volume
       emptyDir: {}
-  restartPolicy: Always</p>
-<pre><code>
-Apply the configuration:
-
-```bash  theme={null}
-kubectl apply -f time-check.yaml
+  restartPolicy: Always
+</code></pre>
+<p>Apply the configuration:</p>
+<pre><code class="language-bash">kubectl apply -f time-check.yaml
 </code></pre>
 <p>Verify the pod is running in the <code>dv11987</code> namespace:</p>
-<p>```bash  theme={null}
-kubectl get pod -n dv11987</p>
-<pre><code>
-If you have any pods with conflicting names in the default namespace, delete them before applying the new configuration.
-
-***
-
-## Task 6: Create and Upgrade an Nginx Deployment
-
-Create a deployment named **nginx-deploy** with the following requirements:
-
-* **Image:** nginx:1.16 initially
-* **Replicas:** 4
-* **Rolling Update Strategy:**
-  * maxSurge: 1
-  * maxUnavailable: 2
-
-### Step 1: Generate the Deployment YAML
-
-Generate the deployment using a dry-run:
-
-```bash  theme={null}
-kubectl create deploy nginx-deploy --image=nginx:1.16 --replicas=4 --dry-run=client -o yaml &gt; nginx-deploy.yaml
+<pre><code class="language-bash">kubectl get pod -n dv11987
+</code></pre>
+<p>If you have any pods with conflicting names in the default namespace, delete them before applying the new configuration.</p>
+<hr />
+<h2>Task 6: Create and Upgrade an Nginx Deployment</h2>
+<p>Create a deployment named <strong>nginx-deploy</strong> with the following requirements:</p>
+<ul class="styled-list">
+<li><strong>Image:</strong> nginx:1.16 initially</li>
+<li><strong>Replicas:</strong> 4</li>
+<li><strong>Rolling Update Strategy:</strong></li>
+<li>maxSurge: 1</li>
+<li>maxUnavailable: 2</li>
+</ul>
+<h3>Step 1: Generate the Deployment YAML</h3>
+<p>Generate the deployment using a dry-run:</p>
+<pre><code class="language-bash">kubectl create deploy nginx-deploy --image=nginx:1.16 --replicas=4 --dry-run=client -o yaml &gt; nginx-deploy.yaml
 </code></pre>
 <h3>Step 2: Edit the Deployment for Rolling Updates</h3>
 <p>Modify <code>nginx-deploy.yaml</code> to add the rolling update strategy:</p>
-<p>```yaml  theme={null}
-apiVersion: apps/v1
+<pre><code class="language-yaml">apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-deploy
@@ -387,54 +471,42 @@ spec:
       containers:
         - name: nginx
           image: nginx:1.16
-          resources: {}</p>
-<pre><code>
-Apply the deployment:
-
-```bash  theme={null}
-kubectl apply -f nginx-deploy.yaml
+          resources: {}
+</code></pre>
+<p>Apply the deployment:</p>
+<pre><code class="language-bash">kubectl apply -f nginx-deploy.yaml
 </code></pre>
 <h3>Step 3: Upgrade the Deployment</h3>
 <p>Upgrade the deployment to use <code>nginx:1.17</code>:</p>
-<p>```bash  theme={null}
-kubectl set image deployment/nginx-deploy nginx=nginx:1.17</p>
-<pre><code>
-Monitor the rollout:
-
-```bash  theme={null}
-kubectl get deploy
+<pre><code class="language-bash">kubectl set image deployment/nginx-deploy nginx=nginx:1.17
+</code></pre>
+<p>Monitor the rollout:</p>
+<pre><code class="language-bash">kubectl get deploy
 </code></pre>
 <h3>Step 4: Rollback the Deployment</h3>
 <p>After the upgrade, rollback to the previous version if needed:</p>
-<p>```bash  theme={null}
-kubectl rollout undo deployment/nginx-deploy</p>
-<pre><code>
-***
-
-## Task 7: Create a Redis Deployment with Resource Limits and Volume Mounts
-
-Finally, create a deployment named **redis** with these parameters:
-
-* **Image:** redis:alpine
-* **Replicas:** 1
-* **Resource Request:** 0.2 CPU
-* **Label:** app=redis
-* **Volumes:**
-  * **data:** Use `emptyDir` mounted at `/redis-master-data`
-  * **redis-config:** Use a ConfigMap (named redis-config) mounted at `/redis-master`
-* **Exposed Port:** 6379
-
-### Step 1: Generate the Deployment YAML
-
-Generate the initial deployment:
-
-```bash  theme={null}
-kubectl create deploy redis --image=redis:alpine --replicas=1 --dry-run=client -o yaml &gt; redis.yaml
+<pre><code class="language-bash">kubectl rollout undo deployment/nginx-deploy
+</code></pre>
+<hr />
+<h2>Task 7: Create a Redis Deployment with Resource Limits and Volume Mounts</h2>
+<p>Finally, create a deployment named <strong>redis</strong> with these parameters:</p>
+<ul class="styled-list">
+<li><strong>Image:</strong> redis:alpine</li>
+<li><strong>Replicas:</strong> 1</li>
+<li><strong>Resource Request:</strong> 0.2 CPU</li>
+<li><strong>Label:</strong> app=redis</li>
+<li><strong>Volumes:</strong></li>
+<li><strong>data:</strong> Use <code>emptyDir</code> mounted at <code>/redis-master-data</code></li>
+<li><strong>redis-config:</strong> Use a ConfigMap (named redis-config) mounted at <code>/redis-master</code></li>
+<li><strong>Exposed Port:</strong> 6379</li>
+</ul>
+<h3>Step 1: Generate the Deployment YAML</h3>
+<p>Generate the initial deployment:</p>
+<pre><code class="language-bash">kubectl create deploy redis --image=redis:alpine --replicas=1 --dry-run=client -o yaml &gt; redis.yaml
 </code></pre>
 <h3>Step 2: Edit the Deployment File</h3>
 <p>Update <code>redis.yaml</code> with the correct resource requests, volumes, and volume mounts:</p>
-<p>```yaml  theme={null}
-apiVersion: apps/v1
+<pre><code class="language-yaml">apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redis
@@ -461,19 +533,17 @@ spec:
           image: redis:alpine
           resources:
             requests:
-              cpu: "0.2"
+              cpu: &quot;0.2&quot;
           volumeMounts:
             - name: data
               mountPath: /redis-master-data
             - name: redis-config
               mountPath: /redis-master
           ports:
-            - containerPort: 6379</p>
-<pre><code>
-Apply the deployment:
-
-```bash  theme={null}
-kubectl apply -f redis.yaml
+            - containerPort: 6379
+</code></pre>
+<p>Apply the deployment:</p>
+<pre><code class="language-bash">kubectl apply -f redis.yaml
 </code></pre>
 <hr />
 <p>After completing all the tasks, validate your configurations with the appropriate <code>kubectl get</code> commands to ensure that all pods, deployments, and services are running as expected.</p>
@@ -495,27 +565,26 @@ kubectl apply -f redis.yaml
         <article class="lesson" id="lesson-2">
             <span class="lesson-number">الدرس 2</span>
             <h2>🛸 Solution Lightning Lab 2</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Solution Lightning Lab 2</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This article provides solutions for troubleshooting pods, creating CronJobs, deploying pods, setting up Ingress resources, and inspecting logs in Kubernetes.</p>
-</blockquote>
+</div>
 <p>In this lesson, we walk through the solutions for Lightning Lab Two. This lab consists of several tasks designed to help you troubleshoot pods, update their configurations, create a CronJob, deploy a pod with custom parameters, set up an Ingress resource for virtual hosting routing, and inspect logs for warning messages.</p>
 <hr />
 <h2>Task 1: Identify and Troubleshoot the Problematic Pod</h2>
 <p>First, identify which pod is not in a "Ready" state. Several pods are deployed across various namespaces. Run the following command to list all pods:</p>
-<p>```bash  theme={null}
-kubectl get pod --all-namespaces</p>
-<pre><code>
-You will see output similar to this:
-
-```bash  theme={null}
-NAMESPACE      NAME                          READY   STATUS    RESTARTS   AGE
+<pre><code class="language-bash">kubectl get pod --all-namespaces
+</code></pre>
+<p>You will see output similar to this:</p>
+<pre><code class="language-bash">NAMESPACE      NAME                          READY   STATUS    RESTARTS   AGE
 default        dev-pod-dind-878516          3/3     Running   0          4m21s
 default        pod-xyz123                    1/1     Running   0          4m20s
 default        webapp-color                  1/1     Running   0          4m21s
@@ -539,22 +608,18 @@ kube-system    weave-net-sbt9v               2/2     Running   1          31m
 marketing      redis-bf75d68-fjvw6          1/1     Running   0          4m20s
 </code></pre>
 <p>Inspect the problematic pod—identified here as <code>nginx1401</code> in the <code>dev1401</code> namespace—by running:</p>
-<p>```bash  theme={null}
-kubectl describe pod nginx1401 -n dev1401</p>
-<pre><code>
-Examine the events section for clues. In this example, the events indicate that the readiness probe has failed, suggesting a misconfiguration. Next, extract the pod configuration to a YAML file for further inspection:
-
-```bash  theme={null}
-kubectl get pod nginx1401 -n dev1401 -o yaml &gt; nginx1401.yaml
+<pre><code class="language-bash">kubectl describe pod nginx1401 -n dev1401
+</code></pre>
+<p>Examine the events section for clues. In this example, the events indicate that the readiness probe has failed, suggesting a misconfiguration. Next, extract the pod configuration to a YAML file for further inspection:</p>
+<pre><code class="language-bash">kubectl get pod nginx1401 -n dev1401 -o yaml &gt; nginx1401.yaml
 </code></pre>
 <p>Review the configuration, which includes probe settings. A snippet from the YAML output might look like this:</p>
-<p>```yaml  theme={null}
-apiVersion: v1
+<pre><code class="language-yaml">apiVersion: v1
 kind: Pod
 metadata:
   annotations:
     kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"creationTimestamp":null,"labels":{"run":"nginx"},"name":"nginx1401","namespace":"dev1401"},"spec":{"containers":[{"image":"kodekloud/nginx","imagePullPolicy":"IfNotPresent","name":"nginx","ports":[{"containerPort":8080}],"readinessProbe":{"httpGet":{"path":"/","port":8080},"initialDelaySeconds":10,"periodSeconds":60},"resources":{}},{"dnsPolicy":"ClusterFirst","restartPolicy":"OnFailure"}],"status":{}}}
+      {&quot;apiVersion&quot;:&quot;v1&quot;,&quot;kind&quot;:&quot;Pod&quot;,&quot;metadata&quot;:{&quot;annotations&quot;:{},&quot;creationTimestamp&quot;:null,&quot;labels&quot;:{&quot;run&quot;:&quot;nginx&quot;},&quot;name&quot;:&quot;nginx1401&quot;,&quot;namespace&quot;:&quot;dev1401&quot;},&quot;spec&quot;:{&quot;containers&quot;:[{&quot;image&quot;:&quot;kodekloud/nginx&quot;,&quot;imagePullPolicy&quot;:&quot;IfNotPresent&quot;,&quot;name&quot;:&quot;nginx&quot;,&quot;ports&quot;:[{&quot;containerPort&quot;:8080}],&quot;readinessProbe&quot;:{&quot;httpGet&quot;:{&quot;path&quot;:&quot;/&quot;,&quot;port&quot;:8080},&quot;initialDelaySeconds&quot;:10,&quot;periodSeconds&quot;:60},&quot;resources&quot;:{}},{&quot;dnsPolicy&quot;:&quot;ClusterFirst&quot;,&quot;restartPolicy&quot;:&quot;OnFailure&quot;}],&quot;status&quot;:{}}}
   creationTimestamp: '2022-08-08T03:39:07Z'
   labels:
     run: nginx
@@ -569,17 +634,15 @@ managedFields:
         f:run: {}
       f:spec:
         f:containers:
-          k:{"name":"nginx"}:
+          k:{&quot;name&quot;:&quot;nginx&quot;}:
             f:image: {}
             f:imagePullPolicy: {}
             f:name: {}
             f:ports:
-              k:{"containerPort":8080,"protocol":"TCP"}: {}</p>
-<pre><code>
-Notice that although the readiness probe is set to check port 8080, other parts of the configuration might be expecting port 9080. To correct the inconsistency, update the configuration as follows:
-
-```yaml  theme={null}
-# Updated pod configuration for nginx1401
+              k:{&quot;containerPort&quot;:8080,&quot;protocol&quot;:&quot;TCP&quot;}: {}
+</code></pre>
+<p>Notice that although the readiness probe is set to check port 8080, other parts of the configuration might be expecting port 9080. To correct the inconsistency, update the configuration as follows:</p>
+<pre><code class="language-yaml"># Updated pod configuration for nginx1401
 spec:
   containers:
     - image: kodekloud/nginx
@@ -611,17 +674,14 @@ spec:
       name: default-token-7b8v2
 </code></pre>
 <p>Apply the updated configuration by replacing the existing pod. Save the file (for example, as <code>nginx1401.yaml</code>) and then run:</p>
-<p>```bash  theme={null}
-kubectl replace -f nginx1401.yaml --force</p>
-<pre><code>
-Finally, verify that the pod is now in a ready state:
-
-```bash  theme={null}
-kubectl get pod nginx1401 -n dev1401 -o yaml &gt; nginx1401.yaml
+<pre><code class="language-bash">kubectl replace -f nginx1401.yaml --force
 </code></pre>
-<blockquote>
+<p>Finally, verify that the pod is now in a ready state:</p>
+<pre><code class="language-bash">kubectl get pod nginx1401 -n dev1401 -o yaml &gt; nginx1401.yaml
+</code></pre>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>Ensure your pod configuration settings (such as <code>containerPort</code>) match across all probe definitions to avoid inconsistencies.</p>
-</blockquote>
+</div>
 <hr />
 <h2>Task 2: Create a CronJob Named "dice"</h2>
 <p>The next task involves creating a CronJob called "dice" that runs every minute. This job leverages the <code>kodekloud/throw-dice</code> image, which randomly returns a number between one and six. A roll of six indicates success; any other result is a failure.</p>
@@ -634,13 +694,12 @@ kubectl get pod nginx1401 -n dev1401 -o yaml &gt; nginx1401.yaml
 <li>Setting the restart policy to <code>Never</code>.</li>
 </ul>
 <p>Create the CronJob definition in a file called <code>dice-job.yaml</code>:</p>
-<p>```yaml  theme={null}
-apiVersion: batch/v1
+<pre><code class="language-yaml">apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: dice
 spec:
-  schedule: "<em>/1 * * * </em>"
+  schedule: &quot;*/1 * * * *&quot;
   jobTemplate:
     spec:
       completions: 1
@@ -655,22 +714,17 @@ spec:
             command:
             - /bin/sh
             - -c
-            - "date; echo Hello from the Kubernetes cluster"
-          restartPolicy: Never</p>
-<pre><code>
-Save and apply the CronJob configuration:
-
-```bash  theme={null}
-kubectl apply -f dice-job.yaml
+            - &quot;date; echo Hello from the Kubernetes cluster&quot;
+          restartPolicy: Never
+</code></pre>
+<p>Save and apply the CronJob configuration:</p>
+<pre><code class="language-bash">kubectl apply -f dice-job.yaml
 </code></pre>
 <p>Verify the CronJob by running:</p>
-<p>```bash  theme={null}
-kubectl get cj</p>
-<pre><code>
-You should see an output similar to:
-
-```bash  theme={null}
-NAME   SCHEDULE       SUSPEND   ACTIVE   LAST SCHEDULE   AGE
+<pre><code class="language-bash">kubectl get cj
+</code></pre>
+<p>You should see an output similar to:</p>
+<pre><code class="language-bash">NAME   SCHEDULE       SUSPEND   ACTIVE   LAST SCHEDULE   AGE
 dice   */1 * * * *    False     0        &lt;none&gt;          12S
 </code></pre>
 <hr />
@@ -682,13 +736,10 @@ dice   */1 * * * *    False     0        &lt;none&gt;          12S
 <li>Schedule the pod on the control plane by specifying <code>nodeName: controlplane</code>.</li>
 </ul>
 <p>Start by generating a basic pod manifest using dry-run:</p>
-<p>```bash  theme={null}
-kubectl run my-busybox --image=busybox --dry-run=client -o yaml &gt; my-busybox.yaml</p>
-<pre><code>
-Edit the generated `my-busybox.yaml` file to include the required customizations:
-
-```yaml  theme={null}
-apiVersion: v1
+<pre><code class="language-bash">kubectl run my-busybox --image=busybox --dry-run=client -o yaml &gt; my-busybox.yaml
+</code></pre>
+<p>Edit the generated <code>my-busybox.yaml</code> file to include the required customizations:</p>
+<pre><code class="language-yaml">apiVersion: v1
 kind: Pod
 metadata:
   name: my-busybox
@@ -714,22 +765,17 @@ spec:
   restartPolicy: Always
 </code></pre>
 <p>Apply the configuration with:</p>
-<p>```bash  theme={null}
-kubectl apply -f my-busybox.yaml</p>
-<pre><code>
-***
-
-## Task 4: Create an Ingress Resource for Virtual Hosting Routing
-
-This task involves creating a single Ingress resource named `ingress-vh-routing` to handle virtual hosting routing for HTTP traffic. The configuration will route traffic as follows:
-
-* Requests to `watch.ecom-store.com` with the path `/video` will be directed to the `video-service` on port 8080.
-* Requests to `apparels.ecom-store.com` with the path `/wear` will be directed to the `apparels-service` on port 8080.
-
-Create a file named `ingress.yaml` with the following content:
-
-```yaml  theme={null}
-apiVersion: networking.k8s.io/v1
+<pre><code class="language-bash">kubectl apply -f my-busybox.yaml
+</code></pre>
+<hr />
+<h2>Task 4: Create an Ingress Resource for Virtual Hosting Routing</h2>
+<p>This task involves creating a single Ingress resource named <code>ingress-vh-routing</code> to handle virtual hosting routing for HTTP traffic. The configuration will route traffic as follows:</p>
+<ul class="styled-list">
+<li>Requests to <code>watch.ecom-store.com</code> with the path <code>/video</code> will be directed to the <code>video-service</code> on port 8080.</li>
+<li>Requests to <code>apparels.ecom-store.com</code> with the path <code>/wear</code> will be directed to the <code>apparels-service</code> on port 8080.</li>
+</ul>
+<p>Create a file named <code>ingress.yaml</code> with the following content:</p>
+<pre><code class="language-yaml">apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress-vh-routing
@@ -760,35 +806,29 @@ spec:
               number: 8080
 </code></pre>
 <p>Apply the Ingress resource:</p>
-<p>```bash  theme={null}
-kubectl apply -f ingress.yaml</p>
-<pre><code>
-Verify that the Ingress resource is successfully created with:
-
-```bash  theme={null}
-kubectl get ingress
+<pre><code class="language-bash">kubectl apply -f ingress.yaml
 </code></pre>
-<blockquote>
+<p>Verify that the Ingress resource is successfully created with:</p>
+<pre><code class="language-bash">kubectl get ingress
+</code></pre>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>For more details on configuring Ingress resources, visit <a href="https://kubernetes.io/docs/concepts/services-networking/ingress/">Ingress in Kubernetes</a>.</p>
-</blockquote>
+</div>
 <hr />
 <h2>Task 5: Inspect Pod Logs and Redirect Warnings</h2>
 <p>For the final task, inspect the logs of a pod in the <code>default</code> namespace that contains a container named <code>log-x</code>. Your goal is to redirect any warning messages to a file located at <code>/opt/warnings.log</code> on the control plane node.</p>
 <p>First, list the pods to identify the target pod:</p>
-<p>```bash  theme={null}
-kubectl get pod</p>
-<pre><code>
-Assuming the pod identified is `dev-pod-dind-878516`, execute the following command to filter and redirect warning messages:
-
-```bash  theme={null}
-kubectl logs dev-pod-dind-878516 -c log-x | grep WARNING &gt; /opt/warnings.log
+<pre><code class="language-bash">kubectl get pod
+</code></pre>
+<p>Assuming the pod identified is <code>dev-pod-dind-878516</code>, execute the following command to filter and redirect warning messages:</p>
+<pre><code class="language-bash">kubectl logs dev-pod-dind-878516 -c log-x | grep WARNING &gt; /opt/warnings.log
 </code></pre>
 <p>To verify the log output, inspect the file:</p>
-<p><code>bash  theme={null}
-cat /opt/warnings.log</code></p>
-<blockquote>
+<pre><code class="language-bash">cat /opt/warnings.log
+</code></pre>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>Make sure you have the necessary permissions to write to <code>/opt/</code> on the control plane node.</p>
-</blockquote>
+</div>
 <hr />
 <p>This concludes all tasks for Lightning Lab Two. Follow each step carefully to ensure proper configuration and successful task completion. Happy Kubernetes troubleshooting!</p>
 <p>For more Kubernetes tips and documentation, check out the <a href="https://kubernetes.io/docs/">Kubernetes Documentation</a>.</p>
@@ -804,10 +844,12 @@ cat /opt/warnings.log</code></p>
             </div>
         </article>
 
-    </div>
+            </div>
 
-    <footer class="site-footer">
-        <p>🚀 كوبسترونات — المهمة 13 خلصت! <a href="chapter14.html" style="color: var(--rocket-orange);">يلا على المهمة 14 ←</a></p>
-    </footer>
+            <footer class="site-footer">
+                <p>🚀 كوبسترونات — المهمة 13 خلصت! <a href="chapter14.html" style="color: var(--rocket-orange);">يلا على المهمة 14 ←</a></p>
+            </footer>
+        </main>
+    </div> <!-- End .ckad-layout -->
 </body>
 </html>

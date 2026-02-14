@@ -5,6 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>المهمة 8: التخزين الدائم — كوبسترونات 🚀</title>
     <link rel="stylesheet" href="../style.css">
+    <style>
+        /* Temporarily ensure english content is LTR */
+        .english-content {
+            direction: ltr;
+            text-align: left;
+        }
+        .english-content h1, .english-content h2, .english-content h3 {
+            direction: ltr;
+            text-align: left;
+        }
+        /* Ensure images are responsive */
+        .img-frame img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        /* Sidebar specific adjustments for chapter pages */
+        .ckad-layout {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
     <div class="space-bg"></div>
@@ -22,27 +44,152 @@
         </nav>
     </header>
 
-    <section class="chapter-hero">
-        <h1>🚀 المهمة 8: التخزين الدائم</h1>
-        <p class="subtitle">State Persistence</p>
-    </section>
+    <div class="ckad-layout">
+        <!-- SIDEBAR -->
+        <aside class="chapter-sidebar">
+            <div class="sidebar-nav">
+                <h3>🛸 خريطة المهام</h3>
+                
+        <a href="chapter1.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>1. المقدمة</strong>
+                <small>First Section</small>
+            </div>
+        </a>
+        
+        <a href="chapter2.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>2. المفاهيم الأساسية</strong>
+                <small>Core Concepts</small>
+            </div>
+        </a>
+        
+        <a href="chapter3.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>3. الإعدادات</strong>
+                <small>Configuration</small>
+            </div>
+        </a>
+        
+        <a href="chapter4.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>4. الكبسولات المتعددة</strong>
+                <small>Multi-Container Pods</small>
+            </div>
+        </a>
+        
+        <a href="chapter5.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>5. المراقبة</strong>
+                <small>Observability</small>
+            </div>
+        </a>
+        
+        <a href="chapter6.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>6. تصميم الكبسولات</strong>
+                <small>POD Design</small>
+            </div>
+        </a>
+        
+        <a href="chapter7.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>7. الشبكات والخدمات</strong>
+                <small>Services & Networking</small>
+            </div>
+        </a>
+        
+        <a href="chapter8.html" class="sidebar-item active-chapter">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>8. التخزين الدائم</strong>
+                <small>State Persistence</small>
+            </div>
+        </a>
+        
+        <a href="chapter9.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>9. الأمان</strong>
+                <small>Security</small>
+            </div>
+        </a>
+        
+        <a href="chapter10.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>10. أساسيات Helm</strong>
+                <small>Helm Fundamentals</small>
+            </div>
+        </a>
+        
+        <a href="chapter11.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>11. أساسيات Kustomize</strong>
+                <small>Kustomize Basics</small>
+            </div>
+        </a>
+        
+        <a href="chapter12.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>12. نصائح الامتحان</strong>
+                <small>Certification Tips</small>
+            </div>
+        </a>
+        
+        <a href="chapter13.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>13. مختبرات البرق</strong>
+                <small>Lightning Labs</small>
+            </div>
+        </a>
+        
+        <a href="chapter14.html" class="sidebar-item ">
+            <span class="ch-status">🚀</span>
+            <div>
+                <strong>14. الامتحانات التجريبية</strong>
+                <small>Mock Exams</small>
+            </div>
+        </a>
+        
+            </div>
+        </aside>
 
-    <div class="lessons-container">
+        <!-- MAIN CONTENT -->
+        <main class="course-content">
+            <section class="chapter-hero">
+                <h1>🚀 المهمة 8: التخزين الدائم</h1>
+                <p class="subtitle">State Persistence</p>
+            </section>
+
+            <div class="lessons-container">
 
         <!-- ========== LESSON 1: Headless Services ========== -->
         <article class="lesson" id="lesson-1">
             <span class="lesson-number">الدرس 1</span>
             <h2>🛸 Headless Services</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Headless Services</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This article explores headless services in Kubernetes and their role in addressing routing challenges in master-slave architectures like MySQL clusters.</p>
-</blockquote>
+</div>
 <p>In this article, we explore headless services in Kubernetes and how they solve routing challenges in a master-slave architecture, such as a MySQL cluster. When using a StatefulSet, each pod is deployed one at a time with a unique ordinal index (for example, mysql-0, mysql-1, mysql-2). This approach provides stable, unique names for each pod, making it easier to direct connections to specific nodes—an essential requirement for database clusters where write operations must be handled by a single master.</p>
 <h2>The Problem with Traditional Services</h2>
 <p>Under typical conditions, Kubernetes services function as load balancers. They provide a Cluster IP and a DNS name (like mysql.default.svc.cluster.local) that routes traffic evenly to all matching pods. This behavior is acceptable when the application only performs read operations in a MySQL cluster but becomes problematic for write operations. Write queries must be directed solely to the master pod, and load balancing across all pods could lead to data inconsistency or conflicts.</p>
@@ -52,13 +199,12 @@ Use this file to discover all available pages before exploring further.</p>
 <p>For example, if you create a headless service named "mysql-h", the master pod can be accessed via:</p>
 <p>mysql-0.mysql-h.default.svc.cluster.local</p>
 <p>This DNS entry consistently resolves to the master pod in the MySQL deployment.</p>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>In a headless service, setting <code>clusterIP</code> to "None" is the only key difference from a standard service definition.</p>
-</blockquote>
+</div>
 <h2>Headless Service Definition Example</h2>
 <p>Below is an example of how to define a headless service:</p>
-<p>```yaml  theme={null}
-apiVersion: v1
+<pre><code class="language-yaml">apiVersion: v1
 kind: Service
 metadata:
   name: mysql-h
@@ -67,16 +213,12 @@ spec:
     - port: 3306
   selector:
     app: mysql
-  clusterIP: None</p>
-<pre><code>
-## Configuring Pods to Use Headless Services
-
-When deploying a pod under a headless service, include the optional fields `subdomain` and `hostname` in the pod specification. The `subdomain` must match the name of your headless service, ensuring that Kubernetes creates the correct DNS record.
-
-For example, to create a pod with only the subdomain specified:
-
-```yaml  theme={null}
-apiVersion: v1
+  clusterIP: None
+</code></pre>
+<h2>Configuring Pods to Use Headless Services</h2>
+<p>When deploying a pod under a headless service, include the optional fields <code>subdomain</code> and <code>hostname</code> in the pod specification. The <code>subdomain</code> must match the name of your headless service, ensuring that Kubernetes creates the correct DNS record.</p>
+<p>For example, to create a pod with only the subdomain specified:</p>
+<pre><code class="language-yaml">apiVersion: v1
 kind: Pod
 metadata:
   name: myapp-pod
@@ -89,8 +231,7 @@ spec:
   subdomain: mysql-h
 </code></pre>
 <p>However, to generate a fully qualified DNS record that includes the pod name, you must set the <code>hostname</code> field as well:</p>
-<p>```yaml  theme={null}
-apiVersion: v1
+<pre><code class="language-yaml">apiVersion: v1
 kind: Pod
 metadata:
   name: myapp-pod
@@ -101,29 +242,21 @@ spec:
     - name: mysql
       image: mysql
   subdomain: mysql-h
-  hostname: mysql-pod</p>
-<pre><code>
-## Visual Overview of a MySQL Cluster Setup
+  hostname: mysql-pod
+</code></pre>
+<h2>Visual Overview of a MySQL Cluster Setup</h2>
+<p>The diagram below illustrates the setup of a MySQL database cluster with one master and two replicas. It highlights the network configuration, including IP addresses and hostnames:</p>
 
-The diagram below illustrates the setup of a MySQL database cluster with one master and two replicas. It highlights the network configuration, including IP addresses and hostnames:
-
-
-        &lt;figure class=&quot;img-frame&quot;&gt;
-            &lt;img src=&quot;../assets/images/chapter8/Headless-Services_frame_150.jpg&quot; alt=&quot;The image illustrates a MySQL database cluster setup with one master node and two replicas, showing IP addresses and hostnames for network configuration.&quot; loading=&quot;lazy&quot;&gt;
-            &lt;figcaption&gt;The image illustrates a MySQL database cluster setup with one master node and two replicas, showing IP addresses and hostnames for network configuration.&lt;/figcaption&gt;
-        &lt;/figure&gt;
-
-
-## Deployments vs. StatefulSets
-
-When deploying pods using a Deployment, the pod template generally does not specify the `hostname` or `subdomain` fields. Consequently, the headless service is unable to create unique A records for each pod. If these fields are manually added to the pod template, every pod receives the same DNS record, resulting in an address like mysql-pod.mysql-h.default.svc.cluster.local, which is unsuitable for distinct addressing.
-
-### Deployment Example with Identical DNS Records
-
-Below is an example where a Deployment assigns the same hostname and subdomain to all pods:
-
-```yaml  theme={null}
-apiVersion: v1
+        <figure class="img-frame">
+            <img src="../assets/images/chapter8/Headless-Services_frame_150.jpg" alt="The image illustrates a MySQL database cluster setup with one master node and two replicas, showing IP addresses and hostnames for network configuration." loading="lazy">
+            <figcaption>The image illustrates a MySQL database cluster setup with one master node and two replicas, showing IP addresses and hostnames for network configuration.</figcaption>
+        </figure>
+        
+<h2>Deployments vs. StatefulSets</h2>
+<p>When deploying pods using a Deployment, the pod template generally does not specify the <code>hostname</code> or <code>subdomain</code> fields. Consequently, the headless service is unable to create unique A records for each pod. If these fields are manually added to the pod template, every pod receives the same DNS record, resulting in an address like mysql-pod.mysql-h.default.svc.cluster.local, which is unsuitable for distinct addressing.</p>
+<h3>Deployment Example with Identical DNS Records</h3>
+<p>Below is an example where a Deployment assigns the same hostname and subdomain to all pods:</p>
+<pre><code class="language-yaml">apiVersion: v1
 kind: Service
 metadata:
   name: mysql-h
@@ -134,8 +267,7 @@ spec:
     app: mysql
   clusterIP: None
 </code></pre>
-<p>```yaml  theme={null}
-apiVersion: apps/v1
+<pre><code class="language-yaml">apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysql-deployment
@@ -155,20 +287,14 @@ spec:
         - name: mysql
           image: mysql
       subdomain: mysql-h
-      hostname: mysql-pod</p>
-<pre><code>
-In this configuration, all pods share the same DNS record because they have identical hostnames and subdomains.
-
-## Leveraging StatefulSets for Unique DNS Records
-
-StatefulSets are designed to overcome this limitation by automatically generating unique hostnames for each pod. You do this by simply referencing the headless service name in the StatefulSet specification using the `serviceName` field. Kubernetes then assigns a unique DNS record to each pod based on its ordinal index.
-
-### StatefulSet Example with Headless Service
-
-Below is an example of a StatefulSet that utilizes a headless service:
-
-```yaml  theme={null}
-apiVersion: v1
+      hostname: mysql-pod
+</code></pre>
+<p>In this configuration, all pods share the same DNS record because they have identical hostnames and subdomains.</p>
+<h2>Leveraging StatefulSets for Unique DNS Records</h2>
+<p>StatefulSets are designed to overcome this limitation by automatically generating unique hostnames for each pod. You do this by simply referencing the headless service name in the StatefulSet specification using the <code>serviceName</code> field. Kubernetes then assigns a unique DNS record to each pod based on its ordinal index.</p>
+<h3>StatefulSet Example with Headless Service</h3>
+<p>Below is an example of a StatefulSet that utilizes a headless service:</p>
+<pre><code class="language-yaml">apiVersion: v1
 kind: Service
 metadata:
   name: mysql-h
@@ -179,8 +305,7 @@ spec:
     app: mysql
   clusterIP: None
 </code></pre>
-<p><code>yaml  theme={null}
-apiVersion: apps/v1
+<pre><code class="language-yaml">apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mysql-deployment
@@ -199,15 +324,16 @@ spec:
     spec:
       containers:
         - name: mysql
-          image: mysql</code></p>
+          image: mysql
+</code></pre>
 <p>In this configuration, each pod is assigned a unique DNS record, for example:</p>
-<p>mysql-0.mysql-h.default.svc.cluster.local\
-  mysql-1.mysql-h.default.svc.cluster.local\
+<p>mysql-0.mysql-h.default.svc.cluster.local\<br />
+  mysql-1.mysql-h.default.svc.cluster.local\<br />
   mysql-2.mysql-h.default.svc.cluster.local</p>
 <p>This setup meets the requirement for distinct addressing, ensuring that write requests intended for the master pod are routed correctly.</p>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>StatefulSets combined with headless services provide a robust solution for applications requiring individual pod addressing without load balancing interference.</p>
-</blockquote>
+</div>
 <p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/cb16c9a3-1608-48cf-bfd5-2465f64b4f93/lesson/c7d592ea-fad9-49ca-8abd-2c58d83c6235" /></p>
             </div>
             
@@ -224,31 +350,34 @@ spec:
         <article class="lesson" id="lesson-2">
             <span class="lesson-number">الدرس 2</span>
             <h2>🛸 Introduction to Docker Storage</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Introduction to Docker Storage</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This lesson explores Docker storage concepts and their application in Kubernetes storage management.</p>
-</blockquote>
+</div>
 <p>In this lesson, we explore how storage works in Docker and how these foundational concepts apply to Kubernetes storage management. Understanding Docker storage is essential for grasping the more advanced storage mechanisms in Kubernetes.</p>
 <p>When working with Docker, two core storage concepts are essential to understand:</p>
 <ul class="styled-list">
 <li>Storage Drivers</li>
-<li>Volume Driver Plugins<pre><code>&lt;figure class="img-frame"&gt;
-    &lt;img src="../assets/images/chapter8/Introduction-to-Docker-Storage_frame_30.jpg" alt="The image is a slide titled "Docker Storage," featuring two categories: "Storage Drivers" and "Volume Drivers."" loading="lazy"&gt;
-    &lt;figcaption&gt;The image is a slide titled "Docker Storage," featuring two categories: "Storage Drivers" and "Volume Drivers."&lt;/figcaption&gt;
-&lt;/figure&gt;
-</code></pre>
-</li>
+<li>Volume Driver Plugins</li>
 </ul>
+
+        <figure class="img-frame">
+            <img src="../assets/images/chapter8/Introduction-to-Docker-Storage_frame_30.jpg" alt="The image is a slide titled "Docker Storage," featuring two categories: "Storage Drivers" and "Volume Drivers."" loading="lazy">
+            <figcaption>The image is a slide titled "Docker Storage," featuring two categories: "Storage Drivers" and "Volume Drivers."</figcaption>
+        </figure>
+        
 <p>In the upcoming section, we focus on storage drivers—a topic thoroughly covered in the <a href="https://learn.kodekloud.com/user/courses/docker-training-course-for-the-absolute-beginner">Docker Training Course for the Absolute Beginner</a>. If you are already familiar with this material, feel free to skip ahead or use this section as a refresher.</p>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>After discussing storage drivers, we will explore volume drivers to complete your understanding of Docker storage.</p>
-</blockquote>
+</div>
 <p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/cb16c9a3-1608-48cf-bfd5-2465f64b4f93/lesson/fc2629d2-4155-4ca7-b56b-4a3e5e918ef8" /></p>
             </div>
             
@@ -265,45 +394,44 @@ Use this file to discover all available pages before exploring further.</p>
         <article class="lesson" id="lesson-3">
             <span class="lesson-number">الدرس 3</span>
             <h2>🛸 Persistent Volume Claims</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Persistent Volume Claims</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This article explains creating Persistent Volume Claims in Kubernetes and how they bind to Persistent Volumes, including reclaim policies for efficient storage management.</p>
-</blockquote>
+</div>
 <p>Welcome to this lesson on Persistent Volume Claims (PVCs) in Kubernetes. In this article, we will walk through the process of creating a PVC, explain how Kubernetes binds PVCs to Persistent Volumes (PVs), and discuss reclaim policies for managing storage efficiently.</p>
 <p>Before you create a PVC, ensure that one or more persistent volumes are available in your cluster. Remember, persistent volumes and persistent volume claims are separate Kubernetes objects. Typically, an administrator creates a pool of persistent volumes, while a user creates PVCs to request and access that storage.</p>
 <p>When a PVC is created, Kubernetes searches for an appropriate PV that meets the requested capacity and matching properties such as access modes, volume modes, and storage class. Each PVC is bound to a single PV based on a best-match algorithm. The diagram below illustrates the relationship between PVCs and PVs:</p>
-<pre><code>    &lt;figure class="img-frame"&gt;
-        &lt;img src="../assets/images/chapter8/Persistent-Volume-Claims_frame_30.jpg" alt="The image illustrates the concept of Persistent Volume Claims (PVC) and Persistent Volumes (PV) in Kubernetes, showing their relationship with color-coded blocks." loading="lazy"&gt;
-        &lt;figcaption&gt;The image illustrates the concept of Persistent Volume Claims (PVC) and Persistent Volumes (PV) in Kubernetes, showing their relationship with color-coded blocks.&lt;/figcaption&gt;
-    &lt;/figure&gt;
-</code></pre>
-<p>If multiple persistent volumes could satisfy a claim’s requirements, labels and selectors can be used to bind a claim to a specific volume. For example, consider the following configuration snippet that uses a selector with a label match:</p>
-<p>```yaml  theme={null}
-selector:
-  matchLabels:
-    name: my-p</p>
-<pre><code>
-On the PV side, you might define:
 
-```yaml  theme={null}
-labels:
+        <figure class="img-frame">
+            <img src="../assets/images/chapter8/Persistent-Volume-Claims_frame_30.jpg" alt="The image illustrates the concept of Persistent Volume Claims (PVC) and Persistent Volumes (PV) in Kubernetes, showing their relationship with color-coded blocks." loading="lazy">
+            <figcaption>The image illustrates the concept of Persistent Volume Claims (PVC) and Persistent Volumes (PV) in Kubernetes, showing their relationship with color-coded blocks.</figcaption>
+        </figure>
+        
+<p>If multiple persistent volumes could satisfy a claim’s requirements, labels and selectors can be used to bind a claim to a specific volume. For example, consider the following configuration snippet that uses a selector with a label match:</p>
+<pre><code class="language-yaml">selector:
+  matchLabels:
+    name: my-p
+</code></pre>
+<p>On the PV side, you might define:</p>
+<pre><code class="language-yaml">labels:
   name: my-pv
 </code></pre>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>Even if the PVC requests a smaller amount of storage, it may bind to a larger PV if all other criteria match and no better option is available. Once a PV is bound to a PVC, its remaining capacity cannot be used for other claims.</p>
-</blockquote>
+</div>
 <p>If no suitable volumes are available, the PVC remains in a pending state. When new PVs are added that meet the claim’s requirements, Kubernetes binds the PVC automatically.</p>
 <h2>Creating a Persistent Volume Claim</h2>
 <p>Let's create a persistent volume claim using a YAML template. In this example, the API version is set to v1 and the kind is PersistentVolumeClaim. The claim is named "myclaim". Under the specification, we set the access mode to ReadWriteOnce and request 500Mi of storage.</p>
 <p>Below is the YAML definition for the PVC:</p>
-<p>```yaml  theme={null}
-apiVersion: v1
+<pre><code class="language-yaml">apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: myclaim
@@ -312,26 +440,20 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 500Mi</p>
-<pre><code>
-To create the claim, run the following command:
-
-```bash  theme={null}
-kubectl create -f pvc-definition.yaml
+      storage: 500Mi
+</code></pre>
+<p>To create the claim, run the following command:</p>
+<pre><code class="language-bash">kubectl create -f pvc-definition.yaml
 </code></pre>
 <p>Once applied, you can view the status of your PVC with:</p>
-<p>```bash  theme={null}
-kubectl get persistentvolumeclaim</p>
-<pre><code>
-The output might initially be similar to:
-
-```text  theme={null}
-NAME      STATUS   VOLUME   CAPACITY   ACCESS MODES
+<pre><code class="language-bash">kubectl get persistentvolumeclaim
+</code></pre>
+<p>The output might initially be similar to:</p>
+<pre><code class="language-text">NAME      STATUS   VOLUME   CAPACITY   ACCESS MODES
 myclaim   Pending
 </code></pre>
 <p>At this point, Kubernetes is evaluating the available persistent volumes. Suppose you have already configured a PV as shown below:</p>
-<p>```yaml  theme={null}
-apiVersion: v1
+<pre><code class="language-yaml">apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: pv-voll
@@ -341,35 +463,28 @@ spec:
   capacity:
     storage: 1Gi
   awsElasticBlockStore:
-    volumeID: <volume-id>
-    fsType: ext4</p>
-<pre><code>
-Since the PV's access mode matches and its capacity (1Gi) exceeds the PVC's request (500Mi), Kubernetes binds the PVC to this PV if no other closer match exists. You can verify the binding by executing:
-
-```bash  theme={null}
-kubectl get persistentvolumeclaim
+    volumeID: &lt;volume-id&gt;
+    fsType: ext4
+</code></pre>
+<p>Since the PV's access mode matches and its capacity (1Gi) exceeds the PVC's request (500Mi), Kubernetes binds the PVC to this PV if no other closer match exists. You can verify the binding by executing:</p>
+<pre><code class="language-bash">kubectl get persistentvolumeclaim
 </code></pre>
 <p>The PVC status should now show as "Bound".</p>
 <h2>Deleting a Persistent Volume Claim and Reclaim Policies</h2>
 <p>To delete a PVC, use the following command:</p>
-<p>```bash  theme={null}
-kubectl delete persistentvolumeclaim myclaim</p>
-<pre><code>
-After deletion, it's important to understand the fate of the underlying PV based on its reclaim policy. The reclaim policy determines what happens to a PV when its associated PVC is deleted.
-
-### Reclaim Policy Options
-
-The default reclaim policy is set to Retain, which means the PV remains available until manually deleted by an administrator:
-
-```yaml  theme={null}
-persistentVolumeReclaimPolicy: Retain
+<pre><code class="language-bash">kubectl delete persistentvolumeclaim myclaim
+</code></pre>
+<p>After deletion, it's important to understand the fate of the underlying PV based on its reclaim policy. The reclaim policy determines what happens to a PV when its associated PVC is deleted.</p>
+<h3>Reclaim Policy Options</h3>
+<p>The default reclaim policy is set to Retain, which means the PV remains available until manually deleted by an administrator:</p>
+<pre><code class="language-yaml">persistentVolumeReclaimPolicy: Retain
 </code></pre>
 <p>If you want Kubernetes to automatically delete the PV when the PVC is removed—thus freeing up the storage—you can change the reclaim policy accordingly. Alternatively, you might choose the Recycling policy, where the data on the volume is scrubbed before the volume is made available for reuse:</p>
-<p><code>yaml  theme={null}
-persistentVolumeReclaimPolicy: Recycling</code></p>
-<blockquote>
+<pre><code class="language-yaml">persistentVolumeReclaimPolicy: Recycling
+</code></pre>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>To practice configuring and troubleshooting persistent volumes and claims in Kubernetes, review the above configurations and experiment with these commands on your cluster.</p>
-</blockquote>
+</div>
 <h2>Summary</h2>
 <p>In this lesson, we covered:</p>
 <ul class="styled-list">
@@ -401,44 +516,40 @@ persistentVolumeReclaimPolicy: Recycling</code></p>
         <article class="lesson" id="lesson-4">
             <span class="lesson-number">الدرس 4</span>
             <h2>🛸 Persistent Volumes</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Persistent Volumes</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This article explains persistent volumes in Kubernetes, focusing on their implementation and management to simplify storage configuration.</p>
-</blockquote>
+</div>
 <p>Welcome to this comprehensive guide on Persistent Volumes. My name is Mumshad Mannambeth, and in this article, we walk through the concept and practical implementation of persistent volumes in Kubernetes.</p>
 <p>In previous discussions, we explored the concept of volumes where storage was configured directly within a pod definition file. For example:</p>
-<p>```yaml  theme={null}
-volumes:
+<pre><code class="language-yaml">volumes:
 - name: data-volume
   awsElasticBlockStore:
-    volumeID: <volume-id>
-    fsType: ext4</p>
-<pre><code>
-In larger environments with numerous users and multiple pod deployments, manually configuring storage for each pod becomes both tedious and error-prone. Every time a storage configuration change is required, it would need to be updated on every pod individually. Persistent volumes solve this problem by centralizing storage management. Administrators can create a large pool of storage, and users can request specific portions from that pool using Persistent Volume Claims (PVCs).
+    volumeID: &lt;volume-id&gt;
+    fsType: ext4
+</code></pre>
+<p>In larger environments with numerous users and multiple pod deployments, manually configuring storage for each pod becomes both tedious and error-prone. Every time a storage configuration change is required, it would need to be updated on every pod individually. Persistent volumes solve this problem by centralizing storage management. Administrators can create a large pool of storage, and users can request specific portions from that pool using Persistent Volume Claims (PVCs).</p>
 
-
-        &lt;figure class=&quot;img-frame&quot;&gt;
-            &lt;img src=&quot;../assets/images/chapter8/Persistent-Volumes_frame_90.jpg&quot; alt=&quot;The image illustrates the concept of Persistent Volumes (PVs) and Persistent Volume Claims (PVCs) in Kubernetes, showing their relationship and allocation process.&quot; loading=&quot;lazy&quot;&gt;
-            &lt;figcaption&gt;The image illustrates the concept of Persistent Volumes (PVs) and Persistent Volume Claims (PVCs) in Kubernetes, showing their relationship and allocation process.&lt;/figcaption&gt;
-        &lt;/figure&gt;
-
-
-Users select the storage they need from this pool by using Persistent Volume Claims, simplifying the management and scalability of storage in Kubernetes environments.
-
-## Creating a Persistent Volume
-
-To get started, let’s create a Persistent Volume using a base template. The following example demonstrates updating the API version, setting the kind to PersistentVolume, and giving it a name (here, PV-01). Under the `spec` section, the access modes—which define how a volume is to be mounted (e.g., read-only or read-write)—are specified. Kubernetes offers several modes such as `ReadOnlyMany`, `ReadWriteOnce`, and `ReadWriteMany`. Additionally, you define the capacity to reserve the necessary storage, set to 1Gi in this example. Initially, we use the `hostPath` option to utilize storage from the node's local directory.
-
-&gt; Using `hostPath` is intended for demonstration or testing purposes only and is not recommended for production environments.
-
-```yaml  theme={null}
-apiVersion: v1
+        <figure class="img-frame">
+            <img src="../assets/images/chapter8/Persistent-Volumes_frame_90.jpg" alt="The image illustrates the concept of Persistent Volumes (PVs) and Persistent Volume Claims (PVCs) in Kubernetes, showing their relationship and allocation process." loading="lazy">
+            <figcaption>The image illustrates the concept of Persistent Volumes (PVs) and Persistent Volume Claims (PVCs) in Kubernetes, showing their relationship and allocation process.</figcaption>
+        </figure>
+        
+<p>Users select the storage they need from this pool by using Persistent Volume Claims, simplifying the management and scalability of storage in Kubernetes environments.</p>
+<h2>Creating a Persistent Volume</h2>
+<p>To get started, let’s create a Persistent Volume using a base template. The following example demonstrates updating the API version, setting the kind to PersistentVolume, and giving it a name (here, PV-01). Under the <code>spec</code> section, the access modes—which define how a volume is to be mounted (e.g., read-only or read-write)—are specified. Kubernetes offers several modes such as <code>ReadOnlyMany</code>, <code>ReadWriteOnce</code>, and <code>ReadWriteMany</code>. Additionally, you define the capacity to reserve the necessary storage, set to 1Gi in this example. Initially, we use the <code>hostPath</code> option to utilize storage from the node's local directory.</p>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
+<p>Using <code>hostPath</code> is intended for demonstration or testing purposes only and is not recommended for production environments.</p>
+</div>
+<pre><code class="language-yaml">apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: pv-voll
@@ -451,25 +562,18 @@ spec:
     path: /tmp/d
 </code></pre>
 <p>To create the persistent volume, run the following command:</p>
-<p>```bash  theme={null}
-kubectl create -f pv-definition.yaml</p>
-<pre><code>
-After creation, list the persistent volumes with:
-
-```bash  theme={null}
-kubectl get persistentvolume
+<pre><code class="language-bash">kubectl create -f pv-definition.yaml
+</code></pre>
+<p>After creation, list the persistent volumes with:</p>
+<pre><code class="language-bash">kubectl get persistentvolume
 </code></pre>
 <p>The expected output should appear similar to:</p>
-<p>```plaintext  theme={null}
-NAME      CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS       CLAIM   STORAGECLASS   REASON   AGE
-pv-voll   1Gi       RWO            Retain            Available                             3m</p>
-<pre><code>
-## Using a Cloud Storage Backend
-
-For production environments, it is advisable to use a cloud storage backend rather than `hostPath`. For instance, you can configure AWS Elastic Block Store as illustrated below, where you specify both the `volumeID` and the `fsType`:
-
-```yaml  theme={null}
-apiVersion: v1
+<pre><code class="language-plaintext">NAME      CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS       CLAIM   STORAGECLASS   REASON   AGE
+pv-voll   1Gi       RWO            Retain            Available                             3m
+</code></pre>
+<h2>Using a Cloud Storage Backend</h2>
+<p>For production environments, it is advisable to use a cloud storage backend rather than <code>hostPath</code>. For instance, you can configure AWS Elastic Block Store as illustrated below, where you specify both the <code>volumeID</code> and the <code>fsType</code>:</p>
+<pre><code class="language-yaml">apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: pv-voll
@@ -483,18 +587,15 @@ spec:
     fsType: ext4
 </code></pre>
 <p>Apply the updated configuration with:</p>
-<p>```bash  theme={null}
-kubectl create -f pv-definition.yaml</p>
-<pre><code>
-Then verify its status using:
-
-```bash  theme={null}
-kubectl get persistentvolume
+<pre><code class="language-bash">kubectl create -f pv-definition.yaml
+</code></pre>
+<p>Then verify its status using:</p>
+<pre><code class="language-bash">kubectl get persistentvolume
 </code></pre>
 <p>You should see an output similar to:</p>
-<p><code>plaintext  theme={null}
-NAME      CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM   STORAGECLASS   REASON   AGE
-pv-voll   1Gi        RWO            Retain            Available           &lt;none&gt;                 3m</code></p>
+<pre><code class="language-plaintext">NAME      CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM   STORAGECLASS   REASON   AGE
+pv-voll   1Gi        RWO            Retain            Available           &lt;none&gt;                 3m
+</code></pre>
 <h2>Conclusion</h2>
 <p>This article provided an overview of how persistent volumes in Kubernetes simplify storage management by centralizing configuration. In the next section, we will delve into Persistent Volume Claims and explore how they seamlessly allocate storage from the available persistent volumes.</p>
 <p>For more information, explore the following resources:</p>
@@ -519,27 +620,26 @@ pv-voll   1Gi        RWO            Retain            Available           &lt;no
         <article class="lesson" id="lesson-5">
             <span class="lesson-number">الدرس 5</span>
             <h2>🛸 Solution Persistent Volumes and Persistent Volume Claims optional</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Solution Persistent Volumes and Persistent Volume Claims optional</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>Learn to configure persistent storage in Kubernetes by creating and managing Persistent Volumes and Persistent Volume Claims for log persistence.</p>
-</blockquote>
+</div>
 <p>In this lab exercise, you will learn how to configure persistent storage for your Kubernetes workloads by deploying a Pod that writes log entries to a file, configuring a hostPath volume to persist logs, creating a Persistent Volume (PV) and Persistent Volume Claim (PVC), resolving binding issues due to access mode mismatches, updating the Pod to use the PVC, and finally exploring the reclaim policy behavior upon deletion.</p>
 <hr />
 <h2>Viewing Application Logs Inside the Pod</h2>
 <p>After deploying the web application Pod, you can check its status and view the logs generated by the application. The application writes its log entries to <code>/log/app.log</code> within the container. To view these logs, run the following command:</p>
-<p>```bash  theme={null}
-kubectl exec webapp -- cat /log/app.log</p>
-<pre><code>
-This command displays the log entries generated by your application. If the Pod were deleted, the logs stored within the container would be lost since they reside on the default ephemeral volume provided by Kubernetes. To verify the Pod configuration, use:
-
-```bash  theme={null}
-kubectl describe pod webapp
+<pre><code class="language-bash">kubectl exec webapp -- cat /log/app.log
+</code></pre>
+<p>This command displays the log entries generated by your application. If the Pod were deleted, the logs stored within the container would be lost since they reside on the default ephemeral volume provided by Kubernetes. To verify the Pod configuration, use:</p>
+<pre><code class="language-bash">kubectl describe pod webapp
 </code></pre>
 <p>Notice that there is no additional volume configured to persist the logs.</p>
 <hr />
@@ -549,13 +649,13 @@ kubectl describe pod webapp
 <li><strong>Verify the Host Directory</strong></li>
 </ol>
 <p>First, ensure that the host directory exists and is empty:</p>
-<p><code>bash  theme={null}
+<p><code>bash 
    ls /var/log/webapp</code></p>
-<ol>
+<ol start="2">
 <li><strong>Update the Pod Configuration</strong></li>
 </ol>
 <p>Next, edit the Pod configuration to add a volume named <code>log-volume</code> of type hostPath:</p>
-<p><code>yaml  theme={null}
+<p><code>yaml 
    apiVersion: v1
    kind: Pod
    metadata:
@@ -589,18 +689,17 @@ kubectl describe pod webapp
      - name: log-volume
        hostPath:
          path: /var/log/webapp</code></p>
-<ol>
+<ol start="3">
 <li><strong>Apply the Configuration</strong></li>
 </ol>
 <p>Save your changes. In some cases, direct edits to a running Pod may be rejected. If so, force the update by saving the configuration to a temporary file and executing:</p>
-<p><code>bash  theme={null}
+<p><code>bash 
    kubectl replace --force -f /tmp/kubectl-edit-XXXX.yaml</code></p>
 <p>After the Pod is recreated with the new volume, verify that the logs are now being written to the host’s <code>/var/log/webapp/app.log</code> file.</p>
 <hr />
 <h2>Creating a Persistent Volume (PV)</h2>
 <p>To leverage persistent storage, create a Persistent Volume. Here is an example PV specification using a hostPath:</p>
-<p>```yaml  theme={null}
-apiVersion: v1
+<pre><code class="language-yaml">apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: pv-log
@@ -611,30 +710,27 @@ spec:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   hostPath:
-    path: /pv/log</p>
-<pre><code>
-1. Save the file as `pv.yaml`.
-
-2. Create the PV using:
-
-   ```bash  theme={null}
-   kubectl create -f pv.yaml
-   ```
-
-3. Verify that the PV is available:
-
-   ```bash  theme={null}
-   kubectl get pv
-   ```
-
-***
-
-## Creating a Persistent Volume Claim (PVC)
-
-Now, create a Persistent Volume Claim to request storage from the configured PV. Initially, your PVC might look like this:
-
-```yaml  theme={null}
-apiVersion: v1
+    path: /pv/log
+</code></pre>
+<ol>
+<li>
+<p>Save the file as <code>pv.yaml</code>.</p>
+</li>
+<li>
+<p>Create the PV using:</p>
+</li>
+</ol>
+<p><code>bash 
+   kubectl create -f pv.yaml</code></p>
+<ol start="3">
+<li>Verify that the PV is available:</li>
+</ol>
+<p><code>bash 
+   kubectl get pv</code></p>
+<hr />
+<h2>Creating a Persistent Volume Claim (PVC)</h2>
+<p>Now, create a Persistent Volume Claim to request storage from the configured PV. Initially, your PVC might look like this:</p>
+<pre><code class="language-yaml">apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: claim-log-1
@@ -653,43 +749,36 @@ spec:
 <p>Apply it with:</p>
 </li>
 </ol>
-<p><code>bash  theme={null}
+<p><code>bash 
    kubectl create -f pvc.yaml</code></p>
-<ol>
+<ol start="3">
 <li>Check the state of the PVC:</li>
 </ol>
-<p><code>bash  theme={null}
+<p><code>bash 
    kubectl get pvc</code></p>
 <p>At this point, you might notice that the PVC is still in a <strong>Pending</strong> state due to an access mode mismatch. Although the PV has a capacity of 100Mi, the PVC requests <code>ReadWriteOnce</code> while the PV supports <code>ReadWriteMany</code>.</p>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>To resolve the pending state, update the PVC to request <code>ReadWriteMany</code> access mode, ensuring that it correctly binds to the PV.</p>
-</blockquote>
+</div>
 <p>Edit the <code>pvc.yaml</code> file accordingly and execute:</p>
-<p>```bash  theme={null}
-kubectl replace --force -f pvc.yaml</p>
-<pre><code>
-Verify that the PVC and PV are now correctly bound:
-
-```bash  theme={null}
-kubectl get pv
+<pre><code class="language-bash">kubectl replace --force -f pvc.yaml
+</code></pre>
+<p>Verify that the PVC and PV are now correctly bound:</p>
+<pre><code class="language-bash">kubectl get pv
 kubectl get pvc
 </code></pre>
 <p>You should see output similar to:</p>
-<p>```bash  theme={null}
-NAME      CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                     STORAGECLASS   AGE
-pv-log    100Mi      RWX            Retain           Bound    default/claim-log-1       <none>         5m5s</p>
-<pre><code>
-And:
-
-```bash  theme={null}
-NAME          STATUS   VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+<pre><code class="language-bash">NAME      CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                     STORAGECLASS   AGE
+pv-log    100Mi      RWX            Retain           Bound    default/claim-log-1       &lt;none&gt;         5m5s
+</code></pre>
+<p>And:</p>
+<pre><code class="language-bash">NAME          STATUS   VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   AGE
 claim-log-1   Bound    pv-log   100Mi      RWX            &lt;none&gt;         26s
 </code></pre>
 <hr />
 <h2>Updating the Pod to Use the PVC</h2>
 <p>Update the webapp Pod configuration to mount the storage from the PVC instead of relying on the hostPath directly. Here is the updated volume configuration snippet for the Pod:</p>
-<p>```yaml  theme={null}
-apiVersion: v1
+<pre><code class="language-yaml">apiVersion: v1
 kind: Pod
 metadata:
   name: webapp
@@ -720,43 +809,38 @@ spec:
             path: token
   - name: log-volume
     persistentVolumeClaim:
-      claimName: claim-log-1</p>
-<pre><code>
-Replace the previous Pod definition by forcing a replacement if necessary:
-
-```bash  theme={null}
-kubectl replace --force -f &lt;your-updated-pod-file.yaml&gt;
+      claimName: claim-log-1
+</code></pre>
+<p>Replace the previous Pod definition by forcing a replacement if necessary:</p>
+<pre><code class="language-bash">kubectl replace --force -f &lt;your-updated-pod-file.yaml&gt;
 </code></pre>
 <p>After the update, verify that logs are now available on the host through the PV by checking <code>/pv/log/app.log</code>.</p>
 <hr />
 <h2>Examining the Reclaim Policy and Cleanup Behavior</h2>
 <p>The persistent volume <code>pv-log</code> is configured with a reclaim policy of <strong>Retain</strong>. This means that if the PVC is deleted, the PV is not automatically removed; it remains in the cluster with a status of <code>Released</code>. Check its status with:</p>
-<p>```bash  theme={null}
-kubectl get pv pv-log</p>
-<pre><code>
-Expected output:
-
-```bash  theme={null}
-NAME      CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS     CLAIM                   STORAGECLASS   AGE
+<pre><code class="language-bash">kubectl get pv pv-log
+</code></pre>
+<p>Expected output:</p>
+<pre><code class="language-bash">NAME      CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS     CLAIM                   STORAGECLASS   AGE
 pv-log    100Mi      RWX            Retain           Bound      default/claim-log-1     &lt;none&gt;         9m47s
 </code></pre>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>If you attempt to delete the PVC while it is still mounted by an active Pod, it may remain in a terminating state until the Pod is deleted. To fully remove the PVC and allow the PV to transition to a <code>Released</code> state, delete the associated Pod first.</p>
-</blockquote>
+</div>
 <p>For example:</p>
 <ol>
 <li>Delete the PVC:</li>
 </ol>
-<p><code>bash  theme={null}
+<p><code>bash 
    kubectl delete pvc claim-log-1</code></p>
-<ol>
+<ol start="2">
 <li>If the PVC appears stuck, delete the Pod:</li>
 </ol>
-<p><code>bash  theme={null}
+<p><code>bash 
    kubectl delete pod webapp</code></p>
 <p>Finally, check the PV status to confirm it has transitioned to <code>Released</code>:</p>
-<p><code>bash  theme={null}
-kubectl get pv pv-log</code></p>
+<pre><code class="language-bash">kubectl get pv pv-log
+</code></pre>
 <hr />
 <p>This lab exercise has guided you through configuring a hostPath volume for log persistence, creating and binding a PV and PVC, updating a Pod to utilize the PVC, and understanding the effects of the reclaim policy on cleanup behavior. For more detailed Kubernetes concepts and examples, consider exploring the official <a href="https://kubernetes.io/docs/">Kubernetes Documentation</a>.</p>
 <p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/cb16c9a3-1608-48cf-bfd5-2465f64b4f93/lesson/3895b732-bcd3-4d8a-8ee3-5e568b95a053" /></p>
@@ -775,16 +859,18 @@ kubectl get pv pv-log</code></p>
         <article class="lesson" id="lesson-6">
             <span class="lesson-number">الدرس 6</span>
             <h2>🛸 Stateful Sets Introduction</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Stateful Sets Introduction</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This article explores StatefulSets in Kubernetes, detailing their use cases, differences from Deployments, and management strategies.</p>
-</blockquote>
+</div>
 <p>In this lesson, we explore StatefulSets in Kubernetes and explain when to use them instead of Deployments. StatefulSets are ideal for applications that require:</p>
 <ul class="styled-list">
 <li>Ordered startup and shutdown</li>
@@ -792,15 +878,14 @@ Use this file to discover all available pages before exploring further.</p>
 <li>Consistent storage provisioning</li>
 </ul>
 <p>When your application instances need to start in a specific order or require persistent identities between restarts, opting for a StatefulSet is the right choice.</p>
-<blockquote>
-<p>A StatefulSet is similar to a Deployment in that you define it via a YAML file with a Pod template. The main differences are:
-* Change the kind from Deployment to StatefulSet (note the uppercase “S”).
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
+<p>A StatefulSet is similar to a Deployment in that you define it via a YAML file with a Pod template. The main differences are:<br />
+* Change the kind from Deployment to StatefulSet (note the uppercase “S”).<br />
 * Include the additional field 'serviceName' to specify a headless service.</p>
-</blockquote>
+</div>
 <h2>Converting a Deployment to a StatefulSet</h2>
 <p>Consider the following example of a MySQL Deployment:</p>
-<p>```yaml  theme={null}
-apiVersion: apps/v1
+<pre><code class="language-yaml">apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysql
@@ -818,12 +903,10 @@ spec:
     spec:
       containers:
       - name: mysql
-        image: mysql</p>
-<pre><code>
-To convert this Deployment into a StatefulSet, modify the YAML file by updating the kind and adding the `serviceName` field:
-
-```yaml  theme={null}
-apiVersion: apps/v1
+        image: mysql
+</code></pre>
+<p>To convert this Deployment into a StatefulSet, modify the YAML file by updating the kind and adding the <code>serviceName</code> field:</p>
+<pre><code class="language-yaml">apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mysql
@@ -853,21 +936,15 @@ spec:
 <p>This ordered behavior is particularly beneficial for applications like MySQL databases, where preserving state and order is critical.</p>
 <h2>Creating and Managing a StatefulSet</h2>
 <p>You can use standard Kubernetes commands to create and scale your StatefulSet. For example:</p>
-<p>```bash  theme={null}
-kubectl create -f statefulset-definition.yml
-kubectl scale statefulset mysql --replicas=5</p>
-<h1>Output: statefulset.apps/mysql scaled</h1>
-<pre><code>
-When scaling down, Kubernetes terminates the Pods in reverse order: the last Pod is removed first, followed by earlier ones. Likewise, when deleting the StatefulSet, Pods are terminated in reverse order.
-
-## Customizing Pod Deployment Strategy
-
-By default, StatefulSets follow an ordered approach for both deployment and termination. However, you can override this behavior by setting the `podManagementPolicy` to `Parallel`. This instructs Kubernetes to deploy and terminate all Pods simultaneously while still providing them with stable network identities.
-
-Below is an example StatefulSet configuration that uses the `Parallel` pod management policy:
-
-```yaml  theme={null}
-apiVersion: apps/v1
+<pre><code class="language-bash">kubectl create -f statefulset-definition.yml
+kubectl scale statefulset mysql --replicas=5
+# Output: statefulset.apps/mysql scaled
+</code></pre>
+<p>When scaling down, Kubernetes terminates the Pods in reverse order: the last Pod is removed first, followed by earlier ones. Likewise, when deleting the StatefulSet, Pods are terminated in reverse order.</p>
+<h2>Customizing Pod Deployment Strategy</h2>
+<p>By default, StatefulSets follow an ordered approach for both deployment and termination. However, you can override this behavior by setting the <code>podManagementPolicy</code> to <code>Parallel</code>. This instructs Kubernetes to deploy and terminate all Pods simultaneously while still providing them with stable network identities.</p>
+<p>Below is an example StatefulSet configuration that uses the <code>Parallel</code> pod management policy:</p>
+<pre><code class="language-yaml">apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mysql
@@ -890,17 +967,16 @@ spec:
         image: mysql
 </code></pre>
 <p>You can manage this StatefulSet with the following commands:</p>
-<p>```bash  theme={null}
-kubectl create -f statefulset-definition.yml
+<pre><code class="language-bash">kubectl create -f statefulset-definition.yml
 kubectl scale statefulset mysql --replicas=5
 kubectl scale statefulset mysql --replicas=3
-kubectl delete statefulset mysql</p>
-<h1>Output: statefulset.apps/mysql deleted</h1>
-<p>```</p>
+kubectl delete statefulset mysql
+# Output: statefulset.apps/mysql deleted
+</code></pre>
 <p>This configuration allows Pods to be launched or terminated in parallel, which can be advantageous when the order of operations is not a strict requirement for your application.</p>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>While the <code>Parallel</code> management policy offers faster scaling, it does so at the cost of ordered deployment. Choose the appropriate policy based on your application's initialization and shutdown needs.</p>
-</blockquote>
+</div>
 <p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/cb16c9a3-1608-48cf-bfd5-2465f64b4f93/lesson/c80a8c28-80bf-4f79-8d4a-0368caf88f2b" /></p>
             </div>
             
@@ -917,21 +993,22 @@ kubectl delete statefulset mysql</p>
         <article class="lesson" id="lesson-7">
             <span class="lesson-number">الدرس 7</span>
             <h2>🛸 Storage Classes</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Storage Classes</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This guide explores Kubernetes storage classes for managing dynamic storage provisioning, covering static and dynamic provisioning methods with examples.</p>
-</blockquote>
+</div>
 <p>In this guide, we'll dive into storage classes in Kubernetes, a vital concept for managing dynamic storage provisioning. Earlier, we covered the creation of Persistent Volumes (PVs), Persistent Volume Claims (PVCs), and their integration within pod definitions. With static provisioning, you manually create and manage disks along with their corresponding PV definitions before deploying an application.</p>
 <p>Below is an example of static provisioning using Google Cloud Persistent Disk:</p>
-<p>```yaml  theme={null}</p>
-<h1>pv-definition.yaml</h1>
-<p>apiVersion: v1
+<pre><code class="language-yaml"># pv-definition.yaml
+apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: pv-vol1
@@ -942,10 +1019,9 @@ spec:
     storage: 500Mi
   gcePersistentDisk:
     pdName: pd-disk
-    fsType: ext4</p>
-<pre><code>
-```yaml  theme={null}
-# pvc-definition.yaml
+    fsType: ext4
+</code></pre>
+<pre><code class="language-yaml"># pvc-definition.yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -957,9 +1033,8 @@ spec:
     requests:
       storage: 500Mi
 </code></pre>
-<p>```yaml  theme={null}</p>
-<h1>pod-definition.yaml</h1>
-<p>apiVersion: v1
+<pre><code class="language-yaml"># pod-definition.yaml
+apiVersion: v1
 kind: Pod
 metadata:
   name: random-number-generator
@@ -967,43 +1042,38 @@ spec:
   containers:
     - image: alpine
       name: alpine
-      command: ["/bin/sh", "-c"]
-      args: ["shuf -i 0-100 -n 1 &gt;&gt; /opt/number.out;"]
+      command: [&quot;/bin/sh&quot;, &quot;-c&quot;]
+      args: [&quot;shuf -i 0-100 -n 1 &gt;&gt; /opt/number.out;&quot;]
       volumeMounts:
         - mountPath: /opt
           name: data-volume
   volumes:
     - name: data-volume
       persistentVolumeClaim:
-        claimName: myclaim</p>
-<pre><code>
-Before creating the corresponding PV, you must provision the disk on Google Cloud manually. For example, you would use the following command to create a disk:
-
-```bash  theme={null}
-gcloud beta compute disks create \
+        claimName: myclaim
+</code></pre>
+<p>Before creating the corresponding PV, you must provision the disk on Google Cloud manually. For example, you would use the following command to create a disk:</p>
+<pre><code class="language-bash">gcloud beta compute disks create \
   --size 1GB \
   --region us-east1 \
   pd-disk
 </code></pre>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>Static provisioning involves manually creating and managing the storage disks and their PV definitions. This can become cumbersome for dynamic applications.</p>
-</blockquote>
+</div>
 <hr />
 <h2>Dynamic Provisioning with Storage Classes</h2>
 <p>Storage classes simplify storage management by allowing you to automatically create and configure storage resources when a PVC is created. They define a provisioner (such as Google Cloud Persistent Disk) that automatically creates a new disk, dynamically provisions a PV, and binds it to a PVC based on the storage class specified.</p>
 <p>To implement dynamic provisioning, create a StorageClass object with the API version set to storage.k8s.io/v1. For Google Cloud, set the provisioner to kubernetes.io/gce-pd. Here is an example:</p>
-<p>```yaml  theme={null}</p>
-<h1>sc-definition.yaml</h1>
-<p>apiVersion: storage.k8s.io/v1
+<pre><code class="language-yaml"># sc-definition.yaml
+apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: google-storage
-provisioner: kubernetes.io/gce-pd</p>
-<pre><code>
-When a PVC references a storage class by name, Kubernetes automatically creates and attaches the required storage. For instance:
-
-```yaml  theme={null}
-# pvc-definition.yaml
+provisioner: kubernetes.io/gce-pd
+</code></pre>
+<p>When a PVC references a storage class by name, Kubernetes automatically creates and attaches the required storage. For instance:</p>
+<pre><code class="language-yaml"># pvc-definition.yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -1016,9 +1086,8 @@ spec:
     requests:
       storage: 500Mi
 </code></pre>
-<p>```yaml  theme={null}</p>
-<h1>pod-definition.yaml</h1>
-<p>apiVersion: v1
+<pre><code class="language-yaml"># pod-definition.yaml
+apiVersion: v1
 kind: Pod
 metadata:
   name: random-number-generator
@@ -1026,26 +1095,21 @@ spec:
   containers:
     - image: alpine
       name: alpine
-      command: ["/bin/sh", "-c"]
-      args: ["shuf -i 0-100 -n 1 &gt;&gt; /opt/number.out;"]
+      command: [&quot;/bin/sh&quot;, &quot;-c&quot;]
+      args: [&quot;shuf -i 0-100 -n 1 &gt;&gt; /opt/number.out;&quot;]
       volumeMounts:
         - mountPath: /opt
           name: data-volume
   volumes:
     - name: data-volume
       persistentVolumeClaim:
-        claimName: myclaim</p>
-<pre><code>
-In this setup, when the PVC is created, Kubernetes uses the specified StorageClass to automatically provision a new disk, create a PV, and bind it to the PVC. This eliminates the need for manual disk provisioning.
-
-***
-
-## Advanced Storage Classes
-
-Storage classes can be further customized with parameters specific to the underlying provisioner. For instance, with Google Cloud Persistent Disk, you can define the disk type and replication mode. Consider this example:
-
-```yaml  theme={null}
-# google-storage with parameters
+        claimName: myclaim
+</code></pre>
+<p>In this setup, when the PVC is created, Kubernetes uses the specified StorageClass to automatically provision a new disk, create a PV, and bind it to the PVC. This eliminates the need for manual disk provisioning.</p>
+<hr />
+<h2>Advanced Storage Classes</h2>
+<p>Storage classes can be further customized with parameters specific to the underlying provisioner. For instance, with Google Cloud Persistent Disk, you can define the disk type and replication mode. Consider this example:</p>
+<pre><code class="language-yaml"># google-storage with parameters
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
@@ -1083,19 +1147,17 @@ parameters:
 </tbody>
 </table>
 <p>Examples for each:</p>
-<p>```yaml  theme={null}</p>
-<h1>silver storage class</h1>
-<p>apiVersion: storage.k8s.io/v1
+<pre><code class="language-yaml"># silver storage class
+apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: silver
 provisioner: kubernetes.io/gce-pd
 parameters:
   type: pd-standard
-  replication-type: none</p>
-<pre><code>
-```yaml  theme={null}
-# gold storage class
+  replication-type: none
+</code></pre>
+<pre><code class="language-yaml"># gold storage class
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
@@ -1105,9 +1167,8 @@ parameters:
   type: pd-ssd
   replication-type: none
 </code></pre>
-<p>```yaml  theme={null}</p>
-<h1>platinum storage class</h1>
-<p>apiVersion: storage.k8s.io/v1
+<pre><code class="language-yaml"># platinum storage class
+apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: platinum
@@ -1115,11 +1176,11 @@ provisioner: kubernetes.io/gce-pd
 parameters:
   type: pd-ssd
   replication-type: regional-pd
-```</p>
+</code></pre>
 <p>By utilizing these tailored storage classes in your PVC definitions, you ensure that the storage provisioned aligns precisely with your application’s performance requirements and budget considerations.</p>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>Dynamic provisioning streamlines the process of deploying applications in Kubernetes by eliminating manual storage configuration. This leads to improved efficiency, reduced errors, and enhanced scalability.</p>
-</blockquote>
+</div>
 <hr />
 <h2>In Summary</h2>
 <p>Storage classes in Kubernetes offer a powerful mechanism to manage storage dynamically. By abstracting the complexities of physical disk configurations, storage classes enable you to create, manage, and bind storage resources automatically as needed. Whether you opt for static provisioning or embrace the flexibility of dynamic provisioning, storage classes are integral to ensuring your applications have the right storage infrastructure.</p>
@@ -1142,42 +1203,46 @@ parameters:
         <article class="lesson" id="lesson-8">
             <span class="lesson-number">الدرس 8</span>
             <h2>🛸 Storage in Docker</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Storage in Docker</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This lesson explores Docker storage drivers, file systems, and management of local filesystem data for images, containers, and volumes.</p>
-</blockquote>
+</div>
 <p>Welcome to this lesson on advanced Docker concepts. In this guide, we will explore Docker storage drivers, file systems, and how Docker manages local filesystem data for images, containers, and volumes.</p>
 <h2>Docker Data Storage on the Host</h2>
 <p>When Docker is installed, it organizes data within the <code>/var/lib/docker</code> directory. This folder contains several subdirectories such as <code>aufs</code>, <code>containers</code>, <code>images</code>, and <code>volumes</code>. Each subdirectory serves a specific role in Docker’s architecture:</p>
 <ul class="styled-list">
 <li><strong>containers:</strong> Stores all files related to running containers.</li>
 <li><strong>images:</strong> Contains stored images.</li>
-<li><strong>volumes:</strong> Holds data for persistent storage created by containers.<pre><code>&lt;figure class="img-frame"&gt;
-    &lt;img src="../assets/images/chapter8/Storage-in-Docker_frame_50.jpg" alt="The image shows a file system structure for Docker, highlighting directories like "aufs," "containers," "image," and "volumes" under "/var/lib/docker."" loading="lazy"&gt;
-    &lt;figcaption&gt;The image shows a file system structure for Docker, highlighting directories like "aufs," "containers," "image," and "volumes" under "/var/lib/docker."&lt;/figcaption&gt;
-&lt;/figure&gt;
-</code></pre>
-</li>
+<li><strong>volumes:</strong> Holds data for persistent storage created by containers.</li>
 </ul>
+
+        <figure class="img-frame">
+            <img src="../assets/images/chapter8/Storage-in-Docker_frame_50.jpg" alt="The image shows a file system structure for Docker, highlighting directories like "aufs," "containers," "image," and "volumes" under "/var/lib/docker."" loading="lazy">
+            <figcaption>The image shows a file system structure for Docker, highlighting directories like "aufs," "containers," "image," and "volumes" under "/var/lib/docker."</figcaption>
+        </figure>
+        
 <h2>Layered Architecture in Docker Images</h2>
 <p>Docker images use a layered architecture where each instruction in a Dockerfile creates a new layer capturing only the changes from the previous one. Consider the following example Dockerfile:</p>
-<p>```dockerfile  theme={null}
-FROM Ubuntu</p>
-<p>RUN apt-get update &amp;&amp; apt-get -y install python</p>
-<p>RUN pip install flask flask-mysql</p>
-<p>COPY . /opt/source-code</p>
-<p>ENTRYPOINT FLASK_APP=/opt/source-code/app.py flask run</p>
-<pre><code>
-You can build this image with the following command:
+<pre><code class="language-dockerfile">FROM Ubuntu
 
-```bash  theme={null}
-docker build -t mmumshad/my-custom-app .
+RUN apt-get update &amp;&amp; apt-get -y install python
+
+RUN pip install flask flask-mysql
+
+COPY . /opt/source-code
+
+ENTRYPOINT FLASK_APP=/opt/source-code/app.py flask run
+</code></pre>
+<p>You can build this image with the following command:</p>
+<pre><code class="language-bash">docker build -t mmumshad/my-custom-app .
 </code></pre>
 <p>In this example:</p>
 <ul class="styled-list">
@@ -1186,21 +1251,22 @@ docker build -t mmumshad/my-custom-app .
 </ul>
 <p>Each layer only stores the differences from its predecessor. For example, although the base Ubuntu image might be around 120 MB and the APT updates add an additional 300 MB, the remaining layers are much smaller. This strategy optimizes build times and minimizes disk space usage.</p>
 <h3>Reusing Layers for Similar Applications</h3>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>If subsequent applications share many common layers, Docker will reuse the unchanged layers from its cache, significantly speeding up builds.</p>
-</blockquote>
+</div>
 <p>Consider a second application similar to the first, with the same base image and dependencies but a different source file and entry point:</p>
-<p>```dockerfile  theme={null}
-FROM Ubuntu</p>
-<p>RUN apt-get update &amp;&amp; apt-get -y install python</p>
-<p>RUN pip install flask flask-mysql</p>
-<p>COPY app2.py /opt/source-code</p>
-<p>ENTRYPOINT FLASK_APP=/opt/source-code/app2.py flask run</p>
-<pre><code>
-Build this image using:
+<pre><code class="language-dockerfile">FROM Ubuntu
 
-```bash  theme={null}
-docker build -t mmumshad/my-custom-app-2 .
+RUN apt-get update &amp;&amp; apt-get -y install python
+
+RUN pip install flask flask-mysql
+
+COPY app2.py /opt/source-code
+
+ENTRYPOINT FLASK_APP=/opt/source-code/app2.py flask run
+</code></pre>
+<p>Build this image using:</p>
+<pre><code class="language-bash">docker build -t mmumshad/my-custom-app-2 .
 </code></pre>
 <p>Because the first three layers are identical across both applications, Docker reuses the cached layers and only builds the new layers corresponding to the changes.</p>
 <h2>Understanding Image and Container Layers</h2>
@@ -1213,48 +1279,38 @@ docker build -t mmumshad/my-custom-app-2 .
 <li><strong>Entry Point Layer:</strong> The layer that sets the container’s entry point.</li>
 </ol>
 <p>When building the image:</p>
-<p>```bash  theme={null}
-docker build -t mmumshad/my-custom-app Dockerfile</p>
-<pre><code>
-the resulting layers remain read-only. Running a container from this image creates a new writable layer on top, which stores changes such as logs, temporary files, or modifications made during runtime. This mechanism is known as copy-on-write. Even if you modify a read-only file from the image, Docker creates a separate copy in the writable layer before applying the changes.
+<pre><code class="language-bash">docker build -t mmumshad/my-custom-app Dockerfile
+</code></pre>
+<p>the resulting layers remain read-only. Running a container from this image creates a new writable layer on top, which stores changes such as logs, temporary files, or modifications made during runtime. This mechanism is known as copy-on-write. Even if you modify a read-only file from the image, Docker creates a separate copy in the writable layer before applying the changes.</p>
+<pre><code class="language-bash">docker run mmumshad/my-custom-app
+</code></pre>
 
-```bash  theme={null}
-docker run mmumshad/my-custom-app
-</code></pre>
-<pre><code>    &lt;figure class="img-frame"&gt;
-        &lt;img src="../assets/images/chapter8/Storage-in-Docker_frame_410.jpg" alt="The image illustrates the "Copy-on-Write" concept, showing container and image layers with "Read Write" and "Read Only" permissions for files like "app.py" and "temp.txt"." loading="lazy"&gt;
-        &lt;figcaption&gt;The image illustrates the "Copy-on-Write" concept, showing container and image layers with "Read Write" and "Read Only" permissions for files like "app.py" and "temp.txt".&lt;/figcaption&gt;
-    &lt;/figure&gt;
-</code></pre>
-<blockquote>
+        <figure class="img-frame">
+            <img src="../assets/images/chapter8/Storage-in-Docker_frame_410.jpg" alt="The image illustrates the "Copy-on-Write" concept, showing container and image layers with "Read Write" and "Read Only" permissions for files like "app.py" and "temp.txt"." loading="lazy">
+            <figcaption>The image illustrates the "Copy-on-Write" concept, showing container and image layers with "Read Write" and "Read Only" permissions for files like "app.py" and "temp.txt".</figcaption>
+        </figure>
+        
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>Remember, when you remove a container, its writable layer and any associated changes will be lost. The original image remains unchanged unless it is rebuilt.</p>
-</blockquote>
+</div>
 <h2>Persisting Data with Volumes</h2>
 <p>For data persistence outside the container’s ephemeral writable layer—such as database storage—use Docker volumes.</p>
 <h3>Creating and Using Volumes</h3>
 <p>First, create a volume:</p>
-<p>```bash  theme={null}
-docker volume create data_volume</p>
-<pre><code>
-Then, mount the created volume when launching a container. For example, to store MySQL data in the volume, run:
-
-```bash  theme={null}
-docker run -v data_volume:/var/lib/mysql mysql
+<pre><code class="language-bash">docker volume create data_volume
+</code></pre>
+<p>Then, mount the created volume when launching a container. For example, to store MySQL data in the volume, run:</p>
+<pre><code class="language-bash">docker run -v data_volume:/var/lib/mysql mysql
 </code></pre>
 <p>If a specified volume does not exist, Docker automatically creates it. To inspect the volumes, you can list the contents of <code>/var/lib/docker/volumes</code>.</p>
 <h3>Bind Mounts</h3>
 <p>Alternatively, if you prefer using external storage (for instance, storing database files in <code>/data/mysql</code> on your host), you can use bind mounts:</p>
-<p>```bash  theme={null}
-docker run -v /data/mysql:/var/lib/mysql mysql</p>
-<pre><code>
-This technique maps a directory on the host to the container, enabling direct access to the host’s filesystem.
-
-### Using the --mount Option
-
-The newer `--mount` flag provides a clearer and more explicit syntax. The equivalent bind mount example using `--mount` is:
-
-```bash  theme={null}
-docker run \
+<pre><code class="language-bash">docker run -v /data/mysql:/var/lib/mysql mysql
+</code></pre>
+<p>This technique maps a directory on the host to the container, enabling direct access to the host’s filesystem.</p>
+<h3>Using the --mount Option</h3>
+<p>The newer <code>--mount</code> flag provides a clearer and more explicit syntax. The equivalent bind mount example using <code>--mount</code> is:</p>
+<pre><code class="language-bash">docker run \
   --mount type=bind,source=/data/mysql,target=/var/lib/mysql \
   mysql
 </code></pre>
@@ -1270,11 +1326,12 @@ docker run \
 <li>Overlay2</li>
 </ul>
 <p>The default storage driver varies by operating system: for example, Ubuntu typically uses AUFS, whereas Fedora or CentOS may use Device Mapper if AUFS is unavailable. Each driver offers unique performance and stability characteristics, so choose one based on your application’s requirements.</p>
-<pre><code>    &lt;figure class="img-frame"&gt;
-        &lt;img src="../assets/images/chapter8/Storage-in-Docker_frame_730.jpg" alt="The image lists storage drivers: AUFS, ZFS, BTRFS, Device Mapper, Overlay, and Overlay2, with a whale graphic in the background." loading="lazy"&gt;
-        &lt;figcaption&gt;The image lists storage drivers: AUFS, ZFS, BTRFS, Device Mapper, Overlay, and Overlay2, with a whale graphic in the background.&lt;/figcaption&gt;
-    &lt;/figure&gt;
-</code></pre>
+
+        <figure class="img-frame">
+            <img src="../assets/images/chapter8/Storage-in-Docker_frame_730.jpg" alt="The image lists storage drivers: AUFS, ZFS, BTRFS, Device Mapper, Overlay, and Overlay2, with a whale graphic in the background." loading="lazy">
+            <figcaption>The image lists storage drivers: AUFS, ZFS, BTRFS, Device Mapper, Overlay, and Overlay2, with a whale graphic in the background.</figcaption>
+        </figure>
+        
 <p>For more detailed information on these storage drivers, please refer to the documentation provided in the relevant links.</p>
 <h2>Conclusion</h2>
 <p>This lesson on Docker’s storage architecture covered the fundamentals of how Docker organizes data on the host, utilizes a layered image architecture, and manages persistent data with volumes and bind mounts. Understanding these concepts is crucial for optimizing Docker builds, ensuring efficient disk usage, and managing data persistence.</p>
@@ -1301,16 +1358,18 @@ docker run \
         <article class="lesson" id="lesson-9">
             <span class="lesson-number">الدرس 9</span>
             <h2>🛸 Storage in StatefulSets</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Storage in StatefulSets</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This article explores storage in StatefulSets and explains persistent storage operations in Kubernetes, including provisioning methods and configurations for Pods.</p>
-</blockquote>
+</div>
 <p>In this article, we explore storage in StatefulSets and explain how persistent storage operates in Kubernetes. We begin with a review of persistent volumes (PV) and persistent volume claims (PVC) used with Pods, then dive into different provisioning methods and their use in StatefulSets.</p>
 <hr />
 <h2>Persistent Volumes and Static Provisioning</h2>
@@ -1321,13 +1380,12 @@ Use this file to discover all available pages before exploring further.</p>
 <li>Reference the PVC in your Pod specification.</li>
 </ol>
 <p>Below is an example of each configuration:</p>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>For static provisioning, ensure that the PV capacity and access modes match the requirements of your applications.</p>
-</blockquote>
+</div>
 <h3>PersistentVolume Definition</h3>
-<p>```yaml  theme={null}</p>
-<h1>pv-definition.yaml</h1>
-<p>apiVersion: v1
+<pre><code class="language-yaml"># pv-definition.yaml
+apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: pv-vol1
@@ -1338,12 +1396,10 @@ spec:
     storage: 500Mi
   gcePersistentDisk:
     pdName: pd-disk
-  fsType: ext4</p>
-<pre><code>
-### PersistentVolumeClaim Definition
-
-```yaml  theme={null}
-# pvc-definition.yaml
+  fsType: ext4
+</code></pre>
+<h3>PersistentVolumeClaim Definition</h3>
+<pre><code class="language-yaml"># pvc-definition.yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -1357,9 +1413,8 @@ spec:
       storage: 500Mi
 </code></pre>
 <h3>Pod Definition Referencing the PVC</h3>
-<p>```yaml  theme={null}</p>
-<h1>pod-definition.yaml</h1>
-<p>apiVersion: v1
+<pre><code class="language-yaml"># pod-definition.yaml
+apiVersion: v1
 kind: Pod
 metadata:
   name: mysql
@@ -1373,18 +1428,13 @@ spec:
   volumes:
     - name: data-volume
       persistentVolumeClaim:
-        claimName: data-volume</p>
-<pre><code>
-***
-
-## Dynamic Provisioning with StorageClasses
-
-Dynamic provisioning simplifies the process by automatically creating PVs when you define a PVC and reference a StorageClass. This eliminates the need to manually provision PVs.
-
-### StorageClass Definition
-
-```yaml  theme={null}
-# sc-definition.yaml
+        claimName: data-volume
+</code></pre>
+<hr />
+<h2>Dynamic Provisioning with StorageClasses</h2>
+<p>Dynamic provisioning simplifies the process by automatically creating PVs when you define a PVC and reference a StorageClass. This eliminates the need to manually provision PVs.</p>
+<h3>StorageClass Definition</h3>
+<pre><code class="language-yaml"># sc-definition.yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
@@ -1392,9 +1442,8 @@ metadata:
 provisioner: kubernetes.io/gce-pd
 </code></pre>
 <h3>PVC Definition Using Dynamic Provisioning</h3>
-<p>```yaml  theme={null}</p>
-<h1>pvc-definition.yaml</h1>
-<p>apiVersion: v1
+<pre><code class="language-yaml"># pvc-definition.yaml
+apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: data-volume
@@ -1404,12 +1453,10 @@ spec:
   storageClassName: google-storage
   resources:
     requests:
-      storage: 500Mi</p>
-<pre><code>
-### Pod Definition Referencing the Dynamically Provisioned PVC
-
-```yaml  theme={null}
-# pod-definition.yaml
+      storage: 500Mi
+</code></pre>
+<h3>Pod Definition Referencing the Dynamically Provisioned PVC</h3>
+<pre><code class="language-yaml"># pod-definition.yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -1430,8 +1477,8 @@ spec:
 <h2>Using StatefulSets with Shared Storage</h2>
 <p>StatefulSets support scenarios where multiple replicas share the same volume. If you reference a common PVC within a StatefulSet, all replicas will attempt to access the same storage. This setup works if your underlying storage supports multi-reader or multi-writer capabilities.</p>
 <h3>Shared Storage StatefulSet Example</h3>
-<h2>```yaml  theme={null}</h2>
-<p>apiVersion: apps/v1
+<pre><code class="language-yaml">---
+apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mysql
@@ -1456,20 +1503,16 @@ spec:
       volumes:
         - name: data-volume
           persistentVolumeClaim:
-            claimName: data-volume</p>
-<pre><code>
-&gt; Ensure that your storage solution supports concurrent access if you plan to share the same volume across multiple Pods.
-
-***
-
-## Separate Volumes for Each Pod Using VolumeClaimTemplates
-
-For scenarios like MySQL replication where each Pod requires dedicated storage, a volume claim template allows Kubernetes to automatically create a unique PVC for each Pod in a StatefulSet.
-
-### Step 1: Define the StorageClass
-
-```yaml  theme={null}
-# sc-definition.yaml
+            claimName: data-volume
+</code></pre>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
+<p>Ensure that your storage solution supports concurrent access if you plan to share the same volume across multiple Pods.</p>
+</div>
+<hr />
+<h2>Separate Volumes for Each Pod Using VolumeClaimTemplates</h2>
+<p>For scenarios like MySQL replication where each Pod requires dedicated storage, a volume claim template allows Kubernetes to automatically create a unique PVC for each Pod in a StatefulSet.</p>
+<h3>Step 1: Define the StorageClass</h3>
+<pre><code class="language-yaml"># sc-definition.yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
@@ -1477,9 +1520,8 @@ metadata:
 provisioner: kubernetes.io/gce-pd
 </code></pre>
 <h3>Step 2: Create a StatefulSet with a VolumeClaimTemplate</h3>
-<p>```yaml  theme={null}</p>
-<h1>statefulset-definition.yaml</h1>
-<p>apiVersion: apps/v1
+<pre><code class="language-yaml"># statefulset-definition.yaml
+apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mysql
@@ -1511,7 +1553,7 @@ spec:
         resources:
           requests:
             storage: 500Mi
-```</p>
+</code></pre>
 <p>In this configuration, Kubernetes provisions a unique PVC for each Pod automatically based on the volume claim template. This ensures that every Pod receives its dedicated storage. Additionally, StatefulSets maintain stable storage even if a Pod is rescheduled; the associated PVC and underlying PV remain intact and are reattached to the new Pod instance.</p>
 <hr />
 <p>That concludes our discussion on storage in StatefulSets. For more information on Kubernetes storage concepts, visit the <a href="https://kubernetes.io/docs/">Kubernetes Documentation</a>.</p>
@@ -1531,20 +1573,22 @@ spec:
         <article class="lesson" id="lesson-10">
             <span class="lesson-number">الدرس 10</span>
             <h2>🛸 Volume Driver Plugins in Docker</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Volume Driver Plugins in Docker</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This article explains Docker volume driver plugins for data persistence and highlights third-party options for external storage solutions.</p>
-</blockquote>
+</div>
 <p>Docker leverages storage drivers to manage images and containers, while volume driver plugins handle data persistence. Unlike storage drivers, volumes need to be explicitly created and are managed by these dedicated plugins.</p>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>The default volume driver plugin, "local," creates volumes on the Docker host and stores data at <code>/var/lib/docker/volumes</code>.</p>
-</blockquote>
+</div>
 <p>Several third-party volume driver plugins further expand Docker's storage capabilities by enabling volume creation on external storage solutions. Popular plugins include:</p>
 <ul class="styled-list">
 <li>Azure File Storage</li>
@@ -1558,17 +1602,17 @@ Use this file to discover all available pages before exploring further.</p>
 <li>Portworx</li>
 <li>VMware vSphere storage</li>
 </ul>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>Certain volume drivers support multiple storage providers. For instance, the RexRay storage driver can provision storage on various platforms such as AWS EBS, S3, EMC storage arrays like Isilon and ScaleIO, Google Persistent Disk, and OpenStack Cinder.</p>
-</blockquote>
+</div>
 <p>When running a Docker container, you can specify a volume driver—such as RexRay for AWS EBS—to provision a cloud-based volume. This approach ensures that your data remains safe even after the container exits.</p>
 <p>Below is an example command that demonstrates how to run a Docker container with a specified volume driver:</p>
-<p><code>bash  theme={null}
-docker run -it \
+<pre><code class="language-bash">docker run -it \
   --name mysql \
   --volume-driver rexray/ebs \
   --mount src=ebs-vol,target=/var/lib/mysql \
-  mysql</code></p>
+  mysql
+</code></pre>
 <p>This command creates a container named "mysql" and attaches a volume provisioned from Amazon EBS, ensuring persistent data storage in the cloud.</p>
 <p>While this article focuses on Docker volume driver plugins, remember that Kubernetes also offers robust solutions for managing persistent storage through its volume mechanisms. For more details on persistent storage in Kubernetes, refer to <a href="https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/">Kubernetes Basics</a>.</p>
 <p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/cb16c9a3-1608-48cf-bfd5-2465f64b4f93/lesson/133c8da6-8e20-43da-b161-03f1b9d6f787" /></p>
@@ -1587,16 +1631,18 @@ docker run -it \
         <article class="lesson" id="lesson-11">
             <span class="lesson-number">الدرس 11</span>
             <h2>🛸 Volumes in Kubernetes</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Volumes in Kubernetes</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This lesson explores persistent volumes in Kubernetes, focusing on data persistence and various storage solutions for Pods.</p>
-</blockquote>
+</div>
 <p>Hello, and welcome to this lesson on persistent volumes in Kubernetes. I’m Mumshad Mannambeth, and today we’ll explore key concepts from the <a href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad">Certified Kubernetes Application Developer</a> course.</p>
 <h2>Understanding Volumes</h2>
 <p>Before diving into persistent volumes, let's revisit the concept of volumes, starting with Docker.</p>
@@ -1604,8 +1650,7 @@ Use this file to discover all available pages before exploring further.</p>
 <p>Similarly, in Kubernetes, Pods are transient. When a Pod is created to process data and subsequently deleted, any data stored within it is lost unless it is saved externally. By attaching a volume to the Pod, you can ensure that the data written to the volume remains persistent even after the Pod is terminated.</p>
 <h2>A Simple Example with a Single-Node Cluster</h2>
 <p>Consider a simple implementation where a Pod generates a random number between 1 and 100 and writes it to <code>/opt/number.out</code>. Note that without a persistent volume, deleting the Pod also removes the generated number.</p>
-<p>```yaml  theme={null}
-apiVersion: v1
+<pre><code class="language-yaml">apiVersion: v1
 kind: Pod
 metadata:
   name: random-number-generator
@@ -1613,15 +1658,12 @@ spec:
   containers:
     - image: alpine
       name: alpine
-      command: ["/bin/sh","-c"]
-      args: ["shuf -i 0-100 -n 1 &gt;&gt; /opt/number.out;"]</p>
-<pre><code>
-To retain the generated number, we attach a volume that leverages host storage. In this example, the host directory `/data` is used as the storage backend. When the volume is mounted inside the container at `/opt`, any file written there will be persisted on the host, even after the Pod is removed.
-
-Below is the updated Pod specification with the volume properly configured:
-
-```yaml  theme={null}
-apiVersion: v1
+      command: [&quot;/bin/sh&quot;,&quot;-c&quot;]
+      args: [&quot;shuf -i 0-100 -n 1 &gt;&gt; /opt/number.out;&quot;]
+</code></pre>
+<p>To retain the generated number, we attach a volume that leverages host storage. In this example, the host directory <code>/data</code> is used as the storage backend. When the volume is mounted inside the container at <code>/opt</code>, any file written there will be persisted on the host, even after the Pod is removed.</p>
+<p>Below is the updated Pod specification with the volume properly configured:</p>
+<pre><code class="language-yaml">apiVersion: v1
 kind: Pod
 metadata:
   name: random-number-generator
@@ -1641,9 +1683,9 @@ spec:
         type: Directory
 </code></pre>
 <p>In this configuration, the file <code>/opt/number.out</code> is stored on the host's <code>/data</code> directory. As a result, the data persists independently of the Pod’s lifecycle.</p>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>Remember: Using the hostPath option is effective for single-node clusters, but it is not ideal for multi-node clusters, where consistent storage across nodes is required.</p>
-</blockquote>
+</div>
 <h2>Storage Options for Volumes</h2>
 <p>The previous example utilized the hostPath option, which directly uses a directory on the host for persistent storage. While this works well in a single-node implementation, multi-node clusters typically require a more robust solution because the same directory structure is not guaranteed across different nodes.</p>
 <p>Kubernetes supports various storage solutions beyond hostPath, including network-based options like NFS, GlusterFS, and Flocker, as well as block storage types such as Fibre Channel, CephFS, and ScaleIO. Moreover, public cloud providers offer native persistent storage options, for example:</p>
@@ -1653,12 +1695,12 @@ spec:
 <li><a href="https://cloud.google.com/compute/docs/disks">Google Persistent Disk</a></li>
 </ul>
 <p>For instance, to configure an AWS EBS volume instead of using hostPath, the Pod specification is modified as follows:</p>
-<p><code>yaml  theme={null}
-volumes:
+<pre><code class="language-yaml">volumes:
   - name: data-volume
     awsElasticBlockStore:
       volumeID: &lt;volume-id&gt;
-      fsType: ext4</code></p>
+      fsType: ext4
+</code></pre>
 <p>With this configuration, the Pod utilizes AWS EBS for persistent storage, enabling reliable data management through the cloud provider’s block storage services.</p>
 <h2>Conclusion</h2>
 <p>This lesson reviewed how volumes in Kubernetes work and how to persist data using hostPath and other storage solutions. In the next segment, we will delve into persistent volumes and explore how Kubernetes manages long-term data persistence in various environments.</p>
@@ -1678,16 +1720,18 @@ volumes:
         <article class="lesson" id="lesson-12">
             <span class="lesson-number">الدرس 12</span>
             <h2>🛸 Why Stateful Sets</h2>
+            
+            <!-- Content Wrapper -->
             <div class="english-content">
-                <blockquote>
+                <div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <h2>Documentation Index</h2>
-<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt
+<p>Fetch the complete documentation index at: https://notes.kodekloud.com/llms.txt<br />
 Use this file to discover all available pages before exploring further.</p>
-</blockquote>
+</div>
 <h1>Why Stateful Sets</h1>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This lesson explores StatefulSets in Kubernetes, highlighting their necessity compared to Deployments for managing database replication.</p>
-</blockquote>
+</div>
 <p>In this lesson, we will explore StatefulSets in Kubernetes, emphasizing their necessity compared to Deployments. To understand their importance, let's begin with a real-world scenario outside of Kubernetes.</p>
 <p>Imagine you have a physical server running a database server, such as MySQL. After installing MySQL and creating the initial database, your database is up and running, accessible to client applications. To ensure high availability, you deploy additional servers with MySQL installed. However, these new servers start with empty databases, and you must replicate data from the original master database to them.</p>
 <p>For illustration, we use MySQL replication. Although the details of MySQL replication are simplified here, the focus is on the high-level procedure for setting up dynamic replicas. In a common single-master multi-slave topology, all write operations are directed to the master server, while read operations can be served by any server. The process involves the following steps:</p>
@@ -1699,22 +1743,23 @@ Use this file to discover all available pages before exploring further.</p>
 <li>Enable continuous replication on the second slave, configuring it to replicate from the master.</li>
 </ol>
 <p>A critical aspect of this replication setup is configuring the slave servers with the master's hostname or address. This static reference is essential because if the master is replaced (for instance, due to a crash), its IP address might change if assigned dynamically. Therefore, a stable, static hostname is required. In typical deployments, pods are created with random names, which makes maintaining a static reference challenging. For example, if a master pod crashes and is recreated with a new name, the replication linkage is broken.</p>
-<pre><code>    &lt;figure class="img-frame"&gt;
-        &lt;img src="../assets/images/chapter8/Why-Stateful-Sets_frame_230.jpg" alt="The image illustrates a MySQL replication setup process, detailing steps to configure a master-slave database architecture with two slave servers replicating from a master." loading="lazy"&gt;
-        &lt;figcaption&gt;The image illustrates a MySQL replication setup process, detailing steps to configure a master-slave database architecture with two slave servers replicating from a master.&lt;/figcaption&gt;
-    &lt;/figure&gt;
-</code></pre>
+
+        <figure class="img-frame">
+            <img src="../assets/images/chapter8/Why-Stateful-Sets_frame_230.jpg" alt="The image illustrates a MySQL replication setup process, detailing steps to configure a master-slave database architecture with two slave servers replicating from a master." loading="lazy">
+            <figcaption>The image illustrates a MySQL replication setup process, detailing steps to configure a master-slave database architecture with two slave servers replicating from a master.</figcaption>
+        </figure>
+        
 <h2>Transitioning to Kubernetes</h2>
 <p>In Kubernetes, you might consider deploying each instance in your MySQL cluster (both master and slaves) as pods within a Deployment. Deployments are excellent for scaling and managing pods; however, they do not guarantee the startup order of the pods. In our replication setup, the master must be established before starting the slaves, and this sequential order is imperative.</p>
 <p>Consider the following configuration snippet:</p>
-<p><code>python  theme={null}
+<pre><code class="language-python">MASTER_HOST=mysql-master
 MASTER_HOST=mysql-master
-MASTER_HOST=mysql-master</code></p>
+</code></pre>
 <p>In this scenario, the master must start before any of the slave nodes. For example, slave one must initialize and clone data from the master, and later, slave two should clone data from slave one. Unfortunately, Deployments create all pods concurrently, so ensuring the necessary startup order becomes problematic.</p>
 <p>Additionally, during the cloning and continuous replication phases, it is critical to clearly distinguish between the master and slave pods. The master requires a constant and static hostname instead of an IP address—which might change when a pod is recreated. With Deployments generating dynamically named pods, this requirement is not met. If the designated master pod crashes and is replaced by a new pod with a different name, your replication configuration will break.</p>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>A stable and predictable pod naming convention is crucial for proper database replication in a stateful system.</p>
-</blockquote>
+</div>
 <h2>Introducing StatefulSets</h2>
 <p>StatefulSets address these challenges with features that resemble Deployments—such as pod templating, scaling, rolling updates, and rollbacks—but with a critical advantage: they enforce sequential pod creation. This ensures that the first pod is deployed, running, and ready before the next pod is initialized. This behavior directly caters to our requirement where the master must always start first, followed by the slaves.</p>
 <p>StatefulSets assign a unique ordinal index to each pod, starting at zero, and each pod’s name is derived from the StatefulSet name combined with its ordinal index. For example, given a StatefulSet named mySQL:</p>
@@ -1724,16 +1769,17 @@ MASTER_HOST=mysql-master</code></p>
 <li>The third pod is named mySQL-2.</li>
 </ul>
 <p>This predictable naming allows you to reliably designate mySQL-0 as the master pod. Slave pods can then be explicitly configured—for instance, mySQL-1 and mySQL-2 can be set up to clone data from the master, or further cascade replication among themselves. Even if the master pod fails and is recreated, it retains its stable name due to the sticky identity provided by StatefulSets.</p>
-<pre><code>    &lt;figure class="img-frame"&gt;
-        &lt;img src="../assets/images/chapter8/Why-Stateful-Sets_frame_550.jpg" alt="The image illustrates a step-by-step process for setting up MySQL stateful sets with master-slave replication, including cloning data and configuring master addresses." loading="lazy"&gt;
-        &lt;figcaption&gt;The image illustrates a step-by-step process for setting up MySQL stateful sets with master-slave replication, including cloning data and configuring master addresses.&lt;/figcaption&gt;
-    &lt;/figure&gt;
-</code></pre>
+
+        <figure class="img-frame">
+            <img src="../assets/images/chapter8/Why-Stateful-Sets_frame_550.jpg" alt="The image illustrates a step-by-step process for setting up MySQL stateful sets with master-slave replication, including cloning data and configuring master addresses." loading="lazy">
+            <figcaption>The image illustrates a step-by-step process for setting up MySQL stateful sets with master-slave replication, including cloning data and configuring master addresses.</figcaption>
+        </figure>
+        
 <h2>Conclusion</h2>
 <p>StatefulSets offer significant advantages when deploying systems like a MySQL cluster on Kubernetes. They guarantee that pods are launched in a specific sequence and maintain a stable network identity essential for configuring master-slave replication.</p>
-<blockquote>
+<div class="callout-tip"><div class="tip-title">💡 ملاحظة</div>
 <p>This discussion sets the stage for a deeper exploration into Kubernetes topics such as creating StatefulSets, headless services, and configuring Persistent Volumes.</p>
-</blockquote>
+</div>
 <p><Card title="Watch Video" icon="video" cta="Learn more" href="https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/cb16c9a3-1608-48cf-bfd5-2465f64b4f93/lesson/94d9a2fd-8426-4a9d-8ec3-fe6e54c0bd95" /></p>
             </div>
             
@@ -1746,10 +1792,12 @@ MASTER_HOST=mysql-master</code></p>
             </div>
         </article>
 
-    </div>
+            </div>
 
-    <footer class="site-footer">
-        <p>🚀 كوبسترونات — المهمة 8 خلصت! <a href="chapter9.html" style="color: var(--rocket-orange);">يلا على المهمة 9 ←</a></p>
-    </footer>
+            <footer class="site-footer">
+                <p>🚀 كوبسترونات — المهمة 8 خلصت! <a href="chapter9.html" style="color: var(--rocket-orange);">يلا على المهمة 9 ←</a></p>
+            </footer>
+        </main>
+    </div> <!-- End .ckad-layout -->
 </body>
 </html>
