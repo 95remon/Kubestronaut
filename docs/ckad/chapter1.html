@@ -26,247 +26,307 @@
     </nav>
   </header>
 
-  <section class="chapter-hero">
-    <h1>🚀 المهمة ١: الانطلاق</h1>
-    <p class="subtitle">تعالى نعرف إيه هي محطة الفضاء العملاقة اللي اسمها Kubernetes!</p>
-  </section>
+  <div class="ckad-layout" style="margin-top: 20px;">
+    <!-- SIDEBAR -->
+    <aside class="chapter-sidebar" id="chapterSidebar">
+      <button class="sidebar-toggle"
+        onclick="document.getElementById('chapterSidebar').classList.toggle('sidebar-open')"
+        aria-label="القائمة الجانبية">📋 المهام</button>
+      <div class="sidebar-nav">
+        <h3>🛸 خريطة المهام</h3>
+        <a href="chapter1.html" class="sidebar-item active-chapter"><span class="ch-status">✅</span>
+          <div><strong>1. المقدمة</strong><small>First Section</small></div>
+        </a>
+        <a href="chapter2.html" class="sidebar-item "><span class="ch-status">✅</span>
+          <div><strong>2. المفاهيم الأساسية</strong><small>Core Concepts</small></div>
+        </a>
+        <a href="chapter3.html" class="sidebar-item "><span class="ch-status">✅</span>
+          <div><strong>3. الإعدادات</strong><small>Configuration</small></div>
+        </a>
+        <a href="chapter4.html" class="sidebar-item "><span class="ch-status">✅</span>
+          <div><strong>4. الكبسولات المتعددة</strong><small>Multi-Container Pods</small></div>
+        </a>
+        <a href="chapter5.html" class="sidebar-item "><span class="ch-status">✅</span>
+          <div><strong>5. المراقبة</strong><small>Observability</small></div>
+        </a>
+        <a href="chapter6.html" class="sidebar-item "><span class="ch-status">✅</span>
+          <div><strong>6. تصميم الكبسولات</strong><small>POD Design</small></div>
+        </a>
+        <a href="chapter7.html" class="sidebar-item "><span class="ch-status">✅</span>
+          <div><strong>7. الشبكات والخدمات</strong><small>Services & Networking</small></div>
+        </a>
+        <a href="chapter8.html" class="sidebar-item "><span class="ch-status">✅</span>
+          <div><strong>8. التخزين الدائم</strong><small>State Persistence</small></div>
+        </a>
+        <a href="chapter9.html" class="sidebar-item "><span class="ch-status">✅</span>
+          <div><strong>9. الأمان</strong><small>Security</small></div>
+        </a>
+        <a href="chapter10.html" class="sidebar-item "><span class="ch-status">✅</span>
+          <div><strong>10. أساسيات Helm</strong><small>Helm Fundamentals</small></div>
+        </a>
+        <a href="chapter11.html" class="sidebar-item "><span class="ch-status">✅</span>
+          <div><strong>11. أساسيات Kustomize</strong><small>Kustomize Basics</small></div>
+        </a>
+        <a href="chapter12.html" class="sidebar-item "><span class="ch-status">✅</span>
+          <div><strong>12. نصائح الامتحان</strong><small>Certification Tips</small></div>
+        </a>
+        <a href="chapter13.html" class="sidebar-item "><span class="ch-status">✅</span>
+          <div><strong>13. مختبرات البرق</strong><small>Lightning Labs</small></div>
+        </a>
+        <a href="chapter14.html" class="sidebar-item "><span class="ch-status">✅</span>
+          <div><strong>14. الامتحانات التجريبية</strong><small>Mock Exams</small></div>
+        </a>
+      </div>
+    </aside>
+    <!-- MAIN CONTENT -->
+    <main class="course-content">
+      <section class="chapter-hero">
+        <h1>🚀 المهمة ١: الانطلاق</h1>
+        <p class="subtitle">تعالى نعرف إيه هي محطة الفضاء العملاقة اللي اسمها Kubernetes!</p>
+      </section>
 
-  <div class="lessons-container">
+      <div class="lessons-container">
 
-    <!-- ========== LESSON 1: Introduction ========== -->
-    <article class="lesson" id="intro">
-      <span class="lesson-number">الدرس ١</span>
-      <h2>🚀 مهمة الانطلاق: إيه هو الكوبرنيتس؟</h2>
-      <p class="mission-brief">
-        تخيل إنك قائد محطة فضاء عملاقة فيها آلاف السفن والكبسولات بتشتغل كلها مع بعض.
-        محتاج نظام ذكي ينظم كل حاجة ويتأكد إن كل سفينة شغالة صح — ده بالظبط اللي بيعمله Kubernetes! 🌌
-      </p>
+        <!-- ========== LESSON 1: Introduction ========== -->
+        <article class="lesson" id="intro">
+          <span class="lesson-number">الدرس ١</span>
+          <h2>🚀 مهمة الانطلاق: إيه هو الكوبرنيتس؟</h2>
+          <p class="mission-brief">
+            تخيل إنك قائد محطة فضاء عملاقة فيها آلاف السفن والكبسولات بتشتغل كلها مع بعض.
+            محتاج نظام ذكي ينظم كل حاجة ويتأكد إن كل سفينة شغالة صح — ده بالظبط اللي بيعمله Kubernetes! 🌌
+          </p>
 
-      <h3>🌌 الفكرة ببساطة</h3>
-      <p>
-        الكوبرنيتس (Kubernetes) — أو زي ما بنحب نقول عليه K8s — ده زي <strong>مدير محطة الفضاء</strong>.
-        تخيل إن عندك تطبيقات (زي ChatGPT مثلاً!) ومحتاج تشغلهم على كمبيوترات كتير مع بعض.
-        الكوبرنيتس بيعمل كده:
-      </p>
-      <ul class="styled-list">
-        <li>بيوزع الشغل على كل الكمبيوترات (السفن 🚀)</li>
-        <li>لو سفينة وقعت، بيشغّل سفينة تانية مكانها تلقائياً</li>
-        <li>بيتأكد إن كل حاجة شغالة ٢٤ ساعة من غير ما تقف</li>
-      </ul>
+          <h3>🌌 الفكرة ببساطة</h3>
+          <p>
+            الكوبرنيتس (Kubernetes) — أو زي ما بنحب نقول عليه K8s — ده زي <strong>مدير محطة الفضاء</strong>.
+            تخيل إن عندك تطبيقات (زي ChatGPT مثلاً!) ومحتاج تشغلهم على كمبيوترات كتير مع بعض.
+            الكوبرنيتس بيعمل كده:
+          </p>
+          <ul class="styled-list">
+            <li>بيوزع الشغل على كل الكمبيوترات (السفن 🚀)</li>
+            <li>لو سفينة وقعت، بيشغّل سفينة تانية مكانها تلقائياً</li>
+            <li>بيتأكد إن كل حاجة شغالة ٢٤ ساعة من غير ما تقف</li>
+          </ul>
 
-      <div class="analogy-box">
-        <div class="analogy-title">🛸 تشبيه الفضاء</div>
-        <p>
-          <strong>Kubernetes = محطة الفضاء الدولية (ISS)</strong> —
-          فيها أقسام كتير، كل قسم فيه معدات مختلفة، وفيه نظام مركزي بيراقب كل حاجة ويتحكم فيها.
-          لو حاجة بوظت، النظام بيصلحها أو بيبدلها من غير ما الطاقم يحس!
-        </p>
+          <div class="analogy-box">
+            <div class="analogy-title">🛸 تشبيه الفضاء</div>
+            <p>
+              <strong>Kubernetes = محطة الفضاء الدولية (ISS)</strong> —
+              فيها أقسام كتير، كل قسم فيه معدات مختلفة، وفيه نظام مركزي بيراقب كل حاجة ويتحكم فيها.
+              لو حاجة بوظت، النظام بيصلحها أو بيبدلها من غير ما الطاقم يحس!
+            </p>
+          </div>
+
+          <figure class="img-frame">
+            <img src="../assets/images/frame_50.jpg" alt="رسم توضيحي لنظام Kubernetes مع Pods و Replication Controllers"
+              loading="lazy">
+            <figcaption>محطة الفضاء بتاعتنا — فيها كبسولات (Pods) وأنظمة تحكم</figcaption>
+          </figure>
+
+          <p>
+            والجميل إن الشركات الكبيرة زي Google و Amazon و Microsoft كلهم بيستخدموا الكوبرنيتس.
+            يعني لما تتعلمه، بتتعلم نفس الأداة اللي عمالقة التكنولوجيا بيستخدموها! 💪
+          </p>
+
+          <h3>🎯 إيه اللي هنتعلمه في الكورس ده؟</h3>
+          <p>
+            الكورس ده هيعلمك تبني تطبيقات وتشغلها على الكوبرنيتس.
+            هنبدأ بالأساسيات وبعدين ندخل على مواضيع متقدمة:
+          </p>
+          <ul class="styled-list">
+            <li>هيكل محطة الفضاء (Kubernetes Architecture)</li>
+            <li>الكبسولات والسفن (Pods & Nodes)</li>
+            <li>إعدادات السفينة (Configuration)</li>
+            <li>الشبكات والاتصالات (Networking)</li>
+            <li>التخزين الدائم (Persistent Storage)</li>
+          </ul>
+
+          <figure class="img-frame">
+            <img src="../assets/images/frame_110.jpg" alt="قائمة المواضيع اللي هنغطيها في الكورس" loading="lazy">
+            <figcaption>خريطة المهمات — كل الحاجات اللي هنتعلمها مع بعض</figcaption>
+          </figure>
+
+          <div class="callout-tip">
+            <div class="tip-title">💡 نصيحة من الكابتن</div>
+            <p>
+              الكورس ده مش بس نظري — فيه معامل عملية (Labs) بتتمرن فيها على كوبرنيتس حقيقي!
+              ولو غلطت، في مساعد ذكي بيساعدك تلاقي الغلطة وتتعلم منها.
+            </p>
+          </div>
+
+          <div class="technical-corner">
+            <div class="tech-title">🔧 ركن القيادة — المصطلح التقني</div>
+            <p>
+              في عالم الكبار بنسمي الموضوع ده <code>Kubernetes</code> (بيتنطق: كوبرنيتيز).
+              الاسم جاي من كلمة يونانية معناها "قائد السفينة" — يعني إحنا فعلاً بنتعلم قيادة! ⚓
+              <br>
+              الاختصار بتاعه <code>K8s</code> — الـ8 دي عدد الحروف بين الـK والـs.
+            </p>
+          </div>
+        </article>
+
+        <!-- ========== LESSON 2: Kubernetes Series ========== -->
+        <article class="lesson" id="series">
+          <span class="lesson-number">الدرس ٢</span>
+          <h2>🛸 خريطة النجوم: سلسلة كورسات الكوبرنيتس</h2>
+          <p class="mission-brief">
+            قبل ما نبدأ رحلتنا، لازم نعرف إن في أكتر من مسار ممكن تمشي فيه.
+            كل مسار بياخدك لمكان مختلف في الفضاء! 🗺️
+          </p>
+
+          <h3>🌌 الفكرة ببساطة</h3>
+          <p>
+            الكوبرنيتس موضوع كبير — زي ما الفضاء نفسه كبير! عشان كده مش كل الناس محتاجة تتعلم نفس الحاجات.
+            في ٣ مسارات (كورسات) كل واحد بياخدك في رحلة مختلفة:
+          </p>
+
+          <figure class="img-frame">
+            <img src="../assets/images/frame_40.jpg" alt="شبكة من مواضيع الكوبرنيتس المختلفة" loading="lazy">
+            <figcaption>كل دي مواضيع الكوبرنيتس — كتير صح؟ بس متقلقش، هناخدهم واحدة واحدة! 😄</figcaption>
+          </figure>
+
+          <div class="analogy-box">
+            <div class="analogy-title">🛸 تشبيه الفضاء</div>
+            <p>
+              فكر فيها كده: في ٣ أنواع من رواد الفضاء:
+            </p>
+            <ul class="styled-list">
+              <li><strong>المبتدئ 🧑‍🚀</strong> — لسه أول مرة يركب سفينة (Kubernetes for Beginners)</li>
+              <li><strong>المهندس ⚙️</strong> — بيصلح ويدير المحطة نفسها (CKA - Kubernetes Admin)</li>
+              <li><strong>المطوّر 💻</strong> — بيبني التطبيقات اللي بتشتغل جوه المحطة (CKAD - هنا إحنا!)</li>
+            </ul>
+          </div>
+
+          <h3>📍 إحنا فين؟</h3>
+          <p>
+            إحنا في مسار الـ<strong>CKAD</strong> — يعني بنتعلم نبقى <strong>مطورين</strong> بيبنوا تطبيقات وبيشغلوها
+            على
+            الكوبرنيتس.
+            مش هنتعلم إزاي نبني المحطة نفسها (ده شغل الـAdmin)، لكن هنتعلم إزاي نبني ونشغل السفن والكبسولات جواها! 🚀
+          </p>
+
+          <figure class="img-frame">
+            <img src="../assets/images/frame_70.jpg" alt="مقارنة بين كورسات الكوبرنيتس الثلاثة" loading="lazy">
+            <figcaption>الثلاث مسارات — إحنا في المسار الأخضر (CKAD)!</figcaption>
+          </figure>
+
+          <h3>📚 إيه اللي هنتعلمه في مسارنا (CKAD)؟</h3>
+          <ul class="styled-list">
+            <li>إدارة إعدادات التطبيقات (ConfigMaps & Secrets)</li>
+            <li>الكبسولات متعددة الحاويات (Multi-container Pods)</li>
+            <li>فحص صحة التطبيق (Readiness & Liveness Probes)</li>
+            <li>المراقبة والـLogs</li>
+            <li>الشبكات والـServices</li>
+          </ul>
+
+          <figure class="img-frame">
+            <img src="../assets/images/frame_210.jpg" alt="ملخص محتوى الكورسات الثلاثة" loading="lazy">
+            <figcaption>خريطة كاملة لكل الكورسات المتاحة</figcaption>
+          </figure>
+
+          <div class="callout-tip">
+            <div class="tip-title">💡 نصيحة من الكابتن</div>
+            <p>
+              مش لازم تاخد الكورسات بالترتيب! لو أنت مبتدئ خالص، ابدأ بكورس المبتدئين الأول وبعدين تعالى هنا.
+              لو عندك خبرة، يلا نكمل مع بعض! 💪
+            </p>
+          </div>
+
+          <div class="technical-corner">
+            <div class="tech-title">🔧 ركن القيادة — المصطلحات</div>
+            <p>
+              <code>CKAD</code> = Certified Kubernetes Application Developer<br>
+              <code>CKA</code> = Certified Kubernetes Administrator<br>
+              الفرق بينهم: الـCKAD بيركز على <strong>بناء التطبيقات</strong>، والـCKA بيركز على <strong>إدارة
+                المحطة</strong>.
+            </p>
+          </div>
+        </article>
+
+        <!-- ========== LESSON 3: Certification Details ========== -->
+        <article class="lesson" id="certification">
+          <span class="lesson-number">الدرس ٣</span>
+          <h2>🏅 شهادة قائد الفضاء: تفاصيل الـCKAD</h2>
+          <p class="mission-brief">
+            عشان تبقى قائد فضاء معتمد، لازم تجتاز اختبار عملي — مش مجرد أسئلة!
+            تعالى نعرف كل التفاصيل عن الامتحان. 🎓
+          </p>
+
+          <h3>🌌 الفكرة ببساطة</h3>
+          <p>
+            الـCKAD ده شهادة دولية معترف بيها في كل الشركات الكبيرة.
+            بتثبت إنك تقدر تبني وتشغل تطبيقات على الكوبرنيتس بشكل عملي.
+            والحلو إن الامتحان نفسه عملي — مش حفظ وصم! 🎯
+          </p>
+
+          <figure class="img-frame">
+            <img src="../assets/images/chapter1/cert_frame_20.jpg"
+              alt="رسم بياني يوضح زيادة الطلب على الكوبرنيتس من Google Trends" loading="lazy">
+            <figcaption>الطلب على الكوبرنيتس بيزيد كل يوم — شوف الخط بيطلع إزاي! 📈</figcaption>
+          </figure>
+
+          <div class="analogy-box">
+            <div class="analogy-title">🛸 تشبيه الفضاء</div>
+            <p>
+              فكر فيها كده: الشهادة دي زي <strong>رخصة قيادة السفينة الفضائية</strong>.
+              من غيرها تقدر تتعلم، بس معاها كل الناس هتعرف إنك قائد محترف!
+              وزي ما رخصة السواقة بتكون عملي مش نظري بس — الامتحان ده كمان عملي! 🚗➡️🚀
+            </p>
+          </div>
+
+          <figure class="img-frame">
+            <img src="../assets/images/chapter1/cert_frame_50.jpg" alt="شعارات Linux Foundation و CNCF و CKAD"
+              loading="lazy">
+            <figcaption>الشهادة من Linux Foundation و CNCF — أكبر المؤسسات في عالم التكنولوجيا</figcaption>
+          </figure>
+
+          <h3>📋 تفاصيل الامتحان</h3>
+          <ul class="styled-list">
+            <li><strong>المدة:</strong> ساعتين</li>
+            <li><strong>النوع:</strong> عملي — هتكتب أوامر حقيقية على كوبرنيتس!</li>
+            <li><strong>المكان:</strong> أونلاين من بيتك</li>
+            <li><strong>الرسوم:</strong> ٣٠٠ دولار (ومعاها إعادة مجانية لو مرتّش أول مرة)</li>
+            <li><strong>مسموح فيه:</strong> تفتح الـKubernetes Documentation أثناء الامتحان!</li>
+          </ul>
+
+          <figure class="img-frame">
+            <img src="../assets/images/chapter1/cert_frame_70.jpg" alt="صفحة معلومات شهادة CKAD على الموقع الرسمي"
+              loading="lazy">
+            <figcaption>الصفحة الرسمية للشهادة — كل التفاصيل موجودة هنا</figcaption>
+          </figure>
+
+          <div class="callout-tip">
+            <div class="tip-title">💡 نصيحة من الكابتن</div>
+            <p>
+              أهم حاجة في الامتحان إنك تعرف تستخدم <code>kubectl</code> بسرعة وتعرف تلاقي المعلومات في الـDocumentation.
+              الممارسة العملية هي المفتاح — مش الحفظ! 🔑
+            </p>
+          </div>
+
+          <figure class="img-frame">
+            <img src="../assets/images/chapter1/cert_frame_180.jpg" alt="صفحة Kubernetes Documentation الرسمية"
+              loading="lazy">
+            <figcaption>الـDocumentation — صديقك الوحيد في الامتحان! اتعلم تستخدمها كويس 📖</figcaption>
+          </figure>
+
+          <div class="technical-corner">
+            <div class="tech-title">🔧 ركن القيادة — روابط مهمة</div>
+            <p>
+              <a href="https://kubernetes.io/docs/" target="_blank" style="color: var(--planet-blue);">📘 Kubernetes
+                Documentation</a><br>
+              <a href="https://www.cncf.io/certification/ckad" target="_blank" style="color: var(--planet-blue);">🏅
+                صفحة
+                شهادة الـCKAD</a><br>
+              <a href="https://www.cncf.io/" target="_blank" style="color: var(--planet-blue);">☁️ Cloud Native
+                Computing
+                Foundation</a>
+            </p>
+          </div>
+        </article>
+
       </div>
 
-      <figure class="img-frame">
-        <img src="../assets/images/frame_50.jpg" alt="رسم توضيحي لنظام Kubernetes مع Pods و Replication Controllers"
-          loading="lazy">
-        <figcaption>محطة الفضاء بتاعتنا — فيها كبسولات (Pods) وأنظمة تحكم</figcaption>
-      </figure>
-
-      <p>
-        والجميل إن الشركات الكبيرة زي Google و Amazon و Microsoft كلهم بيستخدموا الكوبرنيتس.
-        يعني لما تتعلمه، بتتعلم نفس الأداة اللي عمالقة التكنولوجيا بيستخدموها! 💪
-      </p>
-
-      <h3>🎯 إيه اللي هنتعلمه في الكورس ده؟</h3>
-      <p>
-        الكورس ده هيعلمك تبني تطبيقات وتشغلها على الكوبرنيتس.
-        هنبدأ بالأساسيات وبعدين ندخل على مواضيع متقدمة:
-      </p>
-      <ul class="styled-list">
-        <li>هيكل محطة الفضاء (Kubernetes Architecture)</li>
-        <li>الكبسولات والسفن (Pods & Nodes)</li>
-        <li>إعدادات السفينة (Configuration)</li>
-        <li>الشبكات والاتصالات (Networking)</li>
-        <li>التخزين الدائم (Persistent Storage)</li>
-      </ul>
-
-      <figure class="img-frame">
-        <img src="../assets/images/frame_110.jpg" alt="قائمة المواضيع اللي هنغطيها في الكورس" loading="lazy">
-        <figcaption>خريطة المهمات — كل الحاجات اللي هنتعلمها مع بعض</figcaption>
-      </figure>
-
-      <div class="callout-tip">
-        <div class="tip-title">💡 نصيحة من الكابتن</div>
-        <p>
-          الكورس ده مش بس نظري — فيه معامل عملية (Labs) بتتمرن فيها على كوبرنيتس حقيقي!
-          ولو غلطت، في مساعد ذكي بيساعدك تلاقي الغلطة وتتعلم منها.
-        </p>
-      </div>
-
-      <div class="technical-corner">
-        <div class="tech-title">🔧 ركن القيادة — المصطلح التقني</div>
-        <p>
-          في عالم الكبار بنسمي الموضوع ده <code>Kubernetes</code> (بيتنطق: كوبرنيتيز).
-          الاسم جاي من كلمة يونانية معناها "قائد السفينة" — يعني إحنا فعلاً بنتعلم قيادة! ⚓
-          <br>
-          الاختصار بتاعه <code>K8s</code> — الـ8 دي عدد الحروف بين الـK والـs.
-        </p>
-      </div>
-    </article>
-
-    <!-- ========== LESSON 2: Kubernetes Series ========== -->
-    <article class="lesson" id="series">
-      <span class="lesson-number">الدرس ٢</span>
-      <h2>🛸 خريطة النجوم: سلسلة كورسات الكوبرنيتس</h2>
-      <p class="mission-brief">
-        قبل ما نبدأ رحلتنا، لازم نعرف إن في أكتر من مسار ممكن تمشي فيه.
-        كل مسار بياخدك لمكان مختلف في الفضاء! 🗺️
-      </p>
-
-      <h3>🌌 الفكرة ببساطة</h3>
-      <p>
-        الكوبرنيتس موضوع كبير — زي ما الفضاء نفسه كبير! عشان كده مش كل الناس محتاجة تتعلم نفس الحاجات.
-        في ٣ مسارات (كورسات) كل واحد بياخدك في رحلة مختلفة:
-      </p>
-
-      <figure class="img-frame">
-        <img src="../assets/images/frame_40.jpg" alt="شبكة من مواضيع الكوبرنيتس المختلفة" loading="lazy">
-        <figcaption>كل دي مواضيع الكوبرنيتس — كتير صح؟ بس متقلقش، هناخدهم واحدة واحدة! 😄</figcaption>
-      </figure>
-
-      <div class="analogy-box">
-        <div class="analogy-title">🛸 تشبيه الفضاء</div>
-        <p>
-          فكر فيها كده: في ٣ أنواع من رواد الفضاء:
-        </p>
-        <ul class="styled-list">
-          <li><strong>المبتدئ 🧑‍🚀</strong> — لسه أول مرة يركب سفينة (Kubernetes for Beginners)</li>
-          <li><strong>المهندس ⚙️</strong> — بيصلح ويدير المحطة نفسها (CKA - Kubernetes Admin)</li>
-          <li><strong>المطوّر 💻</strong> — بيبني التطبيقات اللي بتشتغل جوه المحطة (CKAD - هنا إحنا!)</li>
-        </ul>
-      </div>
-
-      <h3>📍 إحنا فين؟</h3>
-      <p>
-        إحنا في مسار الـ<strong>CKAD</strong> — يعني بنتعلم نبقى <strong>مطورين</strong> بيبنوا تطبيقات وبيشغلوها على
-        الكوبرنيتس.
-        مش هنتعلم إزاي نبني المحطة نفسها (ده شغل الـAdmin)، لكن هنتعلم إزاي نبني ونشغل السفن والكبسولات جواها! 🚀
-      </p>
-
-      <figure class="img-frame">
-        <img src="../assets/images/frame_70.jpg" alt="مقارنة بين كورسات الكوبرنيتس الثلاثة" loading="lazy">
-        <figcaption>الثلاث مسارات — إحنا في المسار الأخضر (CKAD)!</figcaption>
-      </figure>
-
-      <h3>📚 إيه اللي هنتعلمه في مسارنا (CKAD)؟</h3>
-      <ul class="styled-list">
-        <li>إدارة إعدادات التطبيقات (ConfigMaps & Secrets)</li>
-        <li>الكبسولات متعددة الحاويات (Multi-container Pods)</li>
-        <li>فحص صحة التطبيق (Readiness & Liveness Probes)</li>
-        <li>المراقبة والـLogs</li>
-        <li>الشبكات والـServices</li>
-      </ul>
-
-      <figure class="img-frame">
-        <img src="../assets/images/frame_210.jpg" alt="ملخص محتوى الكورسات الثلاثة" loading="lazy">
-        <figcaption>خريطة كاملة لكل الكورسات المتاحة</figcaption>
-      </figure>
-
-      <div class="callout-tip">
-        <div class="tip-title">💡 نصيحة من الكابتن</div>
-        <p>
-          مش لازم تاخد الكورسات بالترتيب! لو أنت مبتدئ خالص، ابدأ بكورس المبتدئين الأول وبعدين تعالى هنا.
-          لو عندك خبرة، يلا نكمل مع بعض! 💪
-        </p>
-      </div>
-
-      <div class="technical-corner">
-        <div class="tech-title">🔧 ركن القيادة — المصطلحات</div>
-        <p>
-          <code>CKAD</code> = Certified Kubernetes Application Developer<br>
-          <code>CKA</code> = Certified Kubernetes Administrator<br>
-          الفرق بينهم: الـCKAD بيركز على <strong>بناء التطبيقات</strong>، والـCKA بيركز على <strong>إدارة
-            المحطة</strong>.
-        </p>
-      </div>
-    </article>
-
-    <!-- ========== LESSON 3: Certification Details ========== -->
-    <article class="lesson" id="certification">
-      <span class="lesson-number">الدرس ٣</span>
-      <h2>🏅 شهادة قائد الفضاء: تفاصيل الـCKAD</h2>
-      <p class="mission-brief">
-        عشان تبقى قائد فضاء معتمد، لازم تجتاز اختبار عملي — مش مجرد أسئلة!
-        تعالى نعرف كل التفاصيل عن الامتحان. 🎓
-      </p>
-
-      <h3>🌌 الفكرة ببساطة</h3>
-      <p>
-        الـCKAD ده شهادة دولية معترف بيها في كل الشركات الكبيرة.
-        بتثبت إنك تقدر تبني وتشغل تطبيقات على الكوبرنيتس بشكل عملي.
-        والحلو إن الامتحان نفسه عملي — مش حفظ وصم! 🎯
-      </p>
-
-      <figure class="img-frame">
-        <img src="../assets/images/chapter1/cert_frame_20.jpg"
-          alt="رسم بياني يوضح زيادة الطلب على الكوبرنيتس من Google Trends" loading="lazy">
-        <figcaption>الطلب على الكوبرنيتس بيزيد كل يوم — شوف الخط بيطلع إزاي! 📈</figcaption>
-      </figure>
-
-      <div class="analogy-box">
-        <div class="analogy-title">🛸 تشبيه الفضاء</div>
-        <p>
-          فكر فيها كده: الشهادة دي زي <strong>رخصة قيادة السفينة الفضائية</strong>.
-          من غيرها تقدر تتعلم، بس معاها كل الناس هتعرف إنك قائد محترف!
-          وزي ما رخصة السواقة بتكون عملي مش نظري بس — الامتحان ده كمان عملي! 🚗➡️🚀
-        </p>
-      </div>
-
-      <figure class="img-frame">
-        <img src="../assets/images/chapter1/cert_frame_50.jpg" alt="شعارات Linux Foundation و CNCF و CKAD"
-          loading="lazy">
-        <figcaption>الشهادة من Linux Foundation و CNCF — أكبر المؤسسات في عالم التكنولوجيا</figcaption>
-      </figure>
-
-      <h3>📋 تفاصيل الامتحان</h3>
-      <ul class="styled-list">
-        <li><strong>المدة:</strong> ساعتين</li>
-        <li><strong>النوع:</strong> عملي — هتكتب أوامر حقيقية على كوبرنيتس!</li>
-        <li><strong>المكان:</strong> أونلاين من بيتك</li>
-        <li><strong>الرسوم:</strong> ٣٠٠ دولار (ومعاها إعادة مجانية لو مرتّش أول مرة)</li>
-        <li><strong>مسموح فيه:</strong> تفتح الـKubernetes Documentation أثناء الامتحان!</li>
-      </ul>
-
-      <figure class="img-frame">
-        <img src="../assets/images/chapter1/cert_frame_70.jpg" alt="صفحة معلومات شهادة CKAD على الموقع الرسمي"
-          loading="lazy">
-        <figcaption>الصفحة الرسمية للشهادة — كل التفاصيل موجودة هنا</figcaption>
-      </figure>
-
-      <div class="callout-tip">
-        <div class="tip-title">💡 نصيحة من الكابتن</div>
-        <p>
-          أهم حاجة في الامتحان إنك تعرف تستخدم <code>kubectl</code> بسرعة وتعرف تلاقي المعلومات في الـDocumentation.
-          الممارسة العملية هي المفتاح — مش الحفظ! 🔑
-        </p>
-      </div>
-
-      <figure class="img-frame">
-        <img src="../assets/images/chapter1/cert_frame_180.jpg" alt="صفحة Kubernetes Documentation الرسمية"
-          loading="lazy">
-        <figcaption>الـDocumentation — صديقك الوحيد في الامتحان! اتعلم تستخدمها كويس 📖</figcaption>
-      </figure>
-
-      <div class="technical-corner">
-        <div class="tech-title">🔧 ركن القيادة — روابط مهمة</div>
-        <p>
-          <a href="https://kubernetes.io/docs/" target="_blank" style="color: var(--planet-blue);">📘 Kubernetes
-            Documentation</a><br>
-          <a href="https://www.cncf.io/certification/ckad" target="_blank" style="color: var(--planet-blue);">🏅 صفحة
-            شهادة الـCKAD</a><br>
-          <a href="https://www.cncf.io/" target="_blank" style="color: var(--planet-blue);">☁️ Cloud Native Computing
-            Foundation</a>
-        </p>
-      </div>
-    </article>
-
+    </main>
   </div>
 
   <footer class="site-footer">

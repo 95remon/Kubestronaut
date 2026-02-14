@@ -26,126 +26,181 @@
     </nav>
   </header>
 
-  <section class="chapter-hero">
-    <h1>🛸 المهمة ٢: أساسيات السفينة</h1>
-    <p class="subtitle">تعالى نستكشف هيكل محطة الفضاء من جوه — الـNodes، الكبسولات، خطط الإطلاق، وأكتر!</p>
-  </section>
-
-  <div class="lessons-container">
-
-    <!-- ========== LESSON 1: Architecture ========== -->
-    <article class="lesson" id="architecture">
-      <span class="lesson-number">الدرس ١</span>
-      <h2>🏗️ هيكل محطة الفضاء</h2>
-      <p class="mission-brief">
-        كل محطة فضاء ليها هيكل وتصميم. النهارده هنفهم إزاي الكوبرنيتس متصمم من جوه — مين بيقود ومين بيشتغل! 🏗️
-      </p>
-
-      <h3>🌌 الفكرة ببساطة</h3>
-      <p>
-        محطة الفضاء بتاعتنا (الـCluster) فيها نوعين من السفن:
-      </p>
-
-      <div class="analogy-box">
-        <div class="analogy-title">🛸 تشبيه الفضاء</div>
-        <ul class="styled-list">
-          <li><strong>سفينة القيادة 🛸 (Master Node)</strong> — فيها كل أنظمة التحكم والمراقبة. هي اللي بتراقب كل السفن
-            التانية وبتوزع المهام</li>
-          <li><strong>سفن الشحن 🚛 (Worker Nodes)</strong> — هي اللي بتشغل التطبيقات الفعلية. كل سفينة فيها كبسولات
-            (Pods) بتشتغل جواها</li>
-        </ul>
+  <div class="ckad-layout" style="margin-top: 20px;">
+    <!-- SIDEBAR -->
+    <aside class="chapter-sidebar" id="chapterSidebar">
+      <button class="sidebar-toggle"
+        onclick="document.getElementById('chapterSidebar').classList.toggle('sidebar-open')"
+        aria-label="القائمة الجانبية">📋 المهام</button>
+      <div class="sidebar-nav">
+        <h3>🛸 خريطة المهام</h3>
+        <a href="chapter1.html" class="sidebar-item "><span class="ch-status">✅</span>
+          <div><strong>1. المقدمة</strong><small>First Section</small></div>
+        </a>
+        <a href="chapter2.html" class="sidebar-item active-chapter"><span class="ch-status">✅</span>
+          <div><strong>2. المفاهيم الأساسية</strong><small>Core Concepts</small></div>
+        </a>
+        <a href="chapter3.html" class="sidebar-item "><span class="ch-status">✅</span>
+          <div><strong>3. الإعدادات</strong><small>Configuration</small></div>
+        </a>
+        <a href="chapter4.html" class="sidebar-item "><span class="ch-status">✅</span>
+          <div><strong>4. الكبسولات المتعددة</strong><small>Multi-Container Pods</small></div>
+        </a>
+        <a href="chapter5.html" class="sidebar-item "><span class="ch-status">✅</span>
+          <div><strong>5. المراقبة</strong><small>Observability</small></div>
+        </a>
+        <a href="chapter6.html" class="sidebar-item "><span class="ch-status">✅</span>
+          <div><strong>6. تصميم الكبسولات</strong><small>POD Design</small></div>
+        </a>
+        <a href="chapter7.html" class="sidebar-item "><span class="ch-status">✅</span>
+          <div><strong>7. الشبكات والخدمات</strong><small>Services & Networking</small></div>
+        </a>
+        <a href="chapter8.html" class="sidebar-item "><span class="ch-status">✅</span>
+          <div><strong>8. التخزين الدائم</strong><small>State Persistence</small></div>
+        </a>
+        <a href="chapter9.html" class="sidebar-item "><span class="ch-status">✅</span>
+          <div><strong>9. الأمان</strong><small>Security</small></div>
+        </a>
+        <a href="chapter10.html" class="sidebar-item "><span class="ch-status">✅</span>
+          <div><strong>10. أساسيات Helm</strong><small>Helm Fundamentals</small></div>
+        </a>
+        <a href="chapter11.html" class="sidebar-item "><span class="ch-status">✅</span>
+          <div><strong>11. أساسيات Kustomize</strong><small>Kustomize Basics</small></div>
+        </a>
+        <a href="chapter12.html" class="sidebar-item "><span class="ch-status">✅</span>
+          <div><strong>12. نصائح الامتحان</strong><small>Certification Tips</small></div>
+        </a>
+        <a href="chapter13.html" class="sidebar-item "><span class="ch-status">✅</span>
+          <div><strong>13. مختبرات البرق</strong><small>Lightning Labs</small></div>
+        </a>
+        <a href="chapter14.html" class="sidebar-item "><span class="ch-status">✅</span>
+          <div><strong>14. الامتحانات التجريبية</strong><small>Mock Exams</small></div>
+        </a>
       </div>
+    </aside>
+    <!-- MAIN CONTENT -->
+    <main class="course-content">
+      <section class="chapter-hero">
+        <h1>🛸 المهمة ٢: أساسيات السفينة</h1>
+        <p class="subtitle">تعالى نستكشف هيكل محطة الفضاء من جوه — الـNodes، الكبسولات، خطط الإطلاق، وأكتر!</p>
+      </section>
 
-      <figure class="img-frame">
-        <img src="../assets/images/chapter2/frame_50.jpg" alt="رسم توضيحي لكلستر فيه 3 نودز كل واحدة فيها Redis"
-          loading="lazy">
-        <figcaption>كلستر فيه ٣ سفن (Nodes) — كل واحدة فيها كبسولة بتشغل Redis</figcaption>
-      </figure>
+      <div class="lessons-container">
 
-      <h3>⚙️ الأجزاء الأساسية في سفينة القيادة</h3>
-      <p>سفينة القيادة (Master) فيها أنظمة مهمة جداً:</p>
-      <ul class="styled-list">
-        <li><strong>API Server</strong> — لوحة التحكم الرئيسية 🖥️ كل الأوامر بتمر منها</li>
-        <li><strong>etcd</strong> — الصندوق الأسود ✈️ فيه كل بيانات المحطة</li>
-        <li><strong>Scheduler</strong> — بيحدد أي سفينة هتشتغل فيها الكبسولة الجديدة</li>
-        <li><strong>Controller</strong> — بيراقب ولو في مشكلة بيصلحها تلقائياً</li>
-      </ul>
+        <!-- ========== LESSON 1: Architecture ========== -->
+        <article class="lesson" id="architecture">
+          <span class="lesson-number">الدرس ١</span>
+          <h2>🏗️ هيكل محطة الفضاء</h2>
+          <p class="mission-brief">
+            كل محطة فضاء ليها هيكل وتصميم. النهارده هنفهم إزاي الكوبرنيتس متصمم من جوه — مين بيقود ومين بيشتغل! 🏗️
+          </p>
 
-      <figure class="img-frame">
-        <img src="../assets/images/chapter2/frame_80.jpg" alt="رسم توضيحي لكلستر فيه Master واحد و 3 Nodes"
-          loading="lazy">
-        <figcaption>سفينة القيادة (Master) بتراقب كل سفن الشحن (Workers)</figcaption>
-      </figure>
+          <h3>🌌 الفكرة ببساطة</h3>
+          <p>
+            محطة الفضاء بتاعتنا (الـCluster) فيها نوعين من السفن:
+          </p>
 
-      <h3>⚙️ الأجزاء في سفن الشحن</h3>
-      <p>كل سفينة شحن (Worker) فيها:</p>
-      <ul class="styled-list">
-        <li><strong>Kubelet</strong> — الـAgent اللي بيتكلم مع سفينة القيادة ويبلغها عن حالة السفينة</li>
-        <li><strong>Container Runtime</strong> — المحرك اللي بيشغل الكبسولات (زي Docker أو ContainerD)</li>
-      </ul>
+          <div class="analogy-box">
+            <div class="analogy-title">🛸 تشبيه الفضاء</div>
+            <ul class="styled-list">
+              <li><strong>سفينة القيادة 🛸 (Master Node)</strong> — فيها كل أنظمة التحكم والمراقبة. هي اللي بتراقب كل
+                السفن
+                التانية وبتوزع المهام</li>
+              <li><strong>سفن الشحن 🚛 (Worker Nodes)</strong> — هي اللي بتشغل التطبيقات الفعلية. كل سفينة فيها كبسولات
+                (Pods) بتشتغل جواها</li>
+            </ul>
+          </div>
 
-      <figure class="img-frame">
-        <img src="../assets/images/chapter2/frame_140.jpg"
-          alt="رسم توضيحي لمكونات الكوبرنيتس: API Server, etcd, kubelet, Container Runtime" loading="lazy">
-        <figcaption>كل الأجزاء المهمة — API Server, etcd, Scheduler, Controller, Kubelet</figcaption>
-      </figure>
+          <figure class="img-frame">
+            <img src="../assets/images/chapter2/frame_50.jpg" alt="رسم توضيحي لكلستر فيه 3 نودز كل واحدة فيها Redis"
+              loading="lazy">
+            <figcaption>كلستر فيه ٣ سفن (Nodes) — كل واحدة فيها كبسولة بتشغل Redis</figcaption>
+          </figure>
 
-      <h3>🎮 أداة التحكم: kubectl</h3>
-      <p>عشان تتحكم في محطة الفضاء بتاعتك، بتستخدم أداة اسمها <code>kubectl</code>:</p>
+          <h3>⚙️ الأجزاء الأساسية في سفينة القيادة</h3>
+          <p>سفينة القيادة (Master) فيها أنظمة مهمة جداً:</p>
+          <ul class="styled-list">
+            <li><strong>API Server</strong> — لوحة التحكم الرئيسية 🖥️ كل الأوامر بتمر منها</li>
+            <li><strong>etcd</strong> — الصندوق الأسود ✈️ فيه كل بيانات المحطة</li>
+            <li><strong>Scheduler</strong> — بيحدد أي سفينة هتشتغل فيها الكبسولة الجديدة</li>
+            <li><strong>Controller</strong> — بيراقب ولو في مشكلة بيصلحها تلقائياً</li>
+          </ul>
 
-      <div class="code-block"><code>kubectl run hello-minikube    # شغّل تطبيق جديد
+          <figure class="img-frame">
+            <img src="../assets/images/chapter2/frame_80.jpg" alt="رسم توضيحي لكلستر فيه Master واحد و 3 Nodes"
+              loading="lazy">
+            <figcaption>سفينة القيادة (Master) بتراقب كل سفن الشحن (Workers)</figcaption>
+          </figure>
+
+          <h3>⚙️ الأجزاء في سفن الشحن</h3>
+          <p>كل سفينة شحن (Worker) فيها:</p>
+          <ul class="styled-list">
+            <li><strong>Kubelet</strong> — الـAgent اللي بيتكلم مع سفينة القيادة ويبلغها عن حالة السفينة</li>
+            <li><strong>Container Runtime</strong> — المحرك اللي بيشغل الكبسولات (زي Docker أو ContainerD)</li>
+          </ul>
+
+          <figure class="img-frame">
+            <img src="../assets/images/chapter2/frame_140.jpg"
+              alt="رسم توضيحي لمكونات الكوبرنيتس: API Server, etcd, kubelet, Container Runtime" loading="lazy">
+            <figcaption>كل الأجزاء المهمة — API Server, etcd, Scheduler, Controller, Kubelet</figcaption>
+          </figure>
+
+          <h3>🎮 أداة التحكم: kubectl</h3>
+          <p>عشان تتحكم في محطة الفضاء بتاعتك، بتستخدم أداة اسمها <code>kubectl</code>:</p>
+
+          <div class="code-block"><code>kubectl run hello-minikube    # شغّل تطبيق جديد
 kubectl cluster-info          # عرض معلومات المحطة
 kubectl get nodes             # عرض كل السفن</code></div>
 
-      <div class="technical-corner">
-        <div class="tech-title">🔧 ركن القيادة</div>
-        <p>
-          <code>Node</code> = سفينة فضاء (جهاز كمبيوتر حقيقي أو افتراضي)<br>
-          <code>Cluster</code> = مجموعة من الـNodes مع بعض = محطة الفضاء<br>
-          <code>kubectl</code> = أداة سطر الأوامر للتحكم في كل حاجة (بيتنطق: كوب-كونترول)
-        </p>
-      </div>
-    </article>
+          <div class="technical-corner">
+            <div class="tech-title">🔧 ركن القيادة</div>
+            <p>
+              <code>Node</code> = سفينة فضاء (جهاز كمبيوتر حقيقي أو افتراضي)<br>
+              <code>Cluster</code> = مجموعة من الـNodes مع بعض = محطة الفضاء<br>
+              <code>kubectl</code> = أداة سطر الأوامر للتحكم في كل حاجة (بيتنطق: كوب-كونترول)
+            </p>
+          </div>
+        </article>
 
-    <!-- ========== LESSON 2: Docker vs ContainerD ========== -->
-    <article class="lesson" id="docker-vs-containerd">
-      <span class="lesson-number">الدرس ٢</span>
-      <h2>⚡ حرب المحركات: Docker vs ContainerD</h2>
-      <p class="mission-brief">
-        في الأول كان في محرك واحد بس للسفن — Docker. بس بعد كده ظهرت محركات تانية. تعالى نعرف القصة! ⚡
-      </p>
+        <!-- ========== LESSON 2: Docker vs ContainerD ========== -->
+        <article class="lesson" id="docker-vs-containerd">
+          <span class="lesson-number">الدرس ٢</span>
+          <h2>⚡ حرب المحركات: Docker vs ContainerD</h2>
+          <p class="mission-brief">
+            في الأول كان في محرك واحد بس للسفن — Docker. بس بعد كده ظهرت محركات تانية. تعالى نعرف القصة! ⚡
+          </p>
 
-      <h3>🌌 الفكرة ببساطة</h3>
-      <p>
-        زمان، Docker كان المحرك الوحيد اللي الكوبرنيتس بيشتغل بيه.
-        بس مع الوقت، ناس تانية عملوا محركات جديدة. عشان كده الكوبرنيتس عمل معيار اسمه
-        <strong>CRI</strong> (Container Runtime Interface) — يعني أي محرك يمشي على المعيار ده يقدر يشتغل!
-      </p>
+          <h3>🌌 الفكرة ببساطة</h3>
+          <p>
+            زمان، Docker كان المحرك الوحيد اللي الكوبرنيتس بيشتغل بيه.
+            بس مع الوقت، ناس تانية عملوا محركات جديدة. عشان كده الكوبرنيتس عمل معيار اسمه
+            <strong>CRI</strong> (Container Runtime Interface) — يعني أي محرك يمشي على المعيار ده يقدر يشتغل!
+          </p>
 
-      <div class="analogy-box">
-        <div class="analogy-title">🛸 تشبيه الفضاء</div>
-        <p>
-          تخيل إن Docker كان زي <strong>محرك ديزل</strong> قديم — شغال كويس بس كبير ومعقد.
-          ContainerD ده زي <strong>محرك كهربائي</strong> حديث — أخف، أسرع، وأبسط!
-          الكوبرنيتس قرر من الإصدار 1.24 إنه يشيل دعم الديزل ويشتغل بالكهرباء بس.
-        </p>
-      </div>
+          <div class="analogy-box">
+            <div class="analogy-title">🛸 تشبيه الفضاء</div>
+            <p>
+              تخيل إن Docker كان زي <strong>محرك ديزل</strong> قديم — شغال كويس بس كبير ومعقد.
+              ContainerD ده زي <strong>محرك كهربائي</strong> حديث — أخف، أسرع، وأبسط!
+              الكوبرنيتس قرر من الإصدار 1.24 إنه يشيل دعم الديزل ويشتغل بالكهرباء بس.
+            </p>
+          </div>
 
-      <figure class="img-frame">
-        <img src="../assets/images/frame_190.jpg" alt="رسم يوضح العلاقة بين Docker و ContainerD و Kubernetes"
-          loading="lazy">
-        <figcaption>إزاي Docker و ContainerD بيشتغلوا مع الكوبرنيتس</figcaption>
-      </figure>
+          <figure class="img-frame">
+            <img src="../assets/images/frame_190.jpg" alt="رسم يوضح العلاقة بين Docker و ContainerD و Kubernetes"
+              loading="lazy">
+            <figcaption>إزاي Docker و ContainerD بيشتغلوا مع الكوبرنيتس</figcaption>
+          </figure>
 
-      <h3>🛠️ أدوات التحكم في المحركات</h3>
-      <p>في ٣ أدوات مختلفة:</p>
-      <ul class="styled-list">
-        <li><strong>ctr</strong> — أداة بسيطة للتجربة والـDebugging بس</li>
-        <li><strong>nerdctl</strong> — أداة شبه Docker بالظبط بس لـContainerD</li>
-        <li><strong>crictl</strong> — أداة الكوبرنيتس الرسمية للتعامل مع أي محرك</li>
-      </ul>
+          <h3>🛠️ أدوات التحكم في المحركات</h3>
+          <p>في ٣ أدوات مختلفة:</p>
+          <ul class="styled-list">
+            <li><strong>ctr</strong> — أداة بسيطة للتجربة والـDebugging بس</li>
+            <li><strong>nerdctl</strong> — أداة شبه Docker بالظبط بس لـContainerD</li>
+            <li><strong>crictl</strong> — أداة الكوبرنيتس الرسمية للتعامل مع أي محرك</li>
+          </ul>
 
-      <div class="code-block"><code># باستخدام nerdctl (زي Docker بالظبط!)
+          <div class="code-block"><code># باستخدام nerdctl (زي Docker بالظبط!)
 nerdctl run --name redis redis:alpine
 nerdctl run --name webserver -p 80:80 -d nginx
 
@@ -154,87 +209,88 @@ crictl pull busybox
 crictl images
 crictl ps -a</code></div>
 
-      <figure class="img-frame">
-        <img src="../assets/images/frame_750.jpg" alt="مقارنة بين أدوات الحاويات: ctr, nerdctl, crictl" loading="lazy">
-        <figcaption>مقارنة بين الأدوات الثلاثة — كل واحدة ليها استخدام مختلف</figcaption>
-      </figure>
+          <figure class="img-frame">
+            <img src="../assets/images/frame_750.jpg" alt="مقارنة بين أدوات الحاويات: ctr, nerdctl, crictl"
+              loading="lazy">
+            <figcaption>مقارنة بين الأدوات الثلاثة — كل واحدة ليها استخدام مختلف</figcaption>
+          </figure>
 
-      <div class="callout-tip">
-        <div class="tip-title">💡 نصيحة من الكابتن</div>
-        <p>
-          متقلقش من الكلام ده! الأهم إنك تعرف إن Docker اتشال من الكوبرنيتس،
-          بس الـImages بتاعة Docker لسه شغالة عادي لأنها بتمشي على معيار OCI.
-        </p>
-      </div>
+          <div class="callout-tip">
+            <div class="tip-title">💡 نصيحة من الكابتن</div>
+            <p>
+              متقلقش من الكلام ده! الأهم إنك تعرف إن Docker اتشال من الكوبرنيتس،
+              بس الـImages بتاعة Docker لسه شغالة عادي لأنها بتمشي على معيار OCI.
+            </p>
+          </div>
 
-      <div class="technical-corner">
-        <div class="tech-title">🔧 ركن القيادة</div>
-        <p>
-          <code>OCI</code> = Open Container Initiative — معيار مفتوح لصور وتشغيل الحاويات<br>
-          <code>CRI</code> = Container Runtime Interface — الواجهة اللي الكوبرنيتس بيتكلم بيها مع المحركات<br>
-          <code>ContainerD</code> = المحرك اللي جوه Docker، بس دلوقتي مستقل لوحده
-        </p>
-      </div>
-    </article>
+          <div class="technical-corner">
+            <div class="tech-title">🔧 ركن القيادة</div>
+            <p>
+              <code>OCI</code> = Open Container Initiative — معيار مفتوح لصور وتشغيل الحاويات<br>
+              <code>CRI</code> = Container Runtime Interface — الواجهة اللي الكوبرنيتس بيتكلم بيها مع المحركات<br>
+              <code>ContainerD</code> = المحرك اللي جوه Docker، بس دلوقتي مستقل لوحده
+            </p>
+          </div>
+        </article>
 
-    <!-- ========== LESSON 3: Pods ========== -->
-    <article class="lesson" id="pods">
-      <span class="lesson-number">الدرس ٣</span>
-      <h2>💊 الكبسولات الفضائية — Pods</h2>
-      <p class="mission-brief">
-        الكبسولة (Pod) هي أصغر وحدة في محطة الفضاء. كل تطبيق بيشتغل جوه كبسولة. تعالى نفهمها! 💊
-      </p>
+        <!-- ========== LESSON 3: Pods ========== -->
+        <article class="lesson" id="pods">
+          <span class="lesson-number">الدرس ٣</span>
+          <h2>💊 الكبسولات الفضائية — Pods</h2>
+          <p class="mission-brief">
+            الكبسولة (Pod) هي أصغر وحدة في محطة الفضاء. كل تطبيق بيشتغل جوه كبسولة. تعالى نفهمها! 💊
+          </p>
 
-      <h3>🌌 الفكرة ببساطة</h3>
-      <p>
-        الكوبرنيتس مش بيشغل التطبيقات لوحدها كده — لأ، بيحطها جوه <strong>كبسولة (Pod)</strong>.
-        الكبسولة دي زي غرفة صغيرة في السفينة، وجواها بيشتغل التطبيق بتاعك.
-      </p>
+          <h3>🌌 الفكرة ببساطة</h3>
+          <p>
+            الكوبرنيتس مش بيشغل التطبيقات لوحدها كده — لأ، بيحطها جوه <strong>كبسولة (Pod)</strong>.
+            الكبسولة دي زي غرفة صغيرة في السفينة، وجواها بيشتغل التطبيق بتاعك.
+          </p>
 
-      <div class="analogy-box">
-        <div class="analogy-title">🛸 تشبيه الفضاء</div>
-        <p>
-          الـ<strong>Pod</strong> = كبسولة فضاء 💊<br>
-          جوه الكبسولة في <strong>Container</strong> = روبوت 🤖 بيعمل الشغل<br>
-          لما محتاج شغل أكتر؟ مش بتحط روبوتات كتير في نفس الكبسولة —
-          بتعمل <strong>كبسولات جديدة</strong> كل واحدة فيها روبوت!
-        </p>
-      </div>
+          <div class="analogy-box">
+            <div class="analogy-title">🛸 تشبيه الفضاء</div>
+            <p>
+              الـ<strong>Pod</strong> = كبسولة فضاء 💊<br>
+              جوه الكبسولة في <strong>Container</strong> = روبوت 🤖 بيعمل الشغل<br>
+              لما محتاج شغل أكتر؟ مش بتحط روبوتات كتير في نفس الكبسولة —
+              بتعمل <strong>كبسولات جديدة</strong> كل واحدة فيها روبوت!
+            </p>
+          </div>
 
-      <figure class="img-frame">
-        <img src="../assets/images/chapter2/frame_70.jpg" alt="رسم توضيحي لـ3 نودز واحدة فيها Pod" loading="lazy">
-        <figcaption>كبسولة واحدة (Pod) جوه سفينة (Node) — جواها التطبيق بتاعك</figcaption>
-      </figure>
+          <figure class="img-frame">
+            <img src="../assets/images/chapter2/frame_70.jpg" alt="رسم توضيحي لـ3 نودز واحدة فيها Pod" loading="lazy">
+            <figcaption>كبسولة واحدة (Pod) جوه سفينة (Node) — جواها التطبيق بتاعك</figcaption>
+          </figure>
 
-      <h3>📈 إزاي نكبّر؟ (Scaling)</h3>
-      <p>
-        لما المستخدمين يزيدوا، مش بنحط حاجات أكتر جوه نفس الكبسولة —
-        بنعمل <strong>كبسولات جديدة</strong>! كل كبسولة = نسخة من التطبيق.
-      </p>
-      <ul class="styled-list">
-        <li>مستخدم واحد ← كبسولة واحدة</li>
-        <li>١٠٠٠ مستخدم ← كبسولات كتير موزعة على سفن مختلفة</li>
-        <li>لو السفينة اتملت ← نضيف سفينة جديدة (Node) ونحط فيها كبسولات</li>
-      </ul>
+          <h3>📈 إزاي نكبّر؟ (Scaling)</h3>
+          <p>
+            لما المستخدمين يزيدوا، مش بنحط حاجات أكتر جوه نفس الكبسولة —
+            بنعمل <strong>كبسولات جديدة</strong>! كل كبسولة = نسخة من التطبيق.
+          </p>
+          <ul class="styled-list">
+            <li>مستخدم واحد ← كبسولة واحدة</li>
+            <li>١٠٠٠ مستخدم ← كبسولات كتير موزعة على سفن مختلفة</li>
+            <li>لو السفينة اتملت ← نضيف سفينة جديدة (Node) ونحط فيها كبسولات</li>
+          </ul>
 
-      <figure class="img-frame">
-        <img src="../assets/images/chapter2/frame_110.jpg" alt="رسم يوضح Scaling — كبسولات إضافية" loading="lazy">
-        <figcaption>كل ما الضغط يزيد، نضيف كبسولات جديدة!</figcaption>
-      </figure>
+          <figure class="img-frame">
+            <img src="../assets/images/chapter2/frame_110.jpg" alt="رسم يوضح Scaling — كبسولات إضافية" loading="lazy">
+            <figcaption>كل ما الضغط يزيد، نضيف كبسولات جديدة!</figcaption>
+          </figure>
 
-      <h3>👬 الكبسولة الذكية: Multi-Container Pod</h3>
-      <p>
-        أحياناً الكبسولة ممكن يكون فيها أكتر من container — مثلاً container أساسي و container مساعد.
-        الاتنين بيشتغلوا مع بعض، بيتكلموا على localhost، وبيقفوا مع بعض.
-      </p>
+          <h3>👬 الكبسولة الذكية: Multi-Container Pod</h3>
+          <p>
+            أحياناً الكبسولة ممكن يكون فيها أكتر من container — مثلاً container أساسي و container مساعد.
+            الاتنين بيشتغلوا مع بعض، بيتكلموا على localhost، وبيقفوا مع بعض.
+          </p>
 
-      <figure class="img-frame">
-        <img src="../assets/images/chapter2/frame_230.jpg" alt="رسم يوضح Multi-container Pod" loading="lazy">
-        <figcaption>كبسولة فيها container أساسي (Python) ومساعد (Helper) — بيشتغلوا مع بعض</figcaption>
-      </figure>
+          <figure class="img-frame">
+            <img src="../assets/images/chapter2/frame_230.jpg" alt="رسم يوضح Multi-container Pod" loading="lazy">
+            <figcaption>كبسولة فيها container أساسي (Python) ومساعد (Helper) — بيشتغلوا مع بعض</figcaption>
+          </figure>
 
-      <h3>🎮 يلا نجرب!</h3>
-      <div class="code-block"><code># إنشاء كبسولة بـ nginx
+          <h3>🎮 يلا نجرب!</h3>
+          <div class="code-block"><code># إنشاء كبسولة بـ nginx
 kubectl run nginx --image=nginx
 
 # عرض كل الكبسولات
@@ -244,39 +300,39 @@ kubectl get pods
 # NAME                    READY   STATUS    RESTARTS   AGE
 # nginx-8586cf59-whssr    1/1     Running   0          8s</code></div>
 
-      <div class="technical-corner">
-        <div class="tech-title">🔧 ركن القيادة</div>
-        <p>
-          <code>Pod</code> = أصغر وحدة في الكوبرنيتس، فيها container واحد أو أكتر<br>
-          <code>kubectl run</code> = أمر إنشاء Pod جديد<br>
-          <code>kubectl get pods</code> = عرض كل الكبسولات الشغالة
-        </p>
-      </div>
-    </article>
+          <div class="technical-corner">
+            <div class="tech-title">🔧 ركن القيادة</div>
+            <p>
+              <code>Pod</code> = أصغر وحدة في الكوبرنيتس، فيها container واحد أو أكتر<br>
+              <code>kubectl run</code> = أمر إنشاء Pod جديد<br>
+              <code>kubectl get pods</code> = عرض كل الكبسولات الشغالة
+            </p>
+          </div>
+        </article>
 
-    <!-- ========== LESSON 4: Pods with YAML ========== -->
-    <article class="lesson" id="pods-yaml">
-      <span class="lesson-number">الدرس ٤</span>
-      <h2>📝 تصميم الكبسولة بالخريطة — YAML</h2>
-      <p class="mission-brief">
-        بدل ما نكتب أوامر طويلة كل مرة، ممكن نعمل "خريطة" (ملف YAML) بتوصف الكبسولة بتاعتنا بالظبط! 📝
-      </p>
+        <!-- ========== LESSON 4: Pods with YAML ========== -->
+        <article class="lesson" id="pods-yaml">
+          <span class="lesson-number">الدرس ٤</span>
+          <h2>📝 تصميم الكبسولة بالخريطة — YAML</h2>
+          <p class="mission-brief">
+            بدل ما نكتب أوامر طويلة كل مرة، ممكن نعمل "خريطة" (ملف YAML) بتوصف الكبسولة بتاعتنا بالظبط! 📝
+          </p>
 
-      <h3>🌌 الفكرة ببساطة</h3>
-      <p>
-        ملف الـYAML ده زي <strong>مخطط هندسي</strong> بيقول للكوبرنيتس: "أنا عايز كبسولة بالمواصفات دي".
-        كل ملف YAML في الكوبرنيتس فيه ٤ أقسام أساسية:
-      </p>
+          <h3>🌌 الفكرة ببساطة</h3>
+          <p>
+            ملف الـYAML ده زي <strong>مخطط هندسي</strong> بيقول للكوبرنيتس: "أنا عايز كبسولة بالمواصفات دي".
+            كل ملف YAML في الكوبرنيتس فيه ٤ أقسام أساسية:
+          </p>
 
-      <ul class="styled-list">
-        <li><strong>apiVersion</strong> — إصدار اللغة (عادةً <code>v1</code>)</li>
-        <li><strong>kind</strong> — نوع الحاجة (Pod, Deployment, ...)</li>
-        <li><strong>metadata</strong> — الاسم والـLabels</li>
-        <li><strong>spec</strong> — المواصفات التفصيلية</li>
-      </ul>
+          <ul class="styled-list">
+            <li><strong>apiVersion</strong> — إصدار اللغة (عادةً <code>v1</code>)</li>
+            <li><strong>kind</strong> — نوع الحاجة (Pod, Deployment, ...)</li>
+            <li><strong>metadata</strong> — الاسم والـLabels</li>
+            <li><strong>spec</strong> — المواصفات التفصيلية</li>
+          </ul>
 
-      <h3>📄 مثال عملي</h3>
-      <div class="code-block"><code>apiVersion: v1
+          <h3>📄 مثال عملي</h3>
+          <div class="code-block"><code>apiVersion: v1
 kind: Pod
 metadata:
   name: myapp-pod       # اسم الكبسولة
@@ -287,66 +343,66 @@ spec:
     - name: nginx-container
       image: nginx      # الصورة اللي هتشتغل</code></div>
 
-      <div class="code-block"><code># إنشاء الكبسولة من الملف
+          <div class="code-block"><code># إنشاء الكبسولة من الملف
 kubectl create -f pod-definition.yml
 
 # أو 
 kubectl apply -f pod-definition.yml</code></div>
 
-      <div class="analogy-box">
-        <div class="analogy-title">🛸 تشبيه الفضاء</div>
-        <p>
-          الملف ده زي <strong>بلوبرنت (Blueprint)</strong> بتاع الكبسولة!
-          بدل ما تبني الكبسولة بإيدك كل مرة، بتدي المخطط لنظام المحطة وهو بيبنيها لوحده.
-        </p>
-      </div>
+          <div class="analogy-box">
+            <div class="analogy-title">🛸 تشبيه الفضاء</div>
+            <p>
+              الملف ده زي <strong>بلوبرنت (Blueprint)</strong> بتاع الكبسولة!
+              بدل ما تبني الكبسولة بإيدك كل مرة، بتدي المخطط لنظام المحطة وهو بيبنيها لوحده.
+            </p>
+          </div>
 
-      <div class="technical-corner">
-        <div class="tech-title">🔧 ركن القيادة</div>
-        <p>
-          <code>YAML</code> = لغة بسيطة لكتابة ملفات الإعدادات (بيتنطق: يامل)<br>
-          <code>kubectl create -f</code> = أنشئ حاجة من ملف<br>
-          <code>kubectl apply -f</code> = أنشئ أو حدّث حاجة من ملف
-        </p>
-      </div>
-    </article>
+          <div class="technical-corner">
+            <div class="tech-title">🔧 ركن القيادة</div>
+            <p>
+              <code>YAML</code> = لغة بسيطة لكتابة ملفات الإعدادات (بيتنطق: يامل)<br>
+              <code>kubectl create -f</code> = أنشئ حاجة من ملف<br>
+              <code>kubectl apply -f</code> = أنشئ أو حدّث حاجة من ملف
+            </p>
+          </div>
+        </article>
 
-    <!-- ========== LESSON 5: ReplicaSets ========== -->
-    <article class="lesson" id="replicasets">
-      <span class="lesson-number">الدرس ٥</span>
-      <h2>🔄 نسخ الكبسولات — ReplicaSets</h2>
-      <p class="mission-brief">
-        لو عندك كبسولة واحدة بس ووقعت — التطبيق هيقف! الحل؟ نعمل نسخ كتير. ده شغل الـReplicaSet! 🔄
-      </p>
+        <!-- ========== LESSON 5: ReplicaSets ========== -->
+        <article class="lesson" id="replicasets">
+          <span class="lesson-number">الدرس ٥</span>
+          <h2>🔄 نسخ الكبسولات — ReplicaSets</h2>
+          <p class="mission-brief">
+            لو عندك كبسولة واحدة بس ووقعت — التطبيق هيقف! الحل؟ نعمل نسخ كتير. ده شغل الـReplicaSet! 🔄
+          </p>
 
-      <h3>🌌 الفكرة ببساطة</h3>
-      <p>
-        الـReplicaSet بيضمنلك إن عدد معين من الكبسولات يفضل شغال دايماً.
-        لو كبسولة وقعت — بيعمل واحدة جديدة مكانها تلقائياً!
-      </p>
+          <h3>🌌 الفكرة ببساطة</h3>
+          <p>
+            الـReplicaSet بيضمنلك إن عدد معين من الكبسولات يفضل شغال دايماً.
+            لو كبسولة وقعت — بيعمل واحدة جديدة مكانها تلقائياً!
+          </p>
 
-      <div class="analogy-box">
-        <div class="analogy-title">🛸 تشبيه الفضاء</div>
-        <p>
-          الـReplicaSet زي <strong>ماكينة استنساخ</strong> 🔬 — بتقولها "أنا عايز ٣ كبسولات"،
-          ولو واحدة اتدمرت بتستنسخ واحدة جديدة فوراً!
-          كمان بتوزع الكبسولات على سفن مختلفة عشان لو سفينة كلها وقعت، التطبيق يفضل شغال.
-        </p>
-      </div>
+          <div class="analogy-box">
+            <div class="analogy-title">🛸 تشبيه الفضاء</div>
+            <p>
+              الـReplicaSet زي <strong>ماكينة استنساخ</strong> 🔬 — بتقولها "أنا عايز ٣ كبسولات"،
+              ولو واحدة اتدمرت بتستنسخ واحدة جديدة فوراً!
+              كمان بتوزع الكبسولات على سفن مختلفة عشان لو سفينة كلها وقعت، التطبيق يفضل شغال.
+            </p>
+          </div>
 
-      <figure class="img-frame">
-        <img src="../assets/images/chapter2/rs_frame_80.jpg" alt="ReplicaSet بيضمن عدد محدد من الكبسولات يفضل شغال"
-          loading="lazy">
-        <figcaption>ماكينة الاستنساخ بتضمن إن الكبسولات موجودة دايماً</figcaption>
-      </figure>
+          <figure class="img-frame">
+            <img src="../assets/images/chapter2/rs_frame_80.jpg" alt="ReplicaSet بيضمن عدد محدد من الكبسولات يفضل شغال"
+              loading="lazy">
+            <figcaption>ماكينة الاستنساخ بتضمن إن الكبسولات موجودة دايماً</figcaption>
+          </figure>
 
-      <figure class="img-frame">
-        <img src="../assets/images/chapter2/frame_150.jpg" alt="توزيع الحمل والتكبير عبر عدة Nodes" loading="lazy">
-        <figcaption>التكبير والتوزيع — الكبسولات بتتوزع على سفن مختلفة</figcaption>
-      </figure>
+          <figure class="img-frame">
+            <img src="../assets/images/chapter2/frame_150.jpg" alt="توزيع الحمل والتكبير عبر عدة Nodes" loading="lazy">
+            <figcaption>التكبير والتوزيع — الكبسولات بتتوزع على سفن مختلفة</figcaption>
+          </figure>
 
-      <h3>📄 ملف ReplicaSet</h3>
-      <div class="code-block"><code>apiVersion: apps/v1
+          <h3>📄 ملف ReplicaSet</h3>
+          <div class="code-block"><code>apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
   name: myapp-replicaset
@@ -364,53 +420,53 @@ spec:
         - name: nginx
           image: nginx</code></div>
 
-      <h3>📈 تكبير وتصغير (Scaling)</h3>
-      <div class="code-block"><code># تكبير لـ 6 كبسولات
+          <h3>📈 تكبير وتصغير (Scaling)</h3>
+          <div class="code-block"><code># تكبير لـ 6 كبسولات
 kubectl scale --replicas=6 replicaset/myapp-replicaset
 
 # تصغير لـ 2
 kubectl scale --replicas=2 replicaset/myapp-replicaset</code></div>
 
-      <div class="technical-corner">
-        <div class="tech-title">🔧 ركن القيادة</div>
-        <p>
-          <code>ReplicaSet</code> = بيضمن عدد محدد من الـPods يفضل شغال<br>
-          <code>selector</code> = بيحدد أي Pods يراقبها<br>
-          <code>replicas</code> = العدد المطلوب من النسخ
-        </p>
-      </div>
-    </article>
+          <div class="technical-corner">
+            <div class="tech-title">🔧 ركن القيادة</div>
+            <p>
+              <code>ReplicaSet</code> = بيضمن عدد محدد من الـPods يفضل شغال<br>
+              <code>selector</code> = بيحدد أي Pods يراقبها<br>
+              <code>replicas</code> = العدد المطلوب من النسخ
+            </p>
+          </div>
+        </article>
 
-    <!-- ========== LESSON 6: Deployments ========== -->
-    <article class="lesson" id="deployments">
-      <span class="lesson-number">الدرس ٦</span>
-      <h2>🚀 خطة الإطلاق — Deployments</h2>
-      <p class="mission-brief">
-        الـDeployment هو الطريقة الاحترافية لإطلاق تطبيقك — بيسمحلك تعمل تحديثات تدريجية وترجع لو في مشكلة! 🚀
-      </p>
+        <!-- ========== LESSON 6: Deployments ========== -->
+        <article class="lesson" id="deployments">
+          <span class="lesson-number">الدرس ٦</span>
+          <h2>🚀 خطة الإطلاق — Deployments</h2>
+          <p class="mission-brief">
+            الـDeployment هو الطريقة الاحترافية لإطلاق تطبيقك — بيسمحلك تعمل تحديثات تدريجية وترجع لو في مشكلة! 🚀
+          </p>
 
-      <h3>🌌 الفكرة ببساطة</h3>
-      <p>
-        الـDeployment ده زي <strong>خطة إطلاق ذكية</strong>. بدل ما تشغل كل الكبسولات مرة واحدة
-        وتدعيلهم — الـDeployment بيسمحلك:
-      </p>
-      <ul class="styled-list">
-        <li><strong>Rolling Update</strong> — تحديث الكبسولات واحدة واحدة من غير ما التطبيق يقف</li>
-        <li><strong>Rollback</strong> — لو التحديث فشل، ترجع للنسخة القديمة فوراً</li>
-        <li><strong>Scaling</strong> — تكبّر أو تصغّر عدد الكبسولات بسهولة</li>
-      </ul>
+          <h3>🌌 الفكرة ببساطة</h3>
+          <p>
+            الـDeployment ده زي <strong>خطة إطلاق ذكية</strong>. بدل ما تشغل كل الكبسولات مرة واحدة
+            وتدعيلهم — الـDeployment بيسمحلك:
+          </p>
+          <ul class="styled-list">
+            <li><strong>Rolling Update</strong> — تحديث الكبسولات واحدة واحدة من غير ما التطبيق يقف</li>
+            <li><strong>Rollback</strong> — لو التحديث فشل، ترجع للنسخة القديمة فوراً</li>
+            <li><strong>Scaling</strong> — تكبّر أو تصغّر عدد الكبسولات بسهولة</li>
+          </ul>
 
-      <div class="analogy-box">
-        <div class="analogy-title">🛸 تشبيه الفضاء</div>
-        <p>
-          تخيل إنك عايز تحدّث كل سفن الأسطول بتاعك بمحرك جديد ✨
-          مش هتقف كل السفن مرة واحدة! الـDeployment بيحدّث سفينة سفينة —
-          ولو المحرك الجديد فيه مشكلة، بيرجّع كل حاجة زي ما كانت!
-        </p>
-      </div>
+          <div class="analogy-box">
+            <div class="analogy-title">🛸 تشبيه الفضاء</div>
+            <p>
+              تخيل إنك عايز تحدّث كل سفن الأسطول بتاعك بمحرك جديد ✨
+              مش هتقف كل السفن مرة واحدة! الـDeployment بيحدّث سفينة سفينة —
+              ولو المحرك الجديد فيه مشكلة، بيرجّع كل حاجة زي ما كانت!
+            </p>
+          </div>
 
-      <h3>📄 ملف Deployment</h3>
-      <div class="code-block"><code>apiVersion: apps/v1
+          <h3>📄 ملف Deployment</h3>
+          <div class="code-block"><code>apiVersion: apps/v1
 kind: Deployment            # الفرق الوحيد عن ReplicaSet!
 metadata:
   name: myapp-deployment
@@ -428,7 +484,7 @@ spec:
         - name: nginx
           image: nginx</code></div>
 
-      <div class="code-block"><code># إنشاء الـDeployment
+          <div class="code-block"><code># إنشاء الـDeployment
 kubectl create -f deployment-definition.yml
 
 # عرض كل حاجة
@@ -436,69 +492,69 @@ kubectl get all
 
 # النتيجة هتبيّن: Deployment + ReplicaSet + Pods كلهم مع بعض!</code></div>
 
-      <div class="callout-tip">
-        <div class="tip-title">💡 نصيحة من الكابتن</div>
-        <p>
-          لاحظ إن ملف الـDeployment شبه الـReplicaSet تقريباً — بس الفرق إن <code>kind: Deployment</code>!
-          والـDeployment بيعمل ReplicaSet تلقائياً ورا الكواليس.
-        </p>
-      </div>
+          <div class="callout-tip">
+            <div class="tip-title">💡 نصيحة من الكابتن</div>
+            <p>
+              لاحظ إن ملف الـDeployment شبه الـReplicaSet تقريباً — بس الفرق إن <code>kind: Deployment</code>!
+              والـDeployment بيعمل ReplicaSet تلقائياً ورا الكواليس.
+            </p>
+          </div>
 
-      <div class="technical-corner">
-        <div class="tech-title">🔧 ركن القيادة</div>
-        <p>
-          <code>Deployment</code> = بيدير ReplicaSets ويسمح بـRolling Updates و Rollbacks<br>
-          <code>kubectl get all</code> = بيعرض كل الكائنات في الـNamespace الحالي<br>
-          <code>kubectl rollout undo</code> = الأمر السحري للتراجع عن تحديث فاشل!
-        </p>
-      </div>
-    </article>
+          <div class="technical-corner">
+            <div class="tech-title">🔧 ركن القيادة</div>
+            <p>
+              <code>Deployment</code> = بيدير ReplicaSets ويسمح بـRolling Updates و Rollbacks<br>
+              <code>kubectl get all</code> = بيعرض كل الكائنات في الـNamespace الحالي<br>
+              <code>kubectl rollout undo</code> = الأمر السحري للتراجع عن تحديث فاشل!
+            </p>
+          </div>
+        </article>
 
-    <!-- ========== LESSON 7: Namespaces ========== -->
-    <article class="lesson" id="namespaces">
-      <span class="lesson-number">الدرس ٧</span>
-      <h2>🏷️ أقسام المحطة — Namespaces</h2>
-      <p class="mission-brief">
-        محطة الفضاء الكبيرة فيها أقسام مختلفة — قسم للتطوير، قسم للإنتاج، قسم للنظام. ده بالظبط الـNamespaces! 🏷️
-      </p>
+        <!-- ========== LESSON 7: Namespaces ========== -->
+        <article class="lesson" id="namespaces">
+          <span class="lesson-number">الدرس ٧</span>
+          <h2>🏷️ أقسام المحطة — Namespaces</h2>
+          <p class="mission-brief">
+            محطة الفضاء الكبيرة فيها أقسام مختلفة — قسم للتطوير، قسم للإنتاج، قسم للنظام. ده بالظبط الـNamespaces! 🏷️
+          </p>
 
-      <h3>🌌 الفكرة ببساطة</h3>
-      <p>
-        الـNamespace ده زي <strong>قسم أو طابق في المحطة</strong>. كل قسم فيه الحاجات بتاعته،
-        وممكن يكون في حاجتين بنفس الاسم في قسمين مختلفين من غير أي مشكلة!
-      </p>
+          <h3>🌌 الفكرة ببساطة</h3>
+          <p>
+            الـNamespace ده زي <strong>قسم أو طابق في المحطة</strong>. كل قسم فيه الحاجات بتاعته،
+            وممكن يكون في حاجتين بنفس الاسم في قسمين مختلفين من غير أي مشكلة!
+          </p>
 
-      <div class="analogy-box">
-        <div class="analogy-title">🛸 تشبيه الفضاء</div>
-        <p>
-          تخيل في بيتين، كل بيت فيه واحد اسمه "مارك".
-          في البيت بنقول "مارك" وخلاص. بس لو حد من بيت تاني عايز يكلمه — بيقول الاسم كامل!
-          <br><br>
-          كده بالظبط: <code>db-service</code> في نفس الـNamespace = "مارك"<br>
-          <code>db-service.dev.svc.cluster.local</code> = "مارك سميث من البيت التاني"
-        </p>
-      </div>
+          <div class="analogy-box">
+            <div class="analogy-title">🛸 تشبيه الفضاء</div>
+            <p>
+              تخيل في بيتين، كل بيت فيه واحد اسمه "مارك".
+              في البيت بنقول "مارك" وخلاص. بس لو حد من بيت تاني عايز يكلمه — بيقول الاسم كامل!
+              <br><br>
+              كده بالظبط: <code>db-service</code> في نفس الـNamespace = "مارك"<br>
+              <code>db-service.dev.svc.cluster.local</code> = "مارك سميث من البيت التاني"
+            </p>
+          </div>
 
-      <figure class="img-frame">
-        <img src="../assets/images/chapter2/ns_frame_60.jpg" alt="تشبيه البيتين — مارك سميث ومارك ويليامز"
-          loading="lazy">
-        <figcaption>زي ما في بيتين كل واحد فيه واحد اسمه مارك — الـNamespaces بتفصل الحاجات بنفس الاسم</figcaption>
-      </figure>
+          <figure class="img-frame">
+            <img src="../assets/images/chapter2/ns_frame_60.jpg" alt="تشبيه البيتين — مارك سميث ومارك ويليامز"
+              loading="lazy">
+            <figcaption>زي ما في بيتين كل واحد فيه واحد اسمه مارك — الـNamespaces بتفصل الحاجات بنفس الاسم</figcaption>
+          </figure>
 
-      <figure class="img-frame">
-        <img src="../assets/images/frame_180.jpg" alt="رسم يوضح Namespaces مختلفة في الكوبرنيتس" loading="lazy">
-        <figcaption>كل قسم (Namespace) منفصل عن التاني — kube-system, Default, Dev, Prod</figcaption>
-      </figure>
+          <figure class="img-frame">
+            <img src="../assets/images/frame_180.jpg" alt="رسم يوضح Namespaces مختلفة في الكوبرنيتس" loading="lazy">
+            <figcaption>كل قسم (Namespace) منفصل عن التاني — kube-system, Default, Dev, Prod</figcaption>
+          </figure>
 
-      <h3>📦 الأقسام اللي الكوبرنيتس بيعملها تلقائياً</h3>
-      <ul class="styled-list">
-        <li><strong>default</strong> — القسم العادي اللي بتشتغل فيه لو مقولتش حاجة</li>
-        <li><strong>kube-system</strong> — قسم النظام (أنظمة DNS والشبكات) — متلعبش فيه! ⚠️</li>
-        <li><strong>kube-public</strong> — قسم عام متاح لكل الناس</li>
-      </ul>
+          <h3>📦 الأقسام اللي الكوبرنيتس بيعملها تلقائياً</h3>
+          <ul class="styled-list">
+            <li><strong>default</strong> — القسم العادي اللي بتشتغل فيه لو مقولتش حاجة</li>
+            <li><strong>kube-system</strong> — قسم النظام (أنظمة DNS والشبكات) — متلعبش فيه! ⚠️</li>
+            <li><strong>kube-public</strong> — قسم عام متاح لكل الناس</li>
+          </ul>
 
-      <h3>🎮 يلا نجرب!</h3>
-      <div class="code-block"><code># عرض الـPods في القسم الحالي
+          <h3>🎮 يلا نجرب!</h3>
+          <div class="code-block"><code># عرض الـPods في القسم الحالي
 kubectl get pods
 
 # عرض الـPods في قسم معين
@@ -513,24 +569,27 @@ kubectl config set-context $(kubectl config current-context) --namespace=dev
 # عرض كل الـPods في كل الأقسام
 kubectl get pods --all-namespaces</code></div>
 
-      <div class="callout-tip">
-        <div class="tip-title">💡 نصيحة من الكابتن</div>
-        <p>
-          في الشركات الكبيرة، بيستخدموا Namespaces عشان يفصلوا بيئة التطوير (Dev) عن الإنتاج (Prod).
-          كده لو حد غلط في التطوير، مش هيأثر على التطبيق الحقيقي!
-        </p>
+          <div class="callout-tip">
+            <div class="tip-title">💡 نصيحة من الكابتن</div>
+            <p>
+              في الشركات الكبيرة، بيستخدموا Namespaces عشان يفصلوا بيئة التطوير (Dev) عن الإنتاج (Prod).
+              كده لو حد غلط في التطوير، مش هيأثر على التطبيق الحقيقي!
+            </p>
+          </div>
+
+          <div class="technical-corner">
+            <div class="tech-title">🔧 ركن القيادة</div>
+            <p>
+              <code>Namespace</code> = قسم افتراضي داخل الكلستر لتنظيم الموارد<br>
+              <code>--namespace=</code> = بيحدد أي قسم تشتغل فيه<br>
+              <code>ResourceQuota</code> = بيحدد حد أقصى للموارد في كل قسم
+            </p>
+          </div>
+        </article>
+
       </div>
 
-      <div class="technical-corner">
-        <div class="tech-title">🔧 ركن القيادة</div>
-        <p>
-          <code>Namespace</code> = قسم افتراضي داخل الكلستر لتنظيم الموارد<br>
-          <code>--namespace=</code> = بيحدد أي قسم تشتغل فيه<br>
-          <code>ResourceQuota</code> = بيحدد حد أقصى للموارد في كل قسم
-        </p>
-      </div>
-    </article>
-
+    </main>
   </div>
 
   <footer class="site-footer">
